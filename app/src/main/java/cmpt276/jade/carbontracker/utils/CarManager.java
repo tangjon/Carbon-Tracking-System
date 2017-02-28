@@ -23,7 +23,7 @@ public class CarManager {
 
     }
 
-    public static Car[] readCarData(Context context, int fileID){
+    public static ArrayList<Car> readCarData(Context context, int fileID){
         // Initialize List for Dynamic Characteristics
         ArrayList<Car> carListData = new ArrayList<>();
 
@@ -58,9 +58,7 @@ public class CarManager {
             e.printStackTrace();
         }
 
-        // Convert ArrayList to Car Array
-        Car[] ret = carListData.toArray(new Car[carListData.size()]);
-        return ret;
+        return carListData;
 
     }
 
