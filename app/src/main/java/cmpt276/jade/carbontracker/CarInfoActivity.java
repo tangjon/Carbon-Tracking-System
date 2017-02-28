@@ -1,7 +1,7 @@
 package cmpt276.jade.carbontracker;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,9 +37,9 @@ public class CarInfoActivity extends AppCompatActivity {
     private Car selectCar;
 
     @Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_car_info);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_car_info);
         // LOAD
         loadCarList();
 
@@ -53,7 +53,7 @@ public class CarInfoActivity extends AppCompatActivity {
     private Spinner setUpSpinner(int spnID, List<String> stringList) {
         Spinner spinner = (Spinner) findViewById(spnID);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, stringList);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -63,7 +63,7 @@ public class CarInfoActivity extends AppCompatActivity {
         return spinner;
     }
 
-    private Spinner setUpCustomSpinner(int spnID, List<Car> carList){
+    private Spinner setUpCustomSpinner(int spnID, List<Car> carList) {
         final Spinner spinner = (Spinner) findViewById(R.id.spn_year);
         // Create an ArrayAdapter using the string array and a default spinner layout
         CustomSpinner adapter = new CustomSpinner(CarInfoActivity.this, carList);
@@ -73,7 +73,7 @@ public class CarInfoActivity extends AppCompatActivity {
     }
 
     // Hierarchy Method of Spinners
-    private void setUpAllSpinners(){
+    private void setUpAllSpinners() {
 
         // MAKE SPINNER ---------
         final Spinner spnMake = setUpSpinner(R.id.spn_make, makeDisplayList);
@@ -90,9 +90,10 @@ public class CarInfoActivity extends AppCompatActivity {
                         selectModel = (String) spnModel.getSelectedItem();
                         Log.i(TAG, selectModel);
 
+
                         // YEAR SPINNER -----------------
                         // Pull Car List with specified make and model
-                        final List<Car> specList = carCollection.search(selectMake,selectModel).toList();
+                        final List<Car> specList = carCollection.search(selectMake, selectModel).toList();
                         Spinner spnYear = setUpCustomSpinner(R.id.spn_year, specList);
                         spnYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -102,8 +103,8 @@ public class CarInfoActivity extends AppCompatActivity {
                                 /// LOAD SOMETHING
                                 updateCarInfo();
                             }
+
                             public void onNothingSelected(AdapterView<?> adapterView) {
-                                return;
                             }
                         });
                     }
@@ -112,47 +113,47 @@ public class CarInfoActivity extends AppCompatActivity {
                     }
                 });
             }
+
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
     }
 
-    private void updateCarInfo(){
-        setUpTextView(R.id.tv_ucity,Double.toString(selectCar.getuCity()));
+    private void updateCarInfo() {
+        setUpTextView(R.id.tv_ucity, Double.toString(selectCar.getuCity()));
         setUpTextView(R.id.tv_uhighway, Double.toString(selectCar.getuHighway()));
         setUpTextView(R.id.tv_carbon_tail_pipe, Double.toString(selectCar.getCarbonTailPipe()));
     }
 
-    private void setUpTextView(int tvID, String text){
+    private void setUpTextView(int tvID, String text) {
         TextView tv = (TextView) findViewById(tvID);
         tv.setText(text);
     }
 
     private void loadCarList() {
-        carCollection = new CarCollection(CarManager.readCarData(this,R.raw.vehicle_trimmed));
+        carCollection = new CarCollection(CarManager.readCarData(this, R.raw.vehicle_trimmed));
     }
 
-    private void loadModelDisplayList(){
+    private void loadModelDisplayList() {
         modelDisplayList.clear();
-        for (String model:
-             carCollection.getCarMaker(selectMake).modelToStringList()) {
-            if(!modelDisplayList.contains(model)){
+        for (String model :
+                carCollection.getCarMaker(selectMake).modelToStringList()) {
+            if (!modelDisplayList.contains(model)) {
                 modelDisplayList.add(model);
             }
         }
     }
 
     // Filters Through CarCollection extract unique Makers to String list
-    private void loadMakeDisplayList(){
+    private void loadMakeDisplayList() {
         makeDisplayList.clear();
-        for (String make:
-             carCollection.makeToStringList()) {
-            if(!makeDisplayList.contains(make)){
+        for (String make :
+                carCollection.makeToStringList()) {
+            if (!makeDisplayList.contains(make)) {
                 makeDisplayList.add(make);
             }
         }
     }
-
 
 
 }

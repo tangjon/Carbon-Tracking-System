@@ -1,8 +1,5 @@
 package cmpt276.jade.carbontracker.model;
 
-import android.content.res.Resources;
-import android.icu.text.StringPrepParseException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,20 +14,20 @@ public class CarCollection {
         carList = new ArrayList<>();
     }
 
-    public CarCollection(List<Car> carList){
+    public CarCollection(List<Car> carList) {
         this.carList = carList;
     }
 
-    public void add(Car car){
+    public void add(Car car) {
         carList.add(car);
     }
 
     // Return specific collection containing the make, and model
-    public CarCollection search(String make, String model){
+    public CarCollection search(String make, String model) {
         CarCollection collection = new CarCollection();
-        for (Car car:
-             carList) {
-            if(car.getMake().equals(make) && car.getModel().equals(model)){
+        for (Car car :
+                carList) {
+            if (car.getMake().equals(make) && car.getModel().equals(model)) {
                 collection.add(car);
             }
         }
@@ -38,20 +35,21 @@ public class CarCollection {
     }
 
     // Returns CarCollection with the specified makers
-    public CarCollection getCarMaker(String maker){
+    public CarCollection getCarMaker(String maker) {
         CarCollection collection = new CarCollection();
-        for ( Car car: carList ) {
-            if(car.getMake().equals(maker)){
+        for (Car car : carList) {
+            if (car.getMake().equals(maker)) {
                 collection.add(car);
             }
         }
         return collection;
     }
+
     // Returns CarCollection with the specified models
-    public CarCollection getCarModel(String model){
+    public CarCollection getCarModel(String model) {
         CarCollection collection = new CarCollection();
-        for ( Car car: carList ) {
-            if(car.getModel().equals(model)){
+        for (Car car : carList) {
+            if (car.getModel().equals(model)) {
                 collection.add(car);
             }
         }
@@ -59,10 +57,10 @@ public class CarCollection {
     }
 
     // Returns ArrayList with the specified year
-    public CarCollection getCarYear(int year){
+    public CarCollection getCarYear(int year) {
         CarCollection collection = new CarCollection();
-        for ( Car car: carList ) {
-            if(car.getYear() == year){
+        for (Car car : carList) {
+            if (car.getYear() == year) {
                 collection.add(car);
             }
         }
@@ -70,34 +68,34 @@ public class CarCollection {
     }
 
 
-    public List<String> modelToStringList(){
+    public List<String> modelToStringList() {
         List<String> stringList = new ArrayList<>();
-        for (Car car:
-             carList) {
+        for (Car car :
+                carList) {
             stringList.add(car.getModel());
         }
         return stringList;
     }
 
-    public List<String> makeToStringList(){
+    public List<String> makeToStringList() {
         List<String> stringList = new ArrayList<>();
-        for (Car car:
+        for (Car car :
                 carList) {
             stringList.add(car.getMake());
         }
         return stringList;
     }
 
-    public List<String> yearToStringList(){
+    public List<String> yearToStringList() {
         List<String> stringList = new ArrayList<>();
-        for (Car car:
+        for (Car car :
                 carList) {
             stringList.add(Integer.toString(car.getYear()));
         }
         return stringList;
     }
 
-    public List<Car> toList(){
+    public List<Car> toList() {
         return carList;
     }
 }
