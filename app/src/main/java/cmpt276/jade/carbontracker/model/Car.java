@@ -13,6 +13,16 @@ public class Car {
     private int uHighway;
     private int carbonTailPipe;
 
+    public Car(String make, String model, String nickname, int year, int uCity, int uHighway, int carbonTailPipe) {
+        this.make = make;
+        this.model = model;
+        this.nickname = nickname;
+        this.year = year;
+        this.uCity = uCity;
+        this.uHighway = uHighway;
+        this.carbonTailPipe = carbonTailPipe;
+    }
+
     public String getMake() {
         return make;
     }
