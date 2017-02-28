@@ -9,4 +9,5 @@
     <string name="label_carbon_tail_pipe">CO2 Tail Pipe:</string>
     <string name="DEFAULT_TXT">TXT</string>
     <string name="label_add">ADD</string>
+    <string name="label_next">NEXT</string>
 </resources>
