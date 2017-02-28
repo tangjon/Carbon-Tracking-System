@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">Carbon Tracker</string>
-    <string name="label_make">Manufacturer</string>
-    <string name="label_year">Year</string>
-    <string name="label_model">Model</string>
-    <string name="label_UCity">UCity</string>
-    <string name="label_UHighway">UHighway</string>
+    <string name="label_make">Manufacturer:</string>
+    <string name="label_year">Year:</string>
+    <string name="label_model">Model:</string>
+    <string name="label_UCity">UCity:</string>
+    <string name="label_UHighway">UHighway:</string>
     <string name="DEFAULT_NUM">##</string>
-    <string name="label_carbon_tail_pipe">CO2 Tail Pipe</string>
+    <string name="label_carbon_tail_pipe">CO2 Tail Pipe:</string>
+    <string name="DEFAULT_TXT">TXT</string>
 </resources>
