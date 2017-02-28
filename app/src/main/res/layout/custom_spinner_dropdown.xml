@@ -10,7 +10,9 @@
         android:id="@+id/tv_year_display"
         android:textStyle="normal|bold"
         android:textAllCaps="false"
-        android:textAlignment="viewStart" />
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
 
     <LinearLayout
         android:orientation="vertical"

@@ -1,25 +1,23 @@
 package cmpt276.jade.carbontracker.adapter;
 
-import android.widget.ArrayAdapter;
-
-/**
- * Created by tangj on 2/28/2017.
- */
-
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 
 import java.util.List;
 
 import cmpt276.jade.carbontracker.R;
 import cmpt276.jade.carbontracker.model.Car;
 
-public class CustomSpinner extends ArrayAdapter<Car>{
+/**
+ * Created by tangj on 2/28/2017.
+ */
+
+public class CustomSpinner extends ArrayAdapter<Car> {
 
     private List<Car> mItems;
     private Context mContext;
@@ -34,8 +32,8 @@ public class CustomSpinner extends ArrayAdapter<Car>{
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View itemView = convertView;
-        if( itemView == null){
-            itemView = inflater.inflate(R.layout.custom_spinner_dropdown,parent,false);
+        if (itemView == null) {
+            itemView = inflater.inflate(R.layout.custom_spinner_dropdown, parent, false);
         }
         // Get Car
         Car currentCar = mItems.get(position);
@@ -50,7 +48,6 @@ public class CustomSpinner extends ArrayAdapter<Car>{
         tv_carbon_tail_pipe.setText(Double.toString(currentCar.getCarbonTailPipe()));
 
 
-
         return itemView;
     }
 
@@ -60,15 +57,13 @@ public class CustomSpinner extends ArrayAdapter<Car>{
         // Handle Null views
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View itemView = convertView;
-        if( itemView == null){
-            itemView = inflater.inflate(R.layout.custom_spinner_list,parent,false);
+        if (itemView == null) {
+            itemView = inflater.inflate(R.layout.custom_spinner_list, parent, false);
         }
         Car currentCar = mItems.get(position);
 
         TextView tv_year = (TextView) itemView.findViewById(R.id.tv_item);
         tv_year.setText(Integer.toString(currentCar.getYear()));
-
-
 
 
         return itemView;
