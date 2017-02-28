@@ -2,8 +2,11 @@ package cmpt276.jade.carbontracker;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +21,9 @@ public class CarInfoActivity extends AppCompatActivity {
     // String of Manufactures
     private List<String> makeList = new ArrayList<>();
 
+    // String of Models for Specific Car
+    private List<String> modelList = new ArrayList<>();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -25,12 +31,32 @@ public class CarInfoActivity extends AppCompatActivity {
         // LOAD
         loadCarList();
 
-        populateMakeList();
-
         // Spinner for Manufacture
-        setUpSpinner(makeList, R.id.spn_make);
-    }
+        setUpMakeSpinner(R.id.spn_make);
 
+
+    }
+    private void setUpMakeSpinner(int spnID) {
+        populateMakeList();
+        Spinner spinner = (Spinner) findViewById(spnID);
+        // Listener
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                modelList.clear();
+                setModelSpinner(R.id.spn_model, makeList.get(pos));
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, makeList);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+    }
     // This Highly InEfficient
     private void populateMakeList(){
         for (Car car:carList) {
@@ -38,18 +64,36 @@ public class CarInfoActivity extends AppCompatActivity {
                 makeList.add(car.getMake());
             }
         }
-
     }
-
-    private void setUpSpinner(List<String> stringArray, int spnID) {
+    private void setModelSpinner(int spnID, String make){
+        populateModelList(make);
         Spinner spinner = (Spinner) findViewById(spnID);
+        // Listener
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id){
+
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, stringArray);
+                this, android.R.layout.simple_spinner_item, modelList);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+
+    }
+
+    private void populateModelList(String make){
+        for (Car car:
+             carList) {
+            if(car.getMake().equals(make) && !modelList.contains(car.getModel())){
+                modelList.add(car.getModel());
+            }
+        }
     }
 
     private void loadCarList() {
