@@ -9,11 +9,11 @@ public class Car {
     private String model;
     private String nickname;
     private int year;
-    private int uCity;
-    private int uHighway;
-    private int carbonTailPipe;
+    private double uCity;
+    private double uHighway;
+    private double carbonTailPipe;
 
-    public Car(String make, String model, String nickname, int year, int uCity, int uHighway, int carbonTailPipe) {
+    public Car(String nickname, String make, String model, int year, double uCity, double uHighway, double carbonTailPipe) {
         this.make = make;
         this.model = model;
         this.nickname = nickname;
@@ -55,7 +55,7 @@ public class Car {
         this.year = year;
     }
 
-    public int getuCity() {
+    public double getuCity() {
         return uCity;
     }
 
@@ -63,7 +63,7 @@ public class Car {
         this.uCity = uCity;
     }
 
-    public int getuHighway() {
+    public double getuHighway() {
         return uHighway;
     }
 
@@ -71,11 +71,24 @@ public class Car {
         this.uHighway = uHighway;
     }
 
-    public int getCarbonTailPipe() {
+    public double getCarbonTailPipe() {
         return carbonTailPipe;
     }
 
     public void setCarbonTailPipe(int carbonTailPipe) {
         this.carbonTailPipe = carbonTailPipe;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", year=" + year +
+                ", uCity=" + uCity +
+                ", uHighway=" + uHighway +
+                ", carbonTailPipe=" + carbonTailPipe +
+                '}';
     }
 }
