@@ -15,7 +15,8 @@ public class CarInfoActivity extends AppCompatActivity {
     // Field to contain all car info from vehicle.csv
     private Car[] carList;
 
-    private List<String> manufacturerList = new ArrayList<>();
+    // String of Manufactures
+    private List<String> makeList = new ArrayList<>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +25,19 @@ public class CarInfoActivity extends AppCompatActivity {
         // LOAD
         loadCarList();
 
+        populateMakeList();
+
         // Spinner for Manufacture
-        setUpSpinner(manufacturerList, R.id.spn_make);
+        setUpSpinner(makeList, R.id.spn_make);
+    }
 
-
+    // This Highly InEfficient
+    private void populateMakeList(){
+        for (Car car:carList) {
+            if(!makeList.contains(car.getMake())){
+                makeList.add(car.getMake());
+            }
+        }
 
     }
 
