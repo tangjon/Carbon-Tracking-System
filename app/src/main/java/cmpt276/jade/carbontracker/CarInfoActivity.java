@@ -1,5 +1,7 @@
 package cmpt276.jade.carbontracker;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -35,6 +37,11 @@ public class CarInfoActivity extends AppCompatActivity {
 
     // Field to store the user selected car <----------- THIS IS OF INTEREST
     private Car userSelectedCar;
+
+    public static Intent getIntentFromActivity(Context context) {
+        Intent intent = new Intent(context, CarInfoActivity.class);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
