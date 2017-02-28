@@ -7,20 +7,13 @@ import android.widget.ArrayAdapter;
  */
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import org.w3c.dom.Text;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import cmpt276.jade.carbontracker.R;
@@ -32,7 +25,7 @@ public class CustomSpinner extends ArrayAdapter<Car>{
     private Context mContext;
 
     public CustomSpinner(Context context, List<Car> items) {
-        super(context, R.layout.custom_spinner, items);
+        super(context, R.layout.custom_spinner_dropdown, items);
         this.mContext = context;
         this.mItems = items;
     }
@@ -42,7 +35,7 @@ public class CustomSpinner extends ArrayAdapter<Car>{
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View itemView = convertView;
         if( itemView == null){
-            itemView = inflater.inflate(R.layout.custom_spinner,parent,false);
+            itemView = inflater.inflate(R.layout.custom_spinner_dropdown,parent,false);
         }
         // Get Car
         Car currentCar = mItems.get(position);
@@ -52,9 +45,9 @@ public class CustomSpinner extends ArrayAdapter<Car>{
         TextView tv_UCity = (TextView) itemView.findViewById(R.id.tv_ucity);
         tv_UCity.setText(Double.toString(currentCar.getuCity()));
         TextView tv_UHighway = (TextView) itemView.findViewById(R.id.tv_uhighway);
-        tv_UCity.setText(Double.toString(currentCar.getuHighway()));
+        tv_UHighway.setText(Double.toString(currentCar.getuHighway()));
         TextView tv_carbon_tail_pipe = (TextView) itemView.findViewById(R.id.tv_carbon_tail_pipe);
-        tv_UCity.setText(Double.toString(currentCar.getCarbonTailPipe()));
+        tv_carbon_tail_pipe.setText(Double.toString(currentCar.getCarbonTailPipe()));
 
 
 
@@ -68,11 +61,11 @@ public class CustomSpinner extends ArrayAdapter<Car>{
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View itemView = convertView;
         if( itemView == null){
-            itemView = inflater.inflate(R.layout.custom_spinner,parent,false);
+            itemView = inflater.inflate(R.layout.custom_spinner_list,parent,false);
         }
         Car currentCar = mItems.get(position);
 
-        TextView tv_year = (TextView) itemView.findViewById(R.id.tv_year_display);
+        TextView tv_year = (TextView) itemView.findViewById(R.id.tv_item);
         tv_year.setText(Integer.toString(currentCar.getYear()));
 
 

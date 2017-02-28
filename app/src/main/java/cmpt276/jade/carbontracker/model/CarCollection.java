@@ -105,4 +105,8 @@ public class CarCollection {
         }
         return stringList;
     }
+
+    public List<Car> toList(){
+        return carList;
+    }
 }

@@ -8,10 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tv_year_display"
-        android:textStyle="normal|bold" />
+        android:textStyle="normal|bold"
+        android:textAllCaps="false"
+        android:textAlignment="viewStart" />
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

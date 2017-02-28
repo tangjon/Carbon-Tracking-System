@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import cmpt276.jade.carbontracker.adapter.CustomSpinner;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.utils.CarManager;
@@ -26,12 +27,11 @@ public class CarInfoActivity extends AppCompatActivity {
     // String of Models for Specific Car
     private List<String> modelDisplayList = new ArrayList<>();
 
-    // String of Years for Specific Car
-    private List<String> yearDisplayList = new ArrayList<>();
-
     private String selectMake, selectModel, selectYear;
 
     private String TAG = "carinfoactivity";
+
+    private Car selectCar;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,19 +76,25 @@ public class CarInfoActivity extends AppCompatActivity {
                 spnModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         selectModel = (String) spnModel.getSelectedItem();
-                        loadYearDisplayList();
                         Log.i(TAG, selectModel);
 
                         // YEAR SPINNER -----------------
-                        final Spinner spnYear = setUpSpinner(R.id.spn_year, yearDisplayList);
+                        final Spinner spnYear = (Spinner) findViewById(R.id.spn_year);
+                        // Pull Car List with specified make and model
+                        final List<Car> specList = carCollection.search(selectMake,selectModel).toList();
+                        // Create an ArrayAdapter using the string array and a default spinner layout
+                        CustomSpinner adapter = new CustomSpinner(CarInfoActivity.this, specList);
+                        // Apply the adapter to the spinner
+                        spnYear.setAdapter(adapter);
+
                         spnYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                selectYear = (String) spnYear.getSelectedItem();
+                                selectCar = specList.get(i);
+                                selectYear = Integer.toString(selectCar.getYear());
                                 Log.i(TAG, selectYear);
-                                /// LODA SOMETIHNHG
+                                /// LOAD SOMETHING
                                 updateCarInfo();
                             }
-
                             public void onNothingSelected(AdapterView<?> adapterView) {
                                 return;
                             }
@@ -105,22 +111,14 @@ public class CarInfoActivity extends AppCompatActivity {
     }
 
     private void updateCarInfo(){
-        Car userCar = carCollection.searchCar(selectMake,selectModel,Integer.parseInt(selectYear));
-        setUpTextView(R.id.tv_ucity,Double.toString(userCar.getuCity()));
-        setUpTextView(R.id.tv_uhighway, Double.toString(userCar.getuHighway()));
-        setUpTextView(R.id.tv_carbon_tail_pipe, Double.toString(userCar.getCarbonTailPipe()));
+        setUpTextView(R.id.tv_ucity,Double.toString(selectCar.getuCity()));
+        setUpTextView(R.id.tv_uhighway, Double.toString(selectCar.getuHighway()));
+        setUpTextView(R.id.tv_carbon_tail_pipe, Double.toString(selectCar.getCarbonTailPipe()));
     }
 
     private void setUpTextView(int tvID, String text){
         TextView tv = (TextView) findViewById(tvID);
         tv.setText(text);
-    }
-
-    private void loadYearDisplayList() {
-        yearDisplayList.clear();
-        for (String year: carCollection.search(selectMake,selectModel).yearToStringList()) {
-            yearDisplayList.add(year);
-        }
     }
 
     private void loadCarList() {
