@@ -25,17 +25,7 @@ public class CarCollection {
         carList.add(car);
     }
 
-    // Need to handle if car does not exist
-    public Car searchCar(String make, String model, int year){
-        for (Car car:
-             carList) {
-            if(car.getMake().equals(make) && car.getModel().equals(model) && car.getYear() == year){
-                return car;
-            }
-        }
-        return null;
-    }
-
+    // Return specific collection containing the make, and model
     public CarCollection search(String make, String model){
         CarCollection collection = new CarCollection();
         for (Car car:
@@ -47,7 +37,7 @@ public class CarCollection {
         return collection;
     }
 
-    // Returns ArrayList with the specified makers
+    // Returns CarCollection with the specified makers
     public CarCollection getCarMaker(String maker){
         CarCollection collection = new CarCollection();
         for ( Car car: carList ) {
@@ -57,7 +47,7 @@ public class CarCollection {
         }
         return collection;
     }
-    // Returns ArrayList with the specified models
+    // Returns CarCollection with the specified models
     public CarCollection getCarModel(String model){
         CarCollection collection = new CarCollection();
         for ( Car car: carList ) {
@@ -78,6 +68,7 @@ public class CarCollection {
         }
         return collection;
     }
+
 
     public List<String> modelToStringList(){
         List<String> stringList = new ArrayList<>();

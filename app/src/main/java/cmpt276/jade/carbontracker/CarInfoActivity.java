@@ -21,16 +21,19 @@ public class CarInfoActivity extends AppCompatActivity {
     // Field to contain all car info from vehicle.csv
     private CarCollection carCollection;
 
-    // String of Manufactures
+    // String of Manufactures for spinner adapter
     private List<String> makeDisplayList = new ArrayList<>();
 
-    // String of Models for Specific Car
+    // String of Models for Specific Car for spinner adapter
     private List<String> modelDisplayList = new ArrayList<>();
 
+    // Helper Fields
     private String selectMake, selectModel, selectYear;
 
+    // TAG
     private String TAG = "carinfoactivity";
 
+    // Field to store the user selected car
     private Car selectCar;
 
     @Override
@@ -60,6 +63,15 @@ public class CarInfoActivity extends AppCompatActivity {
         return spinner;
     }
 
+    private Spinner setUpCustomSpinner(int spnID, List<Car> carList){
+        final Spinner spinner = (Spinner) findViewById(R.id.spn_year);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        CustomSpinner adapter = new CustomSpinner(CarInfoActivity.this, carList);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+        return spinner;
+    }
+
     // Hierarchy Method of Spinners
     private void setUpAllSpinners(){
 
@@ -79,14 +91,9 @@ public class CarInfoActivity extends AppCompatActivity {
                         Log.i(TAG, selectModel);
 
                         // YEAR SPINNER -----------------
-                        final Spinner spnYear = (Spinner) findViewById(R.id.spn_year);
                         // Pull Car List with specified make and model
                         final List<Car> specList = carCollection.search(selectMake,selectModel).toList();
-                        // Create an ArrayAdapter using the string array and a default spinner layout
-                        CustomSpinner adapter = new CustomSpinner(CarInfoActivity.this, specList);
-                        // Apply the adapter to the spinner
-                        spnYear.setAdapter(adapter);
-
+                        Spinner spnYear = setUpCustomSpinner(R.id.spn_year, specList);
                         spnYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                 selectCar = specList.get(i);
