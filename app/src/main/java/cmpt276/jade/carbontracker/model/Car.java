@@ -5,13 +5,13 @@ package cmpt276.jade.carbontracker.model;
  */
 
 public class Car {
-    String make; // Manufacturer
-    String model;
-    String nickname;
-    int year;
-    int uCity;
-    int uHighway;
-    int carbonTailPipe;
+    private String make; // Manufacturer
+    private String model;
+    private String nickname;
+    private int year;
+    private int uCity;
+    private int uHighway;
+    private int carbonTailPipe;
 
     public String getMake() {
         return make;
