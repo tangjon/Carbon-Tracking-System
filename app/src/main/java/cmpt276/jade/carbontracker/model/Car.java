@@ -13,10 +13,10 @@ public class Car {
     private double uHighway;
     private double carbonTailPipe;
 
-    public Car(String nickname, String make, String model, int year, double uCity, double uHighway, double carbonTailPipe) {
+    public Car(String make, String model, int year, double uCity, double uHighway, double carbonTailPipe) {
         this.make = make;
         this.model = model;
-        this.nickname = nickname;
+        this.nickname = "";
         this.year = year;
         this.uCity = uCity;
         this.uHighway = uHighway;

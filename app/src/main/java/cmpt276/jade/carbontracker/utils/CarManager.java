@@ -47,7 +47,7 @@ public class CarManager {
                 double uCity = Double.parseDouble(tokens[3]);
                 double uHighway = Double.parseDouble(tokens[4]);
                 double carbonTailPipe = Double.parseDouble(tokens[5]);
-                Car aCar = new Car("", make, model, year, uCity,uHighway,carbonTailPipe);
+                Car aCar = new Car(make, model, year, uCity,uHighway,carbonTailPipe);
                 carListData.add(aCar);
 
                 // For Logging
