@@ -33,8 +33,8 @@ public class CarInfoActivity extends AppCompatActivity {
     // TAG
     private String TAG = "carinfoactivity";
 
-    // Field to store the user selected car
-    private Car selectCar;
+    // Field to store the user selected car <----------- THIS IS OF INTEREST
+    private Car userSelectedCar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,8 +97,8 @@ public class CarInfoActivity extends AppCompatActivity {
                         Spinner spnYear = setUpCustomSpinner(R.id.spn_year, specList);
                         spnYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                selectCar = specList.get(i);
-                                selectYear = Integer.toString(selectCar.getYear());
+                                userSelectedCar = specList.get(i);
+                                selectYear = Integer.toString(userSelectedCar.getYear());
                                 Log.i(TAG, selectYear);
                                 /// LOAD SOMETHING
                                 updateCarInfo();
@@ -120,9 +120,9 @@ public class CarInfoActivity extends AppCompatActivity {
     }
 
     private void updateCarInfo() {
-        setUpTextView(R.id.tv_ucity, Double.toString(selectCar.getuCity()));
-        setUpTextView(R.id.tv_uhighway, Double.toString(selectCar.getuHighway()));
-        setUpTextView(R.id.tv_carbon_tail_pipe, Double.toString(selectCar.getCarbonTailPipe()));
+        setUpTextView(R.id.tv_ucity, Double.toString(userSelectedCar.getuCity()));
+        setUpTextView(R.id.tv_uhighway, Double.toString(userSelectedCar.getuHighway()));
+        setUpTextView(R.id.tv_carbon_tail_pipe, Double.toString(userSelectedCar.getCarbonTailPipe()));
     }
 
     private void setUpTextView(int tvID, String text) {
