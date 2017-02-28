@@ -1,5 +1,7 @@
 package cmpt276.jade.carbontracker.model;
 
+import java.util.UUID;
+
 /**
  * Created by tangj on 2/27/2017.
  */
@@ -12,6 +14,7 @@ public class Car {
     private double uCity;
     private double uHighway;
     private double carbonTailPipe;
+    private UUID KEY;
 
     public Car(String make, String model, int year, double uCity, double uHighway, double carbonTailPipe) {
         this.make = make;
@@ -21,6 +24,11 @@ public class Car {
         this.uCity = uCity;
         this.uHighway = uHighway;
         this.carbonTailPipe = carbonTailPipe;
+        this.KEY = UUID.randomUUID();
+    }
+
+    public UUID getKEY() {
+        return KEY;
     }
 
     public String getMake() {

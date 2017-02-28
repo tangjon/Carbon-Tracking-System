@@ -2,6 +2,7 @@ package cmpt276.jade.carbontracker.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by tangj on 2/28/2017.
@@ -20,6 +21,18 @@ public class CarCollection {
 
     public void add(Car car) {
         carList.add(car);
+    }
+
+    public void remove(Car car) {
+        UUID KEY = car.getKEY();
+        if (!carList.isEmpty()) {
+            for (int i = 0; i < carList.size(); i++) {
+                if (carList.get(i).getKEY().compareTo(KEY) == 0) {
+                    carList.remove(i);
+                    break;
+                }
+            }
+        }
     }
 
     // Return specific collection containing the make, and model
