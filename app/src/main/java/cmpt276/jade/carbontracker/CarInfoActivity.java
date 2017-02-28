@@ -79,6 +79,7 @@ public class CarInfoActivity extends AppCompatActivity {
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
                 });
+
                 break;
             case R.id.spn_year:
                 populateYearList();
