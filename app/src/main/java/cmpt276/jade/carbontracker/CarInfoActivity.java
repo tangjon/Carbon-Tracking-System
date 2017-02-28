@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import cmpt276.jade.carbontracker.adapter.CustomSpinner;
+import cmpt276.jade.carbontracker.adapter.CustomSpinnerAdapter;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.utils.CarManager;
@@ -66,7 +66,7 @@ public class CarInfoActivity extends AppCompatActivity {
     private Spinner setUpCustomSpinner(int spnID, List<Car> carList) {
         final Spinner spinner = (Spinner) findViewById(R.id.spn_year);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        CustomSpinner adapter = new CustomSpinner(CarInfoActivity.this, carList);
+        CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(CarInfoActivity.this, carList);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         return spinner;
