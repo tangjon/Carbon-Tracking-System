@@ -24,7 +24,7 @@ public class CarManager {
     }
 
     public static Car[] readCarData(Context context, int fileID){
-        // Initialize List
+        // Initialize List for Dynamic Characteristics
         ArrayList<Car> carListData = new ArrayList<>();
 
         InputStream stream = context.getResources().openRawResource(fileID);
@@ -49,13 +49,16 @@ public class CarManager {
                 double carbonTailPipe = Double.parseDouble(tokens[5]);
                 Car aCar = new Car("", make, model, year, uCity,uHighway,carbonTailPipe);
                 carListData.add(aCar);
-                Log.i(TAG, "readCarData: " + aCar);
+
+                // For Logging
+//                Log.i(TAG, "readCarData: " + aCar);
             }
         } catch (IOException e) {
             Log.wtf("CarManager", "Error reading data file on line " + line, e);
             e.printStackTrace();
         }
 
+        // Convert ArrayList to Car Array
         Car[] ret = carListData.toArray(new Car[carListData.size()]);
         return ret;
 
