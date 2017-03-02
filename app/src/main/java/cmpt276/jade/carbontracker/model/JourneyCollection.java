@@ -8,6 +8,8 @@ import java.util.List;
  */
 
 public class JourneyCollection {
+
+
     private List<Journey>  journeyList = new ArrayList<>();
 
     //add journey to list
@@ -24,8 +26,25 @@ public class JourneyCollection {
         journeyList.add(index, journey);
     }
     //get journey from journeyList
-    public void getJourney(int index){
-        journeyList.get(index);
+    public Journey getJourney(int index){
+        return journeyList.get(index);
+    }
+    //counts number of objects in list
+    public int countJourneys(){
+        return journeyList.size();
     }
 
+    public List<Journey> getJourneyList() {
+        return journeyList;
+    }
+
+    //get Journey Name
+    public String[] getJourneyName(){
+        String[] names = new String[countJourneys()];
+        for (int i = 0; i < countJourneys(); i++) {
+            Journey journey = getJourney(i);
+            names[i] = journey.getName();
+        }
+        return names;
+    }
 }

@@ -1,10 +1,12 @@
 package cmpt276.jade.carbontracker.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Sean on 02/03/2017.
  */
 
-public class Route {
+public class Route implements Serializable{
     public int getCityDriving() {
         return cityDriving;
     }
@@ -27,6 +29,10 @@ public class Route {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public double totalTravelled(){
+        return cityDriving+highwayDriving;
     }
 
     private int cityDriving;

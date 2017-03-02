@@ -16,13 +16,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/btnAdd" />
+        android:id="@+id/btnAddJourney" />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/btnAdd"
+        android:layout_above="@+id/btnAddJourney"
+        android:longClickable="true"
         android:id="@+id/listviewJourney" />
+
 </RelativeLayout>
