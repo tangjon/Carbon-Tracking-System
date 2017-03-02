@@ -17,7 +17,7 @@ public class Car implements Serializable{
     private double carbonTailPipe;
     private UUID KEY;
 
-    public Car(String make, String model, int year, double uCity, double uHighway, double carbonTailPipe) {
+    public Car(String make, String model ,int year, double uCity, double uHighway, double carbonTailPipe) {
         this.make = make;
         this.model = model;
         this.nickname = "";

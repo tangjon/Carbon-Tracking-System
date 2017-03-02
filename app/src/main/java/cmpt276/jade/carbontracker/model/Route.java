@@ -7,7 +7,21 @@ import java.io.Serializable;
  */
 
 public class Route implements Serializable{
-    public int getCityDriving() {
+
+    private double cityDriving;
+    private double highwayDriving;
+    private String nickName;
+
+    public void Route(){
+        this.cityDriving = 10;
+        this.highwayDriving = 20;
+        this.nickName = "Route Name";
+    }
+
+
+
+
+    public double getCityDriving() {
         return cityDriving;
     }
 
@@ -15,7 +29,7 @@ public class Route implements Serializable{
         this.cityDriving = cityDriving;
     }
 
-    public int getHighwayDriving() {
+    public double getHighwayDriving() {
         return highwayDriving;
     }
 
@@ -33,15 +47,5 @@ public class Route implements Serializable{
 
     public double totalTravelled(){
         return cityDriving+highwayDriving;
-    }
-
-    private int cityDriving;
-    private int highwayDriving;
-    private String nickName;
-
-    public void Route(){
-        this.cityDriving = 10;
-        this.highwayDriving = 20;
-        this.nickName = "Route Name";
     }
 }

@@ -39,8 +39,12 @@ public class JourneyListActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Car car = new Car("Car", "Model", 1999, 20 ,30, 9.99);
+                Car car = new Car("Car", "Model",1999 , 20.0 ,30.0, 9.99);
+                car.setNickname("Nickname");
                 Route route = new Route();
+                route.setNickName("Route Name");
+                route.setCityDriving(10);
+                route.setHighwayDriving(20);
                 Journey journey = new Journey("A new journey", car, route);
                 listOfJourneys.addJourney(journey);
                 populateList();
@@ -59,6 +63,8 @@ public class JourneyListActivity extends AppCompatActivity {
                 Intent intent = JourneySummaryActivity.getJourneySummaryIntent(JourneyListActivity.this);
                 Journey journey = listOfJourneys.getJourney(position);
                 intent.putExtra("Journey", journey);
+                intent.putExtra("Car", journey.getCar());
+                intent.putExtra("Route", journey.getRoute());
                 startActivity(intent);
             }
         });
@@ -70,6 +76,8 @@ public class JourneyListActivity extends AppCompatActivity {
                 Journey journey = listOfJourneys.getJourney(position);
                 listOfJourneys.editJourney(journey, position);
                 intent.putExtra("Journey", journey);
+                intent.putExtra("Journey", journey.getCar());
+                intent.putExtra("Journey", journey.getRoute());
                 startActivity(intent);
                 finish();
                 return true;
