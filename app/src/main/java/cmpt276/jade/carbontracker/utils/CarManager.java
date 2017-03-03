@@ -21,8 +21,8 @@ import cmpt276.jade.carbontracker.model.Car;
  * [4] - fuelCost08 - annual fuel cost for fuelType1 ($) (7)
  * [5] - fuelType1 - fuel type 1. For single fuel vehicles, this will be the only fuel. For dual fuel vehicles, this will be the conventional fuel.
  * [6] - highway08 - highway MPG for fuelType1 (2), (11)
- * [7] - model - model name (carline)
- * [8] - make - manufacturer (division)
+ * [7] - make - manufacturer (division)
+ * [8] - model - model name (carline)
  * [9] - year
  * [10] - trans_dscr - transmission description !! Field could be blank
  */
@@ -81,10 +81,10 @@ public class CarManager {
                 String fuelType = tokens[4];
                 //[6] - highway08 - highway MPG for fuelType1 (2), (11)
                 int highwayMPG = Integer.parseInt(tokens[6]);
-                //[7] - model - model name (carline)
-                String model = tokens[7];
-                //[8] - make - manufacturer (division)
-                String make = tokens[8];
+                //[8] - model - model name (carline)
+                String model = tokens[8];
+                //[7] - make - manufacturer (division)
+                String make = tokens[7];
                 //[9] - year
                 int year = Integer.parseInt(tokens[9]);
                 //[10] - trans_dscr - transmission description !! Field could be blank

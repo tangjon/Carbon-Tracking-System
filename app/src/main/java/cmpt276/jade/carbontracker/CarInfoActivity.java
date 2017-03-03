@@ -83,7 +83,7 @@ public class CarInfoActivity extends AppCompatActivity {
     }
 
     private Spinner setUpCustomSpinner(int spnID, List<Car> carList) {
-        final Spinner spinner = (Spinner) findViewById(R.id.spn_year);
+        final Spinner spinner = (Spinner) findViewById(spnID);
         // Create an ArrayAdapter using the string array and a default spinner layout
         CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(CarInfoActivity.this, carList);
         // Apply the adapter to the spinner
@@ -172,6 +172,7 @@ public class CarInfoActivity extends AppCompatActivity {
                 makeDisplayList.add(make);
             }
         }
+        Log.i(TAG, "loadMakeDisplayList: " + makeDisplayList);
     }
 
 

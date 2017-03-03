@@ -92,8 +92,7 @@ public class CarCollection {
 
     public List<String> makeToStringList() {
         List<String> stringList = new ArrayList<>();
-        for (Car car :
-                carList) {
+        for (Car car : carList) {
             stringList.add(car.getMake());
         }
         return stringList;
