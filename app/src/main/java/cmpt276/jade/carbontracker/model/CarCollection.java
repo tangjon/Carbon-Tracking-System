@@ -110,4 +110,14 @@ public class CarCollection {
     public List<Car> toList() {
         return carList;
     }
+
+    public Car getCarByKey(String key) {
+        for (Car car :
+                carList) {
+            if (car.getKEY().toString().equals(key)) {
+                return car;
+            }
+        }
+        return null;
+    }
 }

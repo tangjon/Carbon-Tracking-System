@@ -56,12 +56,21 @@ public class CarInfoActivity extends AppCompatActivity {
                 setUpAllSpinners();
                 break;
             case EDIT:
-
+                // Fetch Select Car to Edit
+                String key = getIntent().getExtras().getString(CarListActivity.CAR_KEY);
+                Car car = CarListActivity.globCollection.getCarByKey(key);
+                loadCarList();
+                loadMakeDisplayList();
+                setUpAllSpinners();
+                loadCurrentCarInfo();
                 break;
 
         }
         // TODO Needs direct to next activity
         setUpNextBtn();
+    }
+
+    private void loadCurrentCarInfo() {
     }
 
     private void setUpNextBtn() {

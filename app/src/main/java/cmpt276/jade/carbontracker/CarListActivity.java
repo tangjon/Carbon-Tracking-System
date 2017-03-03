@@ -3,12 +3,11 @@ package cmpt276.jade.carbontracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-
-import java.util.List;
 
 import cmpt276.jade.carbontracker.adapter.CarListAdapter;
 import cmpt276.jade.carbontracker.model.Car;
@@ -19,7 +18,7 @@ public class CarListActivity extends AppCompatActivity {
 
     //TODO TEMPORARY CAR COLLECTION STATIC SHOULD PLACED IN LOG CLASS
     public static CarCollection globCollection = new CarCollection();
-
+    public static String CAR_KEY = "carKey";
     private ListView lstView;
 
     @Override
@@ -46,7 +45,10 @@ public class CarListActivity extends AppCompatActivity {
         lstView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Car car = (Car) parent.getAdapter().getItem(position);
                 Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
+                intent.putExtra(CAR_KEY, car.getKEY().toString());
+                Log.i("MEH", "onItemLongClick: " + car.getKEY().toString());
                 startActivity(intent);
                 return true;
             }
@@ -54,9 +56,6 @@ public class CarListActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        List<String> stringList = globCollection.makeToStringList();
-
-
         setUpListView();
     }
 
