@@ -33,7 +33,7 @@
                 android:textStyle="normal|bold" />
 
             <TextView
-                android:id="@+id/tv_ucity"
+                android:id="@+id/tv_cityMPG"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -55,7 +55,7 @@
                 android:textStyle="normal|bold" />
 
             <TextView
-                android:id="@+id/tv_uhighway"
+                android:id="@+id/tv_highwayMPG"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -72,6 +72,8 @@
                 android:id="@+id/textView2163"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
                 android:paddingRight="5dp"
                 android:text="@string/label_carbon_tail_pipe"
                 android:textStyle="normal|bold" />

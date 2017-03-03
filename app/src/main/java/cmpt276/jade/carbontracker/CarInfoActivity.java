@@ -127,8 +127,8 @@ public class CarInfoActivity extends AppCompatActivity {
     }
 
     private void updateCarInfo() {
-        setUpTextView(R.id.tv_ucity, Double.toString(userSelectedCar.getCityMPG()));
-        setUpTextView(R.id.tv_uhighway, Double.toString(userSelectedCar.getHighwayMPG()));
+        setUpTextView(R.id.tv_cityMPG, Double.toString(userSelectedCar.getCityMPG()));
+        setUpTextView(R.id.tv_highwayMPG, Double.toString(userSelectedCar.getHighwayMPG()));
         setUpTextView(R.id.tv_carbon_tail_pipe, Double.toString(userSelectedCar.getCarbonTailPipe()));
     }
 

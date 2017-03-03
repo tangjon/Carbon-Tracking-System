@@ -68,7 +68,7 @@
             android:textStyle="normal|bold" />
 
         <TextView
-            android:id="@+id/tv_ucity"
+            android:id="@+id/tv_cityMPG"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/DEFAULT_NUM"
@@ -85,7 +85,7 @@
             android:textStyle="normal|bold" />
 
         <TextView
-            android:id="@+id/tv_uhighway"
+            android:id="@+id/tv_highwayMPG"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/DEFAULT_NUM"
