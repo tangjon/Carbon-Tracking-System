@@ -38,12 +38,12 @@ public class JourneySummaryActivity extends AppCompatActivity {
     private void getData() {
         Intent intent = getIntent();
         this.journey = (Journey)intent.getSerializableExtra("Journey");
-        this.car = (Car)intent.getSerializableExtra("Car");
-        this.route = (Route)intent.getSerializableExtra("Route");
+        this.car = journey.getCar();
+        this.route = journey.getRoute();
     }
 
+
     private void setData() {
-        double temp;
         TextView carName = (TextView) findViewById(R.id.textCarName);
         carName.setText(car.getNickname());
         TextView routeName = (TextView) findViewById(R.id.textRouteName);

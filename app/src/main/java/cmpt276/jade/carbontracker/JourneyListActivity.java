@@ -60,8 +60,6 @@ public class JourneyListActivity extends AppCompatActivity {
                 Intent intent = JourneySummaryActivity.getJourneySummaryIntent(JourneyListActivity.this);
                 Journey journey = listOfJourneys.getJourney(position);
                 intent.putExtra("Journey", journey);
-                intent.putExtra("Car", journey.getCar());
-                intent.putExtra("Route", journey.getRoute());
                 startActivity(intent);
             }
         });
