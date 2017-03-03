@@ -17,7 +17,7 @@ import cmpt276.jade.carbontracker.model.Route;
 
 public class JourneyListActivity extends AppCompatActivity {
     public static JourneyCollection listOfJourneys = new JourneyCollection();
-
+    //maybe have a get data from intent that can handle a journey being passed into it?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +53,7 @@ public class JourneyListActivity extends AppCompatActivity {
     }
 
     private void setupClickJourneyList() {
+        //goto Journey Summary - short click
         ListView list = (ListView) findViewById(R.id.listviewJourney);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -64,6 +65,8 @@ public class JourneyListActivity extends AppCompatActivity {
             }
         });
 
+
+        //edit - long click
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
