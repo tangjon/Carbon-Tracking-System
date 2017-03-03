@@ -2,6 +2,10 @@ package cmpt276.jade.carbontracker.model;
 
 /**
  * Singleton facade for use by UI
+ * todo: verify syntax
+ *
+ * Usage:   obtain references through getters, once activity is done with data, use setters to save
+ *          changes made to collections (i think)
  */
 
 public class Emission {
@@ -30,5 +34,17 @@ public class Emission {
 
     public JourneyCollection getJourneyCollection() {
         return journeyCollection;
+    }
+
+    public void setCarCollection(CarCollection cc) {
+        carCollection = cc;
+    }
+
+    public RouteCollection setRouteCollection(RouteCollection rc) {
+        routeCollection = rc;
+    }
+
+    public JourneyCollection setJourneyCollection(JourneyCollection jc) {
+        journeyCollection = jc;
     }
 }
