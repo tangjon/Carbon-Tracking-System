@@ -5,5 +5,15 @@ package cmpt276.jade.carbontracker.utils;
  */
 
 public enum Mode {
-    ADD, EDIT, DELETE
+    ADD("Add"), EDIT("Edit"), DELETE("Delete");
+
+    private String mode;
+
+    private Mode(String mode) {
+        this.mode = mode;
+    }
+
+    public String getMode() {
+        return mode;
+    }
 }

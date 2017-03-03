@@ -19,28 +19,26 @@ import cmpt276.jade.carbontracker.adapter.CustomSpinnerAdapter;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.utils.CarManager;
+import cmpt276.jade.carbontracker.utils.Mode;
 
 public class CarInfoActivity extends AppCompatActivity {
+    private static String APP_MODE = "mode";
     // Field to contain all car info from vehicle.csv
     private CarCollection carCollection;
-
     // String of Manufactures for spinner adapter
     private List<String> makeDisplayList = new ArrayList<>();
-
     // String of Models for Specific Car for spinner adapter
     private List<String> modelDisplayList = new ArrayList<>();
-
     // Helper Fields
     private String selectMake, selectModel, selectYear;
-
     // TAG
     private String TAG = "carinfoactivity";
-
     // Field to store the user selected car <----------- THIS IS OF INTEREST
     private Car userSelectedCar;
 
-    public static Intent getIntentFromActivity(Context context) {
+    public static Intent getIntentFromActivity(Context context, Mode mode) {
         Intent intent = new Intent(context, CarInfoActivity.class);
+        intent.putExtra("APP_MODE", mode.getMode());
         return intent;
     }
 
