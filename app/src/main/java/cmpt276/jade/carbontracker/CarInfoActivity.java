@@ -30,6 +30,8 @@ public class CarInfoActivity extends AppCompatActivity {
     private List<String> makeDisplayList = new ArrayList<>();
     // String of Models for Specific Car for spinner adapter
     private List<String> modelDisplayList = new ArrayList<>();
+
+
     // Helper Fields
     private String selectMake, selectModel, selectYear;
     // TAG
@@ -58,10 +60,10 @@ public class CarInfoActivity extends AppCompatActivity {
             case EDIT:
                 // Fetch Select Car to Edit
                 String key = getIntent().getExtras().getString(CarListActivity.CAR_KEY);
-                Car car = CarListActivity.globCollection.getCarByKey(key);
-                selectMake = car.getMake();
-                selectModel = car.getModel();
-                selectYear = Double.toString(car.getYear());
+                userSelectedCar = CarListActivity.globCollection.getCarByKey(key);
+                selectMake = userSelectedCar.getMake();
+                selectModel = userSelectedCar.getModel();
+                selectYear = Double.toString(userSelectedCar.getYear());
                 loadCarList();
                 loadMakeDisplayList();
                 setUpAllSpinners();
