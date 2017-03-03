@@ -53,17 +53,24 @@ public class CarManager {
             int i = 0;
             while ((line = reader.readLine()) != null) {
                 // Split by ','
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",", -1);
                 // Parse Data
                 //[0] - city08 - city MPG for fuelType1 (2), (11)
                 int cityMPG = Integer.parseInt(tokens[0]);
                 //[1] - co2TailpipeGpm- tailpipe CO2 in grams/mile for fuelType1 (5)
                 double carbonTailPipe = Double.parseDouble(tokens[1]);
                 //[2] - displ - engine displacement in liters
-                double engineDispLitres = Double.parseDouble(tokens[2]);
+//                Log.i(TAG, "readCarData: " + tokens[2]);
+                double engineDispLitres;
+                if (!tokens[2].isEmpty() && !tokens[2].contains("NA")) {
+                    engineDispLitres = Double.parseDouble(tokens[2]);
+                } else {
+                    engineDispLitres = 0.0;
+                }
                 //[3] - eng_dscr - engine descriptor; see http://www.fueleconomy.gov/feg/findacarhelp.shtml#engine !! Field could be blank
                 String engineDescription;
-                if (tokens[3].contains("(")) {
+                ;
+                if (!tokens[3].isEmpty()) {
                     engineDescription = tokens[3];
                 } else {
                     engineDescription = null;
@@ -93,7 +100,7 @@ public class CarManager {
                 carListData.add(aCar);
 
                 // For Logging
-                Log.i(TAG, "readCarData: " + aCar);
+//                Log.i(TAG, "readCarData: " + aCar);
             }
         } catch (IOException e) {
             Log.wtf("CarManager", "Error reading data file on line " + line, e);
