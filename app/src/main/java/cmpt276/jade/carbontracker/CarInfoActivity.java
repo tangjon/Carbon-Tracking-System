@@ -22,6 +22,7 @@ import cmpt276.jade.carbontracker.utils.CarManager;
 import cmpt276.jade.carbontracker.utils.Mode;
 
 public class CarInfoActivity extends AppCompatActivity {
+    // KEY FOR DETERMINING APP_MODE
     private static String APP_MODE = "mode";
     // Field to contain all car info from vehicle.csv
     private CarCollection carCollection;
@@ -38,7 +39,7 @@ public class CarInfoActivity extends AppCompatActivity {
 
     public static Intent getIntentFromActivity(Context context, Mode mode) {
         Intent intent = new Intent(context, CarInfoActivity.class);
-        intent.putExtra("APP_MODE", mode.getMode());
+        intent.putExtra(APP_MODE, mode);
         return intent;
     }
 
@@ -46,13 +47,19 @@ public class CarInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_info);
-        // LOAD
-        loadCarList();
+        // get mode from intent
+        Mode mode = (Mode) getIntent().getExtras().getSerializable(APP_MODE);
+        switch (mode) {
+            case ADD:
+                loadCarList();
+                loadMakeDisplayList();
+                setUpAllSpinners();
+                break;
+            case EDIT:
 
-        loadMakeDisplayList();
+                break;
 
-        setUpAllSpinners();
-
+        }
         // TODO Needs direct to next activity
         setUpNextBtn();
     }

@@ -13,6 +13,7 @@ import java.util.List;
 import cmpt276.jade.carbontracker.adapter.CarListAdapter;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
+import cmpt276.jade.carbontracker.utils.Mode;
 
 public class CarListActivity extends AppCompatActivity {
 
@@ -39,8 +40,15 @@ public class CarListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Fetch Car Object
                 Car car = (Car) parent.getAdapter().getItem(position);
+            }
+        });
 
-
+        lstView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
+                startActivity(intent);
+                return true;
             }
         });
     }
@@ -73,7 +81,7 @@ public class CarListActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this);
+                Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.ADD);
                 startActivity(intent);
             }
         });
