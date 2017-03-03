@@ -8,15 +8,9 @@ import java.io.Serializable;
 
 public class Route implements Serializable{
 
-    private double cityDriving;
-    private double highwayDriving;
-    private String nickName;
-
-    public void Route(){
-        this.cityDriving = 10;
-        this.highwayDriving = 20;
-        this.nickName = "Route Name";
-    }
+    private double cityDriving = 5;
+    private double highwayDriving = 10.2;
+    private String nickName = "Route name";
 
 
 

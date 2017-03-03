@@ -43,16 +43,17 @@ public class JourneySummaryActivity extends AppCompatActivity {
     }
 
     private void setData() {
+        double temp;
         TextView carName = (TextView) findViewById(R.id.textCarName);
         carName.setText(car.getNickname());
         TextView routeName = (TextView) findViewById(R.id.textRouteName);
         routeName.setText(route.getNickName());
         TextView cityDrive = (TextView) findViewById(R.id.textCitydrv);
-        cityDrive.setText(""+ journey.getTotalCity());
+        cityDrive.setText(""+ String.format("%.2f",journey.getTotalCity()));
         TextView hwayDrive = (TextView) findViewById(R.id.textHwaydrv);
-        hwayDrive.setText(""+ journey.getTotalHighway());
+        hwayDrive.setText(""+ String.format("%.2f",journey.getTotalHighway()));
         TextView totalDrive = (TextView) findViewById(R.id.textTotaldrv);
-        totalDrive.setText("" + journey.getTotalHighway());
+        totalDrive.setText("" + String.format("%.2f",journey.getTotalTravelled()));
 
     }
 

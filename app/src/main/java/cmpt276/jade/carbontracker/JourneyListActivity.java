@@ -39,12 +39,9 @@ public class JourneyListActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Car car = new Car("Car", "Model",1999 , 20.0 ,30.0, 9.99);
+                Car car = new Car("Car", "Model",1999 , 20.0 ,30.2, 9.99);
                 car.setNickname("Nickname");
                 Route route = new Route();
-                route.setNickName("Route Name");
-                route.setCityDriving(10);
-                route.setHighwayDriving(20);
                 Journey journey = new Journey("A new journey", car, route);
                 listOfJourneys.addJourney(journey);
                 populateList();
