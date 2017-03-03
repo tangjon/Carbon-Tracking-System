@@ -33,7 +33,6 @@ public class CarManager {
     private static String TAG = "carmanager";
 
     private CarManager() {
-
     }
 
     public static ArrayList<Car> readCarData(Context context, int fileID) {

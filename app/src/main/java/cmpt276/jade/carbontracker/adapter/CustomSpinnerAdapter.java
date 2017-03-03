@@ -71,7 +71,6 @@ public class CustomSpinnerAdapter extends ArrayAdapter<Car> {
 
         setUpTextView(itemView, R.id.tv_item, Integer.toString(currentCar.getYear()));
 
-
         return itemView;
     }
 

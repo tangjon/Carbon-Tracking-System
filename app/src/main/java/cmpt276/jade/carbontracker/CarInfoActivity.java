@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -54,7 +55,18 @@ public class CarInfoActivity extends AppCompatActivity {
 
         setUpAllSpinners();
 
+        // TODO Needs direct to next activity
+        setUpNextBtn();
+    }
 
+    private void setUpNextBtn() {
+        Button btn = (Button) findViewById(R.id.btn_next);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CarListActivity.globCollection.add(userSelectedCar);
+            }
+        });
     }
 
     private Spinner setUpSpinner(int spnID, List<String> stringList) {

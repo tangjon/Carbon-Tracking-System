@@ -8,7 +8,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.List;
+
+import cmpt276.jade.carbontracker.model.CarCollection;
+
 public class CarListActivity extends AppCompatActivity {
+
+    //TODO TEMPORARY CAR COLLECTION STATIC SHOULD PLACED IN LOG CLASS
+    public static CarCollection globCollection = new CarCollection();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +25,7 @@ public class CarListActivity extends AppCompatActivity {
         setUpAddButton(R.id.btn_add_car);
 
         //TODO String Array Argument to be implemented
-        String[] stringList = {""};
+        List<String> stringList = globCollection.makeToStringList();
 
         ListView lstView = (ListView) findViewById(R.id.lv_carList);
         // Create an ArrayAdapter using the string array and a default spinner layout
