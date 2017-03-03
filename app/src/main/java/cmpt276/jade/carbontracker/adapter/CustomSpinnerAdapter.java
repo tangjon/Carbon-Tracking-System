@@ -42,6 +42,12 @@ public class CustomSpinnerAdapter extends ArrayAdapter<Car> {
         setUpTextView(itemView, R.id.tv_cityMPG, Double.toString(currentCar.getCityMPG()));
         setUpTextView(itemView, R.id.tv_highwayMPG, Double.toString(currentCar.getHighwayMPG()));
         setUpTextView(itemView, R.id.tv_carbon_tail_pipe, Double.toString(currentCar.getCarbonTailPipe()));
+        setUpTextView(itemView, R.id.tv_displacement, Double.toString(currentCar.getEngineDispLitres()));
+        setUpTextView(itemView, R.id.tv_engine, currentCar.getEngineDescription());
+        setUpTextView(itemView, R.id.tv_fuel_cost, Integer.toString(currentCar.getFuelAnnualCost()));
+        setUpTextView(itemView, R.id.tv_transmission, currentCar.getTransDescription());
+
+
 
 
         return itemView;
