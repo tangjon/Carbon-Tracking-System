@@ -6,18 +6,29 @@ package cmpt276.jade.carbontracker.model;
 
 public class Emission {
     private static Emission emission = new Emission();
-    private CarCollection carCollection = new CarCollection();
-    // TODO: give access to other collections and functions
+    private CarCollection carCollection;
+    private RouteCollection routeCollection;
+    private JourneyCollection journeyCollection;
 
     public static Emission getInstance() {
         return emission;
     }
 
     private Emission() {
-        emission = new Emission();
+        carCollection = new CarCollection();
+        routeCollection = new RouteCollection();
+        journeyCollection = new JourneyCollection();
     }
 
     public CarCollection getCarCollection() {
         return carCollection;
+    }
+
+    public RouteCollection getRouteCollection() {
+        return routeCollection;
+    }
+
+    public JourneyCollection getJourneyCollection() {
+        return journeyCollection;
     }
 }
