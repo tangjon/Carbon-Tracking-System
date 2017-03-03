@@ -25,8 +25,13 @@ public class CarListActivity extends AppCompatActivity {
         setUpAddButton(R.id.btn_add_car);
 
         //TODO String Array Argument to be implemented
-        List<String> stringList = globCollection.makeToStringList();
+        updateUI();
 
+
+    }
+
+    private void updateUI() {
+        List<String> stringList = globCollection.makeToStringList();
         ListView lstView = (ListView) findViewById(R.id.lv_carList);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -35,8 +40,6 @@ public class CarListActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         lstView.setAdapter(adapter);
-
-
     }
 
     private void setUpAddButton(int btnID) {
@@ -48,5 +51,12 @@ public class CarListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateUI();
     }
 }
