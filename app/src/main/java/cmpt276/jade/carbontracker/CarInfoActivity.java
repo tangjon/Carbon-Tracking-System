@@ -59,6 +59,9 @@ public class CarInfoActivity extends AppCompatActivity {
                 // Fetch Select Car to Edit
                 String key = getIntent().getExtras().getString(CarListActivity.CAR_KEY);
                 Car car = CarListActivity.globCollection.getCarByKey(key);
+                selectMake = car.getMake();
+                selectModel = car.getModel();
+                selectYear = Double.toString(car.getYear());
                 loadCarList();
                 loadMakeDisplayList();
                 setUpAllSpinners();
@@ -110,6 +113,9 @@ public class CarInfoActivity extends AppCompatActivity {
 
         // MAKE SPINNER ---------
         final Spinner spnMake = setUpSpinner(R.id.spn_make, makeDisplayList);
+        if(!(selectMake == null)){
+            spnMake.setSelection(makeDisplayList.indexOf(selectMake));
+        }
         spnMake.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectMake = (String) spnMake.getSelectedItem();
@@ -118,6 +124,9 @@ public class CarInfoActivity extends AppCompatActivity {
 
                 // MODEL SPINNER -----------
                 final Spinner spnModel = setUpSpinner(R.id.spn_model, modelDisplayList);
+                if(!(selectModel == null)){
+                    spnModel.setSelection(modelDisplayList.indexOf(selectModel));
+                }
                 spnModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         selectModel = (String) spnModel.getSelectedItem();
@@ -128,6 +137,8 @@ public class CarInfoActivity extends AppCompatActivity {
                         // Pull Car List with specified make and model
                         final List<Car> specList = carCollection.search(selectMake, selectModel).toList();
                         Spinner spnYear = setUpCustomSpinner(R.id.spn_year, specList);
+                        if(!(selectYear == null)){
+                        }
                         spnYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                 userSelectedCar = specList.get(i);
