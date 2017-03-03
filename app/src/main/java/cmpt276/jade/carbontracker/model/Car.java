@@ -7,6 +7,7 @@ import java.util.UUID;
  */
 
 public class Car {
+    String transDescription;
     private String nickName;
     private String make;
     private String model;
@@ -22,7 +23,7 @@ public class Car {
 
     // Constructor with nickname
     public Car(String nickName, String make, String model, int year, int cityMPG, int highwayMPG, String engineDescription,
-               double engineDispLitres, String fuelType, int fuelAnnualCost, double carbonTailPipe, UUID KEY) {
+               double engineDispLitres, String fuelType, int fuelAnnualCost, double carbonTailPipe, String transDescription) {
         this.nickName = nickName;
         this.make = make;
         this.model = model;
@@ -34,11 +35,12 @@ public class Car {
         this.fuelType = fuelType;
         this.fuelAnnualCost = fuelAnnualCost;
         this.carbonTailPipe = carbonTailPipe;
-        this.KEY = KEY;
+        this.KEY = UUID.randomUUID();
+        this.transDescription = transDescription;
     }
 
     public Car(String make, String model, int year, int cityMPG, int highwayMPG, String engineDescription,
-               double engineDispLitres, String fuelType, int fuelAnnualCost, double carbonTailPipe) {
+               double engineDispLitres, String fuelType, int fuelAnnualCost, double carbonTailPipe, String transDescription) {
         this.make = make;
         this.model = model;
         this.year = year;
@@ -50,6 +52,15 @@ public class Car {
         this.fuelAnnualCost = fuelAnnualCost;
         this.carbonTailPipe = carbonTailPipe;
         this.KEY = UUID.randomUUID();
+        this.transDescription = transDescription;
+    }
+
+    public String getTransDescription() {
+        return transDescription;
+    }
+
+    public void setTransDescription(String transDescription) {
+        this.transDescription = transDescription;
     }
 
     public UUID getKEY() {
@@ -166,6 +177,7 @@ public class Car {
                 "nickName='" + nickName + '\'' +
                 ", make='" + make + '\'' +
                 ", model='" + model + '\'' +
+                ", transDescription='" + transDescription + '\'' +
                 ", year=" + year +
                 ", cityMPG=" + cityMPG +
                 ", highwayMPG=" + highwayMPG +
