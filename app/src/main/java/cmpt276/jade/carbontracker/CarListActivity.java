@@ -17,7 +17,9 @@ public class CarListActivity extends AppCompatActivity {
 
         setUpAddButton(R.id.btn_add_car);
 
-        String[] stringList = {"Hello", "BYE"};
+        //TODO String Array Argument to be implemented
+        String[] stringList = {""};
+
         ListView lstView = (ListView) findViewById(R.id.lv_carList);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<String> adapter = new ArrayAdapter<>(

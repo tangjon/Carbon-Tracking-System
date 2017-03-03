@@ -7,28 +7,57 @@ import java.util.UUID;
  */
 
 public class Car {
-    private String make; // Manufacturer
+    private String nickName;
+    private String make;
     private String model;
-    private String nickname;
     private int year;
-    private double uCity;
-    private double uHighway;
+    private int cityMPG;
+    private int highwayMPG;
+    private String engineDescription;
+    private double engineDispLitres;
+    private String fuelType;
+    private int fuelAnnualCost;
     private double carbonTailPipe;
     private UUID KEY;
 
-    public Car(String make, String model, int year, double uCity, double uHighway, double carbonTailPipe) {
+    // Constructor with nickname
+    public Car(String nickName, String make, String model, int year, int cityMPG, int highwayMPG, String engineDescription,
+               double engineDispLitres, String fuelType, int fuelAnnualCost, double carbonTailPipe, UUID KEY) {
+        this.nickName = nickName;
         this.make = make;
         this.model = model;
-        this.nickname = "";
         this.year = year;
-        this.uCity = uCity;
-        this.uHighway = uHighway;
+        this.cityMPG = cityMPG;
+        this.highwayMPG = highwayMPG;
+        this.engineDescription = engineDescription;
+        this.engineDispLitres = engineDispLitres;
+        this.fuelType = fuelType;
+        this.fuelAnnualCost = fuelAnnualCost;
+        this.carbonTailPipe = carbonTailPipe;
+        this.KEY = KEY;
+    }
+
+    public Car(String make, String model, int year, int cityMPG, int highwayMPG, String engineDescription,
+               double engineDispLitres, String fuelType, int fuelAnnualCost, double carbonTailPipe) {
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.cityMPG = cityMPG;
+        this.highwayMPG = highwayMPG;
+        this.engineDescription = engineDescription;
+        this.engineDispLitres = engineDispLitres;
+        this.fuelType = fuelType;
+        this.fuelAnnualCost = fuelAnnualCost;
         this.carbonTailPipe = carbonTailPipe;
         this.KEY = UUID.randomUUID();
     }
 
     public UUID getKEY() {
         return KEY;
+    }
+
+    public void setKEY(UUID KEY) {
+        this.KEY = KEY;
     }
 
     public String getMake() {
@@ -48,11 +77,11 @@ public class Car {
     }
 
     public String getNickname() {
-        return nickname;
+        return nickName;
     }
 
     public void setNickname(String nickname) {
-        this.nickname = nickname;
+        this.nickName = nickname;
     }
 
     public int getYear() {
@@ -63,20 +92,64 @@ public class Car {
         this.year = year;
     }
 
-    public double getuCity() {
-        return uCity;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setuCity(int uCity) {
-        this.uCity = uCity;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
-    public double getuHighway() {
-        return uHighway;
+    public int getCityMPG() {
+        return cityMPG;
     }
 
-    public void setuHighway(int uHighway) {
-        this.uHighway = uHighway;
+    public void setCityMPG(int cityMPG) {
+        this.cityMPG = cityMPG;
+    }
+
+    public int getHighwayMPG() {
+        return highwayMPG;
+    }
+
+    public void setHighwayMPG(int highwayMPG) {
+        this.highwayMPG = highwayMPG;
+    }
+
+    public String getEngineDescription() {
+        return engineDescription;
+    }
+
+    public void setEngineDescription(String engineDescription) {
+        this.engineDescription = engineDescription;
+    }
+
+    public double getEngineDispLitres() {
+        return engineDispLitres;
+    }
+
+    public void setEngineDispLitres(double engineDispLitres) {
+        this.engineDispLitres = engineDispLitres;
+    }
+
+    public String getFuelType() {
+        return fuelType;
+    }
+
+    public void setFuelType(String fuelType) {
+        this.fuelType = fuelType;
+    }
+
+    public int getFuelAnnualCost() {
+        return fuelAnnualCost;
+    }
+
+    public void setFuelAnnualCost(int fuelAnnualCost) {
+        this.fuelAnnualCost = fuelAnnualCost;
+    }
+
+    public void setCarbonTailPipe(double carbonTailPipe) {
+        this.carbonTailPipe = carbonTailPipe;
     }
 
     public double getCarbonTailPipe() {
@@ -90,13 +163,18 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "make='" + make + '\'' +
+                "nickName='" + nickName + '\'' +
+                ", make='" + make + '\'' +
                 ", model='" + model + '\'' +
-                ", nickname='" + nickname + '\'' +
                 ", year=" + year +
-                ", uCity=" + uCity +
-                ", uHighway=" + uHighway +
+                ", cityMPG=" + cityMPG +
+                ", highwayMPG=" + highwayMPG +
+                ", engineDescription='" + engineDescription + '\'' +
+                ", engineDispLitres=" + engineDispLitres +
+                ", fuelType='" + fuelType + '\'' +
+                ", fuelAnnualCost=" + fuelAnnualCost +
                 ", carbonTailPipe=" + carbonTailPipe +
+                ", KEY=" + KEY +
                 '}';
     }
 }
