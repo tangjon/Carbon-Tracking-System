@@ -1,5 +1,10 @@
 package cmpt276.jade.carbontracker.model;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
+
 /**
  * Singleton facade for use by UI
  * todo: verify syntax
@@ -14,6 +19,9 @@ public class Emission {
     // private RouteCollection routeCollection = new RouteCollection();
     // private JourneyCollection journeyCollection = new JourneyCollection();
 
+    private final String SPREF_KEY = "cmpt276.jade.carbontracker";
+    private final String KEY_CAR_COLLECTION = "CarCollection";
+
     public static Emission getInstance() {
         return instance;
     }
@@ -21,9 +29,7 @@ public class Emission {
     private Emission() {
         if (instance != null)
             throw new IllegalStateException("Emission singleton already instantiated");
-        // carCollection = new CarCollection();
-        // routeCollection = new RouteCollection();
-        // journeyCollection = new JourneyCollection();
+
     }
 
     public CarCollection getCarCollection() {
@@ -53,4 +59,26 @@ public class Emission {
         journeyCollection = jc;
     }
     */
+
+    public void saveCarCollection(Context context) {
+        SharedPreferences sharedPreferences =
+                context.getSharedPreferences(SPREF_KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Gson gson = new Gson();
+        editor.putString(KEY_CAR_COLLECTION, gson.toJson(carCollection));
+
+        editor.apply();
+    }
+
+    public void loadCarCollection(Context context) {
+        SharedPreferences sharedPreferences =
+                context.getSharedPreferences(SPREF_KEY, Context.MODE_PRIVATE);
+
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(KEY_CAR_COLLECTION, null);
+        carCollection = gson.fromJson(json, carCollection.getClass());
+
+        if (carCollection == null) carCollection = new CarCollection();
+    }
 }
