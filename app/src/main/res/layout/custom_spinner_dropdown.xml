@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
-        android:text="@string/DEFAULT_TXT"
+        android:id="@+id/tv_year_display"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_year_display"
-        android:textStyle="normal|bold"
-        android:textAllCaps="false"
+        android:text="@string/label_year"
         android:textAlignment="viewStart"
+        android:textAllCaps="false"
         android:textColor="@android:color/black"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <TextView
-                android:paddingRight="5dp"
-                android:text="@string/label_UCity"
+                android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView14"
+                android:paddingRight="5dp"
+                android:text="@string/label_CityMPG"
                 android:textStyle="normal|bold" />
 
             <TextView
-                android:paddingRight="5dp"
-                android:text="@string/DEFAULT_TXT"
+                android:id="@+id/tv_ucity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_ucity"
                 android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/textView14" />
+                android:layout_toEndOf="@+id/textView14"
+                android:paddingRight="5dp"
+                android:text="@string/DEFAULT_TXT" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -46,21 +47,21 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:paddingRight="5dp"
-                android:text="@string/label_UHighway"
+                android:id="@+id/textView18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView18"
+                android:paddingRight="5dp"
+                android:text="@string/label_HighwayMPG"
                 android:textStyle="normal|bold" />
 
             <TextView
-                android:paddingRight="5dp"
-                android:text="@string/DEFAULT_TXT"
+                android:id="@+id/tv_uhighway"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_uhighway"
                 android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/textView18" />
+                android:layout_toEndOf="@+id/textView18"
+                android:paddingRight="5dp"
+                android:text="@string/DEFAULT_TXT" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -68,24 +69,115 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:paddingRight="5dp"
-                android:text="@string/label_carbon_tail_pipe"
+                android:id="@+id/textView2163"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView21"
+                android:paddingRight="5dp"
+                android:text="@string/label_carbon_tail_pipe"
                 android:textStyle="normal|bold" />
 
             <TextView
-                android:paddingRight="5dp"
-                android:layout_toRightOf="@+id/textView21"
-                android:text="@string/DEFAULT_TXT"
+                android:id="@+id/tv_carbon_tail_pipe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_carbon_tail_pipe"
-                android:layout_weight="1" />
+                android:layout_toRightOf="@+id/textView2163"
+                android:layout_weight="1"
+                android:paddingRight="5dp"
+                android:text="@string/DEFAULT_TXT" />
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:text="@string/label_displ"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:id="@+id/tv_displacement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textView21"
+                android:layout_weight="1"
+                android:paddingRight="5dp"
+                android:text="@string/DEFAULT_TXT" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView293"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:text="@string/label_engine"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:id="@+id/tv_engine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textView293"
+                android:layout_weight="1"
+                android:paddingRight="5dp"
+                android:text="@string/DEFAULT_TXT" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView313"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:text="@string/label_fuel_cost"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:id="@+id/tv_fuel_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textView313"
+                android:layout_weight="1"
+                android:paddingRight="5dp"
+                android:text="@string/DEFAULT_TXT" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView213"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:text="@string/label_transmission"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:id="@+id/tv_transmission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textView213"
+                android:layout_weight="1"
+                android:paddingRight="5dp"
+                android:text="@string/DEFAULT_TXT" />
+
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>
