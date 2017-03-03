@@ -17,6 +17,7 @@ import java.util.List;
 import cmpt276.jade.carbontracker.adapter.CustomSpinnerAdapter;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
+import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.utils.CarManager;
 
 public class CarInfoActivity extends AppCompatActivity {
@@ -37,6 +38,8 @@ public class CarInfoActivity extends AppCompatActivity {
 
     // Field to store the user selected car <----------- THIS IS OF INTEREST
     private Car userSelectedCar;
+
+    private Emission emission = Emission.getInstance();
 
     public static Intent getIntentFromActivity(Context context) {
         Intent intent = new Intent(context, CarInfoActivity.class);
@@ -139,6 +142,7 @@ public class CarInfoActivity extends AppCompatActivity {
 
     private void loadCarList() {
         carCollection = new CarCollection(CarManager.readCarData(this, R.raw.vehicle_trimmed));
+        emission.setCarCollection(carCollection);
     }
 
     private void loadModelDisplayList() {
