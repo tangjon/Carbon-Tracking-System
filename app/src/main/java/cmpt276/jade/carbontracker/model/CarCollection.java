@@ -38,8 +38,7 @@ public class CarCollection {
     // Return specific collection containing the make, and model
     public CarCollection search(String make, String model) {
         CarCollection collection = new CarCollection();
-        for (Car car :
-                carList) {
+        for (Car car : carList) {
             if (car.getMake().equals(make) && car.getModel().equals(model)) {
                 collection.add(car);
             }
@@ -92,8 +91,7 @@ public class CarCollection {
 
     public List<String> makeToStringList() {
         List<String> stringList = new ArrayList<>();
-        for (Car car :
-                carList) {
+        for (Car car : carList) {
             stringList.add(car.getMake());
         }
         return stringList;
@@ -110,5 +108,15 @@ public class CarCollection {
 
     public List<Car> toList() {
         return carList;
+    }
+
+    public Car getCarByKey(String key) {
+        for (Car car :
+                carList) {
+            if (car.getKEY().toString().equals(key)) {
+                return car;
+            }
+        }
+        return null;
     }
 }

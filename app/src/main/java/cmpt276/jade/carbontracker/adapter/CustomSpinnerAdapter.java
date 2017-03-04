@@ -38,17 +38,25 @@ public class CustomSpinnerAdapter extends ArrayAdapter<Car> {
         // Get Car
         Car currentCar = mItems.get(position);
 
-        TextView tv_year = (TextView) itemView.findViewById(R.id.tv_year_display);
-        tv_year.setText(Integer.toString(currentCar.getYear()));
-        TextView tv_UCity = (TextView) itemView.findViewById(R.id.tv_ucity);
-        tv_UCity.setText(Double.toString(currentCar.getuCity()));
-        TextView tv_UHighway = (TextView) itemView.findViewById(R.id.tv_uhighway);
-        tv_UHighway.setText(Double.toString(currentCar.getuHighway()));
-        TextView tv_carbon_tail_pipe = (TextView) itemView.findViewById(R.id.tv_carbon_tail_pipe);
-        tv_carbon_tail_pipe.setText(Double.toString(currentCar.getCarbonTailPipe()));
+        setUpTextView(itemView, R.id.tv_year_display, Integer.toString(currentCar.getYear()));
+        setUpTextView(itemView, R.id.tv_cityMPG, Double.toString(currentCar.getCityMPG()));
+        setUpTextView(itemView, R.id.tv_highwayMPG, Double.toString(currentCar.getHighwayMPG()));
+        setUpTextView(itemView, R.id.tv_carbon_tail_pipe, Double.toString(currentCar.getCarbonTailPipe()));
+        setUpTextView(itemView, R.id.tv_displacement, Double.toString(currentCar.getEngineDispLitres()));
+        setUpTextView(itemView, R.id.tv_engine, currentCar.getEngineDescription());
+        setUpTextView(itemView, R.id.tv_fuel_cost, Integer.toString(currentCar.getFuelAnnualCost()));
+        setUpTextView(itemView, R.id.tv_transmission, currentCar.getTransDescription());
+
+
+
 
 
         return itemView;
+    }
+
+    private void setUpTextView(View itemView, int tvID, String text) {
+        TextView tv_carbon_tail_pipe = (TextView) itemView.findViewById(tvID);
+        tv_carbon_tail_pipe.setText(text);
     }
 
     @NonNull
@@ -62,9 +70,7 @@ public class CustomSpinnerAdapter extends ArrayAdapter<Car> {
         }
         Car currentCar = mItems.get(position);
 
-        TextView tv_year = (TextView) itemView.findViewById(R.id.tv_item);
-        tv_year.setText(Integer.toString(currentCar.getYear()));
-
+        setUpTextView(itemView, R.id.tv_item, Integer.toString(currentCar.getYear()));
 
         return itemView;
     }

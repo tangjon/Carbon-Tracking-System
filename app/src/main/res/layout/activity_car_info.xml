@@ -59,16 +59,24 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_short_summary"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/activity_vertical_margin"
-            android:text="@string/label_UCity"
+            android:text="@string/label_CityMPG"
             android:textColor="@android:color/black"
             android:textStyle="normal|bold" />
 
         <TextView
-            android:id="@+id/tv_ucity"
+            android:id="@+id/tv_cityMPG"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/DEFAULT_NUM"
@@ -80,12 +88,29 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:paddingBottom="@dimen/activity_vertical_margin"
-            android:text="@string/label_UHighway"
+            android:text="@string/label_HighwayMPG"
             android:textColor="@android:color/black"
             android:textStyle="normal|bold" />
 
         <TextView
-            android:id="@+id/tv_uhighway"
+            android:id="@+id/tv_highwayMPG"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/DEFAULT_NUM"
+            android:textAlignment="textEnd" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:text="@string/label_engine"
+            android:textColor="@android:color/black"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:id="@+id/tv_engine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/DEFAULT_NUM"
@@ -96,19 +121,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/activity_vertical_margin"
-            android:text="@string/label_carbon_tail_pipe"
+            android:text="@string/label_transmission"
             android:textColor="@android:color/black"
             android:textStyle="normal|bold" />
 
         <TextView
-            android:id="@+id/tv_carbon_tail_pipe"
+            android:id="@+id/tv_transmission"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/DEFAULT_NUM"
             android:textAlignment="textEnd" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/label_next"
