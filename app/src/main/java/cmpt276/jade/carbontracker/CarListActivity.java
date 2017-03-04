@@ -20,11 +20,19 @@ public class CarListActivity extends AppCompatActivity {
     //TODO TEMPORARY CAR COLLECTION STATIC SHOULD PLACED IN LOG CLASS
     public static CarCollection globCollection = new CarCollection();
     public static String CAR_KEY = "carKey";
+
+    private String activity_name = "CarListActivity";
     private ListView lstView;
+
+    public static Intent getIntentFromActivity(Context context) {
+        Intent intent = new Intent(context, CarListActivity.class);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle(activity_name);
         setContentView(R.layout.activity_car_list);
 
         setUpAddButton(R.id.btn_add_car);
@@ -74,10 +82,6 @@ public class CarListActivity extends AppCompatActivity {
 
         // TODO Implement Edit Mode/Delete
         setUpEditMode();
-    }
-    public static Intent getIntentFromActivity(Context context) {
-        Intent intent = new Intent(context, CarListActivity.class);
-        return intent;
     }
 
     private void setUpAddButton(int btnID) {
