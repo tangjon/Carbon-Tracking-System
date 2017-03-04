@@ -1,12 +1,13 @@
 package cmpt276.jade.carbontracker.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
  * Created by tangj on 2/27/2017.
  */
 
-public class Car {
+public class Car implements Serializable{
     private String make; // Manufacturer
     private String model;
     private String nickname;
@@ -16,7 +17,7 @@ public class Car {
     private double carbonTailPipe;
     private UUID KEY;
 
-    public Car(String make, String model, int year, double uCity, double uHighway, double carbonTailPipe) {
+    public Car(String make, String model ,int year, double uCity, double uHighway, double carbonTailPipe) {
         this.make = make;
         this.model = model;
         this.nickname = "";

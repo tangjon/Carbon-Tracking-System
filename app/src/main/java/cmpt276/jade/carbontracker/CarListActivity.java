@@ -1,5 +1,6 @@
 package cmpt276.jade.carbontracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,13 +30,17 @@ public class CarListActivity extends AppCompatActivity {
 
 
     }
+    public static Intent getIntentFromActivity(Context context) {
+        Intent intent = new Intent(context, CarListActivity.class);
+        return intent;
+    }
 
     private void setUpAddButton(int btnID) {
         Button button = (Button) findViewById(btnID);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this);
+                Intent intent = JourneyListActivity.getJourneyListIntent(CarListActivity.this);
                 startActivity(intent);
             }
         });
