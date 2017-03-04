@@ -8,10 +8,10 @@ import java.util.UUID;
  */
 
 public class Car implements Serializable{
-    private String transDescription
+    private String transDescription;
     private String make; // Manufacturer
     private String model;
-    private String nickname;
+    private String nickName;
     private int year;
     private int cityMPG;
     private int highwayMPG;
@@ -21,6 +21,11 @@ public class Car implements Serializable{
     private int fuelAnnualCost;
     private double carbonTailPipe;
     private UUID KEY;
+
+    public Car(){
+
+    }
+
 
     // Constructor with nickname
     public Car(String nickName, String make, String model, int year, int cityMPG, int highwayMPG, String engineDescription,
