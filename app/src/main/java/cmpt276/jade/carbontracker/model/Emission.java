@@ -18,7 +18,7 @@ public class Emission {
      * useful for keeping temporary journey to work with throughout journey creation process
      * without using SharedPreferences/Intents
      */
-    private Journey buffer = new Journey();
+    private Journey buffer;
 
     private final String SPREF_KEY = "cmpt276.jade.carbontracker";
     private final String KEY_CAR_COLLECTION = "CarCollection";
