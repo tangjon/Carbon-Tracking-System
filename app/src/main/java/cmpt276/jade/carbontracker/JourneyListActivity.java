@@ -19,6 +19,7 @@ public class JourneyListActivity extends AppCompatActivity {
     public static JourneyCollection listOfJourneys = new JourneyCollection();
     //maybe have a get data from intent that can handle a journey being passed into it?
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey_list);
@@ -39,14 +40,13 @@ public class JourneyListActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Car car = new Car("Car", "Model",1999 , 20.0 ,30.2, 9.99);
-                car.setNickname("Nickname");
+                Car car = new Car();
                 Route route = new Route();
                 Journey journey = new Journey("A new journey", car, route);
                 listOfJourneys.addJourney(journey);
                 populateList();
-            /*    Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
-                startActivity(intent);*/
+                CarListActivity.getIntentFromActivity(JourneyListActivity.this);
+                startActivity(CarListActivity.getIntentFromActivity(JourneyListActivity.this));
             }
         });
 
