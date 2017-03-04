@@ -7,17 +7,18 @@ import com.google.gson.Gson;
 
 /**
  * Singleton facade for use by UI
- * todo: verify syntax
- *
- * Usage:   obtain references through getters; once activity is done with data, use setters to save
- *          changes made to collections
  */
 
 public class Emission {
     private static final Emission instance = new Emission();
     private CarCollection carCollection = new CarCollection();
-    // private RouteCollection routeCollection = new RouteCollection();
-    // private JourneyCollection journeyCollection = new JourneyCollection();
+    private JourneyCollection journeyCollection = new JourneyCollection();
+
+    /**
+     * useful for keeping temporary journey to work with throughout journey creation process
+     * without using SharedPreferences/Intents
+     */
+    private Journey buffer = new Journey();
 
     private final String SPREF_KEY = "cmpt276.jade.carbontracker";
     private final String KEY_CAR_COLLECTION = "CarCollection";
@@ -36,29 +37,25 @@ public class Emission {
         return carCollection;
     }
 
-    /*
-    public RouteCollection getRouteCollection() {
-        return routeCollection;
-    }
-
     public JourneyCollection getJourneyCollection() {
         return journeyCollection;
     }
-    */
 
     public void setCarCollection(CarCollection cc) {
         carCollection = cc;
     }
 
-    /*
-    public static RouteCollection setRouteCollection(RouteCollection rc) {
-        routeCollection = rc;
-    }
-
-    public static JourneyCollection setJourneyCollection(JourneyCollection jc) {
+    public void setJourneyCollection(JourneyCollection jc) {
         journeyCollection = jc;
     }
-    */
+
+    public Journey getJourneyBuffer() {
+        return buffer;
+    }
+
+    public void setJourneyBuffer(Journey j) {
+        buffer = j;
+    }
 
     public void saveCarCollection(Context context) {
         SharedPreferences sharedPreferences =
