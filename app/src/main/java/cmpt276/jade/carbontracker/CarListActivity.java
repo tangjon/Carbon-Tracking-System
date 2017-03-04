@@ -74,12 +74,18 @@ public class CarListActivity extends AppCompatActivity {
         // TODO Implement Edit Mode/Delete
         setUpEditMode();
     }
+    public static Intent getIntentFromActivity(Context context) {
+        Intent intent = new Intent(context, CarListActivity.class);
+        return intent;
+    }
 
     private void setUpAddButton(int btnID) {
         Button button = (Button) findViewById(btnID);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO SHOULD SEND US TO ROUTE
+                // ACTIVITES
                 Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.ADD);
                 startActivity(intent);
             }

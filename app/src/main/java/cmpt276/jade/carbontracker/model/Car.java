@@ -1,16 +1,17 @@
 package cmpt276.jade.carbontracker.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
  * Created by tangj on 2/27/2017.
  */
 
-public class Car {
-    String transDescription;
-    private String nickName;
-    private String make;
+public class Car implements Serializable{
+    private String transDescription
+    private String make; // Manufacturer
     private String model;
+    private String nickname;
     private int year;
     private int cityMPG;
     private int highwayMPG;
