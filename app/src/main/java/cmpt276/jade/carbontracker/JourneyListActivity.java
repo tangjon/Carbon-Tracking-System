@@ -45,8 +45,8 @@ public class JourneyListActivity extends AppCompatActivity {
                 Journey journey = new Journey("A new journey", car, route);
                 listOfJourneys.addJourney(journey);
                 populateList();
-            /*    Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
-                startActivity(intent);*/
+                CarListActivity.getIntentFromActivity(JourneyListActivity.this);
+                startActivity(CarListActivity.getIntentFromActivity(JourneyListActivity.this));
             }
         });
 
