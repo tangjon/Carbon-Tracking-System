@@ -4,11 +4,11 @@
     android:id="@+id/layout_route_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/mainbackground"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/mainbackground"
     tools:context="com.example.alex.carbontracker.Route_List_Activity">
 
     <ListView
@@ -20,12 +20,12 @@
         android:layout_below="@+id/Route_List_text_title" />
 
     <Button
-        android:text="ADD ROUTE"
+        android:id="@+id/Route_List_add_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/Route_List_add_btn"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:text="ADD ROUTE" />
 
     <Button
         android:id="@+id/Route_List_summary_btn"
