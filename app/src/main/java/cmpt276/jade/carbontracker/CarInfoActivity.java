@@ -11,9 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import cmpt276.jade.carbontracker.adapter.CustomSpinnerAdapter;
 import cmpt276.jade.carbontracker.model.Car;
@@ -56,26 +58,26 @@ public class CarInfoActivity extends AppCompatActivity {
                 loadCarList();
                 loadMakeDisplayList();
                 setUpAllSpinners();
+                setUpNextBtn();
                 break;
             case EDIT:
                 // Fetch Select Car to Edit
                 String key = getIntent().getExtras().getString(CarListActivity.CAR_KEY);
                 userSelectedCar = CarListActivity.globCollection.getCarByKey(key);
+                UUID thisKey = userSelectedCar.getKEY();
+                Log.i(TAG, "onCreate: " + thisKey);
                 selectMake = userSelectedCar.getMake();
                 selectModel = userSelectedCar.getModel();
                 selectYear = Double.toString(userSelectedCar.getYear());
                 loadCarList();
                 loadMakeDisplayList();
                 setUpAllSpinners();
-                loadCurrentCarInfo();
+                setUpFinishEditBtn(thisKey);
                 break;
 
         }
         // TODO Needs direct to next activity
-        setUpNextBtn();
-    }
 
-    private void loadCurrentCarInfo() {
     }
 
     private void setUpNextBtn() {
@@ -86,6 +88,22 @@ public class CarInfoActivity extends AppCompatActivity {
                 CarListActivity.globCollection.add(userSelectedCar);
             }
         });
+    }
+
+    private void setUpFinishEditBtn(final UUID key) {
+        Button btn = (Button) findViewById(R.id.btn_next);
+        btn.setText("Confirm Edit");
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userSelectedCar.setKEY(key);
+                Log.i(TAG, "onCreate: " + userSelectedCar.getKEY().toString());
+                boolean bool = CarListActivity.globCollection.updateCarInfo(userSelectedCar);
+                Toast.makeText(CarInfoActivity.this, "" + bool, Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
     }
 
     private Spinner setUpSpinner(int spnID, List<String> stringList) {

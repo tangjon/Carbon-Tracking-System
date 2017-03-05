@@ -130,4 +130,14 @@ public class CarCollection {
         }
         return -1;
     }
+
+    public boolean updateCarInfo(Car userEditCar) {
+        for (int i = 0; i < carList.size(); i++) {
+            if (carList.get(i).getKEY() == userEditCar.getKEY()) {
+                carList.set(i, userEditCar);
+                return true;
+            }
+        }
+        return false;
+    }
 }
