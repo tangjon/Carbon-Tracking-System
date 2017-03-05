@@ -119,4 +119,17 @@ public class CarCollection {
         }
         return null;
     }
+
+    public int getIndexOf(Car searchCar) {
+        int i = 0;
+        for (Car car : carList) {
+            if (searchCar.equals(car)
+
+                    ) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
+    }
 }
