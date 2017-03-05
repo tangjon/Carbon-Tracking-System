@@ -23,16 +23,17 @@ public class CarCollection {
         carList.add(car);
     }
 
-    public void remove(Car car) {
+    public boolean remove(Car car) {
         UUID KEY = car.getKEY();
         if (!carList.isEmpty()) {
             for (int i = 0; i < carList.size(); i++) {
-                if (carList.get(i).getKEY().compareTo(KEY) == 0) {
+                if (carList.get(i).getKEY() == car.getKEY()) {
                     carList.remove(i);
-                    break;
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     // Return specific collection containing the make, and model

@@ -59,6 +59,7 @@ public class CarInfoActivity extends AppCompatActivity {
                 loadMakeDisplayList();
                 setUpAllSpinners();
                 setUpNextBtn();
+                setUpCancelBtn();
                 break;
             case EDIT:
                 // Fetch Select Car to Edit
@@ -73,6 +74,7 @@ public class CarInfoActivity extends AppCompatActivity {
                 loadMakeDisplayList();
                 setUpAllSpinners();
                 setUpFinishEditBtn(thisKey);
+                setUpDeleteBtn(thisKey);
                 break;
 
         }
@@ -86,6 +88,30 @@ public class CarInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 CarListActivity.recentCarList.add(userSelectedCar);
+            }
+        });
+    }
+
+    public void setUpDeleteBtn(final UUID key) {
+        Button btn = (Button) findViewById(R.id.btn_delete);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userSelectedCar.setKEY(key);
+                Boolean bool = CarListActivity.recentCarList.remove(userSelectedCar);
+                Toast.makeText(CarInfoActivity.this, "" + bool, Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+    }
+
+    public void setUpCancelBtn() {
+        Button btn = (Button) findViewById(R.id.btn_delete);
+        btn.setText("Cancel");
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
