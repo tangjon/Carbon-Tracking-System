@@ -23,7 +23,7 @@ public class Car implements Serializable{
     private UUID KEY;
 
     public Car(){
-
+        this.KEY = UUID.randomUUID();
     }
 
 
