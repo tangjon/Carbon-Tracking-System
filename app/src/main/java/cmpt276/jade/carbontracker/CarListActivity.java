@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -57,7 +56,6 @@ public class CarListActivity extends AppCompatActivity {
                 Car car = (Car) parent.getAdapter().getItem(position);
                 Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
                 intent.putExtra(CAR_KEY, car.getKEY().toString());
-                Log.i("MEH", "onItemLongClick: " + car.getKEY().toString());
                 startActivity(intent);
                 return true;
             }
@@ -73,10 +71,6 @@ public class CarListActivity extends AppCompatActivity {
         lstView = (ListView) findViewById(R.id.lv_carList);
         // Create an ArrayAdapter using the string array and a default spinner layout
         CarListAdapter adapter = new CarListAdapter(CarListActivity.this, recentCarList.toList());
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-//                this, android.R.layout.simple_list_item_1, stringList);
-        // Specify the layout to use when the list of choices appears
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         lstView.setAdapter(adapter);
 
