@@ -18,7 +18,7 @@ import cmpt276.jade.carbontracker.utils.Mode;
 public class CarListActivity extends AppCompatActivity {
 
     //TODO TEMPORARY CAR COLLECTION STATIC SHOULD PLACED IN LOG CLASS
-    public static CarCollection globCollection = new CarCollection();
+    public static CarCollection recentCarList = new CarCollection();
     public static String CAR_KEY = "carKey";
 
     private String activity_name = "CarListActivity";
@@ -72,7 +72,7 @@ public class CarListActivity extends AppCompatActivity {
         // Link widget
         lstView = (ListView) findViewById(R.id.lv_carList);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        CarListAdapter adapter = new CarListAdapter(CarListActivity.this, globCollection.toList());
+        CarListAdapter adapter = new CarListAdapter(CarListActivity.this, recentCarList.toList());
 //        ArrayAdapter<String> adapter = new ArrayAdapter<>(
 //                this, android.R.layout.simple_list_item_1, stringList);
         // Specify the layout to use when the list of choices appears

@@ -63,7 +63,7 @@ public class CarInfoActivity extends AppCompatActivity {
             case EDIT:
                 // Fetch Select Car to Edit
                 String key = getIntent().getExtras().getString(CarListActivity.CAR_KEY);
-                userSelectedCar = CarListActivity.globCollection.getCarByKey(key);
+                userSelectedCar = CarListActivity.recentCarList.getCarByKey(key);
                 UUID thisKey = userSelectedCar.getKEY();
                 Log.i(TAG, "onCreate: " + thisKey);
                 selectMake = userSelectedCar.getMake();
@@ -85,7 +85,7 @@ public class CarInfoActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CarListActivity.globCollection.add(userSelectedCar);
+                CarListActivity.recentCarList.add(userSelectedCar);
             }
         });
     }
@@ -98,7 +98,7 @@ public class CarInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 userSelectedCar.setKEY(key);
                 Log.i(TAG, "onCreate: " + userSelectedCar.getKEY().toString());
-                boolean bool = CarListActivity.globCollection.updateCarInfo(userSelectedCar);
+                boolean bool = CarListActivity.recentCarList.updateCarInfo(userSelectedCar);
                 Toast.makeText(CarInfoActivity.this, "" + bool, Toast.LENGTH_SHORT).show();
                 finish();
             }
