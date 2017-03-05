@@ -1,6 +1,8 @@
 package cmpt276.jade.carbontracker.model;
 
-public class Route {
+import java.io.Serializable;
+
+public class Route implements Serializable {
     private String name;
     private  int HighWayDistance;
     private  int CityDistance;
@@ -14,9 +16,6 @@ public class Route {
     public int getHighWayDistance() {
         return HighWayDistance;
     }
-    public int getCityDistance() {
-        return CityDistance;
-    }
 
     public void setHighWayDistance(int HighWayDistance) {
         if (HighWayDistance < 0 ) {
@@ -25,6 +24,10 @@ public class Route {
         else {
             this.HighWayDistance=HighWayDistance;
         }
+    }
+
+    public int getCityDistance() {
+        return CityDistance;
     }
 
     public void setCityDistance(int CityDistance) {

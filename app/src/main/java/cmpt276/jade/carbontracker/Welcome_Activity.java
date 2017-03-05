@@ -1,13 +1,12 @@
 package cmpt276.jade.carbontracker;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 public class Welcome_Activity extends AppCompatActivity {
@@ -34,7 +33,7 @@ public class Welcome_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intent = JourneyListActivity.IntentForJourneyList(Welcome_Activity.this);
+                Intent intent = JourneyListActivity.getJourneyListIntent(Welcome_Activity.this);
                 startActivity(intent);
                 Welcome_Activity.this.finish();
             }
