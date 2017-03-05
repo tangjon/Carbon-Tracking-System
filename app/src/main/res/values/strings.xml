@@ -15,4 +15,6 @@
     <string name="label_fuel_cost">Fuel Cost</string>
     <string name="label_transmission">Transmission</string>
     <string name="label_short_summary">Short Summary</string>
+    <string name="toggle_graph">Toggle Graph Type</string>
+    <string name="graph_title">Total Carbon Footprint</string>
 </resources>
