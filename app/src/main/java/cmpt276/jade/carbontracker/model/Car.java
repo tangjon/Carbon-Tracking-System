@@ -177,6 +177,24 @@ public class Car implements Serializable{
         this.carbonTailPipe = carbonTailPipe;
     }
 
+    public String toStringNoKey() {
+        return "Car{" +
+                "nickName='" + nickName + '\'' +
+                ", make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", transDescription='" + transDescription + '\'' +
+                ", year=" + year +
+                ", cityMPG=" + cityMPG +
+                ", highwayMPG=" + highwayMPG +
+                ", engineDescription='" + engineDescription + '\'' +
+                ", engineDispLitres=" + engineDispLitres +
+                ", fuelType='" + fuelType + '\'' +
+                ", fuelAnnualCost=" + fuelAnnualCost +
+                ", carbonTailPipe=" + carbonTailPipe +
+                '}';
+    }
+
+
     @Override
     public String toString() {
         return "Car{" +

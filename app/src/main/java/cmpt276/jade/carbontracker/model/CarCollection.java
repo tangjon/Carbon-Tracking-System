@@ -123,9 +123,7 @@ public class CarCollection {
     public int getIndexOf(Car searchCar) {
         int i = 0;
         for (Car car : carList) {
-            if (searchCar.equals(car)
-
-                    ) {
+            if (searchCar.toStringNoKey().equals(car.toStringNoKey())) {
                 return i;
             }
             i++;

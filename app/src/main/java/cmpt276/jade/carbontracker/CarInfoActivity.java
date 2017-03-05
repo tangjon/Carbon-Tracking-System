@@ -140,6 +140,8 @@ public class CarInfoActivity extends AppCompatActivity {
                         final List<Car> specList = carCollection.search(selectMake, selectModel).toList();
                         Spinner spnYear = setUpCustomSpinner(R.id.spn_year, specList);
                         if(!(selectYear == null)){
+                            int index = carCollection.search(selectMake, selectModel).getIndexOf(userSelectedCar);
+                            spnYear.setSelection(index);
                         }
                         spnYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
