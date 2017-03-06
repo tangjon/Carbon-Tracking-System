@@ -67,14 +67,7 @@ public class CarInfoActivity extends AppCompatActivity {
                 break;
             case EDIT:
                 // Fetch Select Car to Edit
-                String key = getIntent().getExtras().getString(CarListActivity.CAR_KEY);
-                userSelectedCar = CarListActivity.recentCarList.getCarByKey(key);
-                UUID thisKey = userSelectedCar.getKEY();
-                Log.i(TAG, "onCreate: " + thisKey);
-                selectMake = userSelectedCar.getMake();
-                selectModel = userSelectedCar.getModel();
-                selectYear = Double.toString(userSelectedCar.getYear());
-                setUpEditTextNickname();
+                UUID thisKey = loadCurrentCar();
                 loadCarList();
                 loadMakeDisplayList();
                 setUpAllSpinners();
@@ -85,6 +78,18 @@ public class CarInfoActivity extends AppCompatActivity {
         }
         // TODO Needs direct to next activity
 
+    }
+
+    private UUID loadCurrentCar() {
+        String key = getIntent().getExtras().getString(CarListActivity.CAR_KEY);
+        userSelectedCar = CarListActivity.recentCarList.getCarByKey(key);
+        Log.i(TAG, "onEdit: " + userSelectedCar);
+        UUID thisKey = userSelectedCar.getKEY();
+        selectMake = userSelectedCar.getMake();
+        selectModel = userSelectedCar.getModel();
+        selectYear = Double.toString(userSelectedCar.getYear());
+        setUpEditTextNickname();
+        return thisKey;
     }
 
     private void setUpEditTextNickname() {
@@ -104,6 +109,7 @@ public class CarInfoActivity extends AppCompatActivity {
                 }else{
                     userSelectedCar.setNickName(et.getText().toString().trim());
                     CarListActivity.recentCarList.add(userSelectedCar);
+                    Log.i(TAG, "onAdd: " + userSelectedCar.toString());
                     finish();
                 }
             }
@@ -117,7 +123,7 @@ public class CarInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 userSelectedCar.setKEY(key);
                 Boolean bool = CarListActivity.recentCarList.remove(userSelectedCar);
-                Toast.makeText(CarInfoActivity.this, "" + bool, Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "onDelete: " + bool);
                 finish();
             }
         });
@@ -143,6 +149,7 @@ public class CarInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 userSelectedCar.setNickName(et.getText().toString().trim());
                 userSelectedCar.setKEY(key);
+                Log.i(TAG, "onEditedConfirm: " + userSelectedCar.toString());
                 finish();
             }
         });
@@ -183,7 +190,6 @@ public class CarInfoActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectMake = (String) spnMake.getSelectedItem();
                 loadModelDisplayList();
-                Log.i(TAG, selectMake);
 
                 // MODEL SPINNER -----------
                 final Spinner spnModel = setUpSpinner(R.id.spn_model, modelDisplayList);
@@ -193,9 +199,6 @@ public class CarInfoActivity extends AppCompatActivity {
                 spnModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         selectModel = (String) spnModel.getSelectedItem();
-                        Log.i(TAG, selectModel);
-
-
                         // YEAR SPINNER -----------------
                         // Pull Car List with specified make and model
                         final List<Car> specList = carCollection.search(selectMake, selectModel).toList();
@@ -208,7 +211,6 @@ public class CarInfoActivity extends AppCompatActivity {
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                 userSelectedCar = specList.get(i);
                                 selectYear = Integer.toString(userSelectedCar.getYear());
-                                Log.i(TAG, selectYear);
                                 /// LOAD SOMETHING
                                 updateCarInfo();
                             }
@@ -265,7 +267,6 @@ public class CarInfoActivity extends AppCompatActivity {
                 makeDisplayList.add(make);
             }
         }
-        Log.i(TAG, "loadMakeDisplayList: " + makeDisplayList);
     }
 
 
