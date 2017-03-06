@@ -17,6 +17,14 @@
     <string name="label_short_summary">Short Summary</string>
     <string name="label_delete">DELETE</string>
     <string name="label_skip">Skip</string>
-    <string name="label_toggle_graph">Toggle Graph Type</string>
+    <string name="label_toggle_graph">Toggle Display</string>
     <string name="label_graph_title">Total Carbon Footprint</string>
+    <string name="label_view_footprint">View Carbon Footprint</string>
+    <string-array name="label_table">
+        <item>Date</item>
+        <item>Trip Name</item>
+        <item>Distance</item>
+        <item>Vehicle Name</item>
+        <item>Carbon Emitted</item>
+    </string-array>
 </resources>

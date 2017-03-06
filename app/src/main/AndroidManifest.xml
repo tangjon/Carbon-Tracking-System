@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".JourneySummaryActivity"></activity>
-        <activity android:name=".CarbonFootPrintActivity" />
+        <activity android:name=".CarbonFootprintActivity" />
     </application>
 
 </manifest>

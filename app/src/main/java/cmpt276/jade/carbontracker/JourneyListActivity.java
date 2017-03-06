@@ -31,9 +31,21 @@ public class JourneyListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_journey_list);
 
         setupAddBtn();
+        setupFootprintBtn();
         setupClickJourneyList();
         populateList();
 
+    }
+
+    private void setupFootprintBtn() {
+        Button button = (Button) findViewById(R.id.btnViewFootprint);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = CarbonFootprintActivity.getIntent(JourneyListActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setupAddBtn() {

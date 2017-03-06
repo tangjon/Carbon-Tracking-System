@@ -6,16 +6,27 @@
     android:layout_height="match_parent"
     tools:context="cmpt276.jade.carbontracker.CarbonFootprintActivity">
 
+    <TableLayout
+        android:id="@+id/tableFootprint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_graph_toggle"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:stretchColumns="*"
+        android:paddingTop="16dp">
+
+    </TableLayout>
+
     <Button
         android:id="@+id/btn_graph_toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/toggle_graph"
+        android:text="@string/label_toggle_graph"
         tools:layout_editor_absoluteX="204dp"
         tools:layout_editor_absoluteY="447dp"
         android:layout_alignBottom="@+id/pie_graph"
-        android:layout_alignEnd="@+id/pie_graph"
-        android:layout_marginBottom="39dp" />
+        android:layout_alignEnd="@+id/pie_graph" />
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pie_graph"
