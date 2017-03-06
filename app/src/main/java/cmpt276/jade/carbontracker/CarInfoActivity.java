@@ -1,10 +1,8 @@
 package cmpt276.jade.carbontracker;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -64,19 +62,12 @@ public class CarInfoActivity extends AppCompatActivity {
                 loadCarList();
                 loadMakeDisplayList();
                 setUpAllSpinners();
-                setUpNextBtn();
+                setUpAddBtn();
                 setUpCancelBtn();
-
                 break;
             case EDIT:
                 // Fetch Select Car to Edit
-                String key = getIntent().getExtras().getString(CarListActivity.CAR_KEY);
-                userSelectedCar = CarListActivity.recentCarList.getCarByKey(key);
-                UUID thisKey = userSelectedCar.getKEY();
-                Log.i(TAG, "onCreate: " + thisKey);
-                selectMake = userSelectedCar.getMake();
-                selectModel = userSelectedCar.getModel();
-                selectYear = Double.toString(userSelectedCar.getYear());
+                UUID thisKey = loadCurrentCar();
                 loadCarList();
                 loadMakeDisplayList();
                 setUpAllSpinners();
@@ -89,8 +80,26 @@ public class CarInfoActivity extends AppCompatActivity {
 
     }
 
-    private void setUpNextBtn() {
+    private UUID loadCurrentCar() {
+        String key = getIntent().getExtras().getString(CarListActivity.CAR_KEY);
+        userSelectedCar = CarListActivity.recentCarList.getCarByKey(key);
+        Log.i(TAG, "onEdit: " + userSelectedCar);
+        UUID thisKey = userSelectedCar.getKEY();
+        selectMake = userSelectedCar.getMake();
+        selectModel = userSelectedCar.getModel();
+        selectYear = Double.toString(userSelectedCar.getYear());
+        setUpEditTextNickname();
+        return thisKey;
+    }
+
+    private void setUpEditTextNickname() {
+        EditText et = (EditText) findViewById(R.id.et_nickname);
+        et.setText(userSelectedCar.getNickname());
+    }
+
+    private void setUpAddBtn() {
         Button btn = (Button) findViewById(R.id.btn_next);
+        btn.setText("Add");
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,8 +109,8 @@ public class CarInfoActivity extends AppCompatActivity {
                 }else{
                     userSelectedCar.setNickName(et.getText().toString().trim());
                     CarListActivity.recentCarList.add(userSelectedCar);
-                    Intent intent = Route_List_Activity.IntentForRouteList(CarInfoActivity.this);
-                    startActivity(intent);
+                    Log.i(TAG, "onAdd: " + userSelectedCar.toString());
+                    finish();
                 }
             }
         });
@@ -114,7 +123,7 @@ public class CarInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 userSelectedCar.setKEY(key);
                 Boolean bool = CarListActivity.recentCarList.remove(userSelectedCar);
-                Toast.makeText(CarInfoActivity.this, "" + bool, Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "onDelete: " + bool);
                 finish();
             }
         });
@@ -133,14 +142,14 @@ public class CarInfoActivity extends AppCompatActivity {
 
     private void setUpFinishEditBtn(final UUID key) {
         Button btn = (Button) findViewById(R.id.btn_next);
+        final EditText et = (EditText) findViewById(R.id.et_nickname);
         btn.setText("Confirm Edit");
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                userSelectedCar.setNickName(et.getText().toString().trim());
                 userSelectedCar.setKEY(key);
-                Log.i(TAG, "onCreate: " + userSelectedCar.getKEY().toString());
-                boolean bool = CarListActivity.recentCarList.updateCarInfo(userSelectedCar);
-                Toast.makeText(CarInfoActivity.this, "" + bool, Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "onEditedConfirm: " + userSelectedCar.toString());
                 finish();
             }
         });
@@ -181,7 +190,6 @@ public class CarInfoActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectMake = (String) spnMake.getSelectedItem();
                 loadModelDisplayList();
-                Log.i(TAG, selectMake);
 
                 // MODEL SPINNER -----------
                 final Spinner spnModel = setUpSpinner(R.id.spn_model, modelDisplayList);
@@ -191,9 +199,6 @@ public class CarInfoActivity extends AppCompatActivity {
                 spnModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         selectModel = (String) spnModel.getSelectedItem();
-                        Log.i(TAG, selectModel);
-
-
                         // YEAR SPINNER -----------------
                         // Pull Car List with specified make and model
                         final List<Car> specList = carCollection.search(selectMake, selectModel).toList();
@@ -206,7 +211,6 @@ public class CarInfoActivity extends AppCompatActivity {
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                 userSelectedCar = specList.get(i);
                                 selectYear = Integer.toString(userSelectedCar.getYear());
-                                Log.i(TAG, selectYear);
                                 /// LOAD SOMETHING
                                 updateCarInfo();
                             }
@@ -263,7 +267,6 @@ public class CarInfoActivity extends AppCompatActivity {
                 makeDisplayList.add(make);
             }
         }
-        Log.i(TAG, "loadMakeDisplayList: " + makeDisplayList);
     }
 
 
