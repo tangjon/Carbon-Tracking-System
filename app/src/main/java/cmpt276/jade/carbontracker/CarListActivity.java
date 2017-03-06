@@ -76,6 +76,15 @@ public class CarListActivity extends AppCompatActivity {
 
         // TODO Implement Edit Mode/Delete
         setUpEditMode();
+
+        // React to Car Object Click
+        lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = Route_List_Activity.IntentForRouteList(CarListActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setUpAddButton(int btnID) {
