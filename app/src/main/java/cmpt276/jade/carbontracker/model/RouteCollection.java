@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RouteCollection {
+    private String nickname;
 
     private List<Route> List_Rout = new ArrayList<>();
 
     public int getTotleHighWayDistance() {
         int HighWayDistance = 0;
-        String[] list = new String[countRoutes()];
         for (int i = 0; i < countRoutes(); i++) {
             Route route = getRouteByIndex(i);
             HighWayDistance = HighWayDistance + route.getHighWayDistance();
@@ -19,14 +19,19 @@ public class RouteCollection {
 
     public int getTotleCityDistance() {
         int CityDistance = 0;
-        String[] list = new String[countRoutes()];
         for (int i = 0; i < countRoutes(); i++) {
             Route route = getRouteByIndex(i);
-            CityDistance = CityDistance + route.getHighWayDistance();
+            CityDistance = CityDistance + route.getCityDistance();
         }
         return CityDistance;
     }
 
+    public void SetJourneyName(String name) {
+        this.nickname=name;
+    }
+    public String getJourneyName() {
+        return this.nickname;
+    }
 
     public void addRoute(Route route) {
         List_Rout.add(route);
