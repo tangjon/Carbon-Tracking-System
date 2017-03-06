@@ -1,10 +1,8 @@
 package cmpt276.jade.carbontracker;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -66,7 +64,6 @@ public class CarInfoActivity extends AppCompatActivity {
                 setUpAllSpinners();
                 setUpNextBtn();
                 setUpCancelBtn();
-
                 break;
             case EDIT:
                 // Fetch Select Car to Edit
@@ -77,6 +74,7 @@ public class CarInfoActivity extends AppCompatActivity {
                 selectMake = userSelectedCar.getMake();
                 selectModel = userSelectedCar.getModel();
                 selectYear = Double.toString(userSelectedCar.getYear());
+                setUpEditTextNickname();
                 loadCarList();
                 loadMakeDisplayList();
                 setUpAllSpinners();
@@ -87,6 +85,11 @@ public class CarInfoActivity extends AppCompatActivity {
         }
         // TODO Needs direct to next activity
 
+    }
+
+    private void setUpEditTextNickname() {
+        EditText et = (EditText) findViewById(R.id.et_nickname);
+        et.setText(userSelectedCar.getNickname());
     }
 
     private void setUpNextBtn() {
@@ -133,10 +136,12 @@ public class CarInfoActivity extends AppCompatActivity {
 
     private void setUpFinishEditBtn(final UUID key) {
         Button btn = (Button) findViewById(R.id.btn_next);
+        final EditText et = (EditText) findViewById(R.id.et_nickname);
         btn.setText("Confirm Edit");
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                userSelectedCar.setNickName(et.getText().toString().trim());
                 userSelectedCar.setKEY(key);
                 Log.i(TAG, "onCreate: " + userSelectedCar.getKEY().toString());
                 boolean bool = CarListActivity.recentCarList.updateCarInfo(userSelectedCar);
