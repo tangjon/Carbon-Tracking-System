@@ -62,7 +62,7 @@ public class CarInfoActivity extends AppCompatActivity {
                 loadCarList();
                 loadMakeDisplayList();
                 setUpAllSpinners();
-                setUpNextBtn();
+                setUpAddBtn();
                 setUpCancelBtn();
                 break;
             case EDIT:
@@ -92,8 +92,9 @@ public class CarInfoActivity extends AppCompatActivity {
         et.setText(userSelectedCar.getNickname());
     }
 
-    private void setUpNextBtn() {
+    private void setUpAddBtn() {
         Button btn = (Button) findViewById(R.id.btn_next);
+        btn.setText("Add");
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,8 +104,7 @@ public class CarInfoActivity extends AppCompatActivity {
                 }else{
                     userSelectedCar.setNickName(et.getText().toString().trim());
                     CarListActivity.recentCarList.add(userSelectedCar);
-                    Intent intent = Route_List_Activity.IntentForRouteList(CarInfoActivity.this);
-                    startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -143,9 +143,6 @@ public class CarInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 userSelectedCar.setNickName(et.getText().toString().trim());
                 userSelectedCar.setKEY(key);
-                Log.i(TAG, "onCreate: " + userSelectedCar.getKEY().toString());
-                boolean bool = CarListActivity.recentCarList.updateCarInfo(userSelectedCar);
-                Toast.makeText(CarInfoActivity.this, "" + bool, Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
