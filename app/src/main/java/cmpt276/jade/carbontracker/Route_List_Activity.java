@@ -38,6 +38,7 @@ public class Route_List_Activity extends AppCompatActivity {
 
         long_pressing_editAndDelete();
         setup_Summary_Btn();
+        Click_one_Route();
     }
 
     private void populateListView() {
@@ -58,7 +59,7 @@ public class Route_List_Activity extends AppCompatActivity {
                 {
                     Intent Intent_of_List_Routes = JourneySummaryActivity.getJourneySummaryIntent
                             (Route_List_Activity.this,
-                                    routes);
+                                    routes,"SummaryOf_ListRoutes");
                     startActivity(Intent_of_List_Routes);
                 }
                 if(EditJourneyName.length()==0)
@@ -145,7 +146,28 @@ public class Route_List_Activity extends AppCompatActivity {
                 break;
         }
     }
+
+
+
+    private void Click_one_Route() {
+
+        ListView list=(ListView) findViewById(R.id.Route_list_routeList);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id)
+            {
+                Route Clicked_one=routes.getRouteByIndex(position);
+                Intent Intent_of_One_Route= JourneySummaryActivity.getOneRouteIntent
+                        (Route_List_Activity.this, Clicked_one,"OneRoute");
+                startActivity(Intent_of_One_Route);
+            }
+        });
+    }
+
 }
+
+
 
 
 
@@ -153,6 +175,7 @@ public class Route_List_Activity extends AppCompatActivity {
 public class Route_List_Activity extends AppCompatActivity {
 
     RouteCollection routes= new RouteCollection();
+    RouteCollection SelectRoutes= new RouteCollection();
 
     public static final int RECEIVE_ROUTE = 1024; //intent numer for add
     public static final int EDIT_ROUTE = 1025; //intent number for edit/delete
@@ -182,7 +205,7 @@ public class Route_List_Activity extends AppCompatActivity {
                     Route route= routes.getRouteByIndex(i);
                     if(route.getSelection()=="NO")
                     {
-                        //do some work for selected routes
+
                     }
                 }
                 Intent intent = JourneySummaryActivity.getJourneySummaryIntent(Route_List_Activity.this);
