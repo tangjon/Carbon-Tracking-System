@@ -73,7 +73,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                     case 1: tv.setText(emissionNames[row]);
                     case 2: tv.setText(String.valueOf(emissionDistance[row]));
                     case 3: tv.setText(emissionVehicleName[row]);
-                    case 4: tv.setText("carbon goes here");
+                    case 4: tv.setText("carbon goes here"); // carbon not implemented
                 }
                 tableRow.addView(tv);
             }
