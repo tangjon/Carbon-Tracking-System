@@ -90,7 +90,7 @@ public class CarInfoActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CarListActivity.globCollection.add(userSelectedCar);
+                CarListActivity.recentCarList.add(userSelectedCar);
                 Intent intent = Route_List_Activity.IntentForRouteList(CarInfoActivity.this);
                 startActivity(intent);
             }
@@ -188,7 +188,7 @@ public class CarInfoActivity extends AppCompatActivity {
                         // Pull Car List with specified make and model
                         final List<Car> specList = carCollection.search(selectMake, selectModel).toList();
                         Spinner spnYear = setUpCustomSpinner(R.id.spn_year, specList);
-                        if(!(selectYear == null)){
+                        if (!(selectYear == null)) {
                             int index = carCollection.search(selectMake, selectModel).getIndexOf(userSelectedCar);
                             spnYear.setSelection(index);
                         }
