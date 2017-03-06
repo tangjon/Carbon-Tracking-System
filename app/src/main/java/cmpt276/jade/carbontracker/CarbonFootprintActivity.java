@@ -22,26 +22,43 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.model.JourneyCollection;
+
 public class CarbonFootprintActivity extends AppCompatActivity {
 
+    private JourneyCollection journeyCollection = Emission.getInstance().getJourneyCollection();
     private PieChart pieChart;
     private BarChart barChart;
     private Boolean pieShown = true;
     private final float TEXT_SIZE = 12f;
     private final int ANIM_Y_DURATION = 600;
 
-    //dummy data
-    private float dummyCarbon[] = {37.1f, 312f, 12f, 94.8f};
-    private String dummyName[] = {"Work", "Groceries", "Friends", "School"};
+    private String emissionNames[];
+    private float emissionValues[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carbon_footprint);
 
+        loadData();
+
         setupPieChart();
         setupBarChart();
         setupButton();
+    }
+
+    private void loadData() {
+        emissionNames = journeyCollection.getJourneyName();
+
+        JourneyCollection jc = Emission.getInstance().getJourneyCollection();
+        List<Float> floats = new ArrayList<>();
+        for (int i = 0; i < jc.countJourneys(); ++i)
+            floats.add((float) jc.getJourney(i).getTotalTravelled());
+        emissionValues = new float[jc.countJourneys()];
+        for (int i = 0; i < emissionValues.length; ++i)
+            emissionValues[i] = floats.get(i);
     }
 
     private void setupButton() {
@@ -71,8 +88,8 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
     private void setupBarChart() {
         List<BarEntry> barEntries = new ArrayList<>();
-        for (int i = 0; i < dummyCarbon.length; ++i)
-            barEntries.add(new BarEntry((float) i, dummyCarbon[i], dummyName[i]));
+        for (int i = 0; i < emissionValues.length; ++i)
+            barEntries.add(new BarEntry((float) i, emissionValues[i], emissionNames[i]));
 
         BarDataSet dataSet = new BarDataSet(barEntries, getResources().getString(R.string.graph_title));
         dataSet.setColors(ColorTemplate.PASTEL_COLORS);
@@ -87,7 +104,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         XAxis xAxis = barChart.getXAxis();
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(dummyName));
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(emissionNames));
 
         Description desc = new Description();
         desc.setEnabled(false);
@@ -100,8 +117,8 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
     private void setupPieChart() {
         List<PieEntry> pieEntries = new ArrayList<>();
-        for (int i = 0; i < dummyCarbon.length; ++i)
-            pieEntries.add(new PieEntry(dummyCarbon[i], dummyName[i]));
+        for (int i = 0; i < emissionValues.length; ++i)
+            pieEntries.add(new PieEntry(emissionValues[i], emissionNames[i]));
 
         PieDataSet dataSet = new PieDataSet(pieEntries, getResources().getString(R.string.graph_title));
         dataSet.setColors(ColorTemplate.PASTEL_COLORS);
