@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cmpt276.jade.carbontracker.CarbonFootprintActivity">
+
+    <TableLayout
+        android:id="@+id/tableFootprint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_graph_toggle"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:stretchColumns="*"
+        android:paddingTop="16dp">
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btn_graph_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_toggle_graph"
+        tools:layout_editor_absoluteX="204dp"
+        tools:layout_editor_absoluteY="447dp"
+        android:layout_alignBottom="@+id/pie_graph"
+        android:layout_alignEnd="@+id/pie_graph" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pie_graph"
+        android:layout_height="495dp"
+        android:layout_width="368dp"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp"
+        android:visibility="visible"/>
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/bar_graph"
+        android:layout_height="495dp"
+        android:layout_width="368dp"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp"
+        android:visibility="invisible"
+        android:layout_alignBottom="@+id/btn_graph_toggle" />
+
+</RelativeLayout>
