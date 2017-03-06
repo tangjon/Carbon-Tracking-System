@@ -23,16 +23,17 @@ public class CarCollection {
         carList.add(car);
     }
 
-    public void remove(Car car) {
+    public boolean remove(Car car) {
         UUID KEY = car.getKEY();
         if (!carList.isEmpty()) {
             for (int i = 0; i < carList.size(); i++) {
-                if (carList.get(i).getKEY().compareTo(KEY) == 0) {
+                if (carList.get(i).getKEY() == car.getKEY()) {
                     carList.remove(i);
-                    break;
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     // Return specific collection containing the make, and model
@@ -118,5 +119,26 @@ public class CarCollection {
             }
         }
         return null;
+    }
+
+    public int getIndexOf(Car searchCar) {
+        int i = 0;
+        for (Car car : carList) {
+            if (searchCar.toStringNoKey().equals(car.toStringNoKey())) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
+    }
+
+    public boolean updateCarInfo(Car userEditCar) {
+        for (int i = 0; i < carList.size(); i++) {
+            if (carList.get(i).getKEY() == userEditCar.getKEY()) {
+                carList.set(i, userEditCar);
+                return true;
+            }
+        }
+        return false;
     }
 }

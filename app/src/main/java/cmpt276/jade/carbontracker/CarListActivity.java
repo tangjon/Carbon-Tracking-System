@@ -18,8 +18,10 @@ import cmpt276.jade.carbontracker.utils.Mode;
 public class CarListActivity extends AppCompatActivity {
 
     //TODO TEMPORARY CAR COLLECTION STATIC SHOULD PLACED IN LOG CLASS
-    public static CarCollection globCollection = new CarCollection();
+    public static CarCollection recentCarList = new CarCollection();
     public static String CAR_KEY = "carKey";
+
+    private String activity_name = "CarListActivity";
     private ListView lstView;
 
     public static Intent getIntentFromActivity(Context context) {
@@ -30,6 +32,7 @@ public class CarListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle(activity_name);
         setContentView(R.layout.activity_car_list);
 
         setUpAddButton(R.id.btn_add_car);
@@ -54,7 +57,6 @@ public class CarListActivity extends AppCompatActivity {
                 Car car = (Car) parent.getAdapter().getItem(position);
                 Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
                 intent.putExtra(CAR_KEY, car.getKEY().toString());
-                Log.i("MEH", "onItemLongClick: " + car.getKEY().toString());
                 startActivity(intent);
                 return true;
             }
@@ -69,11 +71,7 @@ public class CarListActivity extends AppCompatActivity {
         // Link widget
         lstView = (ListView) findViewById(R.id.lv_carList);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        CarListAdapter adapter = new CarListAdapter(CarListActivity.this, globCollection.toList());
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-//                this, android.R.layout.simple_list_item_1, stringList);
-        // Specify the layout to use when the list of choices appears
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        CarListAdapter adapter = new CarListAdapter(CarListActivity.this, recentCarList.toList());
         // Apply the adapter to the spinner
         lstView.setAdapter(adapter);
 

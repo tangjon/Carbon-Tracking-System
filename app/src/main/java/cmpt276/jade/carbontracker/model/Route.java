@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 public class Route implements Serializable {
     private String name;
-    private  int HighWayDistance;
-    private  int CityDistance;
+    private int HighWayDistance;
+    private int CityDistance;
 
-    public Route(String name, int HighWayDistance,int CityDistance) {
-        this.name=name;
-        this.HighWayDistance=HighWayDistance;
-        this.CityDistance=CityDistance;
+    public Route(String name, int HighWayDistance, int CityDistance) {
+        this.name = name;
+        this.HighWayDistance = HighWayDistance;
+        this.CityDistance = CityDistance;
     }
 
     public int getHighWayDistance() {
@@ -18,11 +18,10 @@ public class Route implements Serializable {
     }
 
     public void setHighWayDistance(int HighWayDistance) {
-        if (HighWayDistance < 0 ) {
+        if (HighWayDistance < 0) {
             throw new IllegalArgumentException();
-        }
-        else {
-            this.HighWayDistance=HighWayDistance;
+        } else {
+            this.HighWayDistance = HighWayDistance;
         }
     }
 
@@ -31,11 +30,10 @@ public class Route implements Serializable {
     }
 
     public void setCityDistance(int CityDistance) {
-        if (CityDistance < 0 ) {
+        if (CityDistance < 0) {
             throw new IllegalArgumentException();
-        }
-        else {
-            this.CityDistance=CityDistance;
+        } else {
+            this.CityDistance = CityDistance;
         }
     }
 
@@ -44,11 +42,10 @@ public class Route implements Serializable {
     }
 
     public void setName(String name) {
-        if (name == null || name.equals("") ) {
+        if (name == null || name.equals("")) {
             throw new IllegalArgumentException();
-        }
-        else {
-            this.name=name;
+        } else {
+            this.name = name;
         }
     }
 }
