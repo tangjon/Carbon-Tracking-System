@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.model.RouteCollection;
@@ -50,8 +52,23 @@ public class Route_List_Activity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = JourneySummaryActivity.getJourneySummaryIntent(Route_List_Activity.this);
-                startActivityForResult(intent, RECEIVE_ROUTE);
+                EditText EditJourneyName = (EditText) findViewById(R.id.Route_List_enter_roues_name);
+                routes.SetJourneyName(EditJourneyName.getText().toString());
+                if(EditJourneyName.length()!=0 && (routes.getTotleHighWayDistance()+routes.getTotleCityDistance())!=0)
+                {
+                    Intent Intent_of_List_Routes = JourneySummaryActivity.getJourneySummaryIntent
+                            (Route_List_Activity.this,
+                                    routes);
+                    startActivity(Intent_of_List_Routes);
+                }
+                if(EditJourneyName.length()==0)
+                {
+                    Toast.makeText(getApplicationContext(), "You haven't entered the Journey name " + " please try again", Toast.LENGTH_LONG).show();
+                }
+                if((routes.getTotleHighWayDistance()+routes.getTotleCityDistance())==0)
+                {
+                    Toast.makeText(getApplicationContext(), "You haven't entered any routes " + " please try again", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
