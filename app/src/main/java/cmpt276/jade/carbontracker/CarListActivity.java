@@ -41,27 +41,6 @@ public class CarListActivity extends AppCompatActivity {
 
     }
 
-    private void setUpEditMode() {
-        lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Fetch Car Object
-                Car car = (Car) parent.getAdapter().getItem(position);
-            }
-        });
-
-        lstView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Car car = (Car) parent.getAdapter().getItem(position);
-                Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
-                intent.putExtra(CAR_KEY, car.getKEY().toString());
-                startActivity(intent);
-                return true;
-            }
-        });
-    }
-
     private void updateUI() {
         setUpListView();
     }
@@ -74,8 +53,17 @@ public class CarListActivity extends AppCompatActivity {
         // Apply the adapter to the spinner
         lstView.setAdapter(adapter);
 
-        // TODO Implement Edit Mode/Delete
-        setUpEditMode();
+        // React to Long Click
+        lstView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Car car = (Car) parent.getAdapter().getItem(position);
+                Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
+                intent.putExtra(CAR_KEY, car.getKEY().toString());
+                startActivity(intent);
+                return true;
+            }
+        });
 
         // React to Car Object Click
         lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

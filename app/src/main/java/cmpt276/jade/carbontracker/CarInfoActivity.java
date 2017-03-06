@@ -149,6 +149,7 @@ public class CarInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 userSelectedCar.setNickName(et.getText().toString().trim());
                 userSelectedCar.setKEY(key);
+                boolean bool = CarListActivity.recentCarList.updateCarInfo(userSelectedCar);
                 Log.i(TAG, "onEditedConfirm: " + userSelectedCar.toString());
                 finish();
             }
