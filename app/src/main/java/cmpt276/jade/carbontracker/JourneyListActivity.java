@@ -2,8 +2,8 @@ package cmpt276.jade.carbontracker;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +17,12 @@ import cmpt276.jade.carbontracker.model.Route;
 
 public class JourneyListActivity extends AppCompatActivity {
     public static JourneyCollection listOfJourneys = new JourneyCollection();
+
+    public static Intent getJourneyListIntent(Context context) {
+        return new Intent(context, JourneyListActivity.class);
+
+    }
+
     //maybe have a get data from intent that can handle a journey being passed into it?
     @Override
 
@@ -30,18 +36,13 @@ public class JourneyListActivity extends AppCompatActivity {
 
     }
 
-    public static Intent getJourneyListIntent(Context context) {
-        return new Intent(context, JourneyListActivity.class);
-
-    }
-
     private void setupAddBtn() {
         Button button = (Button) findViewById(R.id.btnAddJourney);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Car car = new Car();
-                Route route = new Route();
+                Route route = new Route("Test Name", 9, 9);
                 Journey journey = new Journey("A new journey", car, route);
                 listOfJourneys.addJourney(journey);
                 populateList();

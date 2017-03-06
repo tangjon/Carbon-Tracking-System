@@ -8,25 +8,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CarListActivity" />
+        <activity android:name=".Route_Info_Activity" />
+        <activity android:name=".Route_List_Activity" />
         <activity android:name=".CarInfoActivity" />
-        <activity android:name=".JourneyListActivity">
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-        </activity>
-        <activity android:name=".JourneySummaryActivity" />
-        <activity android:name=".CarbonFootprintActivity">
+        <activity android:name=".CarListActivity" />
+        <activity android:name=".JourneyListActivity" />
+        <activity android:name=".Welcome_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".JourneySummaryActivity"></activity>
+        <activity android:name=".CarbonFootPrintActivity" />
     </application>
 
 </manifest>

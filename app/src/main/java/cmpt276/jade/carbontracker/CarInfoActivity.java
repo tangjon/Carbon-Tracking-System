@@ -11,9 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import cmpt276.jade.carbontracker.adapter.CustomSpinnerAdapter;
 import cmpt276.jade.carbontracker.model.Car;
@@ -59,26 +61,28 @@ public class CarInfoActivity extends AppCompatActivity {
                 loadCarList();
                 loadMakeDisplayList();
                 setUpAllSpinners();
+                setUpNextBtn();
+                setUpCancelBtn();
                 break;
             case EDIT:
                 // Fetch Select Car to Edit
                 String key = getIntent().getExtras().getString(CarListActivity.CAR_KEY);
-                userSelectedCar = CarListActivity.globCollection.getCarByKey(key);
+                userSelectedCar = CarListActivity.recentCarList.getCarByKey(key);
+                UUID thisKey = userSelectedCar.getKEY();
+                Log.i(TAG, "onCreate: " + thisKey);
                 selectMake = userSelectedCar.getMake();
                 selectModel = userSelectedCar.getModel();
                 selectYear = Double.toString(userSelectedCar.getYear());
                 loadCarList();
                 loadMakeDisplayList();
                 setUpAllSpinners();
-                loadCurrentCarInfo();
+                setUpFinishEditBtn(thisKey);
+                setUpDeleteBtn(thisKey);
                 break;
 
         }
         // TODO Needs direct to next activity
-        setUpNextBtn();
-    }
 
-    private void loadCurrentCarInfo() {
     }
 
     private void setUpNextBtn() {
@@ -86,9 +90,51 @@ public class CarInfoActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CarListActivity.globCollection.add(userSelectedCar);
+                CarListActivity.recentCarList.add(userSelectedCar);
+                Intent intent = Route_List_Activity.IntentForRouteList(CarInfoActivity.this);
+                startActivity(intent);
             }
         });
+    }
+
+    public void setUpDeleteBtn(final UUID key) {
+        Button btn = (Button) findViewById(R.id.btn_delete);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userSelectedCar.setKEY(key);
+                Boolean bool = CarListActivity.recentCarList.remove(userSelectedCar);
+                Toast.makeText(CarInfoActivity.this, "" + bool, Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+    }
+
+    public void setUpCancelBtn() {
+        Button btn = (Button) findViewById(R.id.btn_delete);
+        btn.setText("Cancel");
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    private void setUpFinishEditBtn(final UUID key) {
+        Button btn = (Button) findViewById(R.id.btn_next);
+        btn.setText("Confirm Edit");
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userSelectedCar.setKEY(key);
+                Log.i(TAG, "onCreate: " + userSelectedCar.getKEY().toString());
+                boolean bool = CarListActivity.recentCarList.updateCarInfo(userSelectedCar);
+                Toast.makeText(CarInfoActivity.this, "" + bool, Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
     }
 
     private Spinner setUpSpinner(int spnID, List<String> stringList) {
@@ -118,7 +164,7 @@ public class CarInfoActivity extends AppCompatActivity {
 
         // MAKE SPINNER ---------
         final Spinner spnMake = setUpSpinner(R.id.spn_make, makeDisplayList);
-        if(!(selectMake == null)){
+        if (!(selectMake == null)) {
             spnMake.setSelection(makeDisplayList.indexOf(selectMake));
         }
         spnMake.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -129,7 +175,7 @@ public class CarInfoActivity extends AppCompatActivity {
 
                 // MODEL SPINNER -----------
                 final Spinner spnModel = setUpSpinner(R.id.spn_model, modelDisplayList);
-                if(!(selectModel == null)){
+                if (!(selectModel == null)) {
                     spnModel.setSelection(modelDisplayList.indexOf(selectModel));
                 }
                 spnModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -142,7 +188,9 @@ public class CarInfoActivity extends AppCompatActivity {
                         // Pull Car List with specified make and model
                         final List<Car> specList = carCollection.search(selectMake, selectModel).toList();
                         Spinner spnYear = setUpCustomSpinner(R.id.spn_year, specList);
-                        if(!(selectYear == null)){
+                        if (!(selectYear == null)) {
+                            int index = carCollection.search(selectMake, selectModel).getIndexOf(userSelectedCar);
+                            spnYear.setSelection(index);
                         }
                         spnYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
