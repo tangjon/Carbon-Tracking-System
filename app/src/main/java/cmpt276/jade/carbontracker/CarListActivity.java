@@ -15,11 +15,13 @@ import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.utils.Mode;
 
 public class CarListActivity extends AppCompatActivity {
-
-    //TODO TEMPORARY CAR COLLECTION STATIC SHOULD PLACED IN LOG CLASS
+    // Field for Recent Car List
     public static CarCollection recentCarList = new CarCollection();
+
+    // Car List Activity Static Resource Fields
     public static String CAR_KEY = "carKey";
 
+    // Car List Activity Resource Fields
     private String activity_name = "CarListActivity";
     private ListView lstView;
 
@@ -36,8 +38,8 @@ public class CarListActivity extends AppCompatActivity {
 
         setUpAddButton(R.id.btn_add_car);
 
+        // Refresh the Car List
         updateUI();
-
 
     }
 
@@ -53,7 +55,8 @@ public class CarListActivity extends AppCompatActivity {
         // Apply the adapter to the spinner
         lstView.setAdapter(adapter);
 
-        // React to Long Click
+        // React to Long Click (EDIT MODE)
+        // Send CarInfoActivity existing data about Car for Editting
         lstView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -65,7 +68,7 @@ public class CarListActivity extends AppCompatActivity {
             }
         });
 
-        // React to Car Object Click
+        // React to Car Object Click, send to CarListActivity
         lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -88,7 +91,7 @@ public class CarListActivity extends AppCompatActivity {
         });
     }
 
-
+    // Refresh UI upon returning to activity
     @Override
     protected void onResume() {
         super.onResume();

@@ -34,8 +34,6 @@ public class CarInfoActivity extends AppCompatActivity {
     private List<String> makeDisplayList = new ArrayList<>();
     // String of Models for Specific Car for spinner adapter
     private List<String> modelDisplayList = new ArrayList<>();
-
-
     // Helper Fields
     private String selectMake, selectModel, selectYear;
     // TAG
@@ -45,6 +43,7 @@ public class CarInfoActivity extends AppCompatActivity {
 
     private Emission emission = Emission.getInstance();
 
+    // Get Intent with Mode Attached
     public static Intent getIntentFromActivity(Context context, Mode mode) {
         Intent intent = new Intent(context, CarInfoActivity.class);
         intent.putExtra(APP_MODE, mode);
@@ -80,6 +79,7 @@ public class CarInfoActivity extends AppCompatActivity {
 
     }
 
+    // Load Previous Car Info and get the key
     private UUID loadCurrentCar() {
         String key = getIntent().getExtras().getString(CarListActivity.CAR_KEY);
         userSelectedCar = CarListActivity.recentCarList.getCarByKey(key);
@@ -88,13 +88,10 @@ public class CarInfoActivity extends AppCompatActivity {
         selectMake = userSelectedCar.getMake();
         selectModel = userSelectedCar.getModel();
         selectYear = Double.toString(userSelectedCar.getYear());
-        setUpEditTextNickname();
-        return thisKey;
-    }
-
-    private void setUpEditTextNickname() {
+        // Load Existing nickname
         EditText et = (EditText) findViewById(R.id.et_nickname);
         et.setText(userSelectedCar.getNickname());
+        return thisKey;
     }
 
     private void setUpAddBtn() {
