@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import cmpt276.jade.carbontracker.adapter.CarListAdapter;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
+import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.utils.Mode;
 
 public class CarListActivity extends AppCompatActivity {
@@ -22,6 +24,8 @@ public class CarListActivity extends AppCompatActivity {
 
     private String activity_name = "CarListActivity";
     private ListView lstView;
+    private Journey journey;
+    private String test;
 
     public static Intent getIntentFromActivity(Context context) {
         Intent intent = new Intent(context, CarListActivity.class);
@@ -33,14 +37,14 @@ public class CarListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle(activity_name);
         setContentView(R.layout.activity_car_list);
-
+        getJourneyData();
         setUpAddButton(R.id.btn_add_car);
 
-        updateUI();
+        setUpListView();
 
 
     }
-
+/*
     private void setUpEditMode() {
         lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -61,7 +65,7 @@ public class CarListActivity extends AppCompatActivity {
             }
         });
     }
-
+*/
     private void updateUI() {
         setUpListView();
     }
@@ -75,13 +79,18 @@ public class CarListActivity extends AppCompatActivity {
         lstView.setAdapter(adapter);
 
         // TODO Implement Edit Mode/Delete
-        setUpEditMode();
+      //  setUpEditMode();
 
         // React to Car Object Click
         lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //Sean- adding my journey object to your intent
+                Car car = (Car) parent.getAdapter().getItem(position);
+                journey.setCar(car);
                 Intent intent = Route_List_Activity.IntentForRouteList(CarListActivity.this);
+                intent.putExtra("Journey", journey);
                 startActivity(intent);
             }
         });
@@ -95,6 +104,7 @@ public class CarListActivity extends AppCompatActivity {
                 //TODO SHOULD SEND US TO ROUTE
                 // ACTIVITES
                 Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.ADD);
+                intent.putExtra("Journey", journey);
                 startActivity(intent);
             }
         });
@@ -105,5 +115,11 @@ public class CarListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         updateUI();
+    }
+    //Sean - Gets journey object passed by journey list
+    public void getJourneyData() {
+        Intent intent = getIntent();
+            journey = (Journey)intent.getSerializableExtra("Journey");
+
     }
 }

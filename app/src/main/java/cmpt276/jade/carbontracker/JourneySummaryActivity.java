@@ -36,9 +36,9 @@ public class JourneySummaryActivity extends AppCompatActivity {
 
     private void getData() {
         Intent intent = getIntent();
-        this.journey = (Journey)intent.getSerializableExtra("Journey");
-        this.car = journey.getCar();
-        this.route = journey.getRoute();
+        journey = (Journey)intent.getSerializableExtra("Journey");
+        car = journey.getCar();
+        route = journey.getRoute();
     }
 
     private void setData() {

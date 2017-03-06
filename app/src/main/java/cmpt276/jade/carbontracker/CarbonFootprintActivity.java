@@ -83,7 +83,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     }
 
     private void loadData() {
-        emissionNames = journeyCollection.getJourneyName();
+        emissionNames = journeyCollection.getJourneyDetails();
 
         for (int i = 0; i < NUM_ENTRIES; ++i) {
             emissionDate[i] = "dummy date";

@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.model.RouteCollection;
 
@@ -18,6 +20,7 @@ public class Route_List_Activity extends AppCompatActivity {
 
     public static final int RECEIVE_ROUTE = 1024; //intent numer for add
     public static final int EDIT_ROUTE = 1025; //intent number for edit/delete
+    private Journey journey;
     RouteCollection routes = new RouteCollection();
 
     public static Intent IntentForRouteList(Context context) {
@@ -30,12 +33,13 @@ public class Route_List_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_route_list);
 
+        getCarListData();
         setup_Add_Btn();
-
-        populateListView();
-
         long_pressing_editAndDelete();
         setup_Summary_Btn();
+        populateListView();
+
+
     }
 
     private void populateListView() {
@@ -56,9 +60,33 @@ public class Route_List_Activity extends AppCompatActivity {
         });
     }
 
+    //Sean - Gets the journey object
+    private void getCarListData() {
+
+        Intent intent = getIntent();
+        this.journey = (Journey)intent.getSerializableExtra("Journey");
+    }
+
     //long pressing for edit and delete
     private void long_pressing_editAndDelete() {
         ListView list = (ListView) findViewById(R.id.Route_list_routeList);
+
+        //Sean - Adding method to send data back to journeylist
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Route route = routes.getRouteByIndex(position);
+                journey.setRoute(route);
+                Intent intent = JourneyListActivity.getJourneyListIntent(Route_List_Activity.this);
+                intent.putExtra("Journey", journey);
+                //TODO
+                //Should clear the whole back stack besides main menu
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -69,6 +97,7 @@ public class Route_List_Activity extends AppCompatActivity {
                 return true;
             }
         });
+
     }
 
     private void setup_Add_Btn() {
@@ -78,6 +107,7 @@ public class Route_List_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = Route_Info_Activity.IntentForAddingRoute(Route_List_Activity.this);
+                intent.putExtra("Journey", journey);
                 startActivityForResult(intent, RECEIVE_ROUTE);
             }
         });
@@ -128,6 +158,7 @@ public class Route_List_Activity extends AppCompatActivity {
                 break;
         }
     }
+
 }
 
 

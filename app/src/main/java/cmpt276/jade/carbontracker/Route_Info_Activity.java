@@ -11,11 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.Route;
 
 public class Route_Info_Activity extends AppCompatActivity {
 
     private Route RouteFromList;
+    private Journey journey;
 
     public static Intent IntentForAddingRoute(Context context) {
         Intent intent = new Intent(context, Route_Info_Activity.class);
@@ -34,6 +36,7 @@ public class Route_Info_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getJourneyData();
         setContentView(R.layout.layout_route_infor);
         setupOKbtn();
         setupCanselBtn();
@@ -52,11 +55,11 @@ public class Route_Info_Activity extends AppCompatActivity {
                 } else {
                     //check empty input for highway
                     if (Check_empty_input(R.id.Route_Info_edite_highway) == 0) {
-                        Toast.makeText(getApplicationContext(), "You did not entered any numer for HighWay " + " please try again", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "You did not entered any number for HighWay " + " please try again", Toast.LENGTH_LONG).show();
                     } else {
                         //check empty input for city
                         if (Check_empty_input(R.id.Route_Info_edite_city) == 0) {
-                            Toast.makeText(getApplicationContext(), "You did not entered any numer for City " + " please try again", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "You did not entered any number for City " + " please try again", Toast.LENGTH_LONG).show();
                         } else {
                             int highway = Integer.parseInt(getNameById(R.id.Route_Info_edite_highway));
                             int city = Integer.parseInt(getNameById(R.id.Route_Info_edite_city));
@@ -78,6 +81,7 @@ public class Route_Info_Activity extends AppCompatActivity {
 
     private void pass_back_route() {
         Intent back_Route = new Intent();
+        back_Route.putExtra("Journey", journey);
         back_Route.putExtra("pass back the route name", getNameById(R.id.Route_Info_edite_name));
         back_Route.putExtra("pass back the highway", getNameById(R.id.Route_Info_edite_highway));
         back_Route.putExtra("pass back the city", getNameById(R.id.Route_Info_edite_city));
@@ -177,6 +181,12 @@ public class Route_Info_Activity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void getJourneyData() {
+        Intent intent = getIntent();
+        journey = (Journey)intent.getSerializableExtra("Journey");
+
     }
 
 }
