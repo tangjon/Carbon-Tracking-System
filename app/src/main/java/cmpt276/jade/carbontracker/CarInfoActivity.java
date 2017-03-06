@@ -87,6 +87,8 @@ public class CarInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 CarListActivity.globCollection.add(userSelectedCar);
+                Intent intent = Route_List_Activity.IntentForRouteList(CarInfoActivity.this);
+                startActivity(intent);
             }
         });
     }
@@ -118,7 +120,7 @@ public class CarInfoActivity extends AppCompatActivity {
 
         // MAKE SPINNER ---------
         final Spinner spnMake = setUpSpinner(R.id.spn_make, makeDisplayList);
-        if(!(selectMake == null)){
+        if (!(selectMake == null)) {
             spnMake.setSelection(makeDisplayList.indexOf(selectMake));
         }
         spnMake.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -129,7 +131,7 @@ public class CarInfoActivity extends AppCompatActivity {
 
                 // MODEL SPINNER -----------
                 final Spinner spnModel = setUpSpinner(R.id.spn_model, modelDisplayList);
-                if(!(selectModel == null)){
+                if (!(selectModel == null)) {
                     spnModel.setSelection(modelDisplayList.indexOf(selectModel));
                 }
                 spnModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -142,7 +144,7 @@ public class CarInfoActivity extends AppCompatActivity {
                         // Pull Car List with specified make and model
                         final List<Car> specList = carCollection.search(selectMake, selectModel).toList();
                         Spinner spnYear = setUpCustomSpinner(R.id.spn_year, specList);
-                        if(!(selectYear == null)){
+                        if (!(selectYear == null)) {
                         }
                         spnYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

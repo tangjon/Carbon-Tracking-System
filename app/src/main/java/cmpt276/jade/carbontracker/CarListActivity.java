@@ -22,6 +22,11 @@ public class CarListActivity extends AppCompatActivity {
     public static String CAR_KEY = "carKey";
     private ListView lstView;
 
+    public static Intent getIntentFromActivity(Context context) {
+        Intent intent = new Intent(context, CarListActivity.class);
+        return intent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,10 +79,15 @@ public class CarListActivity extends AppCompatActivity {
 
         // TODO Implement Edit Mode/Delete
         setUpEditMode();
-    }
-    public static Intent getIntentFromActivity(Context context) {
-        Intent intent = new Intent(context, CarListActivity.class);
-        return intent;
+
+        // React to Car Object Click
+        lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = Route_List_Activity.IntentForRouteList(CarListActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setUpAddButton(int btnID) {
