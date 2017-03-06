@@ -17,6 +17,8 @@
     <string name="label_short_summary">Short Summary</string>
     <string name="label_delete">DELETE</string>
     <string name="label_skip">Skip</string>
+    <string name="label_nickname">Nickname</string>
+    <string name="label_enterNickName">Enter a nickname</string>
     <string name="label_toggle_graph">Toggle Display</string>
     <string name="label_graph_title">Total Carbon Footprint</string>
     <string name="label_view_footprint">View Carbon Footprint</string>

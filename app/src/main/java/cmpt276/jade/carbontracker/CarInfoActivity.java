@@ -1,14 +1,17 @@
 package cmpt276.jade.carbontracker;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,6 +66,7 @@ public class CarInfoActivity extends AppCompatActivity {
                 setUpAllSpinners();
                 setUpNextBtn();
                 setUpCancelBtn();
+
                 break;
             case EDIT:
                 // Fetch Select Car to Edit
@@ -90,9 +94,15 @@ public class CarInfoActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CarListActivity.recentCarList.add(userSelectedCar);
-                Intent intent = Route_List_Activity.IntentForRouteList(CarInfoActivity.this);
-                startActivity(intent);
+                EditText et = (EditText) findViewById(R.id.et_nickname);
+                if(et.getText().toString().trim().length() == 0){
+                    et.setError("Please Enter a nickname");
+                }else{
+                    userSelectedCar.setNickName(et.getText().toString().trim());
+                    CarListActivity.recentCarList.add(userSelectedCar);
+                    Intent intent = Route_List_Activity.IntentForRouteList(CarInfoActivity.this);
+                    startActivity(intent);
+                }
             }
         });
     }

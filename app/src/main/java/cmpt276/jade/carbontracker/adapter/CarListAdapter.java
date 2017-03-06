@@ -42,8 +42,7 @@ public class CarListAdapter extends ArrayAdapter<Car> {
             itemView = inflater.inflate(R.layout.car_item_list, parent, false);
         }
         Car currentCar = mItems.get(position);
-
-        String string = currentCar.getMake() + " : " + currentCar.getModel() + " : " + currentCar.getYear();
+        String string = currentCar.getNickName() + " - " + currentCar.getName();
         setUpTextView(itemView, R.id.tv_car_item, string);
 
         return itemView;
