@@ -15,4 +15,6 @@
     <string name="label_fuel_cost">Fuel Cost</string>
     <string name="label_transmission">Transmission</string>
     <string name="label_short_summary">Short Summary</string>
+    <string name="label_delete">DELETE</string>
+    <string name="label_skip">Skip</string>
 </resources>

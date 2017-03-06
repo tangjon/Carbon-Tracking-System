@@ -3,27 +3,26 @@ package cmpt276.jade.carbontracker.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import cmpt276.jade.carbontracker.model.Route;
-
 public class RouteCollection {
 
     private List<Route> List_Rout = new ArrayList<>();
 
     public int getTotleHighWayDistance() {
-        int HighWayDistance=0;
+        int HighWayDistance = 0;
         String[] list = new String[countRoutes()];
         for (int i = 0; i < countRoutes(); i++) {
             Route route = getRouteByIndex(i);
-            HighWayDistance=HighWayDistance+route.getHighWayDistance();
+            HighWayDistance = HighWayDistance + route.getHighWayDistance();
         }
         return HighWayDistance;
     }
+
     public int getTotleCityDistance() {
-        int CityDistance=0;
+        int CityDistance = 0;
         String[] list = new String[countRoutes()];
         for (int i = 0; i < countRoutes(); i++) {
             Route route = getRouteByIndex(i);
-            CityDistance=CityDistance+route.getHighWayDistance();
+            CityDistance = CityDistance + route.getHighWayDistance();
         }
         return CityDistance;
     }
@@ -58,9 +57,9 @@ public class RouteCollection {
         for (int i = 0; i < countRoutes(); i++) {
 
             Route route = getRouteByIndex(i);
-            detail[i] = "Route: "+ route.getName() + ", HighWay:"
-                    + route.getHighWayDistance() + "km, "+
-                    " City:"+route.getCityDistance()+ "km.";
+            detail[i] = "Route: " + route.getName() + ", HighWay:"
+                    + route.getHighWayDistance() + "km, " +
+                    " City:" + route.getCityDistance() + "km.";
 
             //***********VERSON of hide the route instead of deleting it*********//
             //***********Need to test in Monday meeting**************************//

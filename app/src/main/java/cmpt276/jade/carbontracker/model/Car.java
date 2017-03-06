@@ -23,7 +23,7 @@ public class Car implements Serializable{
     private UUID KEY;
 
     public Car(){
-
+        this.KEY = UUID.randomUUID();
     }
 
 
@@ -176,6 +176,24 @@ public class Car implements Serializable{
     public void setCarbonTailPipe(int carbonTailPipe) {
         this.carbonTailPipe = carbonTailPipe;
     }
+
+    public String toStringNoKey() {
+        return "Car{" +
+                "nickName='" + nickName + '\'' +
+                ", make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", transDescription='" + transDescription + '\'' +
+                ", year=" + year +
+                ", cityMPG=" + cityMPG +
+                ", highwayMPG=" + highwayMPG +
+                ", engineDescription='" + engineDescription + '\'' +
+                ", engineDispLitres=" + engineDispLitres +
+                ", fuelType='" + fuelType + '\'' +
+                ", fuelAnnualCost=" + fuelAnnualCost +
+                ", carbonTailPipe=" + carbonTailPipe +
+                '}';
+    }
+
 
     @Override
     public String toString() {
