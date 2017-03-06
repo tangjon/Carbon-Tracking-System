@@ -17,4 +17,6 @@
     <string name="label_short_summary">Short Summary</string>
     <string name="label_delete">DELETE</string>
     <string name="label_skip">Skip</string>
+    <string name="label_nickname">Nickname</string>
+    <string name="label_enterNickName">Enter a nickname</string>
 </resources>

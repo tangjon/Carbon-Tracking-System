@@ -61,6 +61,10 @@ public class Car implements Serializable{
         this.transDescription = transDescription;
     }
 
+    public String getName(){
+        return "" + getMake() + " : " + getModel() + " : " + getYear();
+    }
+
     public String getTransDescription() {
         return transDescription;
     }
