@@ -36,6 +36,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/Route_List_add_btn"
-        android:text="Hint: Click route to add routes. Long press to edit or delete." />
+        android:text="Hint: Click route to the list of Journey. Long press to edit or delete." />
 
 </RelativeLayout>
