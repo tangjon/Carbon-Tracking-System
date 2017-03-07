@@ -25,7 +25,6 @@ public class CarListActivity extends AppCompatActivity {
 
     // Car List Activity Resource Fields
     private String activity_name = "CarListActivity";
-    private ListView lstView;
     private Journey journey;
 
     public static Intent getIntentFromActivity(Context context) {
@@ -52,7 +51,7 @@ public class CarListActivity extends AppCompatActivity {
 
     private void setUpListView() {
         // Link widget
-        lstView = (ListView) findViewById(R.id.lv_carList);
+        ListView lstView = (ListView) findViewById(R.id.lv_carList);
         // Create an ArrayAdapter using the string array and a default spinner layout
         CarListAdapter adapter = new CarListAdapter(CarListActivity.this, recentCarList.toList());
         // Apply the adapter to the spinner
