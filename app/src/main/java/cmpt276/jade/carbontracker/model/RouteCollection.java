@@ -60,29 +60,10 @@ public class RouteCollection {
     public String[] Detail() {
         String[] detail = new String[countRoutes()];
         for (int i = 0; i < countRoutes(); i++) {
-
             Route route = getRouteByIndex(i);
             detail[i] = "Route: " + route.getName() + ", HighWay:"
                     + route.getHighWayDistance() + "km, " +
                     " City:" + route.getCityDistance() + "km.";
-
-            //***********VERSON of hide the route instead of deleting it*********//
-            //***********Need to test in Monday meeting**************************//
-            /*
-            Route route = getRouteByIndex(i);
-            if(route.getSelection()=="NO")
-            {
-            detail[i] = ""+ route.getName() + ",           "
-                    + route.getHighWayDistance() + "km, "+
-                    "         "+route.getCityDistance()+ "km.";
-            }
-            else
-            {
-                detail[i] = "You deleted Roure:"+route.getName()
-                +
-                "   Long Press to edit.";
-            }*/
-
         }
         return detail;
     }
