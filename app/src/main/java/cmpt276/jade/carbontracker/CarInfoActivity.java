@@ -43,6 +43,8 @@ public class CarInfoActivity extends AppCompatActivity {
     // Field to store the user selected car <----------- THIS IS OF INTEREST
     private Car userSelectedCar;
 
+    private Emission emission = Emission.getInstance();
+
     // Get Intent with Mode Attached
     public static Intent getIntentFromActivity(Context context, Mode mode) {
         Intent intent = new Intent(context, CarInfoActivity.class);
@@ -266,7 +268,7 @@ public class CarInfoActivity extends AppCompatActivity {
     public void getJourneyData() {
         Intent intent = getIntent();
         journey = (Journey)intent.getSerializableExtra("Journey");
-        startActivity(intent);
+
     }
 
 
