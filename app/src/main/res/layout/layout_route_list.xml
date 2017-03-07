@@ -13,10 +13,13 @@
 
     <ListView
         android:id="@+id/Route_list_routeList"
+        style="@style/Widget.AppCompat.ListView.Menu"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/Route_List_text_title" />
+        android:layout_alignParentTop="true"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false" />
 
     <Button
         android:id="@+id/Route_List_add_btn"
@@ -33,6 +36,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/Route_List_add_btn"
-        android:text="Hint: Click route to add routes. Long press to edit or delete." />
+        android:text="Hint: Click route to the list of Journey. Long press to edit or delete." />
 
 </RelativeLayout>
