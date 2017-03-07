@@ -45,7 +45,7 @@ public class Welcome_Activity extends AppCompatActivity {
     //Set a image over the title, then it will disappear after 5000ms
     //Then the App Name will show off
     private void setupAppName() {
-        ImageView imageBTN = (ImageView) findViewById(R.id.welcome_back_image);
+        ImageView imageBTN = (ImageView) findViewById(R.id.welcome_back2);
         Animation animation = new AlphaAnimation(1.0f, 0.0f);
         animation.setDuration(5000); //time
         animation.setFillAfter(true);

@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.Route;
@@ -35,11 +37,12 @@ public class Route_List_Activity extends AppCompatActivity {
 
         getCarListData();
         setup_Add_Btn();
-        long_pressing_editAndDelete();
-        setup_Summary_Btn();
+
         populateListView();
 
-
+        long_pressing_editAndDelete();
+        //setup_Summary_Btn();
+        Click_one_Route();
     }
 
     private void populateListView() {
@@ -157,6 +160,25 @@ public class Route_List_Activity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+
+
+    private void Click_one_Route() {
+
+        ListView list=(ListView) findViewById(R.id.Route_list_routeList);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id)
+            {
+                Route Clicked_One=routes.getRouteByIndex(position);
+                routes.SetJourneyName(Clicked_One.getName());
+                Intent Intent_of_One_Route = JourneySummaryActivity.getJourneySummaryIntent
+                        (Route_List_Activity.this, routes);
+                startActivity(Intent_of_One_Route);
+            }
+        });
     }
 
 }

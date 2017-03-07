@@ -31,7 +31,7 @@
         android:layout_marginTop="13dp"
         android:ems="10"
         android:hint="km"
-        android:inputType="number" />
+        android:inputType="numberDecimal" />
 
     <TextView
         android:id="@+id/Route_Info_text_enter_highway"
@@ -64,7 +64,7 @@
         android:layout_marginTop="27dp"
         android:ems="10"
         android:hint="km"
-        android:inputType="number" />
+        android:inputType="numberDecimal" />
 
     <Button
         android:id="@+id/Route_Info_back_btn"

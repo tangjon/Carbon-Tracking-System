@@ -17,15 +17,16 @@ import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.utils.Mode;
 
 public class CarListActivity extends AppCompatActivity {
-
-    //TODO TEMPORARY CAR COLLECTION STATIC SHOULD PLACED IN LOG CLASS
+    // Field for Recent Car List
     public static CarCollection recentCarList = new CarCollection();
+
+    // Car List Activity Static Resource Fields
     public static String CAR_KEY = "carKey";
 
+    // Car List Activity Resource Fields
     private String activity_name = "CarListActivity";
     private ListView lstView;
     private Journey journey;
-    private String test;
 
     public static Intent getIntentFromActivity(Context context) {
         Intent intent = new Intent(context, CarListActivity.class);
@@ -40,32 +41,11 @@ public class CarListActivity extends AppCompatActivity {
         getJourneyData();
         setUpAddButton(R.id.btn_add_car);
 
-        setUpListView();
-
+        // Refresh the Car List
+        updateUI();
 
     }
-/*
-    private void setUpEditMode() {
-        lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Fetch Car Object
-                Car car = (Car) parent.getAdapter().getItem(position);
-            }
-        });
 
-        lstView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Car car = (Car) parent.getAdapter().getItem(position);
-                Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
-                intent.putExtra(CAR_KEY, car.getKEY().toString());
-                startActivity(intent);
-                return true;
-            }
-        });
-    }
-*/
     private void updateUI() {
         setUpListView();
     }
@@ -78,10 +58,20 @@ public class CarListActivity extends AppCompatActivity {
         // Apply the adapter to the spinner
         lstView.setAdapter(adapter);
 
-        // TODO Implement Edit Mode/Delete
-      //  setUpEditMode();
+        // React to Long Click (EDIT MODE)
+        // Send CarInfoActivity existing data about Car for Editting
+        lstView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Car car = (Car) parent.getAdapter().getItem(position);
+                Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
+                intent.putExtra(CAR_KEY, car.getKEY().toString());
+                startActivity(intent);
+                return true;
+            }
+        });
 
-        // React to Car Object Click
+        // React to Car Object Click, send to CarListActivity
         lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -110,7 +100,7 @@ public class CarListActivity extends AppCompatActivity {
         });
     }
 
-
+    // Refresh UI upon returning to activity
     @Override
     protected void onResume() {
         super.onResume();
