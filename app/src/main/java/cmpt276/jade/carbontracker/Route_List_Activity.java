@@ -23,7 +23,7 @@ public class Route_List_Activity extends AppCompatActivity {
     public static final int RECEIVE_ROUTE = 1024; //intent numer for add
     public static final int EDIT_ROUTE = 1025; //intent number for edit/delete
     private Journey journey;
-    RouteCollection routes = new RouteCollection();
+    private static RouteCollection routes = new RouteCollection();
 
     public static Intent IntentForRouteList(Context context) {
         Intent intent = new Intent(context, Route_List_Activity.class);
@@ -67,8 +67,9 @@ public class Route_List_Activity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Route route = routes.getRouteByIndex(position);
                 journey.setRoute(route);
+                Journey intentJourney = new Journey(journey.getName(), journey.getCar(), journey.getRoute());
                 Intent intent = JourneyListActivity.getJourneyListIntent(Route_List_Activity.this);
-                intent.putExtra("Journey", journey);
+                intent.putExtra("Journey", intentJourney);
                 //TODO
                 //Should clear the whole back stack besides main menu
                 startActivity(intent);

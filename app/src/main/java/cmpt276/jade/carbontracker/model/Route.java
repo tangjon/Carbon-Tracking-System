@@ -1,6 +1,9 @@
 package cmpt276.jade.carbontracker.model;
 
+import android.util.Log;
+
 import java.io.Serializable;
+
 
 public class Route implements Serializable {
     private String name;
@@ -10,7 +13,9 @@ public class Route implements Serializable {
     public Route(String name, int HighWayDistance, int CityDistance) {
         this.name = name;
         this.HighWayDistance = HighWayDistance;
+        Log.i("HELLO", "Route: " + HighWayDistance);
         this.CityDistance = CityDistance;
+        Log.i("HELLO", "Route: " + CityDistance);
     }
 
     public int getHighWayDistance() {

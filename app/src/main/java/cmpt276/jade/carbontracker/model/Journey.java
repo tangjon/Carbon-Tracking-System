@@ -21,9 +21,9 @@ public class Journey implements Serializable{
         this.name = inputName;
         this.car = inputCar;
         this.route = inputRoute;
-       // this.totalEmissionsCity = calcTotalCity(car.getCityMPG(), route.getCityDistance());
-       // this.totalEmissionsHighway = calcTotalHway(car.getHighwayMPG(), route.getHighWayDistance());
-      //  this.totalTravelledEmissions = totalEmissionsCity+totalEmissionsHighway;
+        this.totalEmissionsCity = calcTotalCity(car.getCityMPG(), route.getCityDistance());
+        this.totalEmissionsHighway = calcTotalHway(car.getHighwayMPG(), route.getHighWayDistance());
+        this.totalTravelledEmissions = totalEmissionsCity+totalEmissionsHighway;
     }
 
     public String getName() {
@@ -76,12 +76,12 @@ public class Journey implements Serializable{
 
     //Calculates total City driving
     public double calcTotalCity(double carCity, double routeCity){
-        double total= carCity * routeCity;
+        double total=  carCity * routeCity;
         return total;
     }
     //Calculates total Highway driving
     public double calcTotalHway(double carHway, double routeHway){
-        double total= carHway * routeHway;
+        double total=  carHway * routeHway;
         return total;
     }
 
