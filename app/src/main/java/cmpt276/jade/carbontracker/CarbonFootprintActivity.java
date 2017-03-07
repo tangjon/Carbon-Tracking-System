@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -22,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 
 public class CarbonFootprintActivity extends AppCompatActivity {
@@ -33,10 +33,10 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private final int NUM_ENTRIES = journeyCollection.countJourneys();
 
     private String emissionDate[] = new String[NUM_ENTRIES];
-    private String emissionNames[] = new String[NUM_ENTRIES];
+    private String emissionRouteNames[] = new String[NUM_ENTRIES];
     private float emissionValues[] = new float[NUM_ENTRIES];
     private double emissionDistance[] = new double[NUM_ENTRIES];
-    private String emissionVehicleName[] = new String[NUM_ENTRIES];
+    private String emissionVehicleNames[] = new String[NUM_ENTRIES];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +69,16 @@ public class CarbonFootprintActivity extends AppCompatActivity {
             for (int col = 0; col < 5; ++col) {
                 TextView tv = new TextView(this);
                 switch (col) {
-                    case 0: tv.setText("date goes here");   // date not implemented
-                    case 1: tv.setText(emissionNames[row]);
+                    case 0: tv.setText(emissionDate[row]);
+                        break;
+                    case 1: tv.setText(emissionRouteNames[row]);
+                        break;
                     case 2: tv.setText(String.valueOf(emissionDistance[row]));
-                    case 3: tv.setText(emissionVehicleName[row]);
-                    case 4: tv.setText("carbon goes here"); // carbon not implemented
+                        break;
+                    case 3: tv.setText(emissionVehicleNames[row]);
+                        break;
+                    case 4: tv.setText(String.valueOf(emissionValues[row]));
+                        break;
                 }
                 tableRow.addView(tv);
             }
@@ -83,14 +88,16 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     }
 
     private void loadData() {
-        emissionNames = journeyCollection.getJourneyDetails();
+        emissionRouteNames = journeyCollection.getJourneyDetails();
+        Journey j;
 
         for (int i = 0; i < NUM_ENTRIES; ++i) {
-            emissionDate[i] = "dummy date";
-            emissionNames[i] = journeyCollection.getJourney(i).getRoute().getName();
-            emissionDistance[i] = journeyCollection.getJourney(i).getTotalTravelled();
-            emissionVehicleName[i] = journeyCollection.getJourney(i).getName();
-            emissionValues[i] = 12f;    // dummy data
+            j = journeyCollection.getJourney(i);
+            emissionDate[i] = "dummy date";                     // dummy data
+            emissionRouteNames[i] = j.getRoute().getName();
+            emissionDistance[i] = j.getRoute().getCityDistance() + j.getRoute().getCityDistance();
+            emissionVehicleNames[i] = j.getCar().getName();
+            emissionValues[i] = (float) j.getTotalTravelled();
         }
     }
 
@@ -116,7 +123,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private void setupPieChart() {
         List<PieEntry> pieEntries = new ArrayList<>();
         for (int i = 0; i < NUM_ENTRIES; ++i)
-            pieEntries.add(new PieEntry(emissionValues[i], emissionNames[i]));
+            pieEntries.add(new PieEntry(emissionValues[i], emissionRouteNames[i]));
 
         PieDataSet dataSet = new PieDataSet(pieEntries, getResources().getString(R.string.label_graph_title));
         dataSet.setColors(ColorTemplate.PASTEL_COLORS);
@@ -130,7 +137,6 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         desc.setEnabled(false);
         pieChart.setDescription(desc);
         pieChart.animateY(600);
-        pieChart.setVisibility(View.INVISIBLE);
         pieChart.invalidate();
     }
 

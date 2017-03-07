@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import cmpt276.jade.carbontracker.model.Car;
+import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
@@ -38,7 +39,6 @@ public class JourneyListActivity extends AppCompatActivity {
         getIntentData();
         setupClickJourneyList();
         populateList();
-
     }
 
     //TODO Delete from list
@@ -117,6 +117,7 @@ public class JourneyListActivity extends AppCompatActivity {
         if(journey != null){
             this.intentJourney = journey;
             listOfJourneys.addJourney(journey);
+            Emission.getInstance().setJourneyCollection(listOfJourneys);
         }
 
 
