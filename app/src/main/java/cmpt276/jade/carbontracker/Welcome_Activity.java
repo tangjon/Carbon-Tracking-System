@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.sample.LoadDummyData;
 import cmpt276.jade.carbontracker.utils.CarManager;
 
 public class Welcome_Activity extends AppCompatActivity {
@@ -39,6 +40,9 @@ public class Welcome_Activity extends AppCompatActivity {
         // Read vehicles.csv and population emissions CarCollection
         Log.i(TAG, "loadRequiredApplicationResources: " + "vehicles.csv loaded!");
         Emission.getInstance().setCarCollection(new CarCollection(CarManager.readCarData(this, R.raw.vehicle_trimmed)));
+
+        // Uncomment this to load dummy data
+        // LoadDummyData.load();
     }
 
     private void setupBtnToMainMenu() {

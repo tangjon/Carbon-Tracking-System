@@ -25,7 +25,7 @@ public class Route_List_Activity extends AppCompatActivity {
     public static final int RECEIVE_ROUTE = 1024; //intent numer for add
     public static final int EDIT_ROUTE = 1025; //intent number for edit/delete
     private Journey journey;
-    private static RouteCollection routes = new RouteCollection();
+    public static RouteCollection routes = new RouteCollection();
 
     public static Intent IntentForRouteList(Context context) {
         Intent intent = new Intent(context, Route_List_Activity.class);
