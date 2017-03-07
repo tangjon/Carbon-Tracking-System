@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +18,7 @@ import cmpt276.jade.carbontracker.model.Route;
 
 public class JourneyListActivity extends AppCompatActivity {
     public static JourneyCollection listOfJourneys = new JourneyCollection();
+    private Journey intentJourney;
 
     public static Intent getJourneyListIntent(Context context) {
         return new Intent(context, JourneyListActivity.class);
@@ -30,12 +32,16 @@ public class JourneyListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey_list);
 
+
         setupAddBtn();
         setupFootprintBtn();
+        getIntentData();
         setupClickJourneyList();
         populateList();
 
     }
+
+    //TODO Delete from list
 
     private void setupFootprintBtn() {
         Button button = (Button) findViewById(R.id.btnViewFootprint);
@@ -54,12 +60,14 @@ public class JourneyListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Car car = new Car();
-                Route route = new Route("Test Name", 9, 9);
-                Journey journey = new Journey("A new journey", car, route);
-                listOfJourneys.addJourney(journey);
-                populateList();
-                CarListActivity.getIntentFromActivity(JourneyListActivity.this);
-                startActivity(CarListActivity.getIntentFromActivity(JourneyListActivity.this));
+                Route route = new Route("TEMP ROUTE NAME AND DATA", -1, -1);
+                Journey journey = new Journey("TEMP JOURNEY NAME", car, route);
+                //TODO
+                //Very likely issue when going back/cancelling new entry move add journey to list to a get data method
+
+                Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
+                intent.putExtra("Journey", journey);
+                startActivity(intent);
             }
         });
 
@@ -97,9 +105,20 @@ public class JourneyListActivity extends AppCompatActivity {
     }
 
     private void populateList() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.journey_list, listOfJourneys.getJourneyName());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.journey_list, listOfJourneys.getJourneyDetails());
         ListView list = (ListView) findViewById(R.id.listviewJourney);
         list.setAdapter(adapter);
     }
 
+    public void getIntentData() {
+        Intent intent = getIntent();
+
+        Journey journey = (Journey)intent.getSerializableExtra("Journey");
+        if(journey != null){
+            this.intentJourney = journey;
+            listOfJourneys.addJourney(journey);
+        }
+
+
+    }
 }

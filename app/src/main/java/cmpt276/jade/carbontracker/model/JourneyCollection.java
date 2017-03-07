@@ -38,12 +38,12 @@ public class JourneyCollection {
         return journeyList;
     }
 
-    //get Journey Name
-    public String[] getJourneyName(){
+    //get Journey Details
+    public String[] getJourneyDetails(){
         String[] names = new String[countJourneys()];
         for (int i = 0; i < countJourneys(); i++) {
             Journey journey = getJourney(i);
-            names[i] = journey.getName();
+            names[i] = journey.getName() +" " + journey.getCar().getName()+" "+ journey.getRoute().getName();
         }
         return names;
     }

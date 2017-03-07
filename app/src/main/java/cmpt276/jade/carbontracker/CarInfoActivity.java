@@ -22,6 +22,7 @@ import cmpt276.jade.carbontracker.adapter.CustomSpinnerAdapter;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.utils.CarManager;
 import cmpt276.jade.carbontracker.utils.Mode;
 
@@ -34,6 +35,8 @@ public class CarInfoActivity extends AppCompatActivity {
     private List<String> makeDisplayList = new ArrayList<>();
     // String of Models for Specific Car for spinner adapter
     private List<String> modelDisplayList = new ArrayList<>();
+    private Journey journey;
+
     // Helper Fields
     private String selectMake, selectModel, selectYear;
     // TAG
@@ -58,14 +61,17 @@ public class CarInfoActivity extends AppCompatActivity {
         Mode mode = (Mode) getIntent().getExtras().getSerializable(APP_MODE);
         switch (mode) {
             case ADD:
+                getJourneyData();
                 loadCarList();
                 loadMakeDisplayList();
                 setUpAllSpinners();
                 setUpAddBtn();
                 setUpCancelBtn();
+
                 break;
             case EDIT:
                 // Fetch Select Car to Edit
+                getJourneyData();
                 UUID thisKey = loadCurrentCar();
                 loadCarList();
                 loadMakeDisplayList();
@@ -265,6 +271,12 @@ public class CarInfoActivity extends AppCompatActivity {
                 makeDisplayList.add(make);
             }
         }
+    }
+
+    public void getJourneyData() {
+        Intent intent = getIntent();
+        journey = (Journey)intent.getSerializableExtra("Journey");
+
     }
 
 
