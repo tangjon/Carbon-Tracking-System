@@ -37,7 +37,7 @@ public class Route_List_Activity extends AppCompatActivity {
         populateListView();
 
         long_pressing_editAndDelete();
-        setup_Summary_Btn();
+        //setup_Summary_Btn();
         Click_one_Route();
     }
 
@@ -48,31 +48,7 @@ public class Route_List_Activity extends AppCompatActivity {
         list.setAdapter(ShowAllRoutes);
     }
 
-    private void setup_Summary_Btn() {
-        Button btn = (Button) findViewById(R.id.Route_List_summary_btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText EditJourneyName = (EditText) findViewById(R.id.Route_List_enter_roues_name);
-                routes.SetJourneyName(EditJourneyName.getText().toString());
-                if(EditJourneyName.length()!=0 && (routes.getTotleHighWayDistance()+routes.getTotleCityDistance())!=0)
-                {
-                    Intent Intent_of_List_Routes = JourneySummaryActivity.getJourneySummaryIntent
-                            (Route_List_Activity.this,
-                                    routes,"SummaryOf_ListRoutes");
-                    startActivity(Intent_of_List_Routes);
-                }
-                if(EditJourneyName.length()==0)
-                {
-                    Toast.makeText(getApplicationContext(), "You haven't entered the Journey name " + " please try again", Toast.LENGTH_LONG).show();
-                }
-                if((routes.getTotleHighWayDistance()+routes.getTotleCityDistance())==0)
-                {
-                    Toast.makeText(getApplicationContext(), "You haven't entered any routes " + " please try again", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
+
 
     //long pressing for edit and delete
     private void long_pressing_editAndDelete() {
@@ -157,15 +133,44 @@ public class Route_List_Activity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id)
             {
-                Route Clicked_one=routes.getRouteByIndex(position);
-                Intent Intent_of_One_Route= JourneySummaryActivity.getOneRouteIntent
-                        (Route_List_Activity.this, Clicked_one,"OneRoute");
+                Route Clicked_One=routes.getRouteByIndex(position);
+                routes.SetJourneyName(Clicked_One.getName());
+                Intent Intent_of_One_Route = JourneySummaryActivity.getJourneySummaryIntent
+                        (Route_List_Activity.this, routes);
                 startActivity(Intent_of_One_Route);
             }
         });
     }
 
 }
+
+
+//add all routes
+   /*
+    private void setup_Summary_Btn() {
+        Button btn = (Button) findViewById(R.id.Route_List_summary_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText EditJourneyName = (EditText) findViewById(R.id.Route_List_enter_roues_name);
+                routes.SetJourneyName(EditJourneyName.getText().toString());
+                if(EditJourneyName.length()!=0 && (routes.getTotleHighWayDistance()+routes.getTotleCityDistance())!=0)
+                {
+                    Intent Intent_of_List_Routes = JourneySummaryActivity.getJourneySummaryIntent
+                            (Route_List_Activity.this, routes);
+                    startActivity(Intent_of_List_Routes);
+                }
+                if(EditJourneyName.length()==0)
+                {
+                    Toast.makeText(getApplicationContext(), "You haven't entered the Journey name " + " please try again", Toast.LENGTH_LONG).show();
+                }
+                if((routes.getTotleHighWayDistance()+routes.getTotleCityDistance())==0)
+                {
+                    Toast.makeText(getApplicationContext(), "You haven't entered any routes " + " please try again", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }*/
 
 
 

@@ -71,10 +71,10 @@ public class JourneyListActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = JourneySummaryActivity.getJourneySummaryIntent(JourneyListActivity.this);
-                Journey journey = listOfJourneys.getJourney(position);
-                intent.putExtra("Journey", journey);
-                startActivity(intent);
+                //Intent intent = JourneySummaryActivity.getJourneySummaryIntent(JourneyListActivity.this);
+                //Journey journey = listOfJourneys.getJourney(position);
+                //intent.putExtra("Journey", journey);
+                //startActivity(intent);
             }
         });
 
