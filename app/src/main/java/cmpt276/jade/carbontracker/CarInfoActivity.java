@@ -248,8 +248,7 @@ public class CarInfoActivity extends AppCompatActivity {
     }
 
     private void loadCarList() {
-        carCollection = new CarCollection(CarManager.readCarData(this, R.raw.vehicle_trimmed));
-        emission.setCarCollection(carCollection);
+        carCollection = Emission.getInstance().getCarCollection();
     }
 
     private void loadModelDisplayList() {

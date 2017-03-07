@@ -3,18 +3,29 @@ package cmpt276.jade.carbontracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import cmpt276.jade.carbontracker.model.CarCollection;
+import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.utils.CarManager;
+
 public class Welcome_Activity extends AppCompatActivity {
+
+
+    private static final String TAG = "welcome_activity" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_welcome_);
+        // Load Required Files to Emissions
+        loadRequiredApplicationResources();
+
         setupBtnToMainMenu();
         setupMoving(R.id.welcome_car1, 500, 2800); //#1 car
         setupMoving(R.id.welcome_car3, -700, 2300);//#2 car
@@ -22,6 +33,12 @@ public class Welcome_Activity extends AppCompatActivity {
         setupMoving(R.id.welcome_person2, 500, 3500);  //#2 person
         setupMoving(R.id.welcome_person3, 100, 3000);  //#3 person
         setupAppName();
+    }
+
+    private void loadRequiredApplicationResources() {
+        // Read vehicles.csv and population emissions CarCollection
+        Log.i(TAG, "loadRequiredApplicationResources: " + "vehicles.csv loaded!");
+        Emission.getInstance().setCarCollection(new CarCollection(CarManager.readCarData(this, R.raw.vehicle_trimmed)));
     }
 
     private void setupBtnToMainMenu() {
