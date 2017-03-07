@@ -42,7 +42,6 @@ public class Route_List_Activity extends AppCompatActivity {
 
         long_pressing_editAndDelete();
         //setup_Summary_Btn();
-        Click_one_Route();
     }
 
     private void populateListView() {
@@ -51,18 +50,6 @@ public class Route_List_Activity extends AppCompatActivity {
         ListView list = (ListView) findViewById(R.id.Route_list_routeList);
         list.setAdapter(ShowAllRoutes);
     }
-
-    private void setup_Summary_Btn() {
-        Button btn = (Button) findViewById(R.id.Route_List_summary_btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = JourneySummaryActivity.getJourneySummaryIntent(Route_List_Activity.this);
-                startActivityForResult(intent, RECEIVE_ROUTE);
-            }
-        });
-    }
-
     //Sean - Gets the journey object
     private void getCarListData() {
 
@@ -164,22 +151,7 @@ public class Route_List_Activity extends AppCompatActivity {
 
 
 
-    private void Click_one_Route() {
 
-        ListView list=(ListView) findViewById(R.id.Route_list_routeList);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id)
-            {
-                Route Clicked_One=routes.getRouteByIndex(position);
-                routes.SetJourneyName(Clicked_One.getName());
-                Intent Intent_of_One_Route = JourneySummaryActivity.getJourneySummaryIntent
-                        (Route_List_Activity.this, routes);
-                startActivity(Intent_of_One_Route);
-            }
-        });
-    }
 
 }
 
