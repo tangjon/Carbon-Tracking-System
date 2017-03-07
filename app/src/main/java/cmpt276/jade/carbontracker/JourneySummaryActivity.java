@@ -25,68 +25,38 @@ public class JourneySummaryActivity extends AppCompatActivity {
         setupBackBtn();
     }
 
-    private int getCityDistance(String Mode) {
+    private int getCityDistance() {
         Intent intent = getIntent();
-        if(Mode!=null) {
             int City = intent.getIntExtra("Passing City Distance", 0);
             return City;
-        }
-        else
-        {
-            int City =intent.getIntExtra("Passing One City Distance",0);
-            return City;
-        }
     }
 
-    private int getHighwayDistance(String Mode) {
+    private int getHighwayDistance() {
         Intent intent = getIntent();
-        if(Mode!=null) {
             int Highway = intent.getIntExtra("Passing Highway Distance", 0);
             return Highway;
-        }
-        else
-        {
-            int Highway =intent.getIntExtra("Passing One Highway Distance",0);
-            return Highway;
-        }
     }
 
-    private String getJourneyNickname(String Mode) {
+    private String getJourneyNickname() {
         Intent intent = getIntent();
-        if(Mode!=null) {
             String nickname = intent.getStringExtra("Passing Journey nickname");
             return nickname;
-        }
-        else{
-            String RouteNickname =intent.getStringExtra("Passing One Route nickname");
-            return RouteNickname;
-            }
     }
 
-    private String getMode() {
-        Intent intent = getIntent();
-        String Mode =intent.getStringExtra("Passing Mode");
-        return Mode;
-    }
 
     private void setData() {
-        String Mode=getMode();
-        int TotalCity=getCityDistance(Mode);
-        int TotalHighway=getHighwayDistance(Mode);
-        String JouneyNickname=getJourneyNickname(Mode);
+        //String Mode=getMode();
+        int TotalCity=getCityDistance();
+        int TotalHighway=getHighwayDistance();
+        String JouneyNickname=getJourneyNickname();
 
         //TODO pass car name to summary
         TextView carName = (TextView) findViewById(R.id.textCarName);
         //carName.setText(car.getNickname());
         carName.setText("Car name");
 
-        if(Mode!=null) {
-            setTextView(JouneyNickname, TotalCity, TotalHighway);
+        setTextView(JouneyNickname, TotalCity, TotalHighway);
 
-        }
-        else{
-            setTextView(JouneyNickname, TotalCity, TotalHighway);
-        }
     }
 
     private void setupBackBtn() {
@@ -113,23 +83,14 @@ public class JourneySummaryActivity extends AppCompatActivity {
         totalDrive.setText("" + (TotalCity + TotalHighway));
     }
 
-    //two inten
-    //one is when user click one route to see the summary
-    //one intent is after user enter lots of routes and want to see the summary
-    public static Intent getJourneySummaryIntent(Context context, RouteCollection routes,String Mode) {
+   public static Intent getJourneySummaryIntent(Context context, RouteCollection routes) {
         Intent intent = new Intent(context, JourneySummaryActivity.class);
         intent.putExtra("Passing City Distance", routes.getTotleCityDistance());
         intent.putExtra("Passing Highway Distance", routes.getTotleHighWayDistance());
         intent.putExtra("Passing Journey nickname", routes.getJourneyName());
-        intent.putExtra("Passing Mode", Mode);
         return intent;
     }
-    public static Intent getOneRouteIntent(Context context, Route clicked_one,String Mode) {
-        Intent intent = new Intent(context, JourneySummaryActivity.class);
-        intent.putExtra("Passing One City Distance", clicked_one.getCityDistance());
-        intent.putExtra("Passing One Highway Distance", clicked_one.getHighWayDistance());
-        intent.putExtra("Passing One Route nickname", clicked_one.getName());
-        return intent;
-    }
+
+
 
 }
