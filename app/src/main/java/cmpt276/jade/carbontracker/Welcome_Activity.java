@@ -41,6 +41,7 @@ public class Welcome_Activity extends AppCompatActivity {
         Log.i(TAG, "loadRequiredApplicationResources: " + "vehicles.csv loaded!");
         Emission.getInstance().setCarCollection(new CarCollection(CarManager.readCarData(this, R.raw.vehicle_trimmed)));
 
+        // Todo Make Sure this is uncommented
         // Uncomment this to load dummy data
         // LoadDummyData.load();
     }
