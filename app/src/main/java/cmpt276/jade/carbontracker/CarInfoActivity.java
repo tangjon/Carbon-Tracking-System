@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,28 +22,26 @@ import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
-import cmpt276.jade.carbontracker.utils.CarManager;
 import cmpt276.jade.carbontracker.utils.Mode;
 
 public class CarInfoActivity extends AppCompatActivity {
     // KEY FOR DETERMINING APP_MODE
     private static String APP_MODE = "mode";
-    // Field to contain all car info from vehicle.csv
-    private CarCollection carCollection;
+    // Field to contain all car info from vehicle.csv loaded from Emissions
+    private CarCollection carCollection = Emission.getInstance().getCarCollection();
+
+    // Helper Fields --------------------------------------
+    private String selectMake, selectModel, selectYear;
     // String of Manufactures for spinner adapter
     private List<String> makeDisplayList = new ArrayList<>();
     // String of Models for Specific Car for spinner adapter
     private List<String> modelDisplayList = new ArrayList<>();
-    private Journey journey;
 
-    // Helper Fields
-    private String selectMake, selectModel, selectYear;
+    private Journey journey;
     // TAG
     private String TAG = "carinfoactivity";
     // Field to store the user selected car <----------- THIS IS OF INTEREST
     private Car userSelectedCar;
-
-    private Emission emission = Emission.getInstance();
 
     // Get Intent with Mode Attached
     public static Intent getIntentFromActivity(Context context, Mode mode) {
@@ -62,7 +59,6 @@ public class CarInfoActivity extends AppCompatActivity {
         switch (mode) {
             case ADD:
                 getJourneyData();
-                loadCarList();
                 loadMakeDisplayList();
                 setUpAllSpinners();
                 setUpAddBtn();
@@ -73,7 +69,6 @@ public class CarInfoActivity extends AppCompatActivity {
                 // Fetch Select Car to Edit
                 getJourneyData();
                 UUID thisKey = loadCurrentCar();
-                loadCarList();
                 loadMakeDisplayList();
                 setUpAllSpinners();
                 setUpFinishEditBtn(thisKey);
@@ -153,7 +148,7 @@ public class CarInfoActivity extends AppCompatActivity {
                 userSelectedCar.setNickName(et.getText().toString().trim());
                 userSelectedCar.setKEY(key);
                 boolean bool = CarListActivity.recentCarList.updateCarInfo(userSelectedCar);
-                Log.i(TAG, "onEditedConfirm: " + userSelectedCar.toString());
+                Log.i(TAG, "onEditedConfirm: " + bool + ":" + userSelectedCar.toString());
                 finish();
             }
         });
@@ -247,11 +242,6 @@ public class CarInfoActivity extends AppCompatActivity {
         tv.setText(text);
     }
 
-    private void loadCarList() {
-        carCollection = new CarCollection(CarManager.readCarData(this, R.raw.vehicle_trimmed));
-        emission.setCarCollection(carCollection);
-    }
-
     private void loadModelDisplayList() {
         modelDisplayList.clear();
         for (String model :
@@ -276,7 +266,7 @@ public class CarInfoActivity extends AppCompatActivity {
     public void getJourneyData() {
         Intent intent = getIntent();
         journey = (Journey)intent.getSerializableExtra("Journey");
-
+        startActivity(intent);
     }
 
 
