@@ -21,7 +21,7 @@
     <string name="label_enterNickName">Enter a nickname</string>
     <string name="label_toggle_graph">Toggle Display</string>
     <string name="label_graph_title">Total Carbon Footprint</string>
-    <string name="label_view_footprint">View Carbon Footprint</string>
+    <string name="label_view_footprint">Carbon Footprint</string>
     <string-array name="label_table">
         <item>Date</item>
         <item>Trip Name</item>

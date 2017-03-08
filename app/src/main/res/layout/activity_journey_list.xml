@@ -44,4 +44,12 @@
         android:layout_alignParentStart="true"
         android:text="Hint: Click journey to see summary. Long press to edit or delete." />
 
+    <Button
+        android:id="@+id/btnMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/btnAddJourney"
+        android:text="Delete" />
+
 </RelativeLayout>
