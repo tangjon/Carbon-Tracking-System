@@ -41,6 +41,13 @@ public class JourneyListActivity extends AppCompatActivity {
         getIntentData();
         setupClickJourneyList();
         populateList();
+        checkFootprintBtn();
+    }
+
+    private void checkFootprintBtn() {
+        Button button = (Button) findViewById(R.id.btnViewFootprint);
+        if (listOfJourneys.countJourneys() == 0) button.setEnabled(false);
+        else button.setEnabled(true);
     }
 
     //TODO Delete from list
