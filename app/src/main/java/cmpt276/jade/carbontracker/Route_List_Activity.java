@@ -11,9 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import cmpt276.jade.carbontracker.adapter.RouteListAdapter;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.model.RouteCollection;
@@ -23,7 +25,7 @@ public class Route_List_Activity extends AppCompatActivity {
     public static final int RECEIVE_ROUTE = 1024; //intent numer for add
     public static final int EDIT_ROUTE = 1025; //intent number for edit/delete
     private Journey journey;
-    private static RouteCollection routes = new RouteCollection();
+    public static RouteCollection routes = new RouteCollection();
 
     public static Intent IntentForRouteList(Context context) {
         Intent intent = new Intent(context, Route_List_Activity.class);
@@ -46,9 +48,10 @@ public class Route_List_Activity extends AppCompatActivity {
 
     private void populateListView() {
         String[] lotsofRoute = routes.Detail();
-        ArrayAdapter<String> ShowAllRoutes = new ArrayAdapter<String>(this, R.layout.route_list, lotsofRoute);
+        //ArrayAdapter<String> ShowAllRoutes = new ArrayAdapter<String>(this, R.layout.route_list, lotsofRoute);
+        ListAdapter bucky=new RouteListAdapter(this,lotsofRoute);
         ListView list = (ListView) findViewById(R.id.Route_list_routeList);
-        list.setAdapter(ShowAllRoutes);
+        list.setAdapter(bucky);
     }
     //Sean - Gets the journey object
     private void getCarListData() {
