@@ -25,7 +25,7 @@ public class LoadDummyData {
     private static String TAG = "LOADDUMMYCLASS";
     private static JourneyCollection jDummy;
     private static CarCollection cData;
-
+    private static String instance = null;
     private LoadDummyData() {
 
     }
@@ -33,15 +33,21 @@ public class LoadDummyData {
     // Generates a Route and Car into the recent lists
     // Does not generate a journey..
     public static void load(){
-        Log.i(TAG, "load: ");
-        CarListActivity.recentCarList.add(generateCar());
-        CarListActivity.recentCarList.add(generateCar());
-        Route_List_Activity.routes.addRoute(generateRoute());
-        Route_List_Activity.routes.addRoute(generateRoute());
-        Emission.getInstance().getJourneyCollection().addJourney(generateJourney());
-        Emission.getInstance().getJourneyCollection().addJourney(generateJourney());
-        Emission.getInstance().getJourneyCollection().addJourney(generateJourney());
-        Emission.getInstance().getJourneyCollection().addJourney(generateJourney());
+
+        if(instance == null){
+
+            Log.i(TAG, "load: ");
+            CarListActivity.recentCarList.add(generateCar());
+            CarListActivity.recentCarList.add(generateCar());
+            Route_List_Activity.routes.addRoute(generateRoute());
+            Route_List_Activity.routes.addRoute(generateRoute());
+            Emission.getInstance().getJourneyCollection().addJourney(generateJourney());
+            Emission.getInstance().getJourneyCollection().addJourney(generateJourney());
+            Emission.getInstance().getJourneyCollection().addJourney(generateJourney());
+            Emission.getInstance().getJourneyCollection().addJourney(generateJourney());
+
+            instance = "LOADED!";
+        }
     }
 
 
@@ -65,7 +71,7 @@ public class LoadDummyData {
         Car car = generateCar();
         Route route = generateRoute();
         Journey journey = new Journey("Journey " + index,car,route);
-        journey.setDate("0" + rn.nextInt(10) + "/" + rn.nextInt(20) + "/2016");
+        journey.setDate(rn.nextInt(26) + "/" + (rn.nextInt(12) + "/2016"));
         return journey;
     }
 
