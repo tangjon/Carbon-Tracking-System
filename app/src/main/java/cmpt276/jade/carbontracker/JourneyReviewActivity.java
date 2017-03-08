@@ -47,7 +47,7 @@ public class JourneyReviewActivity extends AppCompatActivity {
         return new Intent(context, JourneyReviewActivity.class);
 
     }
-//
+
     private void setupDoneBtn() {
         Button button = (Button) findViewById(R.id.btnFinish);
         button.setOnClickListener(new View.OnClickListener() {
