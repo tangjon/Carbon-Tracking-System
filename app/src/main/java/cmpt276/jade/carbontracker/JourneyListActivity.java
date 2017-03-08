@@ -20,7 +20,7 @@ import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
 
 public class JourneyListActivity extends AppCompatActivity {
-    public static JourneyCollection listOfJourneys = new JourneyCollection();
+    public static JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
     private Journey intentJourney;
     private int Mode = 0;
 
