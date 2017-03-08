@@ -147,10 +147,10 @@ public class Journey implements Serializable{
     //Calculates total Highway driving
     public double calcTotalHway(double carHway, double routeHway){
         double total = 0;
-        if (car.getFuelType() == "gasoline") {
+        if (car.getFuelType() == "Regular" || car.getFuelType() == "Premium") {
             total = 3.78541 * (8.89 * (routeHway / carHway));
         }
-        if (car.getFuelType() == "diesel") {
+        if (car.getFuelType() == "Diesel") {
             total = 3.78541 * (10.16 * (routeHway / carHway));
         }
         return total;
