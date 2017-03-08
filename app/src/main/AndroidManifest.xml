@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".JourneySummaryActivity" />
         <activity android:name=".CarbonFootprintActivity" />
+        <activity android:name=".TransportSelectActivity"></activity>
         <activity android:name=".JourneyReviewActivity"></activity>
     </application>
 

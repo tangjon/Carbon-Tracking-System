@@ -29,4 +29,5 @@
         <item>Vehicle Name</item>
         <item>Carbon Emitted</item>
     </string-array>
+    <string name="label_select_car">Car</string>
 </resources>
