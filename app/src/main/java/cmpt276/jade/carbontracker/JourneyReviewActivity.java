@@ -48,7 +48,7 @@ public class JourneyReviewActivity extends AppCompatActivity {
         return new Intent(context, JourneyReviewActivity.class);
 
     }
-
+    //Should go back to finish after checking name and date
     private void setupDoneBtn() {
         Button button = (Button) findViewById(R.id.btnFinish);
         button.setOnClickListener(new View.OnClickListener() {
