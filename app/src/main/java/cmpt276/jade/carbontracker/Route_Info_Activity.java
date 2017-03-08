@@ -50,7 +50,7 @@ public class Route_Info_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //check empty for route name
-                if (Check_empty_input(R.id.Route_Info_edite_name) == 0) {
+                if (Check_empty_input(R.id.editJourneyName) == 0) {
                     Toast.makeText(getApplicationContext(), "You haven't enter the route name " + " please try again", Toast.LENGTH_LONG).show();
                 } else {
                     //check empty input for highway
@@ -82,7 +82,7 @@ public class Route_Info_Activity extends AppCompatActivity {
     private void pass_back_route() {
         Intent back_Route = new Intent();
         back_Route.putExtra("Journey", journey);
-        back_Route.putExtra("pass back the route name", getNameById(R.id.Route_Info_edite_name));
+        back_Route.putExtra("pass back the route name", getNameById(R.id.editJourneyName));
         back_Route.putExtra("pass back the highway", getNameById(R.id.Route_Info_edite_highway));
         back_Route.putExtra("pass back the city", getNameById(R.id.Route_Info_edite_city));
         if (getClickedRoutePosition() != null) {

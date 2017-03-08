@@ -64,7 +64,7 @@ public class JourneyListActivity extends AppCompatActivity {
             }
         });
     }
-    
+
 
     private void setupFootprintBtn() {
         Button button = (Button) findViewById(R.id.btnViewFootprint);
@@ -84,7 +84,7 @@ public class JourneyListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Car car = new Car();
                 Route route = new Route("TEMP ROUTE NAME AND DATA", -1, -1);
-                Journey journey = new Journey("TEMP JOURNEY NAME", car, route);
+                Journey journey = new Journey("TEMP", car, route);
                 Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
                 intent.putExtra("Journey", journey);
                 startActivity(intent);
