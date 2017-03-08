@@ -75,7 +75,6 @@ public class Route_List_Activity extends AppCompatActivity {
                 //TODO
                 //Should clear the whole back stack besides main menu
                 startActivity(intent);
-                finish();
             }
         });
 

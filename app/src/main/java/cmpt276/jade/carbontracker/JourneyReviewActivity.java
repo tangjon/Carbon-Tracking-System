@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,9 +56,23 @@ public class JourneyReviewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText inputName = (EditText) findViewById(R.id.editJourneyName);
                 EditText inputDate = (EditText) findViewById(R.id.editDate);
-
+                String[] dateCheck = inputDate.getText().toString().trim().split("/", 3);
+                int month = 0;
+                int day = 0;
+                int year = 0;
+                if(dateCheck.length == 3) {
+                    month = Integer.parseInt(dateCheck[1]);
+                    day = Integer.parseInt(dateCheck[0]);
+                    year = Integer.parseInt(dateCheck[2]);
+                }
+                else {
+                    inputDate.setError("Please Enter a valid date");
+                }
                 if (inputName.getText().toString().trim().length() == 0) {
                     inputName.setError("Please Enter a nickname");
+                }
+                else if(month < 1 || month > 12 || day < 1 || day > 31 || year < 1900 || year > 9999){
+                    inputName.setError("Please Enter a valid date");
                 }
                 else {
 
