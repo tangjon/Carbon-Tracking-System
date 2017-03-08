@@ -7,10 +7,10 @@ import java.io.Serializable;
 
 public class Route implements Serializable {
     private String name;
-    private int HighWayDistance;
-    private int CityDistance;
+    private double HighWayDistance;
+    private double CityDistance;
 
-    public Route(String name, int HighWayDistance, int CityDistance) {
+    public Route(String name, double HighWayDistance, double CityDistance) {
         this.name = name;
         this.HighWayDistance = HighWayDistance;
         Log.i("HELLO", "Route: " + HighWayDistance);
@@ -18,7 +18,7 @@ public class Route implements Serializable {
         Log.i("HELLO", "Route: " + CityDistance);
     }
 
-    public int getHighWayDistance() {
+    public double getHighWayDistance() {
         return HighWayDistance;
     }
 
@@ -30,7 +30,7 @@ public class Route implements Serializable {
         }
     }
 
-    public int getCityDistance() {
+    public double getCityDistance() {
         return CityDistance;
     }
 

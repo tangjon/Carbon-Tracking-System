@@ -70,13 +70,11 @@ public class Route_List_Activity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Route route = routes.getRouteByIndex(position);
                 journey.setRoute(route);
-                Journey intentJourney = new Journey(journey.getName(), journey.getCar(), journey.getRoute());
-                Intent intent = JourneyListActivity.getJourneyListIntent(Route_List_Activity.this);
-                intent.putExtra("Journey", intentJourney);
+                Intent intent = JourneyReviewActivity.getJourneyReviewIntent(Route_List_Activity.this);
+                intent.putExtra("Journey", journey);
                 //TODO
                 //Should clear the whole back stack besides main menu
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -115,8 +113,8 @@ public class Route_List_Activity extends AppCompatActivity {
                     String RouteName = data.getStringExtra("pass back the route name");
                     String StrHighWay = data.getStringExtra("pass back the highway");
                     String StrCity = data.getStringExtra("pass back the city");
-                    int highway = Integer.parseInt(StrHighWay);
-                    int city = Integer.parseInt(StrCity);
+                    double highway = Double.parseDouble(StrHighWay);
+                    double city =  Double.parseDouble(StrCity);
 
                     Route addedRoute = new Route(RouteName, highway, city);
 
@@ -141,8 +139,8 @@ public class Route_List_Activity extends AppCompatActivity {
                         String StrHighWay = data.getStringExtra("pass back the highway");
                         String StrCity = data.getStringExtra("pass back the city");
 
-                        int highway = Integer.parseInt(StrHighWay);
-                        int city = Integer.parseInt(StrCity);
+                        double highway =  Double.parseDouble(StrHighWay);
+                        double city =  Double.parseDouble(StrCity);
 
                         Route Clicked = new Route(RouteName, highway, city);
                         routes.changeRoute(Clicked, index);

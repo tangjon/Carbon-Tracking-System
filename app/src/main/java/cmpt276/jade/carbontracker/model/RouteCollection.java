@@ -8,8 +8,8 @@ public class RouteCollection {
 
     private List<Route> List_Rout = new ArrayList<>();
 
-    public int getTotleHighWayDistance() {
-        int HighWayDistance = 0;
+    public double getTotleHighWayDistance() {
+        double HighWayDistance = 0;
         for (int i = 0; i < countRoutes(); i++) {
             Route route = getRouteByIndex(i);
             HighWayDistance = HighWayDistance + route.getHighWayDistance();
@@ -17,8 +17,8 @@ public class RouteCollection {
         return HighWayDistance;
     }
 
-    public int getTotleCityDistance() {
-        int CityDistance = 0;
+    public double getTotleCityDistance() {
+        double CityDistance = 0;
         for (int i = 0; i < countRoutes(); i++) {
             Route route = getRouteByIndex(i);
             CityDistance = CityDistance + route.getCityDistance();
