@@ -1,5 +1,7 @@
 package cmpt276.jade.carbontracker.model;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 /**
@@ -13,6 +15,7 @@ public class Journey implements Serializable{
     private String name;
     private Car car;
     private Route route;
+    private double totalDriven;
     private double totalEmissionsCity;
     private double totalEmissionsHighway;
     private double totalTravelledEmissions;
@@ -24,9 +27,10 @@ public class Journey implements Serializable{
         this.name = inputName;
         this.car = inputCar;
         this.route = inputRoute;
-        this.totalEmissionsCity = calcTotalCity(car.getCityMPG(), route.getCityDistance());
-        this.totalEmissionsHighway = calcTotalHway(car.getHighwayMPG(), route.getHighWayDistance());
+        this.totalEmissionsCity = calcTotal(mtoKM(car.getCityMPG()), route.getCityDistance());
+        this.totalEmissionsHighway = calcTotal(mtoKM(car.getHighwayMPG()), route.getHighWayDistance());
         this.totalTravelledEmissions = totalEmissionsCity+totalEmissionsHighway;
+        this.totalDriven = route.getCityDistance() + route.getHighWayDistance();
     }
 
     public String getName() {
@@ -125,15 +129,33 @@ public class Journey implements Serializable{
         Date = date;
     }
 
-    //Calculates total City driving
-    public double calcTotalCity(double carCity, double routeCity){
-        double total=  carCity * routeCity;
-        return total;
+    //Miles to KM
+    public double mtoKM(double input){
+        return input * 1.60934;
     }
-    //Calculates total Highway driving
-    public double calcTotalHway(double carHway, double routeHway){
-        double total=  carHway * routeHway;
-        return total;
+
+    //Calculates total emissions
+    public double calcTotal(double carKMPG, double routeDistance){
+        double total = 0;
+        if(car.getFuelType() != null) {
+            if (car.getFuelType().equals("Regular Gasoline") || car.getFuelType().equals("Premium Gasoline")) {
+                total = 8.89 * (routeDistance / carKMPG);
+            }
+            if (car.getFuelType().equals("Diesel")) {
+                total = 10.16 * (routeDistance / carKMPG);
+            }
+        }
+            return total;
+
+    }
+
+
+    public double getTotalDriven() {
+        return totalDriven;
+    }
+
+    public void setTotalDriven(double totalDriven) {
+        this.totalDriven = totalDriven;
     }
 
 

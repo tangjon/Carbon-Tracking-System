@@ -61,8 +61,8 @@ public class Route_Info_Activity extends AppCompatActivity {
                         if (Check_empty_input(R.id.Route_Info_edite_city) == 0) {
                             Toast.makeText(getApplicationContext(), "You did not entered any number for City " + " please try again", Toast.LENGTH_LONG).show();
                         } else {
-                            int highway = Integer.parseInt(getNameById(R.id.Route_Info_edite_highway));
-                            int city = Integer.parseInt(getNameById(R.id.Route_Info_edite_city));
+                            double highway = Double.parseDouble(getNameById(R.id.Route_Info_edite_highway));
+                            double city = Double.parseDouble(getNameById(R.id.Route_Info_edite_city));
                             if (highway >= 0 && city >= 0) {
                                 //PASS name and weight BACK
                                 pass_back_route();

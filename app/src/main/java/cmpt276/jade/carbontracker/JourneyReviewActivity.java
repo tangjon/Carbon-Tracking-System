@@ -33,9 +33,9 @@ public class JourneyReviewActivity extends AppCompatActivity {
 
     private void setupPage() {
         TextView carInfo = (TextView) findViewById(R.id.txtCarInfo);
-        carInfo.setText(intentJourney.getCar().getNickName() + "\n" + intentJourney.getCar().getMake() + "\n" + intentJourney.getCar().getModel() + "\n" + intentJourney.getCar().getYear());
+        carInfo.setText(intentJourney.getCar().getNickName() + "\nMake: " + intentJourney.getCar().getMake() + "\nModel: " + intentJourney.getCar().getModel() + "\nYear: " + intentJourney.getCar().getYear());
         TextView routeInfo = (TextView) findViewById(R.id.txtRouteInfo);
-        routeInfo.setText(intentJourney.getRoute().getName() + "\nCity Distance: "+ intentJourney.getRoute().getCityDistance() + "\nHighway Distance" + intentJourney.getRoute().getHighWayDistance());
+        routeInfo.setText(intentJourney.getRoute().getName() + "\nCity Distance: "+ intentJourney.getRoute().getCityDistance() + "\nHighway Distance : " + intentJourney.getRoute().getHighWayDistance());
         if(journey.getMode() == 1){
             EditText inputName = (EditText) findViewById(R.id.editJourneyName);
             inputName.setText(journey.getName());
@@ -80,6 +80,7 @@ public class JourneyReviewActivity extends AppCompatActivity {
                     intentJourney.setMode(journey.getMode());
                     intentJourney.setDate(inputDate.getText().toString().trim());
                     intentJourney.setName(inputName.getText().toString().trim());
+                    Log.v("TAG", intentJourney.getCar().getFuelType());
                     Intent intent = JourneyListActivity.getJourneyListIntent(JourneyReviewActivity.this);
                     intent.putExtra("Journey", intentJourney);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
