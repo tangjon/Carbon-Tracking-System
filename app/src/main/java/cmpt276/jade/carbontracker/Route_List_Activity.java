@@ -71,6 +71,8 @@ public class Route_List_Activity extends AppCompatActivity {
                 Route route = routes.getRouteByIndex(position);
                 journey.setRoute(route);
                 Journey intentJourney = new Journey(journey.getName(), journey.getCar(), journey.getRoute());
+                intentJourney.setPosition(journey.getPosition());
+                intentJourney.setMode(journey.getMode());
                 Intent intent = JourneyListActivity.getJourneyListIntent(Route_List_Activity.this);
                 intent.putExtra("Journey", intentJourney);
                 //TODO

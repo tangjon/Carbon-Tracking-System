@@ -16,6 +16,8 @@ public class Journey implements Serializable{
     private double totalEmissionsCity;
     private double totalEmissionsHighway;
     private double totalTravelledEmissions;
+    private int mode = 0;  //0 is add.    1 is edit.
+    private int position = -1;
 
     public Journey(String inputName,Car inputCar , Route inputRoute){
         this.name = inputName;
@@ -72,6 +74,22 @@ public class Journey implements Serializable{
 
     public void setTotalTravelled(double totalTravelled) {
         this.totalTravelledEmissions = totalTravelled;
+    }
+
+    public int getMode() {
+        return mode;
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     //Calculates total City driving
