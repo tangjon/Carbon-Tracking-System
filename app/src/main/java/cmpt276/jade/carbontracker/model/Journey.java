@@ -1,5 +1,7 @@
 package cmpt276.jade.carbontracker.model;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 /**
@@ -25,8 +27,8 @@ public class Journey implements Serializable{
         this.name = inputName;
         this.car = inputCar;
         this.route = inputRoute;
-        this.totalEmissionsCity = calcTotalCity(mtoKM(car.getCityMPG()), route.getCityDistance());
-        this.totalEmissionsHighway = calcTotalHway(mtoKM(car.getHighwayMPG()), route.getHighWayDistance());
+        this.totalEmissionsCity = calcTotal(mtoKM(car.getCityMPG()), route.getCityDistance());
+        this.totalEmissionsHighway = calcTotal(mtoKM(car.getHighwayMPG()), route.getHighWayDistance());
         this.totalTravelledEmissions = totalEmissionsCity+totalEmissionsHighway;
         this.totalDriven = route.getCityDistance() + route.getHighWayDistance();
     }
@@ -132,28 +134,19 @@ public class Journey implements Serializable{
         return input * 1.60934;
     }
 
-    //Calculates total City driving
-    public double calcTotalCity(double carCity, double routeCity){
+    //Calculates total emissions
+    public double calcTotal(double carKMPG, double routeDistance){
         double total = 0;
-        if (car.getFuelType() == "gasoline") {
-            total = 3.78541 * (8.89 * (routeCity / carCity));
+        if(car.getFuelType() != null) {
+            if (car.getFuelType().equals("Regular Gasoline") || car.getFuelType().equals("Premium Gasoline")) {
+                total = 8.89 * (routeDistance / carKMPG);
+            }
+            if (car.getFuelType().equals("Diesel")) {
+                total = 10.16 * (routeDistance / carKMPG);
+            }
+        }
+            return total;
 
-        }
-        else if(car.getFuelType() == "diesel"){
-            total = 3.78541 * (10.16 * (routeCity / carCity));
-        }
-        return total;
-    }
-    //Calculates total Highway driving
-    public double calcTotalHway(double carHway, double routeHway){
-        double total = 0;
-        if (car.getFuelType() == "Regular" || car.getFuelType() == "Premium") {
-            total = 3.78541 * (8.89 * (routeHway / carHway));
-        }
-        if (car.getFuelType() == "Diesel") {
-            total = 3.78541 * (10.16 * (routeHway / carHway));
-        }
-        return total;
     }
 
 
