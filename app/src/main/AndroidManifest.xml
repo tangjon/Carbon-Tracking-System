@@ -20,8 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".JourneySummaryActivity"></activity>
+        <activity android:name=".JourneySummaryActivity" />
         <activity android:name=".CarbonFootprintActivity" />
+        <activity android:name=".TransportSelectActivity"></activity>
     </application>
 
 </manifest>

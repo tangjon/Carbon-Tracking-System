@@ -65,7 +65,7 @@ public class JourneyListActivity extends AppCompatActivity {
                 //TODO
                 //Very likely issue when going back/cancelling new entry move add journey to list to a get data method
 
-                Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
+                Intent intent = TransportSelectActivity.getTransportIntent(JourneyListActivity.this);
                 intent.putExtra("Journey", journey);
                 startActivity(intent);
             }
