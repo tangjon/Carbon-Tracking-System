@@ -78,7 +78,7 @@ public class CarManager {
                 int fuelAnnualCost = Integer.parseInt(tokens[4]);
                 //[5] - fuelType1 - fuel type 1. For single fuel vehicles,
                 // this will be the only fuel. For dual fuel vehicles, this will be the conventional fuel.
-                String fuelType = tokens[4];
+                String fuelType = tokens[5];
                 //[6] - highway08 - highway MPG for fuelType1 (2), (11)
                 int highwayMPG = Integer.parseInt(tokens[6]);
                 //[8] - model - model name (carline)
