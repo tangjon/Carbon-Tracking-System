@@ -22,6 +22,7 @@ import cmpt276.jade.carbontracker.model.Route;
 public class JourneyListActivity extends AppCompatActivity {
     public static JourneyCollection listOfJourneys = new JourneyCollection();
     private Journey intentJourney;
+    private int Mode = 0;
 
     public static Intent getJourneyListIntent(Context context) {
         return new Intent(context, JourneyListActivity.class);
@@ -40,10 +41,30 @@ public class JourneyListActivity extends AppCompatActivity {
         setupFootprintBtn();
         getIntentData();
         setupClickJourneyList();
+        setupDeletebtn();
         populateList();
     }
 
-    //TODO Delete from list
+    private void setupDeletebtn() {
+        final Button button = (Button) findViewById(R.id.btnMode);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Mode == 1){
+                    Mode = 0;
+                    setupClickJourneyList();
+                    button.setText("Delete");
+                }
+                else if(Mode == 0){
+                    Mode = 1;
+                    toggleDeleteMode();
+                    button.setText("Edit");
+                }
+
+            }
+        });
+    }
+    
 
     private void setupFootprintBtn() {
         Button button = (Button) findViewById(R.id.btnViewFootprint);
@@ -124,6 +145,30 @@ public class JourneyListActivity extends AppCompatActivity {
         }
     }
 
+    private void toggleDeleteMode() {
+        //goto Journey Summary - short click
+        ListView list = (ListView) findViewById(R.id.listviewJourney);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = JourneySummaryActivity.getJourneySummaryIntent(JourneyListActivity.this);
+                Journey journey = listOfJourneys.getJourney(position);
+                intent.putExtra("Journey", journey);
+                startActivity(intent);
+            }
+        });
 
+
+        //edit - long click
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                listOfJourneys.deleteJourney(position);
+                Emission.getInstance().setJourneyCollection(listOfJourneys);
+                populateList();
+                return true;
+            }
+        });
+    }
 
 }
