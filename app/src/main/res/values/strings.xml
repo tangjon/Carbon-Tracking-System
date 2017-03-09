@@ -118,5 +118,6 @@
     <string name="total_city_high_emission">Total Highway Emissions(Kg):</string>
     <string name="total_city_emission">Total City Emissions(Kg):</string>
     <string name="total_emission">Total Emissions(Kg):</string>
+    <string name="label_edit">Edit</string>
 
 </resources>
