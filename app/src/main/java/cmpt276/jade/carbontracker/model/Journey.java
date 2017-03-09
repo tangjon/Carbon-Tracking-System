@@ -1,7 +1,5 @@
 package cmpt276.jade.carbontracker.model;
 
-import android.util.Log;
-
 import java.io.Serializable;
 
 /**

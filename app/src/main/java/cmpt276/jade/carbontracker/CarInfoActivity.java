@@ -1,5 +1,6 @@
 package cmpt276.jade.carbontracker;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,8 +22,11 @@ import cmpt276.jade.carbontracker.adapter.CustomSpinnerAdapter;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
-import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.utils.Mode;
+
+/**
+ * CarInfoActivity allows the users to select there specified car from drop downs.
+ */
 
 public class CarInfoActivity extends AppCompatActivity {
     // KEY FOR DETERMINING APP_MODE
@@ -36,14 +40,10 @@ public class CarInfoActivity extends AppCompatActivity {
     private List<String> makeDisplayList = new ArrayList<>();
     // String of Models for Specific Car for spinner adapter
     private List<String> modelDisplayList = new ArrayList<>();
-
-    private Journey journey;
     // TAG
     private String TAG = "carinfoactivity";
     // Field to store the user selected car <----------- THIS IS OF INTEREST
     private Car userSelectedCar;
-
-    private Emission emission = Emission.getInstance();
 
     // Get Intent with Mode Attached
     public static Intent getIntentFromActivity(Context context, Mode mode) {
@@ -63,7 +63,6 @@ public class CarInfoActivity extends AppCompatActivity {
         Mode mode = (Mode) getIntent().getExtras().getSerializable(APP_MODE);
         switch (mode) {
             case ADD:
-                getJourneyData();
                 loadMakeDisplayList();
                 setUpAllSpinners();
                 setUpAddBtn();
@@ -72,7 +71,6 @@ public class CarInfoActivity extends AppCompatActivity {
                 break;
             case EDIT:
                 // Fetch Select Car to Edit
-                getJourneyData();
                 UUID thisKey = loadCurrentCar();
                 loadMakeDisplayList();
                 setUpAllSpinners();
@@ -266,12 +264,6 @@ public class CarInfoActivity extends AppCompatActivity {
                 makeDisplayList.add(make);
             }
         }
-    }
-
-    public void getJourneyData() {
-        Intent intent = getIntent();
-        journey = (Journey)intent.getSerializableExtra("Journey");
-
     }
 
 

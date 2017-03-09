@@ -1,13 +1,10 @@
 package cmpt276.jade.carbontracker.sample;
 
-import android.content.Context;
 import android.util.Log;
 
-import java.util.List;
 import java.util.Random;
 
 import cmpt276.jade.carbontracker.CarListActivity;
-import cmpt276.jade.carbontracker.JourneyListActivity;
 import cmpt276.jade.carbontracker.Route_List_Activity;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
@@ -15,10 +12,9 @@ import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
-import cmpt276.jade.carbontracker.utils.CarManager;
 
 /**
- * Created by tangj on 3/7/2017.
+ * Load Dummy Data to Emissions Class with Journeys, Car and Routes to recent lists
  */
 
 public class LoadDummyData {
