@@ -23,9 +23,9 @@
         android:id="@+id/lv_carList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btn_add_car"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/btn_add_car" />
 
     <TextView
         android:id="@+id/Car_List_TEXT_hint"
