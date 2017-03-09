@@ -12,7 +12,7 @@
     tools:context="cmpt276.jade.carbontracker.JourneySummaryActivity">
 
     <Button
-        android:text="Back"
+        android:text="@string/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -20,7 +20,7 @@
         android:id="@+id/btnJourneySummaryBack" />
 
     <TextView
-        android:text="Car Nickname"
+        android:text="@string/car_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -29,7 +29,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:text="TextView"
+        android:text="@string/textview3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView6"
@@ -37,7 +37,7 @@
         android:id="@+id/textCarName" />
 
     <TextView
-        android:text="Route Nickname"
+        android:text="@string/route_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -47,7 +47,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="TextView"
+        android:text="@string/textview4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView12"
@@ -55,7 +55,7 @@
         android:id="@+id/textRouteName" />
 
     <TextView
-        android:text="City Driving"
+        android:text="@string/city_driving"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textRouteName"
@@ -65,7 +65,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:text="Total Driven"
+        android:text="@string/total_driven"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView16"
@@ -75,7 +75,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:text="Highway Driving"
+        android:text="@string/highway_driving"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView16"
@@ -84,7 +84,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="TextView"
+        android:text="@string/textview5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView15"
@@ -92,7 +92,7 @@
         android:id="@+id/textCitydrv" />
 
     <TextView
-        android:text="TextView"
+        android:text="@string/textview6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView16"
@@ -100,7 +100,7 @@
         android:id="@+id/textHwaydrv" />
 
     <TextView
-        android:text="TextView"
+        android:text="@string/textview7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView17"
