@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.adapter.RouteListAdapter;
 import cmpt276.jade.carbontracker.model.Car;
@@ -18,7 +19,10 @@ import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
-
+/**
+ *Journey List is your list of journeys and can either add a new journey going to car list or to the emissions overview
+ * Can also edit journey entries or delete journey entries
+ */
 public class JourneyListActivity extends AppCompatActivity {
     public static JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
     private Journey intentJourney;
@@ -34,6 +38,7 @@ public class JourneyListActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle(getString(R.string.JourneyListActivityHint));
         setContentView(R.layout.activity_journey_list);
 
 
@@ -61,11 +66,13 @@ public class JourneyListActivity extends AppCompatActivity {
                     Mode = 0;
                     setupClickJourneyList();
                     button.setText("Delete");
+                    Toast.makeText(JourneyListActivity.this, "Edit mode enabled.", Toast.LENGTH_SHORT).show();
                 }
                 else if(Mode == 0){
                     Mode = 1;
                     toggleDeleteMode();
                     button.setText("Edit");
+                    Toast.makeText(JourneyListActivity.this, "Delete mode enabled.", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -92,7 +99,8 @@ public class JourneyListActivity extends AppCompatActivity {
                 Car car = new Car();
                 Route route = new Route("TEMP ROUTE NAME AND DATA", -1, -1);
                 Journey journey = new Journey("TEMP", car, route);
-                Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
+                //Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
+                Intent intent = TransportSelectActivity.getTransportIntent(JourneyListActivity.this);
                 intent.putExtra("Journey", journey);
                 startActivity(intent);
             }

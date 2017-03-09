@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * Created by Sean on 02/03/2017.
+ *
+ * Collection of journeys stored in an array list
  */
 
 public class JourneyCollection {
@@ -43,7 +45,7 @@ public class JourneyCollection {
         String[] names = new String[countJourneys()];
         for (int i = 0; i < countJourneys(); i++) {
             Journey journey = getJourney(i);
-            names[i] = journey.getName()+ " "+ journey.getDate() +"\n" + journey.getCar().getNickname()+"\n"+ journey.getRoute().getName();
+            names[i] = journey.getName()+ " - "+ journey.getDate();
         }
         return names;
     }

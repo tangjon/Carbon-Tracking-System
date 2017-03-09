@@ -80,15 +80,4 @@ public class Welcome_Activity extends AppCompatActivity {
         imageBTN.animate().translationX(imageBTN.getTranslationX() + distance).setDuration(speed);
     }
 
-    //Set a image over the title, then it will disappear after 5000ms
-    //Then the App Name will show off
-    /* Sean - Deleted the image view it clipped the mountain making part of the mountain fade in
-    private void setupAppName() {
-        ImageView imageBTN = (ImageView) findViewById(R.id.welcome_back2);
-        Animation animation = new AlphaAnimation(1.0f, 0.0f);
-        animation.setDuration(5000); //time
-        animation.setFillAfter(true);
-        imageBTN.startAnimation(animation);
-    }
-    */
 }

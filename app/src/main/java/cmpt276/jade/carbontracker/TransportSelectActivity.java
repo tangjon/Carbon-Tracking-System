@@ -9,6 +9,9 @@ import android.widget.Button;
 
 import cmpt276.jade.carbontracker.model.Journey;
 
+/*
+ *  Allows user to select type of transportation (only car currently supported)
+ */
 public class TransportSelectActivity extends AppCompatActivity {
     private Journey journey;
 

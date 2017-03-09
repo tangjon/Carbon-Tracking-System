@@ -12,7 +12,7 @@
     tools:context="cmpt276.jade.carbontracker.JourneySummaryActivity">
 
     <Button
-        android:text="Back"
+        android:text="@string/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -20,91 +20,79 @@
         android:id="@+id/btnJourneySummaryBack" />
 
     <TextView
-        android:text="Car Nickname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:id="@+id/textView6"
-        android:textSize="18sp" />
-
-    <TextView
-        android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Journey Info"
+        android:textColor="@color/primary_text"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:text="@string/textview3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textJourneyInfo"
         android:layout_below="@+id/textView6"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textCarName" />
+        android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Route Nickname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
         android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textCarInfo"
+        android:text="Emissions Info"
+        android:textColor="@color/primary_text"
         android:textSize="18sp"
-        android:layout_below="@+id/textCarName"
+        android:textStyle="bold" />
+
+    <TextView
+        android:text="@string/textview4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textRouteInfo"
+        android:layout_below="@+id/textView16"
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView12"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textRouteName" />
-
-    <TextView
-        android:text="City Driving"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textRouteName"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="35dp"
         android:id="@+id/textView15"
-        android:textSize="18sp" />
-
-    <TextView
-        android:text="Total Driven"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView16"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="70dp"
-        android:id="@+id/textView17"
-        android:textSize="18sp" />
+        android:layout_below="@+id/textRouteInfo"
+        android:text="Car Info"
+        android:textColor="@color/primary_text"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
-        android:text="Highway Driving"
+        android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView16"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textJourneyInfo"
+        android:text="Route Info"
+        android:textColor="@color/primary_text"
         android:textSize="18sp"
-        android:layout_centerVertical="true"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textCarInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_below="@+id/textView15"
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="TextView"
+        android:id="@+id/textEmissionsInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView15"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textCitydrv" />
-
-    <TextView
         android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView16"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textHwaydrv" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView17"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textTotaldrv" />
+        android:layout_below="@+id/textView12"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
