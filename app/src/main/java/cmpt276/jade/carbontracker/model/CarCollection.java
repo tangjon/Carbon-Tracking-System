@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Created by tangj on 2/28/2017.
+ * Car Collection Class that stores multiple Car Objects from Car Model
  */
 
 public class CarCollection {
