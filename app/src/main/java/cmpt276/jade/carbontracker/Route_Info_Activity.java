@@ -36,7 +36,6 @@ public class Route_Info_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle(getString(R.string.RouteInfoActivityHint));
         getJourneyData();
         setContentView(R.layout.layout_route_infor);
         setupOKbtn();
@@ -95,8 +94,9 @@ public class Route_Info_Activity extends AppCompatActivity {
                             double city = Double.parseDouble(getNameById(R.id.Route_Info_edite_city));
                             if (highway >= 0 && city >= 0) {
                                 String nickname=getNameById(R.id.editJourneyName);
-                                //No nickname, so set name ""
-                                if(nickname.length()==0){nickname="no name";}
+                                //****//
+                                //No nickname, so set name " "
+                                if(nickname.length()==0){nickname=" ";}
                                 Route route = new Route(nickname,highway,city);
                                 journey.setRoute(route);
                                 Intent intent = JourneyReviewActivity.getJourneyReviewIntent(Route_Info_Activity.this);

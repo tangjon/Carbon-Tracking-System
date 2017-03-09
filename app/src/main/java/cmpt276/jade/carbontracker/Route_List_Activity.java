@@ -35,7 +35,6 @@ public class Route_List_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle(getString(R.string.RouteListActivityHint));
         setContentView(R.layout.layout_route_list);
         getCarListData();
         setup_Add_Btn();
@@ -45,11 +44,11 @@ public class Route_List_Activity extends AppCompatActivity {
 
     private void populateListView() {
         String[] lotsofRoute = routes.Detail();
-        //ArrayAdapter<String> ShowAllRoutes = new ArrayAdapter<String>(this, R.layout.route_list, lotsofRoute);
         ListAdapter bucky=new RouteListAdapter(this,lotsofRoute);
         ListView list = (ListView) findViewById(R.id.Route_list_routeList);
         list.setAdapter(bucky);
     }
+
     //Sean - Gets the journey object
     private void getCarListData() {
         Intent intent = getIntent();
@@ -68,7 +67,6 @@ public class Route_List_Activity extends AppCompatActivity {
                 journey.setRoute(route);
                 Intent intent = JourneyReviewActivity.getJourneyReviewIntent(Route_List_Activity.this);
                 intent.putExtra("Journey", journey);
-                //TODO
                 //Should clear the whole back stack besides main menu
                 startActivity(intent);
             }
@@ -90,7 +88,6 @@ public class Route_List_Activity extends AppCompatActivity {
 
     private void setup_Add_Btn() {
         Button btn = (Button) findViewById(R.id.Route_List_add_btn);
-        //btn.setBackgroundResource(R.drawable.xxx);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,9 +108,7 @@ public class Route_List_Activity extends AppCompatActivity {
                     String StrCity = data.getStringExtra("pass back the city");
                     double highway = Double.parseDouble(StrHighWay);
                     double city =  Double.parseDouble(StrCity);
-
                     Route addedRoute = new Route(RouteName, highway, city);
-
                     routes.addRoute(addedRoute);
                     populateListView();
                 }
@@ -134,16 +129,11 @@ public class Route_List_Activity extends AppCompatActivity {
                         String RouteName = data.getStringExtra("pass back the route name");
                         String StrHighWay = data.getStringExtra("pass back the highway");
                         String StrCity = data.getStringExtra("pass back the city");
-
                         double highway =  Double.parseDouble(StrHighWay);
                         double city =  Double.parseDouble(StrCity);
-
                         Route Clicked = new Route(RouteName, highway, city);
                         routes.changeRoute(Clicked, index);
                         populateListView();
-                    }
-                }
-                break;
-        }
-    }
+                    }}
+                break;}}
 }

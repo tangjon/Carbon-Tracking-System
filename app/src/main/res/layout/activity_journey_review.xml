@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/mainbackground"
     tools:context="cmpt276.jade.carbontracker.JourneyReviewActivity">
 
     <RelativeLayout
@@ -18,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/editJourneyName"
-            android:text="Date of Journey"
+            android:text="@string/date_of_journey"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             tools:layout_editor_absoluteX="16dp"
@@ -31,7 +32,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/textView8"
             android:ems="10"
-            android:hint="Name"
+            android:hint="@string/name"
             android:inputType="textPersonName"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="38dp" />
@@ -40,7 +41,7 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Journey Name"
+            android:text="@string/journey_name"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             tools:layout_editor_absoluteX="16dp"
@@ -52,7 +53,7 @@
             android:id="@+id/textView23"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Route:"
+            android:text="@string/route"
             android:textColor="@android:color/black"
             tools:layout_editor_absoluteX="162dp"
             tools:layout_editor_absoluteY="219dp"
@@ -63,7 +64,7 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Car:"
+            android:text="@string/car"
             android:textColor="@android:color/background_dark"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="219dp"
@@ -74,7 +75,7 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Overview of Journey:"
+            android:text="@string/overview_of_journey"
             android:textColor="@android:color/background_dark"
             android:textSize="24sp"
             tools:layout_editor_absoluteX="16dp"
@@ -89,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/textView13"
-            android:text="TextView" />
+            android:text="@string/textview" />
 
         <TextView
             android:id="@+id/txtRouteInfo"
@@ -97,15 +98,15 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/textView23"
             android:layout_below="@+id/textView23"
-            android:text="TextView" />
+            android:text="@string/textview2" />
 
         <Button
             android:id="@+id/btnFinish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Done"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:text="@string/done" />
 
         <EditText
             android:id="@+id/editDate"
@@ -114,7 +115,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/textView10"
             android:ems="10"
-            android:hint="dd/mm/yyyy"
+            android:hint="@string/dd_mm_yyyy"
             android:inputType="date" />
 
     </RelativeLayout>

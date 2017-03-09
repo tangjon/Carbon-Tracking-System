@@ -12,7 +12,7 @@
     tools:context="cmpt276.jade.carbontracker.JourneySummaryActivity">
 
     <Button
-        android:text="Back"
+        android:text="@string/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -20,7 +20,7 @@
         android:id="@+id/btnJourneySummaryBack" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:text="@string/car_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -31,7 +31,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:text="TextView"
+        android:text="@string/textview3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView6"
@@ -39,7 +39,7 @@
         android:id="@+id/textJourneyInfo" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:text="@string/route_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Route Info"
@@ -50,7 +50,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="TextView"
+        android:text="@string/textview4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView12"
@@ -58,7 +58,7 @@
         android:id="@+id/textRouteInfo" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:text="@string/city_driving"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Car Info"
@@ -70,6 +70,7 @@
 
     <TextView
         android:id="@+id/textView16"
+        android:text="@string/total_driven"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Emissions Info"
