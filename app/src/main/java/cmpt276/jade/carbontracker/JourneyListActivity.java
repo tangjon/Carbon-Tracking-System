@@ -4,10 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -65,13 +63,13 @@ public class JourneyListActivity extends AppCompatActivity {
                 if(Mode == 1){
                     Mode = 0;
                     setupClickJourneyList();
-                    button.setText("Delete");
+                    button.setText(getString(R.string.label_model));
                     Toast.makeText(JourneyListActivity.this, "Edit mode enabled.", Toast.LENGTH_SHORT).show();
                 }
                 else if(Mode == 0){
                     Mode = 1;
                     toggleDeleteMode();
-                    button.setText("Edit");
+                    button.setText(getString(R.string.label_delete));
                     Toast.makeText(JourneyListActivity.this, "Delete mode enabled.", Toast.LENGTH_SHORT).show();
                 }
 
@@ -144,7 +142,6 @@ public class JourneyListActivity extends AppCompatActivity {
     }
 
     public void getIntentData() {
-
         Intent intent = getIntent();
         Journey journey = (Journey)intent.getSerializableExtra("Journey");
         if(journey != null) {

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -89,8 +88,7 @@ public class CarListActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO SHOULD SEND US TO ROUTE
-                // ACTIVITES
+                // ACTIVITIES
                 Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.ADD);
                 intent.putExtra("Journey", journey);
                 startActivity(intent);
