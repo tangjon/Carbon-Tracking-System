@@ -18,7 +18,7 @@ import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.utils.CarManager;
 
 /**
- * Created by tangj on 3/7/2017.
+ * Load Dummy Data to Emissions Class with Journeys, Car and Routes to recent lists
  */
 
 public class LoadDummyData {
