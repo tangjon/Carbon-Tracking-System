@@ -99,7 +99,8 @@ public class JourneyListActivity extends AppCompatActivity {
                 Car car = new Car();
                 Route route = new Route("TEMP ROUTE NAME AND DATA", -1, -1);
                 Journey journey = new Journey("TEMP", car, route);
-                Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
+                //Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
+                Intent intent = TransportSelectActivity.getTransportIntent(JourneyListActivity.this);
                 intent.putExtra("Journey", journey);
                 startActivity(intent);
             }
