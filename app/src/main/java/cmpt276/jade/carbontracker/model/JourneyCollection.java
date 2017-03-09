@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * Created by Sean on 02/03/2017.
+ *
+ * Collection of journeys stored in an array list
  */
 
 public class JourneyCollection {

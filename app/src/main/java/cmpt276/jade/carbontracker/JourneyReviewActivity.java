@@ -13,7 +13,10 @@ import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.R;
 import cmpt276.jade.carbontracker.model.Journey;
-
+/**
+ *Journey review lets you review the data you entered for car and route and
+ * will allow you to name the journey and the date
+ */
 public class JourneyReviewActivity extends AppCompatActivity {
     private Journey journey;
     private Journey intentJourney;

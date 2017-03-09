@@ -11,7 +11,9 @@ import android.widget.TextView;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.Route;
-
+/**
+ *Journey summary displays all the important info stored in the journey object
+ */
 public class JourneySummaryActivity extends AppCompatActivity {
 
 
@@ -43,16 +45,18 @@ public class JourneySummaryActivity extends AppCompatActivity {
     }
 
     private void setData() {
-        TextView carName = (TextView) findViewById(R.id.textCarName);
-        carName.setText(car.getNickname());
-        TextView routeName = (TextView) findViewById(R.id.textRouteName);
-        routeName.setText(route.getName());
-        TextView cityDrive = (TextView) findViewById(R.id.textCitydrv);
-        cityDrive.setText(""+ String.format("%.2f",journey.getTotalCity()));
-        TextView hwayDrive = (TextView) findViewById(R.id.textHwaydrv);
-        hwayDrive.setText(""+ String.format("%.2f",journey.getTotalHighway()));
-        TextView totalDrive = (TextView) findViewById(R.id.textTotaldrv);
-        totalDrive.setText("" + String.format("%.2f",journey.getTotalTravelled()));
+        TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
+        journeyInfo.setText("Name: "+journey.getName() + "\nDate: " + journey.getDate());
+        TextView routeInfo = (TextView) findViewById(R.id.textRouteInfo);
+        routeInfo.setText("Name: " + route.getName() + "\nTotal City Distance: " + route.getCityDistance()+
+                "\nTotal Highway Distance: " + route.getHighWayDistance() + "\nTotal Distance: " + journey.getTotalDriven());
+        TextView carInfo = (TextView) findViewById(R.id.textCarInfo);
+        carInfo.setText("Name: " + car.getNickName() + "\nMake: " + car.getMake() + "\nModel: " +
+                car.getModel()+"\nYear: "+ car.getYear() + "\nFuel Type: " + car.getFuelType());
+        TextView hwayDrive = (TextView) findViewById(R.id.textEmissionsInfo);
+        hwayDrive.setText("Total City Emissions: "+ String.format("%.2f",journey.getTotalHighway()) + "\nTotal Highway Emissions: "+ String.format("%.2f",journey.getTotalCity())
+                + "\nTotal Emissions: " + String.format("%.2f",journey.getTotalTravelledEmissions()));
+
 
     }
 
