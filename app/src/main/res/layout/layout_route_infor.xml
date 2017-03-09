@@ -68,12 +68,11 @@
 
     <Button
         android:id="@+id/Route_Info_back_btn"
-        android:layout_width="60dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/Route_Info_edite_city"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="15dp"
-        android:text="BACK" />
+        android:text="BACK"
+        android:layout_alignTop="@+id/Route_Info_text_enter_highway"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/Route_Info_text_enter_name"
@@ -98,16 +97,50 @@
         android:id="@+id/Route_Info_delete_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="DELETE"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:text="DELETE" />
+        android:layout_marginBottom="10dp" />
 
     <Button
         android:id="@+id/Route_Info_ok_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/RouRoute_Info_text_enter_city"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="13dp"
-        android:text="OK" />
+        android:text="SAVE"
+        android:layout_alignBaseline="@+id/Route_Info_text_enter_name"
+        android:layout_alignBottom="@+id/Route_Info_text_enter_name"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/Route_Info_USE_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="USE"
+        android:layout_alignTop="@+id/Route_Info_edite_highway"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="29dp" />
+
+    <TextView
+        android:id="@+id/Route_Info_text_hint_for_save"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editJourneyName"
+        android:layout_alignBottom="@+id/editJourneyName"
+        android:layout_alignParentEnd="true"
+        android:text="Hint: Save to Route List" />
+
+    <TextView
+        android:id="@+id/Route_Info_text_hint_for_use"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/RouRoute_Info_text_enter_city"
+        android:text="Hint: See summary without saving." />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Route_Info_text_mode"
+        android:text="Hint: Need a nickname if you want to save it." />
 </RelativeLayout>
