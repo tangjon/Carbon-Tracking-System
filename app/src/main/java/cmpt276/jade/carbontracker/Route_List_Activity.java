@@ -20,6 +20,10 @@ import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.model.RouteCollection;
 
+/**
+ * List of routes that can be used in journey click route to proceed
+ */
+
 public class Route_List_Activity extends AppCompatActivity {
 
     public static final int RECEIVE_ROUTE = 1024; //intent numer for add

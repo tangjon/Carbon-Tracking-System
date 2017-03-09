@@ -25,7 +25,9 @@ import java.util.List;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
-
+/*
+ *  Displays user's carbon footprint in pie graph or table
+ */
 public class CarbonFootprintActivity extends AppCompatActivity {
 
     private JourneyCollection journeyCollection = Emission.getInstance().getJourneyCollection();

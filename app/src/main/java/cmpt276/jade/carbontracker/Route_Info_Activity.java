@@ -14,6 +14,10 @@ import android.widget.Toast;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.Route;
 
+/**
+ * Create route to be used in journey or saved to list
+ */
+
 public class Route_Info_Activity extends AppCompatActivity {
 
     private Route RouteFromList;

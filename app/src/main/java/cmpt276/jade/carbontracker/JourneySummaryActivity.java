@@ -48,14 +48,14 @@ public class JourneySummaryActivity extends AppCompatActivity {
         TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
         journeyInfo.setText("Name: "+journey.getName() + "\nDate: " + journey.getDate());
         TextView routeInfo = (TextView) findViewById(R.id.textRouteInfo);
-        routeInfo.setText("Name: " + route.getName() + "\nTotal City Distance: " + route.getCityDistance()+
-                "\nTotal Highway Distance: " + route.getHighWayDistance() + "\nTotal Distance: " + journey.getTotalDriven());
+        routeInfo.setText("Name: " + route.getName() + "\nTotal City Distance(Km): " + route.getCityDistance()+
+                "\nTotal Highway Distance(Km): " + route.getHighWayDistance() + "\nTotal Distance(Km): " + journey.getTotalDriven());
         TextView carInfo = (TextView) findViewById(R.id.textCarInfo);
         carInfo.setText("Name: " + car.getNickName() + "\nMake: " + car.getMake() + "\nModel: " +
                 car.getModel()+"\nYear: "+ car.getYear() + "\nFuel Type: " + car.getFuelType());
         TextView hwayDrive = (TextView) findViewById(R.id.textEmissionsInfo);
-        hwayDrive.setText("Total Highway Emissions: "+ String.format("%.2f",journey.getTotalHighway()) + "\nTotal City Emissions: "+ String.format("%.2f",journey.getTotalCity())
-                + "\nTotal Emissions: " + String.format("%.2f",journey.getTotalTravelledEmissions()));
+        hwayDrive.setText("Total Highway Emissions(Kg): "+ String.format("%.2f",journey.getTotalHighway()) + "\nTotal City Emissions(Kg): "+ String.format("%.2f",journey.getTotalCity())
+                + "\nTotal Emissions(Kg): " + String.format("%.2f",journey.getTotalTravelledEmissions()));
 
 
     }

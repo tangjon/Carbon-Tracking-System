@@ -7,8 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/carbon-tracker.iml" filepath="$PROJECT_DIR$/carbon-tracker.iml" />
       <module fileurl="file://$PROJECT_DIR$/carbon-tracker-branch.iml" filepath="$PROJECT_DIR$/carbon-tracker-branch.iml" />
-      <module fileurl="file://$PROJECT_DIR$/carbon-tracker-jade.iml" filepath="$PROJECT_DIR$/carbon-tracker-jade.iml" />
       <module fileurl="file://$PROJECT_DIR$/carbon-tracker-deleteme.iml" filepath="$PROJECT_DIR$/carbon-tracker-deleteme.iml" />
+      <module fileurl="file://$PROJECT_DIR$/carbon-tracker-jade.iml" filepath="$PROJECT_DIR$/carbon-tracker-jade.iml" />
     </modules>
   </component>
 </project>
