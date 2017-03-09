@@ -1,10 +1,5 @@
 package cmpt276.jade.carbontracker;
 
-/**
- * Display a list of Cars to users
- */
-
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +15,10 @@ import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.utils.Mode;
+
+/**
+ * Display a list of recently added Cars to user
+ */
 
 public class CarListActivity extends AppCompatActivity {
     // Field for Recent Car List

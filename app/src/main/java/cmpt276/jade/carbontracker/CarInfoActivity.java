@@ -1,6 +1,7 @@
 package cmpt276.jade.carbontracker;
 
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +25,10 @@ import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.utils.Mode;
+
+/**
+ * CarInfoActivity allows the users to select there specified car from drop downs.
+ */
 
 public class CarInfoActivity extends AppCompatActivity {
     // KEY FOR DETERMINING APP_MODE
