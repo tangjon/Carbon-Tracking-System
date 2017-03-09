@@ -1,24 +1,11 @@
 <resources>
-    <!--Action ToolBar Hints-->
-    <string name="CarListActivityHint">Select/Add a Car</string>
-    <string name="CarInfoActivityHint">Fill in Car Information</string>
-    <string name="RouteInfoActivityHint">Fill in Route Information</string>
-    <string name="RouteListActivityHint">Select a Route</string>
-    <string name="JourneySummaryHint">Journey Summary</string>
-    <string name="JourneyReviewActivityHint">Journey Review</string>
-    <string name="JourneyListActivityHint">Journey List</string>
-    <string name="TransportSelectActivityHint">Select a Transport Mode</string>
-
-
+    <!--General Purpose-->
     <string name="app_name">Carbon Tracker</string>
     <string name="label_make">Manufacturer:</string>
     <string name="label_year">Year:</string>
     <string name="label_model">Model:</string>
     <string name="label_CityMPG">City MPG:</string>
     <string name="label_HighwayMPG">Highway MPG:</string>
-    <string name="DEFAULT_NUM">##</string>
-    <string name="label_carbon_tail_pipe">Carbon Tail Pipe:</string>
-    <string name="DEFAULT_TXT">TXT</string>
     <string name="label_add">ADD</string>
     <string name="label_next">NEXT</string>
     <string name="label_displ">Displacement</string>
@@ -33,6 +20,24 @@
     <string name="label_toggle_graph">Toggle Display</string>
     <string name="label_graph_title">Total Carbon Footprint</string>
     <string name="label_view_footprint">Carbon Footprint</string>
+    <string name="label_carbon_tail_pipe">Carbon Tail Pipe:</string>
+
+
+    <!--Action ToolBar Hints-->
+    <string name="CarListActivityHint">Select/Add a Car</string>
+    <string name="CarInfoActivityHint">Fill in Car Information</string>
+    <string name="RouteInfoActivityHint">Fill in Route Information</string>
+    <string name="RouteListActivityHint">Select a Route</string>
+    <string name="JourneySummaryHint">Journey Summary</string>
+    <string name="JourneyReviewActivityHint">Journey Review</string>
+    <string name="JourneyListActivityHint">Journey List</string>
+    <string name="TransportSelectActivityHint">Select a Transport Mode</string>
+
+
+    <string name="DEFAULT_NUM">##</string>
+    <string name="DEFAULT_TXT">TXT</string>
+
+
     <string-array name="label_table">
         <item>Date</item>
         <item>Trip Name</item>
@@ -85,9 +90,20 @@
     <string name="add_route">ADD ROUTE</string>
     <string name="hint_click_route_to_the_list_of_journey_long_press_to_edit_or_delete">Hint: Click route to the list of Journey. Long press to edit or delete.</string>
     <string name="tap_screen_to_continue">Tap Screen to Continue..</string>
+
+
+
+    <!--Authors -->
     <string name="jonathan_tang">Jonathan Tang</string>
     <string name="sean_ehrenfellner">Sean Ehrenfellner</string>
     <string name="razvan_cretu">Razvan Cretu</string>
     <string name="alex_wu">Alex Wu</string>
+    <string name="route_info_mode_hint">You are now in add mode</string>
+    <string name="label_route_name">Route Name:</string>
+    <string name="label_highway">HighWay:</string>
+    <string name="label_city">City:</string>
+    <string name="route_info_mode_hint2">You are now in edit and deletion mode</string>
+    <string name="route_list_hint">Select or Add a Route</string>
+    <string name="route_info_hint">Fill in your route info</string>
 
 </resources>

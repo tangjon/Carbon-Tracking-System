@@ -39,6 +39,7 @@ public class Route_Info_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().setTitle(getString(R.string.route_info_hint));
         super.onCreate(savedInstanceState);
         getJourneyData();
         setContentView(R.layout.layout_route_infor);
@@ -155,8 +156,8 @@ public class Route_Info_Activity extends AppCompatActivity {
 
     private String getClickedRoutePosition() {
         Intent intent = getIntent();
-        String Routepos = intent.getStringExtra("Passing Position");
-        return Routepos;
+        String routePos = intent.getStringExtra("Passing Position");
+        return routePos;
     }
 
     private Route getClickedRoute() {
@@ -181,22 +182,22 @@ public class Route_Info_Activity extends AppCompatActivity {
         //add mode =1,delete mode=0
         int add;
         if (getClickedRoutePosition() == null) {
-            Text_Mode.setText("You are now in add mode");
-            Text_name.setText("Route Name: ");
-            Text_highway.setText("HighWay: ");
-            Text_city.setText("City: ");
+            Text_Mode.setText(R.string.route_info_mode_hint);
+            Text_name.setText(R.string.label_route_name);
+            Text_highway.setText(R.string.label_highway);
+            Text_city.setText(R.string.label_city);
             add = 1;
         } else {
-            Text_Mode.setText("You are now in edit and deletion mode");
+            Text_Mode.setText(R.string.route_info_mode_hint2);
 
             EditText EditRouteName = (EditText) findViewById(R.id.editJourneyName);
-            EditRouteName.setText(""+ClickedRoute.getName());
+            EditRouteName.setText(ClickedRoute.getName());
 
             EditText EditRouteHighWay = (EditText) findViewById(R.id.Route_Info_edite_highway);
-            EditRouteHighWay.setText(""+ClickedRoute.getHighWayDistance());
+            EditRouteHighWay.setText(Double.toString(ClickedRoute.getHighWayDistance()));
 
             EditText EditRouteCity = (EditText) findViewById(R.id.Route_Info_edite_city);
-            EditRouteCity.setText(""+ClickedRoute.getCityDistance());
+            EditRouteCity.setText(Double.toString(ClickedRoute.getCityDistance()));
             add = 0;
         }
         return add;
