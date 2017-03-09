@@ -12,7 +12,7 @@
     tools:context="cmpt276.jade.carbontracker.JourneyListActivity">
 
     <Button
-        android:text="@string/add"
+        android:text="@string/label_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -50,6 +50,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@+id/btnAddJourney"
-        android:text="@string/delete" />
+        android:text="@string/label_delete" />
 
 </RelativeLayout>

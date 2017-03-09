@@ -15,6 +15,10 @@ import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.utils.Mode;
 
+/**
+ * Display a list of recently added Cars to user
+ */
+
 public class CarListActivity extends AppCompatActivity {
     // Field for Recent Car List
     public static CarCollection recentCarList = new CarCollection();
