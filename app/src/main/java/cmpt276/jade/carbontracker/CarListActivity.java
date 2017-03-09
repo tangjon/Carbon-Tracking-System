@@ -1,5 +1,10 @@
 package cmpt276.jade.carbontracker;
 
+/**
+ * Display a list of Cars to users
+ */
+
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
