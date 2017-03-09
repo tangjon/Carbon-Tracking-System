@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.UUID;
 
 /**
- * Created by tangj on 2/27/2017.
+ * Car model stores information on a single car
+ * Each car model has a unique key
  */
 
 public class Car implements Serializable{
