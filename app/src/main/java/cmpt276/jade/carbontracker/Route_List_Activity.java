@@ -34,6 +34,7 @@ public class Route_List_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().setTitle(getString(R.string.route_list_hint));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_route_list);
         getCarListData();

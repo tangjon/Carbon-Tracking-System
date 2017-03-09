@@ -92,8 +92,7 @@ public class CarListActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO SHOULD SEND US TO ROUTE
-                // ACTIVITES
+                // ACTIVITIES
                 Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.ADD);
                 intent.putExtra("Journey", journey);
                 startActivity(intent);

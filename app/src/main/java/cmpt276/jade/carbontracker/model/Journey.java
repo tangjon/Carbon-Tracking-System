@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Journey implements Serializable{
 
 
-
+    public static String KEY = "JOURNEY";
     private String name;
     private Car car;
     private Route route;

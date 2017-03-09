@@ -46,16 +46,25 @@ public class JourneySummaryActivity extends AppCompatActivity {
 
     private void setData() {
         TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
-        journeyInfo.setText("Name: "+journey.getName() + "\nDate: " + journey.getDate());
+        journeyInfo.setText(getString(R.string.label_name)+journey.getName() + getString(R.string.label_date) + journey.getDate());
         TextView routeInfo = (TextView) findViewById(R.id.textRouteInfo);
-        routeInfo.setText("Name: " + route.getName() + "\nTotal City Distance(Km): " + route.getCityDistance()+
-                "\nTotal Highway Distance(Km): " + route.getHighWayDistance() + "\nTotal Distance(Km): " + journey.getTotalDriven());
+        routeInfo.setText(
+                getString(R.string.label_name) +  " " + route.getName() +
+                "\n" + getString(R.string.journey_summary_total_city_distance) + " "+ route.getCityDistance()+
+                "\n" + getString(R.string.journey_summary_total_highway_distance) + " "+route.getHighWayDistance() +
+                "\n" + getString(R.string.journey_summary_total_distance) + " " + journey.getTotalDriven());
+
         TextView carInfo = (TextView) findViewById(R.id.textCarInfo);
-        carInfo.setText("Name: " + car.getNickName() + "\nMake: " + car.getMake() + "\nModel: " +
-                car.getModel()+"\nYear: "+ car.getYear() + "\nFuel Type: " + car.getFuelType());
+        carInfo.setText(getString(
+                R.string.label_name) + car.getNickName() +
+                "\n" + getString(R.string.label_make) + " " + car.getMake() +
+                "\n" + getString(R.string.label_model) + " " + car.getModel()+
+                "\n" + getString(R.string.label_year) + " "+ car.getYear() +
+                "\n" + getString(R.string.label_fuel_type) + " " + car.getFuelType());
         TextView hwayDrive = (TextView) findViewById(R.id.textEmissionsInfo);
-        hwayDrive.setText("Total Highway Emissions(Kg): "+ String.format("%.2f",journey.getTotalHighway()) + "\nTotal City Emissions(Kg): "+ String.format("%.2f",journey.getTotalCity())
-                + "\nTotal Emissions(Kg): " + String.format("%.2f",journey.getTotalTravelledEmissions()));
+        hwayDrive.setText(getString(R.string.total_city_high_emission) + " "+ String.format("%.2f",journey.getTotalHighway()) +
+                "\n" + getString(R.string.total_city_emission) + " "+ String.format("%.2f",journey.getTotalCity()) +
+                "\n" + getString(R.string.total_emission)+ " " + String.format("%.2f",journey.getTotalTravelledEmissions()));
 
 
     }

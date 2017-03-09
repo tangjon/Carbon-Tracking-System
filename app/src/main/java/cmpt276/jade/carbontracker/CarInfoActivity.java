@@ -61,6 +61,9 @@ public class CarInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_car_info);
         // get mode from intent
         Mode mode = (Mode) getIntent().getExtras().getSerializable(APP_MODE);
+        if(mode == null){
+            mode = Mode.ADD;
+        }
         switch (mode) {
             case ADD:
                 loadMakeDisplayList();
@@ -100,7 +103,7 @@ public class CarInfoActivity extends AppCompatActivity {
 
     private void setUpAddBtn() {
         Button btn = (Button) findViewById(R.id.btn_next);
-        btn.setText("Add");
+        btn.setText(getString(R.string.label_add));
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,7 +135,7 @@ public class CarInfoActivity extends AppCompatActivity {
 
     public void setUpCancelBtn() {
         Button btn = (Button) findViewById(R.id.btn_delete);
-        btn.setText("Cancel");
+        btn.setText(getString(R.string.lable_cancel));
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +147,7 @@ public class CarInfoActivity extends AppCompatActivity {
     private void setUpFinishEditBtn(final UUID key) {
         Button btn = (Button) findViewById(R.id.btn_next);
         final EditText et = (EditText) findViewById(R.id.et_nickname);
-        btn.setText("Confirm Edit");
+        btn.setText(R.string.carinfo_confirm_edit);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
