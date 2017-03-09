@@ -30,4 +30,6 @@
         <item>Carbon Emitted</item>
     </string-array>
     <string name="label_select_car">Car</string>
+    <string name="hint_click_car_to_add_routes_long_press_to_edit_or_delete">Hint: Click car to add routes. Long press to edit or delete.</string>
+    <string name="hint_click_journey_to_see_summary_long_press_to_edit_or_delete">Hint: Click journey to see summary. Long press to edit or delete.</string>
 </resources>
