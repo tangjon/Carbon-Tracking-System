@@ -34,6 +34,7 @@ public class JourneyListActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle(getString(R.string.JourneyListActivityHint));
         setContentView(R.layout.activity_journey_list);
 
 

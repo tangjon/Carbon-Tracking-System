@@ -71,7 +71,7 @@ public class LoadDummyData {
         Car car = generateCar();
         Route route = generateRoute();
         Journey journey = new Journey("Journey " + index,car,route);
-        journey.setDate(rn.nextInt(26) + "/" + (rn.nextInt(12) + "/2016"));
+        journey.setDate("" + (rn.nextInt(26)+1) + "/" + (rn.nextInt(12) + 1) + "/2016");
         return journey;
     }
 

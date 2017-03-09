@@ -30,4 +30,11 @@
         <item>Carbon Emitted</item>
     </string-array>
     <string name="label_select_car">Car</string>
+    <string name="CarListActivityHint">Select a car</string>
+    <string name="CarInfoActivityHint">Fill in car info</string>
+    <string name="RouteInfoActivityHint">Fill in route info</string>
+    <string name="RouteListActivityHint">Select a route</string>
+    <string name="JourneySummaryHint">Journey Summary</string>
+    <string name="JourneyReviewActivityHint">Journey Review</string>
+    <string name="JourneyListActivityHint">Journey List</string>
 </resources>

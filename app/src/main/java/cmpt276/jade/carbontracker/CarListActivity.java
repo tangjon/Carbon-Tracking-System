@@ -24,7 +24,6 @@ public class CarListActivity extends AppCompatActivity {
     public static String CAR_KEY = "carKey";
 
     // Car List Activity Resource Fields
-    private String activity_name = "CarListActivity";
     private Journey journey;
 
     public static Intent getIntentFromActivity(Context context) {
@@ -35,7 +34,7 @@ public class CarListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle(activity_name);
+        getSupportActionBar().setTitle(getString(R.string.CarListActivityHint));
         setContentView(R.layout.activity_car_list);
         getJourneyData();
         setUpAddButton(R.id.btn_add_car);
