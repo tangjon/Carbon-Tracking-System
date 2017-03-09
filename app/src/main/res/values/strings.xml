@@ -30,8 +30,6 @@
         <item>Carbon Emitted</item>
     </string-array>
     <string name="label_select_car">Car</string>
-    <string name="hint_click_car_to_add_routes_long_press_to_edit_or_delete">Hint: Click car to add routes. Long press to edit or delete.</string>
-    <string name="hint_click_journey_to_see_summary_long_press_to_edit_or_delete">Hint: Click journey to see summary. Long press to edit or delete.</string>
     <string name="CarListActivityHint">Select a car</string>
     <string name="CarInfoActivityHint">Fill in car info</string>
     <string name="RouteInfoActivityHint">Fill in route info</string>
@@ -81,7 +79,7 @@
     <string name="hint_need_a_nickname_if_you_want_to_save_it">Hint: Need a nickname if you want to save it.</string>
     <string name="add_route">ADD ROUTE</string>
     <string name="hint_click_route_to_the_list_of_journey_long_press_to_edit_or_delete">Hint: Click route to the list of Journey. Long press to edit or delete.</string>
-    <string name="tap_screen_to_continue">Tap Screen to Continue...</string>
+    <string name="tap_screen_to_continue">Tap Screen to Continue..</string>
     <string name="jonathan_tang">Jonathan Tang</string>
     <string name="sean_ehrenfellner">Sean Ehrenfellner</string>
     <string name="razvan_cretu">Razvan Cretu</string>
