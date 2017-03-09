@@ -20,7 +20,7 @@
         android:id="@+id/btnJourneySummaryBack" />
 
     <TextView
-        android:text="@string/car_nickname"
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -34,66 +34,65 @@
         android:text="@string/textview3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/textJourneyInfo"
         android:layout_below="@+id/textView6"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textJourneyInfo" />
+        android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="@string/route_nickname"
+        android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Route Info"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textCarInfo"
+        android:text="Emissions Info"
         android:textColor="@color/primary_text"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/textJourneyInfo"
-        android:layout_alignParentStart="true" />
+        android:textStyle="bold" />
 
     <TextView
         android:text="@string/textview4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView12"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textRouteInfo" />
+        android:id="@+id/textRouteInfo"
+        android:layout_below="@+id/textView16"
+        android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="@string/city_driving"
+        android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textRouteInfo"
         android:text="Car Info"
         android:textColor="@color/primary_text"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/textRouteInfo"
-        android:layout_alignParentStart="true" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView16"
-        android:text="@string/total_driven"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Emissions Info"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textJourneyInfo"
+        android:text="Route Info"
         android:textColor="@color/primary_text"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/textCarInfo"
-        android:layout_alignParentStart="true" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textCarInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView19"
-        android:text="TextView" />
+        android:text="TextView"
+        android:layout_below="@+id/textView15"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/textEmissionsInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:layout_below="@+id/textView16"
+        android:layout_below="@+id/textView12"
         android:layout_alignParentStart="true" />
 
 </RelativeLayout>
