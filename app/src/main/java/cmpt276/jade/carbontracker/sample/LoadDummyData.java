@@ -45,6 +45,10 @@ public class LoadDummyData {
             Emission.getInstance().getJourneyCollection().addJourney(generateJourney());
             Emission.getInstance().getJourneyCollection().addJourney(generateJourney());
             Emission.getInstance().getJourneyCollection().addJourney(generateJourney());
+            Emission.getInstance().getJourneyCollection().addJourney(generateJourney());
+            Emission.getInstance().getJourneyCollection().addJourney(generateJourney());
+            Emission.getInstance().getJourneyCollection().addJourney(generateJourney());
+
 
             instance = "LOADED!";
         }
@@ -67,7 +71,7 @@ public class LoadDummyData {
 
     public static Journey generateJourney(){
         Random rn = new Random();
-        int index = rn.nextInt(20);
+        int index = rn.nextInt(500);
         Car car = generateCar();
         Route route = generateRoute();
         Journey journey = new Journey("Journey " + index,car,route);
