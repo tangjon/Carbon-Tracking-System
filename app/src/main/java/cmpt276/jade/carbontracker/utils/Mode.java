@@ -1,11 +1,11 @@
 package cmpt276.jade.carbontracker.utils;
 
 /**
- * Created by tangj on 3/3/2017.
+ * Use to distinguish Add/Edit mode to decide which interface is shown
  */
 
 public enum Mode {
-    ADD("Add"), EDIT("Edit"), DELETE("Delete");
+    ADD("Add"), EDIT("Edit");
 
     private String mode;
 
