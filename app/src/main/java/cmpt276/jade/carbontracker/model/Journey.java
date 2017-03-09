@@ -6,6 +6,8 @@ import java.io.Serializable;
 
 /**
  * Created by Sean on 02/03/2017.
+ * Journey object stores both the car and route objects used
+ *
  */
 
 public class Journey implements Serializable{

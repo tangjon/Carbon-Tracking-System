@@ -19,7 +19,10 @@ import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
-
+/**
+ *Journey List is your list of journeys and can either add a new journey going to car list or to the emissions overview
+ * Can also edit journey entries or delete journey entries
+ */
 public class JourneyListActivity extends AppCompatActivity {
     public static JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
     private Journey intentJourney;
