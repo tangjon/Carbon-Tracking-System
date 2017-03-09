@@ -54,7 +54,7 @@ public class JourneySummaryActivity extends AppCompatActivity {
         carInfo.setText("Name: " + car.getNickName() + "\nMake: " + car.getMake() + "\nModel: " +
                 car.getModel()+"\nYear: "+ car.getYear() + "\nFuel Type: " + car.getFuelType());
         TextView hwayDrive = (TextView) findViewById(R.id.textEmissionsInfo);
-        hwayDrive.setText("Total City Emissions: "+ String.format("%.2f",journey.getTotalHighway()) + "\nTotal Highway Emissions: "+ String.format("%.2f",journey.getTotalCity())
+        hwayDrive.setText("Total Highway Emissions: "+ String.format("%.2f",journey.getTotalHighway()) + "\nTotal City Emissions: "+ String.format("%.2f",journey.getTotalCity())
                 + "\nTotal Emissions: " + String.format("%.2f",journey.getTotalTravelledEmissions()));
 
 
