@@ -17,6 +17,7 @@ public class TransportSelectActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().setTitle(getString(R.string.TransportSelectActivityHint));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transport_select);
 

@@ -15,6 +15,11 @@ import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.utils.CarManager;
 
+/**
+ * Display a animated welcome screen to user
+ * Also loads csv at startup
+ */
+
 public class Welcome_Activity extends AppCompatActivity {
 
 

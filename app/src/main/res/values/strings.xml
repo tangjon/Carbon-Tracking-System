@@ -1,4 +1,15 @@
 <resources>
+    <!--Action ToolBar Hints-->
+    <string name="CarListActivityHint">Select/Add a Car</string>
+    <string name="CarInfoActivityHint">Fill in Car Information</string>
+    <string name="RouteInfoActivityHint">Fill in Route Information</string>
+    <string name="RouteListActivityHint">Select a Route</string>
+    <string name="JourneySummaryHint">Journey Summary</string>
+    <string name="JourneyReviewActivityHint">Journey Review</string>
+    <string name="JourneyListActivityHint">Journey List</string>
+    <string name="TransportSelectActivityHint">Select a Transport Mode</string>
+
+
     <string name="app_name">Carbon Tracker</string>
     <string name="label_make">Manufacturer:</string>
     <string name="label_year">Year:</string>
@@ -30,13 +41,7 @@
         <item>Carbon Emitted</item>
     </string-array>
     <string name="label_select_car">Car</string>
-    <string name="CarListActivityHint">Select a car</string>
-    <string name="CarInfoActivityHint">Fill in car info</string>
-    <string name="RouteInfoActivityHint">Fill in route info</string>
-    <string name="RouteListActivityHint">Select a route</string>
-    <string name="JourneySummaryHint">Journey Summary</string>
-    <string name="JourneyReviewActivityHint">Journey Review</string>
-    <string name="JourneyListActivityHint">Journey List</string>
+
     <string name="hint_click_car_to_add_routes_long_press_to_edit_or_delete">Hint: Click car to add routes. Long press to edit or delete.</string>
     <string name="add">Add</string>
     <string name="hint_click_journey_to_see_summary_long_press_to_edit_or_delete">Hint: Click journey to see summary. Long press to edit or delete.</string>
@@ -84,4 +89,5 @@
     <string name="sean_ehrenfellner">Sean Ehrenfellner</string>
     <string name="razvan_cretu">Razvan Cretu</string>
     <string name="alex_wu">Alex Wu</string>
+
 </resources>
