@@ -42,8 +42,6 @@ public class CarInfoActivity extends AppCompatActivity {
     private List<String> makeDisplayList = new ArrayList<>();
     // String of Models for Specific Car for spinner adapter
     private List<String> modelDisplayList = new ArrayList<>();
-
-    private Journey journey;
     // TAG
     private String TAG = "carinfoactivity";
     // Field to store the user selected car <----------- THIS IS OF INTEREST
@@ -64,7 +62,6 @@ public class CarInfoActivity extends AppCompatActivity {
         Mode mode = (Mode) getIntent().getExtras().getSerializable(APP_MODE);
         switch (mode) {
             case ADD:
-                getJourneyData();
                 loadMakeDisplayList();
                 setUpAllSpinners();
                 setUpAddBtn();
@@ -73,7 +70,6 @@ public class CarInfoActivity extends AppCompatActivity {
                 break;
             case EDIT:
                 // Fetch Select Car to Edit
-                getJourneyData();
                 UUID thisKey = loadCurrentCar();
                 loadMakeDisplayList();
                 setUpAllSpinners();
@@ -267,12 +263,6 @@ public class CarInfoActivity extends AppCompatActivity {
                 makeDisplayList.add(make);
             }
         }
-    }
-
-    public void getJourneyData() {
-        Intent intent = getIntent();
-        journey = (Journey)intent.getSerializableExtra("Journey");
-
     }
 
 
