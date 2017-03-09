@@ -36,6 +36,7 @@ public class Route_Info_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle(getString(R.string.RouteInfoActivityHint));
         getJourneyData();
         setContentView(R.layout.layout_route_infor);
         setupOKbtn();
