@@ -13,5 +13,6 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:text="@string/textview8"
+        android:textSize="18sp"
         android:textStyle="bold" />
 </LinearLayout>
