@@ -26,6 +26,7 @@ public class JourneySummaryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().setTitle(getString(R.string.JourneySummaryHint));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey_summary);
         getData();

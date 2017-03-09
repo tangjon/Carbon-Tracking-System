@@ -55,6 +55,9 @@ public class CarInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set Toolbar
+        getSupportActionBar().setTitle(getString(R.string.CarInfoActivityHint));
+
         setContentView(R.layout.activity_car_info);
         // get mode from intent
         Mode mode = (Mode) getIntent().getExtras().getSerializable(APP_MODE);
