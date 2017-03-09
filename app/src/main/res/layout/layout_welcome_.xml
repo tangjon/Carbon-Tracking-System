@@ -21,7 +21,8 @@
         android:layout_marginEnd="40dp"
         android:text="@string/app_name"
         android:textColor="@android:color/background_light"
-        android:textSize="24sp" />
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/welcome_person2"
@@ -73,45 +74,45 @@
         android:id="@+id/welcome_name4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Full Name 4"
+        android:layout_alignStart="@+id/welcome_name3"
+        android:layout_below="@+id/welcome_name3"
+        android:text="@string/alex_wu"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/welcome_name3"
-        android:layout_alignStart="@+id/welcome_name3" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/welcome_name3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Full Name 3"
+        android:layout_alignStart="@+id/welcome_name2"
+        android:layout_below="@+id/welcome_name2"
+        android:text="@string/razvan_cretu"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/welcome_name2"
-        android:layout_alignStart="@+id/welcome_name2" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/welcome_name2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Full Name 2"
+        android:layout_alignStart="@+id/welcome_name1"
+        android:layout_below="@+id/welcome_name1"
+        android:text="@string/sean_ehrenfellner"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/welcome_name1"
-        android:layout_alignStart="@+id/welcome_name1" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/welcome_name1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Full Name 1"
+        android:layout_below="@+id/welcome_app_name"
+        android:layout_toEndOf="@+id/welcome_person3"
+        android:text="@string/jonathan_tang"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/welcome_app_name"
-        android:layout_toEndOf="@+id/welcome_person3" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tapToContinue"
@@ -119,7 +120,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/welcome_person1"
         android:layout_centerHorizontal="true"
-        android:text="Tap Screen to Continue..."
+        android:text="@string/tap_screen_to_continue"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
         android:textStyle="bold" />

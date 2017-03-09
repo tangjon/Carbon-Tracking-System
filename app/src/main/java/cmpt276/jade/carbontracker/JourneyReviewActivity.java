@@ -23,6 +23,7 @@ public class JourneyReviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle(getString(R.string.JourneyReviewActivityHint));
         setContentView(R.layout.activity_journey_review);
 
         getJourneyData();
@@ -72,7 +73,7 @@ public class JourneyReviewActivity extends AppCompatActivity {
                     inputName.setError("Please Enter a nickname");
                 }
                 else if(month < 1 || month > 12 || day < 1 || day > 31 || year < 1900 || year > 9999){
-                    inputName.setError("Please Enter a valid date");
+                     inputDate.setError("Please Enter a valid date");
                 }
                 else {
 
