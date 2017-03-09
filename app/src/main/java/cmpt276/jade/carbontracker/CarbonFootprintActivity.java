@@ -2,6 +2,7 @@ package cmpt276.jade.carbontracker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,34 +54,48 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
     private void setupTable() {
         table = (TableLayout) findViewById(R.id.tableFootprint);
+        table.setShrinkAllColumns(true);
 
         TableRow labelRow = new TableRow(this);
         String[] labels = getResources().getStringArray(R.array.label_table);
         for (int i = 0; i < labels.length; ++i) {
             TextView tv = new TextView(this);
             tv.setText(labels[i]);
+            tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            tv.setTypeface(null, Typeface.BOLD);
             labelRow.addView(tv);
         }
         table.addView(labelRow);
 
         for (int row = 0; row < NUM_ENTRIES; ++row) {
             TableRow tableRow = new TableRow(this);
+            float f;
             table.addView(tableRow);
 
             for (int col = 0; col < 5; ++col) {
                 TextView tv = new TextView(this);
                 switch (col) {
-                    case 0: tv.setText(emissionDate[row]);
+                    case 0:
+                        tv.setText(emissionDate[row]);
                         break;
-                    case 1: tv.setText(emissionRouteNames[row]);
+                    case 1:
+                        tv.setText(emissionRouteNames[row]);
                         break;
-                    case 2: tv.setText(String.valueOf(emissionDistance[row]));
+                    case 2:
+                        f = (float) emissionDistance[row];
+                        f = Math.round(f);
+                        tv.setText(String.valueOf(f));
                         break;
-                    case 3: tv.setText(emissionVehicleNames[row]);
+                    case 3:
+                        tv.setText(emissionVehicleNames[row]);
                         break;
-                    case 4: tv.setText(String.valueOf(emissionValues[row]));
+                    case 4:
+                        f = emissionValues[row];
+                        f = Math.round(f);
+                        tv.setText(String.valueOf(f));
                         break;
                 }
+                tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 tableRow.addView(tv);
             }
         }
@@ -93,10 +109,10 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
         for (int i = 0; i < NUM_ENTRIES; ++i) {
             j = journeyCollection.getJourney(i);
-            emissionDate[i] = "dummy date";                     // dummy data
-            emissionRouteNames[i] = j.getRoute().getName();
+            emissionDate[i] = j.getDate();
+            emissionRouteNames[i] = j.getName();
             emissionDistance[i] = j.getRoute().getCityDistance() + j.getRoute().getCityDistance();
-            emissionVehicleNames[i] = j.getCar().getName();
+            emissionVehicleNames[i] = j.getCar().getNickname();
             emissionValues[i] = (float) j.getTotalTravelled();
         }
     }
