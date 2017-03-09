@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.adapter.RouteListAdapter;
 import cmpt276.jade.carbontracker.model.Car;
@@ -62,11 +63,13 @@ public class JourneyListActivity extends AppCompatActivity {
                     Mode = 0;
                     setupClickJourneyList();
                     button.setText("Delete");
+                    Toast.makeText(JourneyListActivity.this, "Edit mode enabled.", Toast.LENGTH_SHORT).show();
                 }
                 else if(Mode == 0){
                     Mode = 1;
                     toggleDeleteMode();
                     button.setText("Edit");
+                    Toast.makeText(JourneyListActivity.this, "Delete mode enabled.", Toast.LENGTH_SHORT).show();
                 }
 
             }

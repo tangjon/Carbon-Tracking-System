@@ -2,7 +2,8 @@ package cmpt276.jade.carbontracker.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//RouteCollection has a list that contain routes,
+//Can add or remove routes by index
 public class RouteCollection {
     private String nickname;
 
