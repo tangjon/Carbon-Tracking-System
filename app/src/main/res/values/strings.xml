@@ -101,9 +101,6 @@
     <string name="tap_screen_to_continue">Tap Screen to Continue..</string>
 
 
-
-
-
     <string name="route_info_mode_hint2">You are now in edit and deletion mode</string>
     <string name="route_list_hint">Select or Add a Route</string>
     <string name="route_info_hint">Fill in your route info</string>

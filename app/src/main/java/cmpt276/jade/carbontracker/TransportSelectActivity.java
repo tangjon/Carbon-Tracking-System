@@ -21,11 +21,13 @@ public class TransportSelectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transport_select);
 
-        setupButtons();
+        setupCarBtn();
+        setupWalkBtn();
+        setupBusBtn();
         getIntentData();
     }
 
-    private void setupButtons() {
+    private void setupCarBtn() {
         Button btnCar = (Button) findViewById(R.id.btn_transport_car);
         btnCar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +38,30 @@ public class TransportSelectActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    private void setupWalkBtn() {
+        Button btnCar = (Button) findViewById(R.id.transport_walk_btn);
+        btnCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = Route_List_Activity.IntentForRouteList(TransportSelectActivity.this);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void setupBusBtn() {
+        Button btnCar = (Button) findViewById(R.id.transport_bus_btn);
+        btnCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = Route_List_Activity.IntentForRouteList(TransportSelectActivity.this);
+                startActivity(intent);
+            }
+        });
+    }
+
 
     public static Intent getTransportIntent(Context context) {
         return new Intent(context, TransportSelectActivity.class);
