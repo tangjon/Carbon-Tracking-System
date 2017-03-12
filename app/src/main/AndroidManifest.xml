@@ -27,7 +27,11 @@
         <activity android:name=".TransportSelectActivity" />
         <activity android:name=".JourneyReviewActivity" />
         <activity android:name=".Temp_Main_Acticity" />
-        <activity android:name=".Utilities_Activities"></activity>
+        <activity android:name=".Utilities_Activities" />
+        <activity
+            android:name=".MainMenuActivity"
+            android:label="@string/title_activity_main_menu"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
