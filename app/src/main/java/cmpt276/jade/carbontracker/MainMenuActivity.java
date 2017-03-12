@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import cmpt276.jade.carbontracker.fragment.CarbonFootPrintFragment;
+import cmpt276.jade.carbontracker.fragment.JourneyListFragment;
 
 public class MainMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -25,6 +26,12 @@ public class MainMenuActivity extends AppCompatActivity
         setContentView(R.layout.activity_main_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Default Fragment on first sight
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.main_fragment_content,new CarbonFootPrintFragment())
+                .commit();
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +100,9 @@ public class MainMenuActivity extends AppCompatActivity
                         .commit();
                 break;
             case R.id.nav_journeys:
-
+                fragmentManager.beginTransaction()
+                        .replace(R.id.main_fragment_content,new JourneyListFragment())
+                        .commit();
                 break;
             case R.id.nav_utilities:
 
