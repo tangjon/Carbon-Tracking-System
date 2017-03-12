@@ -8,4 +8,12 @@
     tools:context="cmpt276.jade.carbontracker.MainMenuActivity"
     tools:showIn="@layout/app_bar_main_menu">
 
+
+   <FrameLayout
+       android:id="@+id/main_fragment_content"
+       android:layout_width="368dp"
+       android:layout_height="495dp"
+       tools:layout_editor_absoluteY="8dp"
+       tools:layout_editor_absoluteX="8dp"></FrameLayout>
+
 </android.support.constraint.ConstraintLayout>
