@@ -69,7 +69,7 @@ public class Welcome_Activity extends AppCompatActivity {
         click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = JourneyListActivity.getJourneyListIntent(Welcome_Activity.this);
+                Intent intent = Temp_Main_Acticity.getMainIntent(Welcome_Activity.this);
                 startActivity(intent);
                 Welcome_Activity.this.finish();
             }
