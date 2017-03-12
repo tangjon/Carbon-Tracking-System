@@ -118,10 +118,11 @@
     <string name="label_edit">Edit</string>
 
     <!-- Utilities Activity -->
-    <string name="label_new_electric">New Electric Bill</string>
+    <string name="label_new_electric">New Electricity Bill</string>
     <string name="label_new_gas">New Gas Bill</string>
     <string name="label_list_electric">Electricity Bills</string>
     <string name="label_list_gas">Gas Bills</string>
     <string name="hint_residents"># Residents</string>
+    <string name="toast_bad_residents"># Residents must be a positive integer!</string>
 
 </resources>
