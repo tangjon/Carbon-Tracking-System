@@ -54,6 +54,9 @@ public class Utilities_Activities extends AppCompatActivity {
 
     private void setupEditText() {
         final EditText editRes = (EditText) findViewById(R.id.edit_residents);
+
+        editRes.setText(String.valueOf(utilities.getNumResidents()));
+
         TextWatcher watcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -67,10 +70,15 @@ public class Utilities_Activities extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                int i = Integer.parseInt(editRes.getText().toString());
+                String text = editRes.getText().toString();
+                int i = 0;
+
+                if (!text.isEmpty()) i = Integer.parseInt(text);
                 if (i > 0) utilities.setNumResidents(i);
-                else Toast.makeText(Utilities_Activities.this, R.string.toast_bad_residents,
-                        Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(Utilities_Activities.this, R.string.toast_bad_residents,
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         };
         editRes.addTextChangedListener(watcher);
