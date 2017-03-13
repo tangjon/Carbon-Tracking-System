@@ -106,8 +106,8 @@
     <string name="route_info_hint">Fill in your route info</string>
     <string name="lable_cancel">Cancel</string>
     <string name="carinfo_confirm_edit">Confirm Edit</string>
-    <string name="label_name">Name:</string>
-    <string name="label_date">Date:</string>
+    <string name="label_name">Name: </string>
+    <string name="label_date">\nDate: </string>
     <string name="journey_summary_total_city_distance">Total City Distance(Km):</string>
     <string name="journey_summary_total_highway_distance">Total Highway Distance(Km):</string>
     <string name="journey_summary_total_distance">Total Distance(Km):</string>
@@ -116,5 +116,26 @@
     <string name="total_city_emission">Total City Emissions(Kg):</string>
     <string name="total_emission">Total Emissions(Kg):</string>
     <string name="label_edit">Edit</string>
+    <string name="title_activity_main_menu">MainMenuActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nav_overview">Overview</string>
+    <string name="nav_journeys">Journeys</string>
+    <string name="nav_utilities">Utilities</string>
+    <string name="nav_tools">Tools</string>
+
+    <!-- Utilities Activity -->
+    <string name="label_new_electric">New Electricity Bill</string>
+    <string name="label_new_gas">New Gas Bill</string>
+    <string name="label_list_electric">Electricity Bills</string>
+    <string name="label_list_gas">Gas Bills</string>
+    <string name="hint_residents"># Residents</string>
+    <string name="toast_bad_residents"># Residents must be a positive integer!</string>
 
 </resources>

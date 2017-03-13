@@ -1,11 +1,14 @@
-package cmpt276.jade.carbontracker;
+package cmpt276.jade.carbontracker.fragment;
+
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -21,13 +24,16 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+import cmpt276.jade.carbontracker.CarbonFootprintActivity;
+import cmpt276.jade.carbontracker.R;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
-/*
- *  Displays user's carbon footprint in pie graph or table
+
+/**
+ * A simple {@link Fragment} subclass.
  */
-public class CarbonFootprintActivity extends AppCompatActivity {
+public class CarbonFootPrintFragment extends Fragment {
 
     private JourneyCollection journeyCollection = Emission.getInstance().getJourneyCollection();
     private PieChart pieChart;
@@ -41,26 +47,39 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private double emissionDistance[] = new double[NUM_ENTRIES];
     private String emissionVehicleNames[] = new String[NUM_ENTRIES];
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_carbon_footprint);
+    // View of the Fragment
+    private View v;
 
+    public CarbonFootPrintFragment() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Set ToolBar Name
+        getActivity().setTitle(R.string.nav_overview);
+
+        // Create a View
+        v = inflater.inflate(R.layout.fragment_carbon_foot_print, container, false);
         loadData();
 
         setupTable();
         setupPieChart();
         setupButton();
+
+        return v;
     }
 
     private void setupTable() {
-        table = (TableLayout) findViewById(R.id.tableFootprint);
+        table = (TableLayout) v.findViewById(R.id.tableFootprint);
         table.setShrinkAllColumns(true);
 
-        TableRow labelRow = new TableRow(this);
+        TableRow labelRow = new TableRow(getContext());
         String[] labels = getResources().getStringArray(R.array.label_table);
         for (int i = 0; i < labels.length; ++i) {
-            TextView tv = new TextView(this);
+            TextView tv = new TextView(getContext());
             tv.setText(labels[i]);
             tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             tv.setTypeface(null, Typeface.BOLD);
@@ -69,12 +88,12 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         table.addView(labelRow);
 
         for (int row = 0; row < NUM_ENTRIES; ++row) {
-            TableRow tableRow = new TableRow(this);
+            TableRow tableRow = new TableRow(getContext());
             float f;
             table.addView(tableRow);
 
             for (int col = 0; col < 5; ++col) {
-                TextView tv = new TextView(this);
+                TextView tv = new TextView(getContext());
                 switch (col) {
                     case 0:
                         tv.setText(emissionDate[row]);
@@ -119,7 +138,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     }
 
     private void setupButton() {
-        Button btn = (Button) findViewById(R.id.btn_graph_toggle);
+        Button btn = (Button) v.findViewById(R.id.btn_graph_toggle);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,7 +166,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         PieData data = new PieData(dataSet);
         data.setValueTextSize(12f);
 
-        pieChart = (PieChart) findViewById(R.id.pie_graph);
+        pieChart = (PieChart) v.findViewById(R.id.pie_graph);
         pieChart.setData(data);
         /*Legend l = pieChart.getLegend();
         l.setWordWrapEnabled(true);*/
@@ -163,4 +182,5 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     public static Intent getIntent(Context context) {
         return new Intent(context, CarbonFootprintActivity.class);
     }
+
 }

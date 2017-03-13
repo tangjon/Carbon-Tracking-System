@@ -15,6 +15,8 @@ public class Emission {
     private final String KEY_CAR_COLLECTION = "CarCollection";
     private CarCollection carCollection = new CarCollection();
     private JourneyCollection journeyCollection = new JourneyCollection();
+    private Utilities utilities = new Utilities();
+
     /**
      * useful for keeping temporary journey to work with throughout journey creation process
      * without using SharedPreferences/Intents
@@ -75,5 +77,13 @@ public class Emission {
         carCollection = gson.fromJson(json, carCollection.getClass());
 
         if (carCollection == null) carCollection = new CarCollection();
+    }
+
+    public Utilities getUtilities() {
+        return utilities;
+    }
+
+    public void setUtilities(Utilities utilities) {
+        this.utilities = utilities;
     }
 }

@@ -10,14 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
+import cmpt276.jade.carbontracker.model.JourneyCollection;
+
 /**
  *Journey review lets you review the data you entered for car and route and
  * will allow you to name the journey and the date
  */
 public class JourneyReviewActivity extends AppCompatActivity {
     private Journey journey;
-    private Journey intentJourney;
+    private Journey storedJourney;
 
 
 
@@ -35,9 +38,9 @@ public class JourneyReviewActivity extends AppCompatActivity {
 
     private void setupPage() {
         TextView carInfo = (TextView) findViewById(R.id.txtCarInfo);
-        carInfo.setText(intentJourney.getCar().getNickName() + "\nMake: " + intentJourney.getCar().getMake() + "\nModel: " + intentJourney.getCar().getModel() + "\nYear: " + intentJourney.getCar().getYear());
+        carInfo.setText(storedJourney.getTransType().getCar().getNickName() + "\nMake: " + storedJourney.getTransType().getCar().getMake() + "\nModel: " + storedJourney.getTransType().getCar().getModel() + "\nYear: " + storedJourney.getTransType().getCar().getYear());
         TextView routeInfo = (TextView) findViewById(R.id.txtRouteInfo);
-        routeInfo.setText(intentJourney.getRoute().getName() + "\nCity Distance: "+ intentJourney.getRoute().getCityDistance() + "\nHighway Distance : " + intentJourney.getRoute().getHighWayDistance());
+        routeInfo.setText(storedJourney.getRoute().getName() + "\nCity Distance: "+ storedJourney.getRoute().getCityDistance() + "\nHighway Distance : " + storedJourney.getRoute().getHighWayDistance());
         if(journey.getMode() == 1){
             EditText inputName = (EditText) findViewById(R.id.editJourneyName);
             inputName.setText(journey.getName());
@@ -78,15 +81,33 @@ public class JourneyReviewActivity extends AppCompatActivity {
                 }
                 else {
 
-                    intentJourney.setPosition(journey.getPosition());
-                    intentJourney.setMode(journey.getMode());
-                    intentJourney.setDate(inputDate.getText().toString().trim());
-                    intentJourney.setName(inputName.getText().toString().trim());
-                    Log.v("TAG", intentJourney.getCar().getFuelType());
+                    storedJourney.setPosition(journey.getPosition());
+                    storedJourney.setMode(journey.getMode());
+                    storedJourney.setDate(inputDate.getText().toString().trim());
+                    storedJourney.setName(inputName.getText().toString().trim());
+                    Emission.getInstance().setJourneyBuffer(storedJourney);
+
+
+
+                        if (journey.getMode() == 0) {
+                            JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
+                            listOfJourneys.addJourney(storedJourney);
+                            Emission.getInstance().setJourneyCollection(listOfJourneys);
+                        } else if (journey.getMode() == 1) {
+                            JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
+                            listOfJourneys.editJourney(storedJourney, journey.getPosition());
+                            Emission.getInstance().setJourneyCollection(listOfJourneys);
+                        }
+                    
+
+
+
                     Intent intent = JourneyListActivity.getJourneyListIntent(JourneyReviewActivity.this);
-                    intent.putExtra("Journey", intentJourney);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+
+                    Journey journey = (Journey)intent.getSerializableExtra("Journey");
+
                 }
             }
         });
@@ -96,9 +117,8 @@ public class JourneyReviewActivity extends AppCompatActivity {
 
 
     public void getJourneyData() {
-        Intent intent = getIntent();
-        journey = (Journey)intent.getSerializableExtra("Journey");
-        intentJourney = new Journey(journey.getName(), journey.getCar(), journey.getRoute());
+        journey = Emission.getInstance().getJourneyBuffer();
+        storedJourney = new Journey(journey.getName(), journey.getTransType(), journey.getRoute());
     }
 
 
