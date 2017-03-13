@@ -58,6 +58,15 @@
 
 
 
+  <!--Car Object-->
+
+
+
+
+
+
+
+
   <string-array name="label_table">
     <item>Date</item>
     <item>Trip Name</item>
@@ -148,6 +157,8 @@
   <string name="label_list_gas">Gas Bills</string>
   <string name="hint_residents"># Residents</string>
   <string name="toast_bad_residents"># Residents must be a positive integer!</string>
+
+  <!--Newly Added Strings-->
   <string name="journey_list_toast_enable">Edit mode enabled.</string>
   <string name="journey_list_toast_delete_mode">Delete mode enabled.</string>
   <string name="carinfo_nicknameerror">Please Enter a nickname</string>
