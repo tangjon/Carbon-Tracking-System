@@ -27,7 +27,8 @@
         <activity android:name=".TransportSelectActivity" />
         <activity android:name=".JourneyReviewActivity" />
         <activity android:name=".Temp_Main_Acticity" />
-        <activity android:name=".Utilities_Activities"></activity>
+        <activity android:name=".Utilities_Activities" />
+        <activity android:name=".Bike_and_Trans_Info_Activity"></activity>
     </application>
 
 </manifest>
