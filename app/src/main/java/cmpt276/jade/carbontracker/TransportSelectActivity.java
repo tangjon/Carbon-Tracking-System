@@ -25,8 +25,10 @@ public class TransportSelectActivity extends AppCompatActivity {
         setupWalkBtn();
         setupBusBtn();
         getIntentData();
+        setupSkytrainBtn();
     }
 
+    //mode 1
     private void setupCarBtn() {
         Button btnCar = (Button) findViewById(R.id.btn_transport_car);
         btnCar.setOnClickListener(new View.OnClickListener() {
@@ -39,24 +41,37 @@ public class TransportSelectActivity extends AppCompatActivity {
         });
     }
 
-
+    //mode 2
     private void setupWalkBtn() {
         Button btnCar = (Button) findViewById(R.id.transport_walk_btn);
         btnCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = Route_List_Activity.IntentForRouteList(TransportSelectActivity.this);
+                Intent intent = Route_List_Activity.IntentForRouteList(TransportSelectActivity.this,2);
                 startActivity(intent);
             }
         });
     }
 
+    //mode 3
     private void setupBusBtn() {
         Button btnCar = (Button) findViewById(R.id.transport_bus_btn);
         btnCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = Route_List_Activity.IntentForRouteList(TransportSelectActivity.this);
+                Intent intent = Route_List_Activity.IntentForRouteList(TransportSelectActivity.this,3);
+                startActivity(intent);
+            }
+        });
+    }
+
+    //mode 4
+    private void setupSkytrainBtn() {
+        Button btnCar = (Button) findViewById(R.id.transport_skytrain_btn);
+        btnCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = Route_List_Activity.IntentForRouteList(TransportSelectActivity.this,4);
                 startActivity(intent);
             }
         });

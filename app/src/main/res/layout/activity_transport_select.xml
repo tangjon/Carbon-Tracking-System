@@ -24,9 +24,10 @@
         android:id="@+id/transport_walk_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Walk/Bike"
+        android:layout_below="@+id/btn_transport_car"
         android:layout_alignStart="@+id/btn_transport_car"
-        android:layout_centerVertical="true"
-        android:text="Walk/Bike" />
+        android:layout_marginTop="49dp" />
 
     <Button
         android:id="@+id/transport_bus_btn"
@@ -34,6 +35,15 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/transport_walk_btn"
         android:layout_below="@+id/transport_walk_btn"
-        android:layout_marginTop="73dp"
-        android:text="Bus/Skytrain" />
+        android:layout_marginTop="27dp"
+        android:text="Bus" />
+
+    <Button
+        android:id="@+id/transport_skytrain_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:text="SKYTRAIN"
+        android:layout_below="@+id/transport_bus_btn"
+        android:layout_alignEnd="@+id/transport_bus_btn" />
 </RelativeLayout>

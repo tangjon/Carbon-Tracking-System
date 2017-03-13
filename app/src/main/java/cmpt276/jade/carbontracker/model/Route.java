@@ -36,7 +36,7 @@ public class Route implements Serializable {
     }
 
     public void setCityDistance(int CityDistance) {
-        if (CityDistance < 0) {
+        if (CityDistance < -2) {
             throw new IllegalArgumentException();
         } else {
             this.CityDistance = CityDistance;
