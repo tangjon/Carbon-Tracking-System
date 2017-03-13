@@ -12,6 +12,7 @@ import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
+import cmpt276.jade.carbontracker.model.Transportation;
 
 /**
  * Load Dummy Data to Emissions Class with Journeys, Car and Routes to recent lists
@@ -69,8 +70,10 @@ public class LoadDummyData {
         Random rn = new Random();
         int index = rn.nextInt(500);
         Car car = generateCar();
+        Transportation trans = new Transportation();
+        trans.setCar(car);
         Route route = generateRoute();
-        Journey journey = new Journey("Journey " + index,car,route);
+        Journey journey = new Journey("Journey " + index, trans,route);
         journey.setDate("" + (rn.nextInt(26)+1) + "/" + (rn.nextInt(12) + 1) + "/2016");
         return journey;
     }

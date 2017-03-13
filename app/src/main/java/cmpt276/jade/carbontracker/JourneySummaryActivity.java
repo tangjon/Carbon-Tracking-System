@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import cmpt276.jade.carbontracker.model.Car;
+import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.Route;
 /**
@@ -38,15 +39,14 @@ public class JourneySummaryActivity extends AppCompatActivity {
     }
 
     private void getData() {
-        Intent intent = getIntent();
-        journey = (Journey)intent.getSerializableExtra("Journey");
-        car = journey.getCar();
+        journey = Emission.getInstance().getJourneyBuffer();
+        car = journey.getTransType().getCar();
         route = journey.getRoute();
     }
 
     private void setData() {
         TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
-        journeyInfo.setText(getString(R.string.label_name)+journey.getName() + getString(R.string.label_date) + journey.getDate());
+        journeyInfo.setText(getString(R.string.label_name)+ " "+journey.getName() + getString(R.string.label_date) + " " + journey.getDate());
         TextView routeInfo = (TextView) findViewById(R.id.textRouteInfo);
         routeInfo.setText(
                 getString(R.string.label_name) +  " " + route.getName() +
@@ -56,7 +56,7 @@ public class JourneySummaryActivity extends AppCompatActivity {
 
         TextView carInfo = (TextView) findViewById(R.id.textCarInfo);
         carInfo.setText(getString(
-                R.string.label_name) + car.getNickName() +
+                R.string.label_name) + " "+car.getNickName() +
                 "\n" + getString(R.string.label_make) + " " + car.getMake() +
                 "\n" + getString(R.string.label_model) + " " + car.getModel()+
                 "\n" + getString(R.string.label_year) + " "+ car.getYear() +

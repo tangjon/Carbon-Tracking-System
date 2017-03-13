@@ -13,8 +13,17 @@ public class Journey implements Serializable{
 
     public static String KEY = "JOURNEY";
     private String name;
-    private Car car;
+
+
+
+    private Transportation transType;
     private Route route;
+    private Car car;
+
+    //TODO Add getter and setter when these classes are finished
+    //private Walk walk;
+    //private Transit transit;
+
     private double totalDriven;
     private double totalEmissionsCity;
     private double totalEmissionsHighway;
@@ -23,14 +32,20 @@ public class Journey implements Serializable{
     private int position = -1;
     private String Date = "TEMP";
 
-    public Journey(String inputName,Car inputCar , Route inputRoute){
+    public Journey(String inputName,Transportation inputTransType , Route inputRoute){
         this.name = inputName;
-        this.car = inputCar;
+        this.transType = inputTransType;
         this.route = inputRoute;
-        this.totalEmissionsCity = calcTotal(mtoKM(car.getCityMPG()), route.getCityDistance());
-        this.totalEmissionsHighway = calcTotal(mtoKM(car.getHighwayMPG()), route.getHighWayDistance());
-        this.totalTravelledEmissions = totalEmissionsCity+totalEmissionsHighway;
-        this.totalDriven = route.getCityDistance() + route.getHighWayDistance();
+        this.car = transType.getCar();
+        //TODO See above and will have to change emissions data
+        //this.walk = transType.getWalk();
+       // this.transit = transType.getTransit;
+        if(transType.getCar() != null) {
+            this.totalEmissionsCity = calcTotal(mtoKM(transType.getCar().getCityMPG()), route.getCityDistance());
+            this.totalEmissionsHighway = calcTotal(mtoKM(transType.getCar().getHighwayMPG()), route.getHighWayDistance());
+            this.totalTravelledEmissions = totalEmissionsCity + totalEmissionsHighway;
+            this.totalDriven = route.getCityDistance() + route.getHighWayDistance();
+        }
     }
 
     public String getName() {
@@ -41,12 +56,12 @@ public class Journey implements Serializable{
         this.name = name;
     }
 
-    public Car getCar() {
-        return car;
+    public Transportation getTransType() {
+        return transType;
     }
 
-    public void setCar(Car input) {
-        this.car = input;
+    public void setTransType(Transportation transType) {
+        this.transType = transType;
     }
 
     public Route getRoute() {
