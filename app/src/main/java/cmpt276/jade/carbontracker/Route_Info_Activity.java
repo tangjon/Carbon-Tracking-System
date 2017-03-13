@@ -41,7 +41,7 @@ public class Route_Info_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().setTitle(getString(R.string.route_info_hint));
         super.onCreate(savedInstanceState);
-        getJourneyData();
+        //getJourneyData();
         setContentView(R.layout.layout_route_infor);
         setupOKbtn();
         setupUSEbtn();
@@ -223,11 +223,11 @@ public class Route_Info_Activity extends AppCompatActivity {
             }
         });
     }
-
+/*
     public void getJourneyData() {
         Intent intent = getIntent();
         journey = (Journey)intent.getSerializableExtra("Journey");
 
     }
-
+*/
 }
