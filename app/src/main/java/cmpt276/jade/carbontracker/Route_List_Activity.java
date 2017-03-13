@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.adapter.RouteListAdapter;
+import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.OtherRoute;
 import cmpt276.jade.carbontracker.model.Route;
@@ -26,8 +27,9 @@ public class Route_List_Activity extends AppCompatActivity {
 
     public static final int RECEIVE_ROUTE = 1024; //intent numer for add
     public static final int EDIT_ROUTE = 1025; //intent number for edit/delete
+   // private Journey journey;
     public static final int EDIT_ROUTE2 = 1026; //otherroute intent number for edit/delete
-    private Journey journey;
+
     public static RouteCollection routes = new RouteCollection();
 
     public static Intent IntentForRouteList(Context context,int mode) {
@@ -47,7 +49,7 @@ public class Route_List_Activity extends AppCompatActivity {
         getSupportActionBar().setTitle(getString(R.string.route_list_hint));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_route_list);
-        getCarListData();
+       // getCarListData();
         setup_Add_Btn();
         populateListView();
         long_pressing_editAndDelete();
@@ -61,13 +63,13 @@ public class Route_List_Activity extends AppCompatActivity {
         ListView list = (ListView) findViewById(R.id.Route_list_routeList);
         list.setAdapter(bucky);
     }
-
+/*
     //Sean - Gets the journey object
     private void getCarListData() {
         Intent intent = getIntent();
         this.journey = (Journey)intent.getSerializableExtra("Journey");
     }
-
+*/
     //long pressing for edit and delete
     private void long_pressing_editAndDelete() {
         ListView list = (ListView) findViewById(R.id.Route_list_routeList);
@@ -89,9 +91,8 @@ public class Route_List_Activity extends AppCompatActivity {
                 }
                 if(getMode()==1 && route.getCityDistance()>0)
                 {
-                journey.setRoute(route);
+                Emission.getInstance().getJourneyBuffer().setRoute(route);
                 Intent intent = JourneyReviewActivity.getJourneyReviewIntent(Route_List_Activity.this);
-                intent.putExtra("Journey", journey);
                 //Should clear the whole back stack besides main menu
                 startActivity(intent);}
                 else
@@ -164,7 +165,6 @@ public class Route_List_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = Route_Info_Activity.IntentForAddingRoute(Route_List_Activity.this);
-                intent.putExtra("Journey", journey);
                 startActivityForResult(intent, RECEIVE_ROUTE);
             }
         });}
@@ -176,7 +176,6 @@ public class Route_List_Activity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = Bike_and_Trans_Info_Activity.IntentForAddingRoute(Route_List_Activity.this,2);
-                    intent.putExtra("Journey", journey);
                     startActivityForResult(intent, RECEIVE_ROUTE);
                 }
             });}
@@ -190,7 +189,6 @@ public class Route_List_Activity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = Bike_and_Trans_Info_Activity.IntentForAddingRoute(Route_List_Activity.this,3);
-                    intent.putExtra("Journey", journey);
                     startActivityForResult(intent, RECEIVE_ROUTE);
                 }
             });}
@@ -204,7 +202,6 @@ public class Route_List_Activity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = Bike_and_Trans_Info_Activity.IntentForAddingRoute(Route_List_Activity.this,4);
-                    intent.putExtra("Journey", journey);
                     startActivityForResult(intent, RECEIVE_ROUTE);
                 }
             });}
