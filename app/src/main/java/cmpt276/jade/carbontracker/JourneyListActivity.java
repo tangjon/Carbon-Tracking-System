@@ -27,7 +27,7 @@ import cmpt276.jade.carbontracker.model.Transportation;
  */
 public class JourneyListActivity extends AppCompatActivity {
     public static JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
-    private Journey intentJourney;
+  //  private Journey intentJourney;
     private int Mode = 0;
 
     public static Intent getJourneyListIntent(Context context) {

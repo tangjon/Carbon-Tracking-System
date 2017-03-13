@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.Route;
 
@@ -21,7 +22,7 @@ import cmpt276.jade.carbontracker.model.Route;
 public class Route_Info_Activity extends AppCompatActivity {
 
     private Route RouteFromList;
-    private Journey journey;
+  //  private Journey journey;
 
     public static Intent IntentForAddingRoute(Context context) {
         Intent intent = new Intent(context, Route_Info_Activity.class);
@@ -103,9 +104,8 @@ public class Route_Info_Activity extends AppCompatActivity {
                                 //No nickname, so set name " "
                                 if(nickname.length()==0){nickname=" ";}
                                 Route route = new Route(nickname,highway,city);
-                                journey.setRoute(route);
+                                Emission.getInstance().getJourneyBuffer().setRoute(route);
                                 Intent intent = JourneyReviewActivity.getJourneyReviewIntent(Route_Info_Activity.this);
-                                intent.putExtra("Journey", journey);
                                 startActivity(intent);
                                 finish();
                             }
@@ -116,7 +116,6 @@ public class Route_Info_Activity extends AppCompatActivity {
 
     private void pass_back_route() {
         Intent back_Route = new Intent();
-        back_Route.putExtra("Journey", journey);
         back_Route.putExtra("pass back the route name", getNameById(R.id.editJourneyName));
         back_Route.putExtra("pass back the highway", getNameById(R.id.Route_Info_edite_highway));
         back_Route.putExtra("pass back the city", getNameById(R.id.Route_Info_edite_city));
