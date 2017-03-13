@@ -77,14 +77,14 @@ public class CarInfoActivity extends AppCompatActivity {
                 setUpAddBtn();
                 setUpCancelBtn();
                 break;
-//            case EDIT:
-//                // Fetch Select Car to Edit
-//                UUID thisKey = loadCurrentCar();
-//                loadSpecMakeDisplayList();
-//                setUpAllSpinners();
-//                setUpFinishEditBtn(thisKey);
-//                setUpDeleteBtn(thisKey);
-//                break;
+            case EDIT:
+                // Fetch Select Car to Edit
+                UUID thisKey = loadCurrentCar();
+                loadSpecMakeDisplayList();
+                setUpAllSpinners();
+                setUpFinishEditBtn(thisKey);
+                setUpDeleteBtn(thisKey);
+                break;
 //
         }
     }
@@ -119,7 +119,10 @@ public class CarInfoActivity extends AppCompatActivity {
                     et.setError(getString(R.string.car_info_warning));
                 }else{
                     userSelectedCar.setNickName(nickName);
-                    CarListActivity.recentCarList.add(userSelectedCar);
+                    // Assign new key
+                    userSelectedCar.setKEY(UUID.randomUUID());
+                    Car newCar = userSelectedCar.copy();
+                    CarListActivity.recentCarList.add(newCar);
                     Log.i(TAG, "onAdd: " + userSelectedCar.toString());
                     finish();
                 }
