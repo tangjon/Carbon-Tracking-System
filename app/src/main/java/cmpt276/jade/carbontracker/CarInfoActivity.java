@@ -109,7 +109,7 @@ public class CarInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText et = (EditText) findViewById(R.id.et_nickname);
                 if(et.getText().toString().trim().length() == 0){
-                    et.setError("Please Enter a nickname");
+                    et.setError(getString(R.string.carinfo_nicknameerror));
                 }else{
                     userSelectedCar.setNickName(et.getText().toString().trim());
                     CarListActivity.recentCarList.add(userSelectedCar);
@@ -135,7 +135,7 @@ public class CarInfoActivity extends AppCompatActivity {
 
     public void setUpCancelBtn() {
         Button btn = (Button) findViewById(R.id.btn_delete);
-        btn.setText(getString(R.string.lable_cancel));
+        btn.setText(getString(R.string.label_cancel));
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
