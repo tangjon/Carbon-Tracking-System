@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import cmpt276.jade.carbontracker.adapter.CustomSpinnerAdapter;
+import cmpt276.jade.carbontracker.adapter.CarDetailSpinnerAdapter;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
@@ -29,8 +29,12 @@ import cmpt276.jade.carbontracker.utils.Mode;
  */
 
 public class CarInfoActivity extends AppCompatActivity {
-    // KEY FOR DETERMINING APP_MODE
-    private static String APP_MODE = "mode";
+    // TAG
+    private String TAG = "carinfoactivity";
+
+    // KEY FOR DETERMINING KEY_APP_MODE
+    private static String KEY_APP_MODE = "mode";
+
     // Field to contain all car info from vehicle.csv loaded from Emissions
     private CarCollection carCollection = Emission.getInstance().getCarCollection();
 
@@ -40,52 +44,52 @@ public class CarInfoActivity extends AppCompatActivity {
     private List<String> makeDisplayList = new ArrayList<>();
     // String of Models for Specific Car for spinner adapter
     private List<String> modelDisplayList = new ArrayList<>();
-    // TAG
-    private String TAG = "carinfoactivity";
     // Field to store the user selected car <----------- THIS IS OF INTEREST
     private Car userSelectedCar;
+
+    private Mode APP_MODE;
 
     // Get Intent with Mode Attached
     public static Intent getIntentFromActivity(Context context, Mode mode) {
         Intent intent = new Intent(context, CarInfoActivity.class);
-        intent.putExtra(APP_MODE, mode);
+        intent.putExtra(KEY_APP_MODE, mode);
         return intent;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Set Toolbar
-        getSupportActionBar().setTitle(getString(R.string.CarInfoActivityHint));
-
         setContentView(R.layout.activity_car_info);
+        // Set Toolbar Name
+        getSupportActionBar().setTitle(getString(R.string.CarInfoActivityHint));
         // get mode from intent
-        Mode mode = (Mode) getIntent().getExtras().getSerializable(APP_MODE);
-        if(mode == null){
-            mode = Mode.ADD;
+        APP_MODE = (Mode) getIntent().getExtras().getSerializable(KEY_APP_MODE);
+        if(APP_MODE == null){
+            APP_MODE = Mode.ADD;
         }
-        switch (mode) {
+
+        switch (APP_MODE) {
             case ADD:
-                loadMakeDisplayList();
+                // Create a new car
+                userSelectedCar = new Car();
+                loadSpecMakeDisplayList();
                 setUpAllSpinners();
                 setUpAddBtn();
                 setUpCancelBtn();
-
                 break;
-            case EDIT:
-                // Fetch Select Car to Edit
-                UUID thisKey = loadCurrentCar();
-                loadMakeDisplayList();
-                setUpAllSpinners();
-                setUpFinishEditBtn(thisKey);
-                setUpDeleteBtn(thisKey);
-                break;
-
+//            case EDIT:
+//                // Fetch Select Car to Edit
+//                UUID thisKey = loadCurrentCar();
+//                loadSpecMakeDisplayList();
+//                setUpAllSpinners();
+//                setUpFinishEditBtn(thisKey);
+//                setUpDeleteBtn(thisKey);
+//                break;
+//
         }
-        // TODO Needs direct to next activity
-
     }
 
+    // REFACTOR
     // Load Previous Car Info and get the key
     private UUID loadCurrentCar() {
         String key = getIntent().getExtras().getString(CarListActivity.CAR_KEY);
@@ -102,16 +106,19 @@ public class CarInfoActivity extends AppCompatActivity {
     }
 
     private void setUpAddBtn() {
+        // Link and Rename Button
         Button btn = (Button) findViewById(R.id.btn_next);
         btn.setText(getString(R.string.label_add));
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText et = (EditText) findViewById(R.id.et_nickname);
+                String nickName = et.getText().toString().trim();
                 if(et.getText().toString().trim().length() == 0){
-                    et.setError("Please Enter a nickname");
+                    et.setError(getString(R.string.car_info_warning));
                 }else{
-                    userSelectedCar.setNickName(et.getText().toString().trim());
+                    userSelectedCar.setNickName(nickName);
                     CarListActivity.recentCarList.add(userSelectedCar);
                     Log.i(TAG, "onAdd: " + userSelectedCar.toString());
                     finish();
@@ -161,7 +168,7 @@ public class CarInfoActivity extends AppCompatActivity {
 
     }
 
-    private Spinner setUpSpinner(int spnID, List<String> stringList) {
+    private Spinner setUpStringSpinner(int spnID, List<String> stringList) {
         Spinner spinner = (Spinner) findViewById(spnID);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -177,7 +184,7 @@ public class CarInfoActivity extends AppCompatActivity {
     private Spinner setUpCustomSpinner(int spnID, List<Car> carList) {
         final Spinner spinner = (Spinner) findViewById(spnID);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(CarInfoActivity.this, carList);
+        CarDetailSpinnerAdapter adapter = new CarDetailSpinnerAdapter(CarInfoActivity.this, carList);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         return spinner;
@@ -187,37 +194,40 @@ public class CarInfoActivity extends AppCompatActivity {
     private void setUpAllSpinners() {
 
         // MAKE SPINNER ---------
-        final Spinner spnMake = setUpSpinner(R.id.spn_make, makeDisplayList);
-        if (!(selectMake == null)) {
+        final Spinner spnMake = setUpStringSpinner(R.id.spn_make, makeDisplayList);
+        if (APP_MODE == Mode.EDIT) {
             spnMake.setSelection(makeDisplayList.indexOf(selectMake));
         }
+        // MAKE SPINNER LISTENER ---------
         spnMake.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectMake = (String) spnMake.getSelectedItem();
-                loadModelDisplayList();
+                loadModelDisplayList(); // Specify Model String List from selectedMake
 
                 // MODEL SPINNER -----------
-                final Spinner spnModel = setUpSpinner(R.id.spn_model, modelDisplayList);
-                if (!(selectModel == null)) {
+                final Spinner spnModel = setUpStringSpinner(R.id.spn_model, modelDisplayList);
+                if (APP_MODE == Mode.EDIT) {
                     spnModel.setSelection(modelDisplayList.indexOf(selectModel));
                 }
+                // MODEL SPINNER LISTENER -----------
                 spnModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         selectModel = (String) spnModel.getSelectedItem();
+
                         // YEAR SPINNER -----------------
                         // Pull Car List with specified make and model
                         final List<Car> specList = carCollection.search(selectMake, selectModel).toList();
                         Spinner spnYear = setUpCustomSpinner(R.id.spn_year, specList);
-                        if (!(selectYear == null)) {
+                        if (APP_MODE == Mode.EDIT) {
                             int index = carCollection.search(selectMake, selectModel).getIndexOf(userSelectedCar);
                             spnYear.setSelection(index);
                         }
                         spnYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                userSelectedCar = specList.get(i);
-                                selectYear = Integer.toString(userSelectedCar.getYear());
-                                /// LOAD SOMETHING
-                                updateCarInfo();
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
+                                // Grab Car from specList associate with the index on detailed Spinner
+                                userSelectedCar = specList.get(pos);
+                                Log.i(TAG, "userSelectedCar: " + userSelectedCar);
+                                updateCarInfoToScreen();
                             }
 
                             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -235,7 +245,7 @@ public class CarInfoActivity extends AppCompatActivity {
         });
     }
 
-    private void updateCarInfo() {
+    private void updateCarInfoToScreen() {
         setUpTextView(R.id.tv_cityMPG, Double.toString(userSelectedCar.getCityMPG()));
         setUpTextView(R.id.tv_highwayMPG, Double.toString(userSelectedCar.getHighwayMPG()));
         setUpTextView(R.id.tv_transmission, userSelectedCar.getTransDescription());
@@ -259,10 +269,9 @@ public class CarInfoActivity extends AppCompatActivity {
     }
 
     // Filters Through CarCollection extract unique Makers to String list
-    private void loadMakeDisplayList() {
+    private void loadSpecMakeDisplayList() {
         makeDisplayList.clear();
-        for (String make :
-                carCollection.makeToStringList()) {
+        for (String make : carCollection.makeToStringList()) {
             if (!makeDisplayList.contains(make)) {
                 makeDisplayList.add(make);
             }
