@@ -116,6 +116,19 @@
     <string name="total_city_emission">Total City Emissions(Kg):</string>
     <string name="total_emission">Total Emissions(Kg):</string>
     <string name="label_edit">Edit</string>
+    <string name="title_activity_main_menu">MainMenuActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nav_overview">Overview</string>
+    <string name="nav_journeys">Journeys</string>
+    <string name="nav_utilities">Utilities</string>
+    <string name="nav_tools">Tools</string>
 
     <!-- Utilities Activity -->
     <string name="label_new_electric">New Electricity Bill</string>
