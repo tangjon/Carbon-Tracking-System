@@ -3,6 +3,10 @@ package cmpt276.jade.carbontracker.model;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+/**
+ *  Individual billing class for gas/electricity
+ *  input validation expected to be done by calling class
+ */
 public class Bill {
     private Boolean gas = false;
     private double emissionTotal;   // Kg CO2
@@ -52,6 +56,7 @@ public class Bill {
 
     public void setStartDate(Date d) {
         startDate = d;
+        calculateEmission();
     }
 
     public Date getStartDate() {
@@ -60,6 +65,7 @@ public class Bill {
 
     public void setEndDate(Date d) {
         endDate = d;
+        calculateEmission();
     }
 
     public Date getEndDate() {
@@ -68,6 +74,7 @@ public class Bill {
 
     public void setInput(double d) {
         input = d;
+        calculateEmission();
     }
 
     public double getInput() {
