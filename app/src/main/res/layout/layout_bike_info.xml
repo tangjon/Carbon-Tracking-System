@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cmpt276.jade.carbontracker.Bike_and_Trans_Info_Activity">
+
+    <EditText
+        android:id="@+id/Bike_Info_edit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="103dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/Bike_Info_edit_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/Bike_Info_edit_name"
+        android:layout_below="@+id/Bike_Info_edit_name"
+        android:layout_marginTop="125dp"
+        android:ems="10"
+        android:hint="km"
+        android:inputType="numberDecimal" />
+
+    <Button
+        android:id="@+id/Bike_Info_ok_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:layout_alignBottom="@+id/Bike_Info_edit_distance"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/Bike_info_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/Bike_Info_edit_name"
+        android:layout_marginTop="26dp"
+        android:text="Mode:"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/Bike_Info_cansel_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CANSEL"
+        android:layout_below="@+id/Bike_Info_ok_btn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="17dp" />
+
+    <Button
+        android:id="@+id/Bike_Info_delete_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Bike_Info_ok_btn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="33dp"
+        android:text="DELETE" />
+</RelativeLayout>

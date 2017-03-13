@@ -42,6 +42,7 @@ public class RouteCollection {
         List_Rout.add(route);
     }
 
+
     public void changeRoute(Route route, int index) {
         validateIndexWithException(index);
         List_Rout.remove(index);
@@ -66,9 +67,27 @@ public class RouteCollection {
         String[] detail = new String[countRoutes()];
         for (int i = 0; i < countRoutes(); i++) {
             Route route = getRouteByIndex(i);
-            detail[i] = "Route: " + route.getName() + ", HighWay:"
+            double mode=route.getCityDistance();
+            if(mode>0)//car mode
+            {detail[i] = "Route: " + route.getName() + ", HighWay:"
                     + route.getHighWayDistance() + "km, " +
-                    " City:" + route.getCityDistance() + "km.";
+                    " City:" + route.getCityDistance() + "km.";}
+            if(mode==-1.0)//bike and walk mode
+            {
+                detail[i] = "Walk or Bike route: " + route.getName()
+                        + ", Distance:"
+                        + route.getHighWayDistance() + "km.";
+            }
+            if(mode==-2.0)//bus mode
+            {
+                detail[i] = "Bus: " + route.getName() + ", Distance:"
+                        + route.getHighWayDistance() + "km.";
+            }
+            if(mode==-3.0)//skytrain mode
+            {
+                detail[i] = "Sktrain: " + route.getName() + ", Distance:"
+                        + route.getHighWayDistance() + "km.";
+            }
         }
         return detail;
     }
