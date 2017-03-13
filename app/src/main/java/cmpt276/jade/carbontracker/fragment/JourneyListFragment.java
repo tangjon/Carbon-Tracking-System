@@ -24,6 +24,7 @@ import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
+import cmpt276.jade.carbontracker.model.Transportation;
 
 public class JourneyListFragment extends Fragment {
     public static JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
@@ -102,9 +103,9 @@ public class JourneyListFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Car car = new Car();
+                Transportation trans = new Transportation();
                 Route route = new Route("TEMP ROUTE NAME AND DATA", -1, -1);
-                Journey journey = new Journey("TEMP", car, route);
+                Journey journey = new Journey("TEMP", trans, route);
                 //Intent intent = CarListActivity.getIntentFromActivity(getActivity());
                 Intent intent = TransportSelectActivity.getTransportIntent(getContext());
                 intent.putExtra("Journey", journey);
