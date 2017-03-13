@@ -12,6 +12,7 @@ import android.widget.ListView;
 import cmpt276.jade.carbontracker.adapter.CarListAdapter;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
+import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.utils.Mode;
 
@@ -27,7 +28,7 @@ public class CarListActivity extends AppCompatActivity {
     public static String CAR_KEY = "carKey";
 
     // Car List Activity Resource Fields
-    private Journey journey;
+    //private Journey journey;
 
     public static Intent getIntentFromActivity(Context context) {
         Intent intent = new Intent(context, CarListActivity.class);
@@ -39,7 +40,7 @@ public class CarListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle(getString(R.string.CarListActivityHint));
         setContentView(R.layout.activity_car_list);
-        getJourneyData();
+        //getJourneyData();
         setUpAddButton(R.id.btn_add_car);
 
         // Refresh the Car List
@@ -79,9 +80,8 @@ public class CarListActivity extends AppCompatActivity {
 
                 //Sean- adding my journey object to your intent
                 Car car = (Car) parent.getAdapter().getItem(position);
-                journey.setCar(car);
-                Intent intent = Route_List_Activity.IntentForRouteList(CarListActivity.this,1);
-                intent.putExtra("Journey", journey);
+                Emission.getInstance().getJourneyBuffer().getTransType().setCar(car);
+                Intent intent = Route_List_Activity.IntentForRouteList(CarListActivity.this);
                 startActivity(intent);
             }
         });
@@ -94,7 +94,6 @@ public class CarListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // ACTIVITIES
                 Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.ADD);
-                intent.putExtra("Journey", journey);
                 startActivity(intent);
             }
         });
@@ -106,10 +105,12 @@ public class CarListActivity extends AppCompatActivity {
         super.onResume();
         updateUI();
     }
+    /*
     //Sean - Gets journey object passed by journey list
     public void getJourneyData() {
         Intent intent = getIntent();
             journey = (Journey)intent.getSerializableExtra("Journey");
 
     }
+    */
 }

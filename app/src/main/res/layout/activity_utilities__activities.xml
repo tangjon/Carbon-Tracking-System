@@ -1,9 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cmpt276.jade.carbontracker.Utilities_Activities">
+    tools:context="cmpt276.jade.carbontracker.Utilities_Activities"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/btn_new_electric"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_new_electric"
+        android:layout_above="@+id/list_gas"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/btn_new_gas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_new_gas"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"/>
+
+    <TextView
+        android:id="@+id/txt_elec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/label_list_electric"
+        android:paddingBottom="16dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/txt_gas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:text="@string/label_list_gas"
+        android:paddingBottom="16dp"
+        android:textStyle="bold"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txt_elec"
+        android:layout_above="@id/btn_new_electric"
+        android:id="@+id/list_elec" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txt_gas"
+        android:layout_above="@id/btn_new_gas"
+        android:id="@+id/list_gas" />
+
+    <EditText
+        android:id="@+id/edit_residents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/list_gas"
+        android:ems="10"
+        android:hint="@string/hint_residents"
+        android:inputType="number" />
+
+</RelativeLayout>

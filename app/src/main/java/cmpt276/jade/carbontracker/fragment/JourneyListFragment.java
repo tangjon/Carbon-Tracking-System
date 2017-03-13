@@ -1,18 +1,23 @@
-package cmpt276.jade.carbontracker;
+package cmpt276.jade.carbontracker.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.nio.Buffer;
-
+import cmpt276.jade.carbontracker.CarListActivity;
+import cmpt276.jade.carbontracker.CarbonFootprintActivity;
+import cmpt276.jade.carbontracker.JourneyListActivity;
+import cmpt276.jade.carbontracker.JourneySummaryActivity;
+import cmpt276.jade.carbontracker.R;
+import cmpt276.jade.carbontracker.TransportSelectActivity;
 import cmpt276.jade.carbontracker.adapter.RouteListAdapter;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.Emission;
@@ -21,46 +26,46 @@ import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.model.Transportation;
 
-/**
- *Journey List is your list of journeys and can either add a new journey going to car list or to the emissions overview
- * Can also edit journey entries or delete journey entries
- */
-public class JourneyListActivity extends AppCompatActivity {
+public class JourneyListFragment extends Fragment {
     public static JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
-  //  private Journey intentJourney;
+    private Journey intentJourney;
     private int Mode = 0;
 
-    public static Intent getJourneyListIntent(Context context) {
-        return new Intent(context, JourneyListActivity.class);
+    // View for scope
+    View v = null;
 
+    public JourneyListFragment() {
+        // Required empty public constructor
     }
 
-    //maybe have a get data from intent that can handle a journey being passed into it?
+
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Set ToolBar Title
+        getActivity().setTitle(R.string.nav_journeys);
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle(getString(R.string.JourneyListActivityHint));
-        setContentView(R.layout.activity_journey_list);
-
+        // Inflate the layout for this fragment
+        v = inflater.inflate(R.layout.fragment_journey_list, container, false);
 
         setupAddBtn();
         setupFootprintBtn();
-        //getIntentData();
+        getIntentData();
         setupClickJourneyList();
         setupDeletebtn();
         populateList();
         checkFootprintBtn();
+        return v;
     }
 
     private void checkFootprintBtn() {
-        Button button = (Button) findViewById(R.id.btnViewFootprint);
+        Button button = (Button) v.findViewById(R.id.btnViewFootprint);
         if (listOfJourneys.countJourneys() == 0) button.setEnabled(false);
         else button.setEnabled(true);
     }
 
     private void setupDeletebtn() {
-        final Button button = (Button) findViewById(R.id.btnMode);
+        final Button button = (Button) v.findViewById(R.id.btnMode);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,13 +73,13 @@ public class JourneyListActivity extends AppCompatActivity {
                     Mode = 0;
                     setupClickJourneyList();
                     button.setText(getString(R.string.label_edit));
-                    Toast.makeText(JourneyListActivity.this, "Edit mode enabled.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Edit mode enabled.", Toast.LENGTH_SHORT).show();
                 }
                 else if(Mode == 0){
                     Mode = 1;
                     toggleDeleteMode();
                     button.setText(getString(R.string.label_delete));
-                    Toast.makeText(JourneyListActivity.this, "Delete mode enabled.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Delete mode enabled.", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -83,30 +88,27 @@ public class JourneyListActivity extends AppCompatActivity {
 
 
     private void setupFootprintBtn() {
-        Button button = (Button) findViewById(R.id.btnViewFootprint);
+        Button button = (Button) v.findViewById(R.id.btnViewFootprint);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = CarbonFootprintActivity.getIntent(JourneyListActivity.this);
+                Intent intent = CarbonFootprintActivity.getIntent(getContext());
                 startActivity(intent);
             }
         });
     }
 
     private void setupAddBtn() {
-        Button button = (Button) findViewById(R.id.btnAddJourney);
+        Button button = (Button) v.findViewById(R.id.btnAddJourney);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Transportation trans = new Transportation();
                 Route route = new Route("TEMP ROUTE NAME AND DATA", -1, -1);
-                Journey journey = new Journey("TEMP NAME", trans, route);
-                Emission.getInstance().setJourneyBuffer(journey);
-                //Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
-                Intent intent = TransportSelectActivity.getTransportIntent(JourneyListActivity.this);
-                //intent.putExtra("Journey", journey);
+                Journey journey = new Journey("TEMP", trans, route);
+                //Intent intent = CarListActivity.getIntentFromActivity(getActivity());
+                Intent intent = TransportSelectActivity.getTransportIntent(getContext());
+                intent.putExtra("Journey", journey);
                 startActivity(intent);
             }
         });
@@ -115,12 +117,13 @@ public class JourneyListActivity extends AppCompatActivity {
 
     private void setupClickJourneyList() {
         //goto Journey Summary - short click
-        ListView list = (ListView) findViewById(R.id.listviewJourney);
+        ListView list = (ListView) v.findViewById(R.id.listviewJourney);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(position));
-                Intent intent = JourneySummaryActivity.getJourneySummaryIntent(JourneyListActivity.this);
+                Intent intent = JourneySummaryActivity.getJourneySummaryIntent(getContext());
+                Journey journey = listOfJourneys.getJourney(position);
+                intent.putExtra("Journey", journey);
                 startActivity(intent);
             }
         });
@@ -130,10 +133,11 @@ public class JourneyListActivity extends AppCompatActivity {
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
-                Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(position));
-                Emission.getInstance().getJourneyBuffer().setPosition(position);
-                Emission.getInstance().getJourneyBuffer().setMode(1);
+                Intent intent = CarListActivity.getIntentFromActivity(getContext());
+                Journey journey = listOfJourneys.getJourney(position);
+                journey.setPosition(position);
+                journey.setMode(1);
+                intent.putExtra("Journey", journey);
                 startActivity(intent);
                 return true;
             }
@@ -141,13 +145,13 @@ public class JourneyListActivity extends AppCompatActivity {
     }
 
     private void populateList() {
-        ListAdapter bucky=new RouteListAdapter(this,listOfJourneys.getJourneyDetails());
-        ListView list = (ListView) findViewById(R.id.listviewJourney);
+        ListAdapter bucky=new RouteListAdapter(getContext(),listOfJourneys.getJourneyDetails());
+        ListView list = (ListView) v.findViewById(R.id.listviewJourney);
         list.setAdapter(bucky);
     }
-/*
+
     public void getIntentData() {
-        Intent intent = getIntent();
+        Intent intent = getActivity().getIntent();
         Journey journey = (Journey)intent.getSerializableExtra("Journey");
         if(journey != null) {
             if (journey.getMode() == 0) {
@@ -161,15 +165,16 @@ public class JourneyListActivity extends AppCompatActivity {
             }
         }
     }
-*/
+
     private void toggleDeleteMode() {
         //goto Journey Summary - short click
-        ListView list = (ListView) findViewById(R.id.listviewJourney);
+        ListView list = (ListView) v.findViewById(R.id.listviewJourney);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(position));
-                Intent intent = JourneySummaryActivity.getJourneySummaryIntent(JourneyListActivity.this);
+                Intent intent = JourneySummaryActivity.getJourneySummaryIntent(getContext());
+                Journey journey = listOfJourneys.getJourney(position);
+                intent.putExtra("Journey", journey);
                 startActivity(intent);
             }
         });
@@ -186,5 +191,4 @@ public class JourneyListActivity extends AppCompatActivity {
             }
         });
     }
-
 }
