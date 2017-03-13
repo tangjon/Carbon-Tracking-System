@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -25,10 +26,11 @@ public class CarListActivity extends AppCompatActivity {
     public static CarCollection recentCarList = new CarCollection();
 
     // Car List Activity Static Resource Fields
-    public static String CAR_KEY = "carKey";
+    public static String CAR_KEY = "CARKEY";
 
-    // Car List Activity Resource Fields
-    //private Journey journey;
+    // Tag
+    private String TAG = "carListActivity";
+
 
     public static Intent getIntentFromActivity(Context context) {
         Intent intent = new Intent(context, CarListActivity.class);
@@ -38,21 +40,17 @@ public class CarListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle(getString(R.string.CarListActivityHint));
         setContentView(R.layout.activity_car_list);
-        //getJourneyData();
+        getSupportActionBar().setTitle(getString(R.string.CarListActivityHint));
+
+        // Set Up Buttons
         setUpAddButton(R.id.btn_add_car);
-
-        // Refresh the Car List
-        updateUI();
+        // Populate the list
+        populateListView();
 
     }
 
-    private void updateUI() {
-        setUpListView();
-    }
-
-    private void setUpListView() {
+    private void populateListView() {
         // Link widget
         ListView lstView = (ListView) findViewById(R.id.lv_carList);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -77,7 +75,6 @@ public class CarListActivity extends AppCompatActivity {
         lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 //Sean- adding my journey object to your intent
                 Car car = (Car) parent.getAdapter().getItem(position);
                 Emission.getInstance().getJourneyBuffer().getTransType().setCar(car);
@@ -99,12 +96,18 @@ public class CarListActivity extends AppCompatActivity {
         });
     }
 
+    private void updateUI(){
+        populateListView();
+    }
+
     // Refresh UI upon returning to activity
+
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onRestart() {
+        super.onRestart();
         updateUI();
     }
+
     /*
     //Sean - Gets journey object passed by journey list
     public void getJourneyData() {
