@@ -11,19 +11,23 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.nio.Buffer;
+
 import cmpt276.jade.carbontracker.adapter.RouteListAdapter;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
+import cmpt276.jade.carbontracker.model.Transportation;
+
 /**
  *Journey List is your list of journeys and can either add a new journey going to car list or to the emissions overview
  * Can also edit journey entries or delete journey entries
  */
 public class JourneyListActivity extends AppCompatActivity {
     public static JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
-    private Journey intentJourney;
+  //  private Journey intentJourney;
     private int Mode = 0;
 
     public static Intent getJourneyListIntent(Context context) {
@@ -42,7 +46,7 @@ public class JourneyListActivity extends AppCompatActivity {
 
         setupAddBtn();
         setupFootprintBtn();
-        getIntentData();
+        //getIntentData();
         setupClickJourneyList();
         setupDeletebtn();
         populateList();
@@ -94,12 +98,15 @@ public class JourneyListActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Car car = new Car();
+
+
+                Transportation trans = new Transportation();
                 Route route = new Route("TEMP ROUTE NAME AND DATA", -1, -1);
-                Journey journey = new Journey("TEMP", car, route);
+                Journey journey = new Journey("TEMP NAME", trans, route);
+                Emission.getInstance().setJourneyBuffer(journey);
                 //Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
                 Intent intent = TransportSelectActivity.getTransportIntent(JourneyListActivity.this);
-                intent.putExtra("Journey", journey);
+                //intent.putExtra("Journey", journey);
                 startActivity(intent);
             }
         });
@@ -112,9 +119,8 @@ public class JourneyListActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(position));
                 Intent intent = JourneySummaryActivity.getJourneySummaryIntent(JourneyListActivity.this);
-                Journey journey = listOfJourneys.getJourney(position);
-                intent.putExtra("Journey", journey);
                 startActivity(intent);
             }
         });
@@ -125,10 +131,9 @@ public class JourneyListActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
-                Journey journey = listOfJourneys.getJourney(position);
-                journey.setPosition(position);
-                journey.setMode(1);
-                intent.putExtra("Journey", journey);
+                Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(position));
+                Emission.getInstance().getJourneyBuffer().setPosition(position);
+                Emission.getInstance().getJourneyBuffer().setMode(1);
                 startActivity(intent);
                 return true;
             }
@@ -140,7 +145,7 @@ public class JourneyListActivity extends AppCompatActivity {
         ListView list = (ListView) findViewById(R.id.listviewJourney);
         list.setAdapter(bucky);
     }
-
+/*
     public void getIntentData() {
         Intent intent = getIntent();
         Journey journey = (Journey)intent.getSerializableExtra("Journey");
@@ -156,16 +161,15 @@ public class JourneyListActivity extends AppCompatActivity {
             }
         }
     }
-
+*/
     private void toggleDeleteMode() {
         //goto Journey Summary - short click
         ListView list = (ListView) findViewById(R.id.listviewJourney);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(position));
                 Intent intent = JourneySummaryActivity.getJourneySummaryIntent(JourneyListActivity.this);
-                Journey journey = listOfJourneys.getJourney(position);
-                intent.putExtra("Journey", journey);
                 startActivity(intent);
             }
         });

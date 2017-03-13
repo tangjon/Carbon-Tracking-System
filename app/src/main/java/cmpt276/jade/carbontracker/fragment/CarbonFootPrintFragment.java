@@ -132,7 +132,7 @@ public class CarbonFootPrintFragment extends Fragment {
             emissionDate[i] = j.getDate();
             emissionRouteNames[i] = j.getName();
             emissionDistance[i] = j.getRoute().getCityDistance() + j.getRoute().getCityDistance();
-            emissionVehicleNames[i] = j.getCar().getNickname();
+            emissionVehicleNames[i] = j.getTransType().getCar().getNickname();
             emissionValues[i] = (float) j.getTotalTravelled();
         }
     }

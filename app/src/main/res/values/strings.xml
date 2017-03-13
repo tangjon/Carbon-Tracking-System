@@ -106,8 +106,8 @@
     <string name="route_info_hint">Fill in your route info</string>
     <string name="lable_cancel">Cancel</string>
     <string name="carinfo_confirm_edit">Confirm Edit</string>
-    <string name="label_name">Name:</string>
-    <string name="label_date">Date:</string>
+    <string name="label_name">Name: </string>
+    <string name="label_date">\nDate: </string>
     <string name="journey_summary_total_city_distance">Total City Distance(Km):</string>
     <string name="journey_summary_total_highway_distance">Total Highway Distance(Km):</string>
     <string name="journey_summary_total_distance">Total Distance(Km):</string>
