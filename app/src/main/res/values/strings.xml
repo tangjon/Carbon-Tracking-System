@@ -7,17 +7,10 @@
 
   <!--General Purpose-->
   <string name="app_name">Carbon Tracker</string>
-  <string name="label_make">Manufacturer:</string>
-  <string name="label_year">Year:</string>
-  <string name="label_model">Model:</string>
   <string name="label_CityMPG">City MPG:</string>
   <string name="label_HighwayMPG">Highway MPG:</string>
   <string name="label_add">ADD</string>
   <string name="label_next">NEXT</string>
-  <string name="label_displ">Displacement</string>
-  <string name="label_engine">Engine</string>
-  <string name="label_fuel_cost">Fuel Cost</string>
-  <string name="label_transmission">Transmission</string>
   <string name="label_short_summary">Short Summary</string>
   <string name="label_delete">DELETE</string>
   <string name="label_skip">Skip</string>
@@ -55,10 +48,20 @@
 
   <!--CarInfoActivity-->
   <string name="carinfo_confirm_edit">Confirm Edit</string>
-
+  <string name="carinfo_nicknameerror">Please Enter a nickname</string>
 
 
   <!--Car Object-->
+  <string name="label_make">Manufacturer:</string>
+  <string name="label_year">Year:</string>
+  <string name="label_model">Model:</string>
+  <string name="label_displ">Displacement</string>
+  <string name="label_engine">Engine</string>
+  <string name="label_fuel_cost">Fuel Cost</string>
+  <string name="label_transmission">Transmission</string>
+
+  <!--Route Object-->
+
 
 
 
@@ -161,6 +164,5 @@
   <!--Newly Added Strings-->
   <string name="journey_list_toast_enable">Edit mode enabled.</string>
   <string name="journey_list_toast_delete_mode">Delete mode enabled.</string>
-  <string name="carinfo_nicknameerror">Please Enter a nickname</string>
 
 </resources>
