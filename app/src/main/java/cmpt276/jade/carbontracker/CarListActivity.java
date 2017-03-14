@@ -78,7 +78,7 @@ public class CarListActivity extends AppCompatActivity {
                 //Sean- adding my journey object to your intent
                 Car car = (Car) parent.getAdapter().getItem(position);
                 Emission.getInstance().getJourneyBuffer().getTransType().setCar(car);
-                Intent intent = Route_List_Activity.IntentForRouteList(CarListActivity.this);
+                Intent intent = Route_List_Activity.IntentForRouteList(CarListActivity.this,1);
                 startActivity(intent);
             }
         });
