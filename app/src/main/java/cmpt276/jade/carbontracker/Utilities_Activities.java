@@ -136,7 +136,10 @@ public class Utilities_Activities extends AppCompatActivity {
         btnNewGas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 12/03/17 add gas bill
+                Intent intent = UtilityEditActivity.getUtilityEditIntent(Utilities_Activities.this);
+                intent.putExtra("mode", BillEditMode.ADD);
+                intent.putExtra("type", BillType.GAS);
+                startActivity(intent);
             }
         });
     }

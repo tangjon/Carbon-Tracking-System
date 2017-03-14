@@ -71,7 +71,7 @@
         android:layout_alignStart="@+id/editBillEnd"
         android:layout_below="@+id/editBillEnd"
         android:ems="10"
-        android:inputType="number" />
+        android:inputType="numberDecimal" />
 
     <Button
         android:id="@+id/btnAccept"

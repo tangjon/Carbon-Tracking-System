@@ -148,14 +148,11 @@ public class UtilityEditActivity extends AppCompatActivity {
         TextView tvInput = (TextView) findViewById(R.id.txt_input);
         String[] inputPrompt = getResources().getStringArray(R.array.label_bill_input);
 
-        if (mode == BillEditMode.ADD) {
-            tvInput.setText(inputPrompt[0]);
-            buffer = new Bill(type, new Date(), new Date(), 0);
-        }
-        else {
-            tvInput.setText(inputPrompt[1]);
-            buffer = emission.getBufferBill();
-        }
+        if (mode == BillEditMode.ADD) buffer = new Bill(type, new Date(), new Date(), 0);
+        else buffer = emission.getBufferBill();
+
+        if (type == BillType.ELECTRIC) tvInput.setText(inputPrompt[0]);
+        else tvInput.setText(inputPrompt[1]);
     }
 
     public static Intent getUtilityEditIntent(Context context) {
