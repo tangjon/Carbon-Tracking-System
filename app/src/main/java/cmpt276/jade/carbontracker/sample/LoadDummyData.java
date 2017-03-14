@@ -36,8 +36,8 @@ public class LoadDummyData {
             Log.i(TAG, "load: ");
             CarListActivity.recentCarList.add(generateCar());
             CarListActivity.recentCarList.add(generateCar());
-            Route_List_Activity.routes.addRoute(generateRoute());
-            Route_List_Activity.routes.addRoute(generateRoute());
+            //Route_List_Activity.routes.addRoute(generateRoute());
+            //Route_List_Activity.routes.addRoute(generateRoute());
             Emission.getInstance().getJourneyCollection().addJourney(generateJourney());
             Emission.getInstance().getJourneyCollection().addJourney(generateJourney());
             Emission.getInstance().getJourneyCollection().addJourney(generateJourney());

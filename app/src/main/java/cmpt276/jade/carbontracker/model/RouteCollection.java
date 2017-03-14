@@ -67,26 +67,28 @@ public class RouteCollection {
         String[] detail = new String[countRoutes()];
         for (int i = 0; i < countRoutes(); i++) {
             Route route = getRouteByIndex(i);
-            double mode=route.getCityDistance();
-            if(mode>0)//car mode
-            {detail[i] = "Route: " + route.getName() + ", HighWay:"
-                    + route.getHighWayDistance() + "km, " +
-                    " City:" + route.getCityDistance() + "km.";}
-            if(mode==-1.0)//bike and walk mode
+            int mode=route.getMode();
+            if(mode==2)//bike and walk mode
             {
                 detail[i] = "Walk or Bike route: " + route.getName()
                         + ", Distance:"
-                        + route.getHighWayDistance() + "km.";
+                        + route.getOtherDistance() + "km.";
             }
-            if(mode==-2.0)//bus mode
+            else if(mode==3)//bus mode
             {
                 detail[i] = "Bus: " + route.getName() + ", Distance:"
-                        + route.getHighWayDistance() + "km.";
+                        + route.getOtherDistance() + "km.";
             }
-            if(mode==-3.0)//skytrain mode
+            else if(mode==4)//skytrain mode
             {
                 detail[i] = "Sktrain: " + route.getName() + ", Distance:"
-                        + route.getHighWayDistance() + "km.";
+                        + route.getOtherDistance() + "km.";
+            }
+            else
+            {
+                detail[i] = "Route: " + route.getName() + ", HighWay:"
+                        + route.getHighWayDistance() + "km, " +
+                        " City:" + route.getCityDistance() + "km.";
             }
         }
         return detail;
