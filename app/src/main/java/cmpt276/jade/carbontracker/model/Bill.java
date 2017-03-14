@@ -3,6 +3,8 @@ package cmpt276.jade.carbontracker.model;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import cmpt276.jade.carbontracker.utils.BillType;
+
 /**
  *  Individual billing class for gas/electricity
  *  input validation expected to be done by calling class
