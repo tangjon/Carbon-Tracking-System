@@ -13,24 +13,22 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import cmpt276.jade.carbontracker.adapter.UtilitiesAdapter;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Utilities;
+import cmpt276.jade.carbontracker.utils.BillEditMode;
+import cmpt276.jade.carbontracker.utils.BillType;
 
 public class Utilities_Activities extends AppCompatActivity {
     private Emission emission = Emission.getInstance();
     private Utilities utilities;
-
-    private ArrayList<Object> dummyData1 = new ArrayList<>();       // ***
-    private ArrayList<Object> dummyData2 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_utilities__activities);
 
+        utilities = emission.getUtilities();
 
         loadData();
         setupButtons();
@@ -38,16 +36,18 @@ public class Utilities_Activities extends AppCompatActivity {
         setupLists();
     }
 
-    private void loadData() {
-        utilities = emission.getUtilities();
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        loadData();
+    }
 
-        dummyData1.add("Dummy object");
-        dummyData2.add("Another dummy object");
+    private void loadData() {
 
         ListView listElec = (ListView) findViewById(R.id.list_elec);
         ListView listGas = (ListView) findViewById(R.id.list_gas);
-        UtilitiesAdapter adapterElec = new UtilitiesAdapter(this, dummyData1);
-        UtilitiesAdapter adapterGas = new UtilitiesAdapter(this, dummyData2);
+        UtilitiesAdapter adapterElec = new UtilitiesAdapter(this, emission.getUtilities().getListBillElec());
+        UtilitiesAdapter adapterGas = new UtilitiesAdapter(this, emission.getUtilities().getListBillGas());
         listElec.setAdapter(adapterElec);
         listGas.setAdapter(adapterGas);
     }
@@ -126,7 +126,10 @@ public class Utilities_Activities extends AppCompatActivity {
         btnNewElec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 12/03/17 add elec bill
+                Intent intent = UtilityEditActivity.getUtilityEditIntent(Utilities_Activities.this);
+                intent.putExtra("mode", BillEditMode.ADD);
+                intent.putExtra("type", BillType.ELECTRIC);
+                startActivity(intent);
             }
         });
 

@@ -51,7 +51,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:ems="10"
-        android:inputType="date" />
+        android:inputType="date"
+        android:focusable="false"/>
 
     <EditText
         android:id="@+id/editBillEnd"
@@ -60,7 +61,8 @@
         android:ems="10"
         android:inputType="date"
         android:layout_below="@+id/editBillStart"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:focusable="false"/>
 
     <EditText
         android:id="@+id/editBillInput"
