@@ -139,4 +139,15 @@
     <string name="toast_bad_residents"># Residents must be a positive integer!</string>
     <string name="car_info_warning">Please Enter a nickname</string>
 
+    <!-- Utility Edit Activity -->
+    <string name="label_bill_start">Bill Start Date</string>
+    <string name="label_bill_end">Bill End Date</string>
+    <string-array name="label_bill_input">
+        <item>Usage (kWh)</item>
+        <item>Usage (GJ)</item>
+    </string-array>
+    <string name="label_accept">Accept</string>
+    <string name="label_cancel">Cancel</string>
+    <string name="label_preview">Preview</string>
+
 </resources>
