@@ -137,5 +137,6 @@
     <string name="label_list_gas">Gas Bills</string>
     <string name="hint_residents"># Residents</string>
     <string name="toast_bad_residents"># Residents must be a positive integer!</string>
+    <string name="car_info_warning">Please Enter a nickname</string>
 
 </resources>

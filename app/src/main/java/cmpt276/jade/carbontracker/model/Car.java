@@ -182,6 +182,11 @@ public class Car implements Serializable{
         this.carbonTailPipe = carbonTailPipe;
     }
 
+    public Car copy(){
+        return new Car(nickName,  make,  model,  year,  cityMPG,  highwayMPG,  engineDescription,
+         engineDispLitres,  fuelType,  fuelAnnualCost,  carbonTailPipe,  transDescription);
+    }
+
     public String toStringNoKey() {
         return "Car{" +
                 "nickName='" + nickName + '\'' +

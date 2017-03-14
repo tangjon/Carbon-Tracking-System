@@ -14,7 +14,7 @@ import cmpt276.jade.carbontracker.R;
 import cmpt276.jade.carbontracker.model.Car;
 
 /**
- * Created by tangj on 3/2/2017.
+ * Custom Display of Car Objects
  */
 
 public class CarListAdapter extends ArrayAdapter<Car> {

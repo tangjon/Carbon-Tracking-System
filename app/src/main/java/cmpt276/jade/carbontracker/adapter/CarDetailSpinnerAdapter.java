@@ -17,12 +17,12 @@ import cmpt276.jade.carbontracker.model.Car;
  * Created by tangj on 2/28/2017.
  */
 
-public class CustomSpinnerAdapter extends ArrayAdapter<Car> {
+public class CarDetailSpinnerAdapter extends ArrayAdapter<Car> {
 
     private List<Car> mItems;
     private Context mContext;
 
-    public CustomSpinnerAdapter(Context context, List<Car> items) {
+    public CarDetailSpinnerAdapter(Context context, List<Car> items) {
         super(context, R.layout.custom_spinner_dropdown, items);
         this.mContext = context;
         this.mItems = items;
