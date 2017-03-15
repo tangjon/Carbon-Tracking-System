@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import cmpt276.jade.carbontracker.model.Journey;
 
@@ -30,7 +31,7 @@ public class TransportSelectActivity extends AppCompatActivity {
 
     //mode 1
     private void setupCarBtn() {
-        Button btnCar = (Button) findViewById(R.id.btn_transport_car);
+        TextView btnCar = (TextView) findViewById(R.id.Transport_select_car);
         btnCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +44,7 @@ public class TransportSelectActivity extends AppCompatActivity {
 
     //mode 2
     private void setupWalkBtn() {
-        Button btnCar = (Button) findViewById(R.id.transport_walk_btn);
+        TextView btnCar = (TextView) findViewById(R.id.Transport_select_bike);
         btnCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +56,7 @@ public class TransportSelectActivity extends AppCompatActivity {
 
     //mode 3
     private void setupBusBtn() {
-        Button btnCar = (Button) findViewById(R.id.transport_bus_btn);
+        TextView btnCar = (TextView) findViewById(R.id.Transport_select_bus);
         btnCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +68,7 @@ public class TransportSelectActivity extends AppCompatActivity {
 
     //mode 4
     private void setupSkytrainBtn() {
-        Button btnCar = (Button) findViewById(R.id.transport_skytrain_btn);
+        TextView btnCar = (TextView) findViewById(R.id.Transport_select_skytrain);
         btnCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
