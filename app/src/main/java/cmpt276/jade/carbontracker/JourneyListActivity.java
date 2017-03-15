@@ -141,8 +141,7 @@ public class JourneyListActivity extends AppCompatActivity {
     }
 
     private void populateList() {
-        //ListAdapter bucky=new RouteListAdapter(this,listOfJourneys.getJourneyDetails(),getMode());
-        ListAdapter bucky=new RouteListAdapter(this,listOfJourneys.getJourneyDetails(),1);
+        ListAdapter bucky=new RouteListAdapter(this,listOfJourneys.getJourneyDetails());
         ListView list = (ListView) findViewById(R.id.listviewJourney);
         list.setAdapter(bucky);
     }

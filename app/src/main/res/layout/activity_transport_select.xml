@@ -7,91 +7,43 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/selection2"
+    android:background="@drawable/mainbackground"
     tools:context="cmpt276.jade.carbontracker.TransportSelectActivity">
 
 
-    <TextView
-        android:id="@+id/Transport_select_skytrain"
-        android:layout_width="120dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="81dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:id="@+id/Transport_select_bike"
-        android:layout_width="120dp"
-        android:layout_height="100dp"
-        android:layout_alignBottom="@+id/Transport_select_skytrain"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp" />
-
-    <TextView
-        android:id="@+id/Transport_select_bus"
-        android:layout_width="120dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="82dp"
-        android:layout_marginStart="11dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/Transport_select_skytrain" />
-
-    <TextView
-        android:id="@+id/Transport_select_car"
-        android:layout_width="120dp"
-        android:layout_height="100dp"
-        android:layout_alignBaseline="@+id/Transport_select_bus"
-        android:layout_alignBottom="@+id/Transport_select_bus"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:id="@+id/Trans_text_skytrain"
+    <Button
+        android:id="@+id/btn_transport_car"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/Transport_select_bus"
-        android:layout_marginStart="19dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:text="@string/label_select_car" />
+
+    <Button
+        android:id="@+id/transport_walk_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Walk/Bike"
+        android:layout_below="@+id/btn_transport_car"
+        android:layout_alignStart="@+id/btn_transport_car"
+        android:layout_marginTop="49dp" />
+
+    <Button
+        android:id="@+id/transport_bus_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/transport_walk_btn"
+        android:layout_below="@+id/transport_walk_btn"
+        android:layout_marginTop="27dp"
+        android:text="Bus" />
+
+    <Button
+        android:id="@+id/transport_skytrain_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="23dp"
-        android:text="Skytrain"
-        android:textColor="@android:color/background_light"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/Trans_text_Bike"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/Trans_text_skytrain"
-        android:layout_alignBottom="@+id/Trans_text_skytrain"
-        android:layout_alignEnd="@+id/Transport_select_bike"
-        android:text="Bike and Walk"
-        android:textColor="@android:color/background_light"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/Trans_text_bus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/Trans_text_skytrain"
-        android:layout_marginBottom="21dp"
-        android:text="Bus"
-        android:textColor="@android:color/background_light"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/Trans_text_car"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/Trans_text_bus"
-        android:layout_alignEnd="@+id/Transport_select_bike"
-        android:layout_marginEnd="20dp"
-        android:text="Car"
-        android:textColor="@android:color/background_light"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:text="SKYTRAIN"
+        android:layout_below="@+id/transport_bus_btn"
+        android:layout_alignEnd="@+id/transport_bus_btn" />
 </RelativeLayout>
