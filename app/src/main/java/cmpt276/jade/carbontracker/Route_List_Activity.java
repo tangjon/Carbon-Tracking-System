@@ -90,7 +90,8 @@ public class Route_List_Activity extends AppCompatActivity {
                 RouteCollection routes= showDifferentListView();
                 Route route = routes.getRouteByIndex(position);
                 //for car           (nickname,highway,city)  getOtherDistance=0,getMode=1
-                //for bike/walk     (nickname,0,0)           getOtherDistance=distance,getMode=2
+                //for bike          (nickname,0,0)           getOtherDistance=distance,getMode=2
+                //for walk          (nickname,0,0)           getOtherDistance=distance,getMode=5
                 //for bus           (nickname,0,0)           getOtherDistance=distance,getMode=3
                 //for skytrain      (nickname,0,0)           getOtherDistance=distance,getMode=4
                 Emission.getInstance().getJourneyBuffer().setRoute(route);
