@@ -10,6 +10,8 @@ public class Route implements Serializable {
     private String name;
     private double HighWayDistance;
     private double CityDistance;
+    private double OtherDistance;//for bike,walk,bus,skytrain
+    private int mode;//2 for bike and walk,3 for bus, 4 for skytrain
 
     public Route(String name, double HighWayDistance, double CityDistance) {
         this.name = name;
@@ -19,11 +21,27 @@ public class Route implements Serializable {
         Log.i("HELLO", "Route: " + CityDistance);
     }
 
+    public double getOtherDistance() {
+        return OtherDistance;
+    }
+
+    public void setOtherDistance(double OtherDistance) {
+        this.OtherDistance = OtherDistance;
+    }
+
+    public int getMode() {
+        return mode;
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
+
     public double getHighWayDistance() {
         return HighWayDistance;
     }
 
-    public void setHighWayDistance(int HighWayDistance) {
+    public void setHighWayDistance(double HighWayDistance) {
         if (HighWayDistance < 0) {
             throw new IllegalArgumentException();
         } else {
