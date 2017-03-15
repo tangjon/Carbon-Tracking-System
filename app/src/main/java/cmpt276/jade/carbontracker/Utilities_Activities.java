@@ -1,7 +1,9 @@
 package cmpt276.jade.carbontracker;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -34,6 +36,26 @@ public class Utilities_Activities extends AppCompatActivity {
         setupButtons();
         setupEditText();
         setupLists();
+    }
+
+    private void setupDeleteAlert(final BillType type, final int index) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(getString(R.string.label_delete_confirm));
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                utilities.deleteBill(type, index);
+                loadData();
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.label_cancel), null);
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override
@@ -98,8 +120,8 @@ public class Utilities_Activities extends AppCompatActivity {
         listElec.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO: 12/03/17 delete elec bill
-                return false;
+                setupDeleteAlert(BillType.ELECTRIC, position);
+                return true;
             }
         });
 
@@ -113,7 +135,7 @@ public class Utilities_Activities extends AppCompatActivity {
         listGas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO: 12/03/17 delete gas bill
+                setupDeleteAlert(BillType.GAS, position);
                 return false;
             }
         });

@@ -72,4 +72,9 @@ public class Utilities implements Serializable {
         }
     }
 
+    public void deleteBill(BillType type, int index) {
+        if (type == BillType.ELECTRIC) listBillElec.remove(index);
+        else listBillGas.remove(index);
+    }
+
 }
