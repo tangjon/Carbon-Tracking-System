@@ -145,7 +145,9 @@ public class JourneyListFragment extends Fragment {
     }
 
     private void populateList() {
-        ListAdapter bucky=new RouteListAdapter(getContext(),listOfJourneys.getJourneyDetails());
+        //the adapter have one more mode type
+        //ListAdapter bucky=new RouteListAdapter(getContext(),listOfJourneys.getJourneyDetails(),getmode());
+        ListAdapter bucky=new RouteListAdapter(getContext(),listOfJourneys.getJourneyDetails(),1);
         ListView list = (ListView) v.findViewById(R.id.listviewJourney);
         list.setAdapter(bucky);
     }
