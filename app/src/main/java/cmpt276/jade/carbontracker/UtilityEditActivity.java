@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,7 +34,7 @@ public class UtilityEditActivity extends AppCompatActivity {
     private EditText editDateStart;
     private EditText editDateEnd;
     private Calendar calendar;
-    private SimpleDateFormat dateFormat;
+    public static SimpleDateFormat dateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +57,14 @@ public class UtilityEditActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar dateNew = Calendar.getInstance();
                 dateNew.set(year, month, dayOfMonth);
-                editDateStart.setText(dateFormat.format(dateNew.getTime()));
-                buffer.setStartDate(dateNew.getTime());
 
+                if (dateNew.getTime().before(buffer.getEndDate())) {
+                    editDateStart.setText(dateFormat.format(dateNew.getTime()));
+                    buffer.setStartDate(dateNew.getTime());
+                } else {
+                    Toast.makeText(UtilityEditActivity.this,
+                            getString(R.string.toast_bad_date), Toast.LENGTH_SHORT).show();
+                }
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
@@ -67,9 +73,14 @@ public class UtilityEditActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar dateNew = Calendar.getInstance();
                 dateNew.set(year, month, dayOfMonth);
-                editDateEnd.setText(dateFormat.format(dateNew.getTime()));
-                buffer.setEndDate(dateNew.getTime());
 
+                if (dateNew.getTime().after(buffer.getStartDate())) {
+                    editDateEnd.setText(dateFormat.format(dateNew.getTime()));
+                    buffer.setEndDate(dateNew.getTime());
+                } else {
+                    Toast.makeText(UtilityEditActivity.this,
+                            getString(R.string.toast_bad_date), Toast.LENGTH_SHORT).show();
+                }
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
     }
@@ -148,8 +159,8 @@ public class UtilityEditActivity extends AppCompatActivity {
         if (mode == BillEditMode.EDIT) {
             EditText editInput = (EditText) findViewById(R.id.editBillInput);
 
-            editDateStart.setText(buffer.getStartDate().toString());
-            editDateEnd.setText(buffer.getEndDate().toString());
+            editDateStart.setText(dateFormat.format(buffer.getStartDate()));
+            editDateEnd.setText(dateFormat.format(buffer.getEndDate()));
             editInput.setText(String.valueOf(buffer.getInput()));
         }
 

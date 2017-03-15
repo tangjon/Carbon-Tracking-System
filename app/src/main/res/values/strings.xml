@@ -150,5 +150,6 @@
     <string name="label_cancel">Cancel</string>
     <string name="label_preview">Preview</string>
     <string name="label_delete_confirm">Are you sure you want to delete this bill?</string>
+    <string name="toast_bad_date">Please enter valid billing dates!</string>
 
 </resources>
