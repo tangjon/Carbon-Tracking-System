@@ -68,7 +68,7 @@ public class Route_List_Activity extends AppCompatActivity {
 
     private void populateListView(RouteCollection routes) {
         String[] lotsofRoute = routes.Detail();
-        ListAdapter bucky=new RouteListAdapter(this,lotsofRoute,getMode());
+        ListAdapter bucky=new RouteListAdapter(this,lotsofRoute);
         ListView list = (ListView) findViewById(R.id.Route_list_routeList);
         list.setAdapter(bucky);
     }
