@@ -18,7 +18,7 @@ public class Utilities implements Serializable {
 
     // TODO: 14/03/17 load previous data if any
     private void loadData() {
-        numResidents = 0;
+        numResidents = 1;
         listBillElec = new ArrayList<>();
         listBillGas = new ArrayList<>();
 
@@ -63,12 +63,10 @@ public class Utilities implements Serializable {
 
     public void editBill(BillType type, Bill newBill, int index) {
         if (type == BillType.ELECTRIC) {
-            listBillElec.remove(index);
-            listBillElec.add(index, newBill);
+            listBillElec.set(index, newBill);
         }
         else {
-            listBillGas.remove(index);
-            listBillGas.add(index, newBill);
+            listBillGas.set(index, newBill);
         }
     }
 

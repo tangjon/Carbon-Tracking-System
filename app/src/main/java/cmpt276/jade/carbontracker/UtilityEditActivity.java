@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -60,7 +59,6 @@ public class UtilityEditActivity extends AppCompatActivity {
                 editDateStart.setText(dateFormat.format(dateNew.getTime()));
                 buffer.setStartDate(dateNew.getTime());
 
-                Log.i("dateStart","buffer startDate = "+buffer.getStartDate().toString());
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
@@ -72,7 +70,6 @@ public class UtilityEditActivity extends AppCompatActivity {
                 editDateEnd.setText(dateFormat.format(dateNew.getTime()));
                 buffer.setEndDate(dateNew.getTime());
 
-                Log.i("dateStart","buffer endDate = "+buffer.getEndDate().toString());
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
     }
@@ -110,23 +107,6 @@ public class UtilityEditActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        editDateStart = (EditText) findViewById(R.id.editBillStart);
-        editDateEnd = (EditText) findViewById(R.id.editBillEnd);
-
-        editDateStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datePickerStart.show();
-            }
-        });
-
-        editDateEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datePickerEnd.show();
-            }
-        });
     }
 
     // TODO: 14/03/17 extract strings
@@ -145,11 +125,33 @@ public class UtilityEditActivity extends AppCompatActivity {
     }
 
     private void setupUI() {
+        editDateStart = (EditText) findViewById(R.id.editBillStart);
+        editDateEnd = (EditText) findViewById(R.id.editBillEnd);
+
+        editDateStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePickerStart.show();
+            }
+        });
+
+        editDateEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePickerEnd.show();
+            }
+        });
+
         TextView tvInput = (TextView) findViewById(R.id.txt_input);
         String[] inputPrompt = getResources().getStringArray(R.array.label_bill_input);
 
-        if (mode == BillEditMode.ADD) buffer = new Bill(type, new Date(), new Date(), 0);
-        else buffer = emission.getBufferBill();
+        if (mode == BillEditMode.EDIT) {
+            EditText editInput = (EditText) findViewById(R.id.editBillInput);
+
+            editDateStart.setText(buffer.getStartDate().toString());
+            editDateEnd.setText(buffer.getEndDate().toString());
+            editInput.setText(String.valueOf(buffer.getInput()));
+        }
 
         if (type == BillType.ELECTRIC) tvInput.setText(inputPrompt[0]);
         else tvInput.setText(inputPrompt[1]);
@@ -159,11 +161,14 @@ public class UtilityEditActivity extends AppCompatActivity {
         return new Intent(context, UtilityEditActivity.class);
     }
 
-    public void getIntentData() {
+    private void getIntentData() {
         Intent intent = getIntent();
         mode = (BillEditMode) intent.getSerializableExtra("mode");
         type = (BillType) intent.getSerializableExtra("type");
         index = intent.getIntExtra("index", 0);
+
+        if (mode == BillEditMode.EDIT) buffer = emission.getBufferBill();
+        else buffer = new Bill(type, new Date(), new Date(), 0);
     }
 
 }

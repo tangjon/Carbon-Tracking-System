@@ -25,6 +25,10 @@ public class Utilities_Activities extends AppCompatActivity {
     private Emission emission = Emission.getInstance();
     private Utilities utilities;
 
+    private BillEditMode mode;
+    private BillType type;
+    private int index;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +104,9 @@ public class Utilities_Activities extends AppCompatActivity {
                 else {
                     Toast.makeText(Utilities_Activities.this, R.string.toast_bad_residents,
                             Toast.LENGTH_SHORT).show();
+                    i = 1;
+                    editRes.setText(String.valueOf(i));
+                    utilities.setNumResidents(i);
                 }
             }
         };
@@ -113,7 +120,15 @@ public class Utilities_Activities extends AppCompatActivity {
         listElec.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO: 12/03/17 edit elec bill
+                mode = BillEditMode.EDIT;
+                type = BillType.ELECTRIC;
+                index = position;
+
+                Intent intent = UtilityEditActivity.getUtilityEditIntent(Utilities_Activities.this);
+                intent.putExtra("mode", mode);
+                intent.putExtra("type", type);
+                emission.setBufferBill(utilities.getListBillElec().get(index));
+                startActivity(intent);
             }
         });
 
@@ -128,7 +143,15 @@ public class Utilities_Activities extends AppCompatActivity {
         listGas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO: 12/03/17 edit gas bill
+                mode = BillEditMode.EDIT;
+                type = BillType.GAS;
+                index = position;
+
+                Intent intent = UtilityEditActivity.getUtilityEditIntent(Utilities_Activities.this);
+                intent.putExtra("mode", mode);
+                intent.putExtra("type", type);
+                emission.setBufferBill(utilities.getListBillGas().get(index));
+                startActivity(intent);
             }
         });
 
@@ -136,7 +159,7 @@ public class Utilities_Activities extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 setupDeleteAlert(BillType.GAS, position);
-                return false;
+                return true;
             }
         });
     }
