@@ -58,7 +58,6 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
                     } else {
                         double distance = Double.parseDouble(getNameById(R.id.Bike_Info_edit_distance));
                         if (distance >= 0) {
-
                             pass_back_route();
                             finish();
                         }
@@ -102,7 +101,7 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
         if(getMode()==4) {tv.setText("Skytrain");}
 
 
-        OtherRoute ClickedRoute = getClickedRoute();
+        Route ClickedRoute = getClickedRoute();
 
         int add;
         if (getClickedRoutePosition() == null) {
@@ -111,8 +110,8 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
             EditText EditRouteName = (EditText) findViewById(R.id.Bike_Info_edit_name);
             EditRouteName.setText(ClickedRoute.getName());
 
-            EditText EditRouteHighWay = (EditText) findViewById(R.id.Bike_Info_edit_distance);
-            EditRouteHighWay.setText(Double.toString(ClickedRoute.getDistance()));
+            EditText EditRouteDistance = (EditText) findViewById(R.id.Bike_Info_edit_distance);
+            EditRouteDistance.setText(Double.toString(ClickedRoute.getOtherDistance()));
             add = 0;
         }
         return add;
@@ -156,7 +155,8 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
         Intent intent = new Intent(context, Bike_and_Trans_Info_Activity.class);
         intent.putExtra("Passing Position", position);
         intent.putExtra("Passing Route name", ClickedRoute.getName());
-        intent.putExtra("Passing Distance", ClickedRoute.getHighWayDistance());
+        intent.putExtra("Passing Distance", ClickedRoute.getOtherDistance());
+        intent.putExtra("ModeForEdit", ClickedRoute.getMode());
         return intent;
     }
     private String getClickedRoutePosition() {
@@ -164,11 +164,14 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
         String routePos = intent.getStringExtra("Passing Position");
         return routePos;
     }
-    private OtherRoute getClickedRoute() {
+    private Route getClickedRoute() {
         Intent intent = getIntent();
         String name = intent.getStringExtra("Passing Route name");
         double distance = intent.getDoubleExtra("Passing Distance", 0);
-        OtherRoute clicked= new OtherRoute(name, distance,getMode());
+        int mode=intent.getIntExtra("ModeForEdit",0);
+        Route clicked= new Route(name, 0,0);
+        clicked.setOtherDistance(distance);
+        clicked.setMode(mode);
         return clicked;
     }
 

@@ -10,12 +10,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.adapter.RouteListAdapter;
 import cmpt276.jade.carbontracker.model.Emission;
-import cmpt276.jade.carbontracker.model.Journey;
-import cmpt276.jade.carbontracker.model.OtherRoute;
 import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.model.RouteCollection;
 
@@ -30,14 +27,17 @@ public class Route_List_Activity extends AppCompatActivity {
    // private Journey journey;
     public static final int EDIT_ROUTE2 = 1026; //otherroute intent number for edit/delete
 
-    public static RouteCollection routes = new RouteCollection();
+    public static RouteCollection CarRoutesList = new RouteCollection();
+    public static RouteCollection BikeNWalkRoutesList = new RouteCollection();
+    public static RouteCollection BusRoutesList = new RouteCollection();
+    public static RouteCollection SkytrainRoutesList = new RouteCollection();
 
     public static Intent IntentForRouteList(Context context,int mode) {
         Intent intent = new Intent(context, Route_List_Activity.class);
         intent.putExtra("Mode", mode);
         return intent;
     }
-    // 1 for car, 2 for walk and bike, 3 for trans
+    // 1 for car, 2 for walk and bike, 3 for bus,4 for skytrain
     private int getMode() {
         Intent intent = getIntent();
         int mode = intent.getIntExtra("Mode",0);
@@ -51,15 +51,24 @@ public class Route_List_Activity extends AppCompatActivity {
         setContentView(R.layout.layout_route_list);
        // getCarListData();
         setup_Add_Btn();
-        populateListView();
+        showDifferentListView();
         long_pressing_editAndDelete();
-
+        populateListView(showDifferentListView());
 
     }
 
-    private void populateListView() {
+    private RouteCollection showDifferentListView() {
+        int mode=getMode();
+        if(mode==1){return CarRoutesList;}
+        else if(mode==2){return BikeNWalkRoutesList;}
+        else if(mode==3){return BusRoutesList;}
+        else {return SkytrainRoutesList;}
+    }
+
+
+    private void populateListView(RouteCollection routes) {
         String[] lotsofRoute = routes.Detail();
-        ListAdapter bucky=new RouteListAdapter(this,lotsofRoute);
+        ListAdapter bucky=new RouteListAdapter(this,lotsofRoute,getMode());
         ListView list = (ListView) findViewById(R.id.Route_list_routeList);
         list.setAdapter(bucky);
     }
@@ -75,79 +84,36 @@ public class Route_List_Activity extends AppCompatActivity {
         ListView list = (ListView) findViewById(R.id.Route_list_routeList);
 
         //Sean - Adding method to send data back to journeylist
-        //Alex - changed journey by mode
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                RouteCollection routes= showDifferentListView();
                 Route route = routes.getRouteByIndex(position);
-                if(getMode()==1 && route.getCityDistance()<0)
-                {
-                    Toast.makeText(getApplicationContext(),
-                          "You can't click other routes "
-                                  + "Except Car route,"
-                                  + "Since you are now in add car route mode"
-                                  , Toast.LENGTH_LONG).show();
-
-                }
-                if(getMode()==1 && route.getCityDistance()>0)
-                {
+                //for car           (nickname,highway,city)  getOtherDistance=0,getMode=1
+                //for bike/walk     (nickname,0,0)           getOtherDistance=distance,getMode=2
+                //for bus           (nickname,0,0)           getOtherDistance=distance,getMode=3
+                //for skytrain      (nickname,0,0)           getOtherDistance=distance,getMode=4
                 Emission.getInstance().getJourneyBuffer().setRoute(route);
                 Intent intent = JourneyReviewActivity.getJourneyReviewIntent(Route_List_Activity.this);
                 //Should clear the whole back stack besides main menu
                 startActivity(intent);}
-                else
-                {
-                    OtherRoute newroute= new OtherRoute
-                            (route.getName(),route.getHighWayDistance(),getMode());
-                    //TODO TO Sean I have created new class: OtherRoute
-                    //which is for bike,walk,bus and skytrain
-                    //OtherRoute(string nickname,double distance, mode)
-                    //mode 1 for car
-                    //mode 2 for bike and walk
-                    //mode 3 for bus
-                    //mode 4 for skytrain
-                    //journey.setRoute(route);
-                    //Intent intent = JourneyReviewActivity.getJourneyReviewIntent(Route_List_Activity.this);
-                    //intent.putExtra("Journey", journey);
-                    //Should clear the whole back stack besides main menu
-                    //startActivity(intent);
-                }
             }
-        });
+        );
 
 
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                RouteCollection routes= showDifferentListView();
                 String strPosition = Integer.toString(position);
                 Route clickedRoute = routes.getRouteByIndex(position);
-
-                if(getMode()==1 && clickedRoute.getCityDistance()<0)
-                {
-                    Toast.makeText(getApplicationContext(),
-                            "You can't Edit other routes "
-                                    + "Except Car route,"
-                                    + "Since you are now in add car route mode"
-                            , Toast.LENGTH_LONG).show();
-
-                }
-                if(getMode()==1 && clickedRoute.getCityDistance()>0)
+                if(getMode()==1 )//car
                 {Intent Intent_for_editing = Route_Info_Activity.IntentForEditRoute(Route_List_Activity.this, clickedRoute, strPosition);
                 startActivityForResult(Intent_for_editing, EDIT_ROUTE);}
-                if(getMode()!=1 && clickedRoute.getCityDistance()<0)
+                else
                 {
                     Intent Intent_for_editing_other_route = Bike_and_Trans_Info_Activity.IntentForEditRoute(Route_List_Activity.this, clickedRoute, strPosition);
                     startActivityForResult(Intent_for_editing_other_route, EDIT_ROUTE2);
-                    //Toast.makeText(getApplicationContext(),
-                     //       "mode: " + getMode(), Toast.LENGTH_LONG).show();
-
-                }
-                if(getMode()!=1 && clickedRoute.getCityDistance()>0)
-                {Toast.makeText(getApplicationContext(),
-                           "You can't edit car routes,"
-                                   +"Since you are in mode adding:"
-                        +getMode(), Toast.LENGTH_LONG).show();
-
                 }
                 return true;
             }
@@ -169,39 +135,13 @@ public class Route_List_Activity extends AppCompatActivity {
             }
         });}
         //bike and walk
-        if(mode==2)
+        else
         {
             Button btn = (Button) findViewById(R.id.Route_List_add_btn);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = Bike_and_Trans_Info_Activity.IntentForAddingRoute(Route_List_Activity.this,2);
-                    startActivityForResult(intent, RECEIVE_ROUTE);
-                }
-            });}
-
-        //BUS
-
-        if(mode==3)
-        {
-            Button btn = (Button) findViewById(R.id.Route_List_add_btn);
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = Bike_and_Trans_Info_Activity.IntentForAddingRoute(Route_List_Activity.this,3);
-                    startActivityForResult(intent, RECEIVE_ROUTE);
-                }
-            });}
-
-         //skytrain
-
-        if(mode==4)
-        {
-            Button btn = (Button) findViewById(R.id.Route_List_add_btn);
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = Bike_and_Trans_Info_Activity.IntentForAddingRoute(Route_List_Activity.this,4);
+                    Intent intent = Bike_and_Trans_Info_Activity.IntentForAddingRoute(Route_List_Activity.this,getMode());
                     startActivityForResult(intent, RECEIVE_ROUTE);
                 }
             });}
@@ -215,63 +155,42 @@ public class Route_List_Activity extends AppCompatActivity {
                 //car
                 if(mode==1) {
                     if (resultCode == Activity.RESULT_OK) {
+                        RouteCollection routes= showDifferentListView();
                         String RouteName = data.getStringExtra("pass back the route name");
                         String StrHighWay = data.getStringExtra("pass back the highway");
                         String StrCity = data.getStringExtra("pass back the city");
                         double highway = Double.parseDouble(StrHighWay);
                         double city = Double.parseDouble(StrCity);
                         Route addedRoute = new Route(RouteName, highway, city);
+                        addedRoute.setOtherDistance(0);
+                        addedRoute.setMode(1);
                         routes.addRoute(addedRoute);
-                        populateListView();
+                        populateListView(routes);
                     }
                 }
                 //bike or walk
-                if(mode==2) {
+                else {
                     if (resultCode == Activity.RESULT_OK) {
+                        RouteCollection routes= showDifferentListView();
                         String RouteName = data.getStringExtra("pass back the route name");
                         String StrWalkDistance = data.getStringExtra("pass back the distance");
                         double distance = Double.parseDouble(StrWalkDistance);
-                        Route addedRoute = new Route(RouteName, distance, -1);
+                        Route addedRoute = new Route(RouteName, 0, 0);
+                        //set bus as name,0,0
+                        //but will set distance and set mode
+                        addedRoute.setOtherDistance(distance);
+                        if(mode==2) {addedRoute.setMode(2);}
+                        else if(mode==3) {addedRoute.setMode(3);}
+                        else if(mode==4) {addedRoute.setMode(4);}
                         routes.addRoute(addedRoute);
-                        populateListView();
-
+                        populateListView(routes);
                     }
                 }
-
-                //bus
-                if(mode==3) {
-                    if (resultCode == Activity.RESULT_OK) {
-                        String RouteName = data.getStringExtra("pass back the route name");
-                        String StrWalkDistance = data.getStringExtra("pass back the distance");
-                        double distance = Double.parseDouble(StrWalkDistance);
-                        Route addedRoute = new Route(RouteName, distance, -2);
-                        routes.addRoute(addedRoute);
-                        populateListView();
-
-                    }
-                }
-
-                //skytrain
-                if(mode==4) {
-                    if (resultCode == Activity.RESULT_OK) {
-                        String RouteName = data.getStringExtra("pass back the route name");
-                        String StrWalkDistance = data.getStringExtra("pass back the distance");
-                        double distance = Double.parseDouble(StrWalkDistance);
-                        Route addedRoute = new Route(RouteName, distance, -3);
-                        routes.addRoute(addedRoute);
-                        populateListView();
-
-                    }
-                }
-
-
-
-
-
 
                 break;
             case EDIT_ROUTE:
                 if (resultCode == Activity.RESULT_OK) {
+                    RouteCollection routes= showDifferentListView();
                     String StrDelete = data.getStringExtra("delete is clicked");
                     String StrIndex = data.getStringExtra("pass back the route position");
                     int delete = Integer.parseInt(StrDelete);
@@ -279,7 +198,7 @@ public class Route_List_Activity extends AppCompatActivity {
                     //if user want to delete,not edit
                     if (delete == 1) {
                         routes.deleteRoute(index);
-                        populateListView();
+                        populateListView(routes);
                     }
                     //if user want to edit route
                     else {
@@ -290,12 +209,13 @@ public class Route_List_Activity extends AppCompatActivity {
                         double city =  Double.parseDouble(StrCity);
                         Route Clicked = new Route(RouteName, highway, city);
                         routes.changeRoute(Clicked, index);
-                        populateListView();
+                        populateListView(routes);
                     }}
                 break;
 
             case EDIT_ROUTE2:
                 if (resultCode == Activity.RESULT_OK) {
+                    RouteCollection routes= showDifferentListView();
                     String StrDelete = data.getStringExtra("delete is clicked");
                     String StrIndex = data.getStringExtra("pass back the route position");
                     int delete = Integer.parseInt(StrDelete);
@@ -303,31 +223,19 @@ public class Route_List_Activity extends AppCompatActivity {
                     //if user want to delete,not edit
                     if (delete == 1) {
                         routes.deleteRoute(index);
-                        populateListView();
+                        populateListView(routes);
                     }
                     //if user want to edit route
                     else {
-
-                        int dacity=getDAcity();
-
                         String RouteName = data.getStringExtra("pass back the route name");
                         String StrDistance = data.getStringExtra("pass back the distance");
                         double Distance =  Double.parseDouble(StrDistance);
-                        Route Clicked = new Route(RouteName, Distance, dacity);
+                        Route Clicked = new Route(RouteName, 0, 0);
+                        Clicked.setOtherDistance(Distance);
+                        Clicked.setMode(getMode());
                         routes.changeRoute(Clicked, index);
-                        populateListView();
+                        populateListView(routes);
                     }}
                 break;
         }}
-
-    private int getDAcity() {
-        int damode=getMode();
-        if(damode==2)
-        {return -1;}
-        if(damode==3){return -2;}
-        if(damode==4){return -3;}
-        return 0;
-    }
-
-
 }
