@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.sample.LoadDummyData;
 import cmpt276.jade.carbontracker.utils.CarManager;
 
 /**
@@ -60,7 +61,7 @@ public class Welcome_Activity extends AppCompatActivity {
 
         // Todo Make Sure this is uncommented
         // Uncomment this to load dummy data
-//         LoadDummyData.load();
+         LoadDummyData.load();
     }
     //Sean - makes screen clickable
     private void setupLayoutClick() {

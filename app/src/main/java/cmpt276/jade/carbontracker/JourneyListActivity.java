@@ -68,7 +68,7 @@ public class JourneyListActivity extends AppCompatActivity {
                     Mode = 0;
                     setupClickJourneyList();
                     button.setText(getString(R.string.label_edit));
-                    Toast.makeText(JourneyListActivity.this, R.string.journey_list_toast_enable, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(JourneyListActivity.this, R.string.journey_list_toast_edit_mode, Toast.LENGTH_SHORT).show();
                 }
                 else if(Mode == 0){
                     Mode = 1;

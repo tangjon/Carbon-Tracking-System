@@ -32,6 +32,8 @@
     <string name="label_route_name">Route Name:</string>
     <string name="label_highway">HighWay:</string>
     <string name="label_city">City:</string>
+    <string name="DEFAULT_NUM">##</string>
+    <string name="DEFAULT_TXT">TXT</string>
 
     <!--Action ToolBar Hints-->
     <string name="CarListActivityHint">Select/Add a Car</string>
@@ -43,9 +45,37 @@
     <string name="JourneyListActivityHint">Journey List</string>
     <string name="TransportSelectActivityHint">Select a Transport Mode</string>
 
+    <!--JOURNEY INFO-->
+    <string name="journey_info">Name: %1$s
+        \nDate: %2$s
+    </string>
 
-    <string name="DEFAULT_NUM">##</string>
-    <string name="DEFAULT_TXT">TXT</string>
+    <!--ROUTE INFO-->
+    <string name="route_info">Name: %1$s
+        \nTotal City Distance(Km): %2$.1f
+        \nTotal Highway Distance(Km): %3$.1f
+        \nTotal Distance(Km): %4$.1f
+    </string>
+
+    <!--CAR INFO-->
+    <string name="car_info">Name: %1$s
+        \nManufacturer: %2$s
+        \nModel: %3$s
+        \nYear: %4$d
+        \nFuel Type: %5$s
+    </string>
+
+    <!--EMISSIONS INFO-->
+    <string name="emission_info">Total Highway Emission(Kg): %1$.2f
+        \nTotal City Emissions(Kg): %2$.2f
+        \nTotal Emissions(Kg): %3$.2f
+    </string>
+
+    <!--Journey Summary Activity-->
+    <string name="journey_summary_total_city_distance">Total City Distance(Km):</string>
+    <string name="journey_summary_total_highway_distance">Total Highway Distance(Km):</string>
+    <string name="journey_summary_total_distance">Total Distance(Km):</string>
+
 
 
     <string-array name="label_table">
@@ -108,9 +138,7 @@
     <string name="carinfo_confirm_edit">Confirm Edit</string>
     <string name="label_name">Name: </string>
     <string name="label_date">\nDate: </string>
-    <string name="journey_summary_total_city_distance">Total City Distance(Km):</string>
-    <string name="journey_summary_total_highway_distance">Total Highway Distance(Km):</string>
-    <string name="journey_summary_total_distance">Total Distance(Km):</string>
+
     <string name="label_fuel_type">Fuel Type:</string>
     <string name="total_city_high_emission">Total Highway Emissions(Kg):</string>
     <string name="total_city_emission">Total City Emissions(Kg):</string>
@@ -138,5 +166,7 @@
     <string name="hint_residents"># Residents</string>
     <string name="toast_bad_residents"># Residents must be a positive integer!</string>
     <string name="car_info_warning">Please Enter a nickname</string>
+    <string name="journey_list_toast_edit_mode">Long press to delete enabled</string>
+    <string name="journey_list_toast_delete_mode">You can now long press to delete</string>
 
 </resources>
