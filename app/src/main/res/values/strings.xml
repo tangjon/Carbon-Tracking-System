@@ -8,7 +8,6 @@
     <string name="sean_ehrenfellner">Sean Ehrenfellner</string>
     <string name="razvan_cretu">Razvan Cretu</string>
     <string name="alex_wu">Alex Wu</string>
-    <string name="route_info_mode_hint">You are now in add mode</string>
 
     <!--General Purpose-->
     <string name="app_name">Carbon Tracker</string>
@@ -17,13 +16,9 @@
     <string name="label_short_summary">Short Summary</string>
     <string name="label_delete">DELETE</string>
     <string name="label_skip">Skip</string>
-    <string name="label_nickname">Nickname</string>
-    <string name="label_enterNickName">Enter a nickname</string>
-    <string name="label_toggle_graph">Toggle Display</string>
     <string name="label_graph_title">Total Carbon Footprint</string>
     <string name="label_view_footprint">Carbon Footprint</string>
     <string name="label_carbon_tail_pipe">Carbon Tail Pipe:</string>
-    <string name="label_select_car">Car</string>
     <string name="label_route_name">Route Name:</string>
     <string name="label_highway">HighWay:</string>
     <string name="label_city">City:</string>
@@ -31,6 +26,7 @@
     <string name="label_accept">Accept</string>
     <string name="label_cancel">Cancel</string>
     <string name="label_preview">Preview</string>
+    <string name="label_done">Done</string>
 
     <!--Action ToolBar Hints-->
     <string name="CarListActivityHint">Select/Add a Car</string>
@@ -42,38 +38,32 @@
     <string name="JourneyListActivityHint">Journey List</string>
     <string name="TransportSelectActivityHint">Select a Transport Mode</string>
 
-    <!--JOURNEY INFO-->
+
+    <!--
+    ========================
+    FORMS TO FILL WITH INFO
+    ========================
+    -->
+
+    <!--JOURNEY INFO FORM-->
     <string name="journey_info">Name: %1$s
         \nDate: %2$s
     </string>
 
-    <!--ROUTE INFO-->
+    <!--ROUTE INFO FORM-->
     <string name="route_info">Name: %1$s
         \nTotal City Distance(Km): %2$.1f
         \nTotal Highway Distance(Km): %3$.1f
         \nTotal Distance(Km): %4$.1f
     </string>
 
-    <!--CAR INFO-->
-    <string name="label_displ">Displacement</string>
-    <string name="label_engine">Engine</string>
-    <string name="label_fuel_cost">Fuel Cost</string>
-    <string name="label_transmission">Transmission</string>
-    <string name="label_make">Manufacturer:</string>
-    <string name="label_year">Year:</string>
-    <string name="label_model">Model:</string>
-    <string name="label_CityMPG">City MPG:</string>
-    <string name="label_HighwayMPG">Highway MPG:</string>
+    <!--CAR INFO FORM-->
     <string name="car_info">Name: %1$s
         \nManufacturer: %2$s
         \nModel: %3$s
         \nYear: %4$d
         \nFuel Type: %5$s
     </string>
-
-    <!--CAR INFO ACTIVITY-->
-    <string name="carinfo_confirm_edit">Confirm Edit</string>
-
 
     <!--EMISSIONS INFO-->
     <string name="total_city_high_emission">Total Highway Emissions(Kg):</string>
@@ -84,6 +74,41 @@
         \nTotal Emissions(Kg): %3$.2f
     </string>
 
+
+    <!--
+    ========================
+    ACTIVITY RESOURCES
+    ========================
+    -->
+
+    <!--JOURNEY LIST ACTIVITY-->
+    <string name="label_toggle_graph">Toggle Display</string>
+
+    <!--CAR LIST ACTIVITY-->
+    <string name="hint_click_car_to_add_routes_long_press_to_edit_or_delete">Hint: Click car to add routes. Long press to edit or delete.</string>
+
+    <!--CAR INFO ACTIVITY-->
+    <string name="car_info_hint_EnterNickName">Enter a nickname</string>
+    <string name="car_info_confirm_edit">Confirm Edit</string>
+    <string name="car_info_nickname">Nickname</string>
+    <string name="car_info_label_displ">Displacement</string>
+    <string name="car_info_label_engine">Engine</string>
+    <string name="car_info_fuel_cost">Fuel Cost</string>
+    <string name="car_info_transmission">Transmission</string>
+    <string name="car_info_make">Manufacturer:</string>
+    <string name="car_info_year">Year:</string>
+    <string name="car_info_model">Model:</string>
+    <string name="car_info_CityMPG">City MPG:</string>
+    <string name="car_info_HighwayMPG">Highway MPG:</string>
+    <string name="label_fuel_type">Fuel Type:</string>
+
+
+    <!--ROUTE INFO ACTIVITY-->
+    <string name="route_info_mode_hint">You are now in add mode</string>
+
+    <!--EMISSION INF ACTIVITY-->
+
+
     <!--Journey Summary Activity-->
     <string name="journey_summary_total_city_distance">Total City Distance(Km):</string>
     <string name="journey_summary_total_highway_distance">Total Highway Distance(Km):</string>
@@ -91,6 +116,7 @@
 
 
 
+    <!--CARBON FOOTPRINT ACTIVITY-->
     <string-array name="label_table">
         <item>Date</item>
         <item>Trip Name</item>
@@ -99,8 +125,26 @@
         <item>Carbon Emitted</item>
     </string-array>
 
-    <string name="hint_click_car_to_add_routes_long_press_to_edit_or_delete">Hint: Click car to add routes. Long press to edit or delete.</string>
-    <string name="add">Add</string>
+    <!-- Utilities Activity -->
+    <string name="label_new_electric">New Electricity Bill</string>
+    <string name="label_new_gas">New Gas Bill</string>
+    <string name="label_list_electric">Electricity Bills</string>
+    <string name="label_list_gas">Gas Bills</string>
+    <string name="hint_residents"># Residents</string>
+    <string name="toast_bad_residents"># Residents must be a positive integer!</string>
+    <string name="car_info_warning">Please Enter a nickname</string>
+    <string name="journey_list_toast_edit_mode">Long press to delete enabled</string>
+    <string name="journey_list_toast_delete_mode">You can now long press to delete</string>
+
+    <!-- Utility Edit Activity -->
+    <string name="label_bill_start">Bill Start Date</string>
+    <string name="label_bill_end">Bill End Date</string>
+    <string-array name="label_bill_input">
+        <item>Usage (kWh)</item>
+        <item>Usage (GJ)</item>
+    </string-array>
+
+
     <string name="hint_click_journey_to_see_summary_long_press_to_edit_or_delete">Hint: Click journey to see summary. Long press to edit or delete.</string>
     <string name="delete">Delete</string>
     <string name="date_of_journey">Date of Journey</string>
@@ -111,19 +155,11 @@
     <string name="overview_of_journey">Overview of Journey:</string>
     <string name="textview">TextView</string>
     <string name="textview2">TextView</string>
-    <string name="done">Done</string>
+
     <string name="dd_mm_yyyy">dd/mm/yyyy</string>
 
-    <string name="car_nickname">Car Nickname</string>
     <string name="textview3">TextView</string>
-    <string name="route_nickname">Route Nickname</string>
     <string name="textview4">TextView</string>
-    <string name="city_driving">City Driving</string>
-    <string name="total_driven">Total Driven</string>
-    <string name="highway_driving">Highway Driving</string>
-    <string name="textview5">TextView</string>
-    <string name="textview6">TextView</string>
-    <string name="textview7">TextView</string>
     <string name="textview8">TextView</string>
     <string name="textview9">TextView</string>
     <string name="name2">Name</string>
@@ -147,7 +183,7 @@
     <string name="route_list_hint">Select or Add a Route</string>
     <string name="route_info_hint">Fill in your route info</string>
 
-    <string name="label_fuel_type">Fuel Type:</string>
+
 
     <string name="label_edit">Edit</string>
     <string name="title_activity_main_menu">MainMenuActivity</string>
@@ -164,24 +200,7 @@
     <string name="nav_utilities">Utilities</string>
     <string name="nav_tools">Tools</string>
 
-    <!-- Utilities Activity -->
-    <string name="label_new_electric">New Electricity Bill</string>
-    <string name="label_new_gas">New Gas Bill</string>
-    <string name="label_list_electric">Electricity Bills</string>
-    <string name="label_list_gas">Gas Bills</string>
-    <string name="hint_residents"># Residents</string>
-    <string name="toast_bad_residents"># Residents must be a positive integer!</string>
-    <string name="car_info_warning">Please Enter a nickname</string>
-    <string name="journey_list_toast_edit_mode">Long press to delete enabled</string>
-    <string name="journey_list_toast_delete_mode">You can now long press to delete</string>
 
-    <!-- Utility Edit Activity -->
-    <string name="label_bill_start">Bill Start Date</string>
-    <string name="label_bill_end">Bill End Date</string>
-    <string-array name="label_bill_input">
-        <item>Usage (kWh)</item>
-        <item>Usage (GJ)</item>
-    </string-array>
 
     <!--New Strings to Organize-->
     <!--STRING FORMAT GUIDE-->

@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:text="@string/done" />
+            android:text="@string/label_done" />
 
         <EditText
             android:id="@+id/editDate"

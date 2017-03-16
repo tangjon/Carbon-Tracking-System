@@ -8,7 +8,7 @@
         android:id="@+id/tv_year_display"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/label_year"
+        android:text="@string/car_info_year"
         android:textAlignment="viewStart"
         android:textAllCaps="false"
         android:textColor="@android:color/black"
@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="5dp"
-                android:text="@string/label_CityMPG"
+                android:text="@string/car_info_CityMPG"
                 android:textStyle="normal|bold" />
 
             <TextView
@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="5dp"
-                android:text="@string/label_HighwayMPG"
+                android:text="@string/car_info_HighwayMPG"
                 android:textStyle="normal|bold" />
 
             <TextView
@@ -98,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="5dp"
-                android:text="@string/label_displ"
+                android:text="@string/car_info_label_displ"
                 android:textStyle="normal|bold" />
 
             <TextView
@@ -121,7 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="5dp"
-                android:text="@string/label_engine"
+                android:text="@string/car_info_label_engine"
                 android:textStyle="normal|bold" />
 
             <TextView
@@ -144,7 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="5dp"
-                android:text="@string/label_fuel_cost"
+                android:text="@string/car_info_fuel_cost"
                 android:textStyle="normal|bold" />
 
             <TextView
@@ -167,7 +167,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="5dp"
-                android:text="@string/label_transmission"
+                android:text="@string/car_info_transmission"
                 android:textStyle="normal|bold" />
 
             <TextView
