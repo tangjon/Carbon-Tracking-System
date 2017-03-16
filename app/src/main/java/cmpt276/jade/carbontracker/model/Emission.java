@@ -22,6 +22,7 @@ public class Emission {
      * without using SharedPreferences/Intents
      */
     private Journey buffer;
+    private Bill bufferBill;
 
     private Emission() {
         if (instance != null)
@@ -85,5 +86,13 @@ public class Emission {
 
     public void setUtilities(Utilities utilities) {
         this.utilities = utilities;
+    }
+
+    public Bill getBufferBill() {
+        return bufferBill;
+    }
+
+    public void setBufferBill(Bill bufferBill) {
+        this.bufferBill = bufferBill;
     }
 }

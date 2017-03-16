@@ -169,4 +169,17 @@
     <string name="journey_list_toast_edit_mode">Long press to delete enabled</string>
     <string name="journey_list_toast_delete_mode">You can now long press to delete</string>
 
+    <!-- Utility Edit Activity -->
+    <string name="label_bill_start">Bill Start Date</string>
+    <string name="label_bill_end">Bill End Date</string>
+    <string-array name="label_bill_input">
+        <item>Usage (kWh)</item>
+        <item>Usage (GJ)</item>
+    </string-array>
+    <string name="label_accept">Accept</string>
+    <string name="label_cancel">Cancel</string>
+    <string name="label_preview">Preview</string>
+    <string name="label_delete_confirm">Are you sure you want to delete this bill?</string>
+    <string name="toast_bad_date">Please enter valid billing dates!</string>
+
 </resources>

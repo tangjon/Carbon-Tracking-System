@@ -1,7 +1,9 @@
 package cmpt276.jade.carbontracker;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,24 +15,26 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import cmpt276.jade.carbontracker.adapter.UtilitiesAdapter;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Utilities;
+import cmpt276.jade.carbontracker.utils.BillEditMode;
+import cmpt276.jade.carbontracker.utils.BillType;
 
 public class Utilities_Activities extends AppCompatActivity {
     private Emission emission = Emission.getInstance();
     private Utilities utilities;
 
-    private ArrayList<Object> dummyData1 = new ArrayList<>();       // ***
-    private ArrayList<Object> dummyData2 = new ArrayList<>();
+    private BillEditMode mode;
+    private BillType type;
+    private int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_utilities__activities);
 
+        utilities = emission.getUtilities();
 
         loadData();
         setupButtons();
@@ -38,16 +42,38 @@ public class Utilities_Activities extends AppCompatActivity {
         setupLists();
     }
 
-    private void loadData() {
-        utilities = emission.getUtilities();
+    private void setupDeleteAlert(final BillType type, final int index) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        dummyData1.add("Dummy object");
-        dummyData2.add("Another dummy object");
+        builder.setMessage(getString(R.string.label_delete_confirm));
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                utilities.deleteBill(type, index);
+                loadData();
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.label_cancel), null);
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        loadData();
+    }
+
+    private void loadData() {
 
         ListView listElec = (ListView) findViewById(R.id.list_elec);
         ListView listGas = (ListView) findViewById(R.id.list_gas);
-        UtilitiesAdapter adapterElec = new UtilitiesAdapter(this, dummyData1);
-        UtilitiesAdapter adapterGas = new UtilitiesAdapter(this, dummyData2);
+        UtilitiesAdapter adapterElec = new UtilitiesAdapter(this, emission.getUtilities().getListBillElec());
+        UtilitiesAdapter adapterGas = new UtilitiesAdapter(this, emission.getUtilities().getListBillGas());
         listElec.setAdapter(adapterElec);
         listGas.setAdapter(adapterGas);
     }
@@ -78,6 +104,9 @@ public class Utilities_Activities extends AppCompatActivity {
                 else {
                     Toast.makeText(Utilities_Activities.this, R.string.toast_bad_residents,
                             Toast.LENGTH_SHORT).show();
+                    i = 1;
+                    editRes.setText(String.valueOf(i));
+                    utilities.setNumResidents(i);
                 }
             }
         };
@@ -91,30 +120,46 @@ public class Utilities_Activities extends AppCompatActivity {
         listElec.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO: 12/03/17 edit elec bill
+                mode = BillEditMode.EDIT;
+                type = BillType.ELECTRIC;
+                index = position;
+
+                Intent intent = UtilityEditActivity.getUtilityEditIntent(Utilities_Activities.this);
+                intent.putExtra("mode", mode);
+                intent.putExtra("type", type);
+                emission.setBufferBill(utilities.getListBillElec().get(index));
+                startActivity(intent);
             }
         });
 
         listElec.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO: 12/03/17 delete elec bill
-                return false;
+                setupDeleteAlert(BillType.ELECTRIC, position);
+                return true;
             }
         });
 
         listGas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO: 12/03/17 edit gas bill
+                mode = BillEditMode.EDIT;
+                type = BillType.GAS;
+                index = position;
+
+                Intent intent = UtilityEditActivity.getUtilityEditIntent(Utilities_Activities.this);
+                intent.putExtra("mode", mode);
+                intent.putExtra("type", type);
+                emission.setBufferBill(utilities.getListBillGas().get(index));
+                startActivity(intent);
             }
         });
 
         listGas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO: 12/03/17 delete gas bill
-                return false;
+                setupDeleteAlert(BillType.GAS, position);
+                return true;
             }
         });
     }
@@ -126,14 +171,20 @@ public class Utilities_Activities extends AppCompatActivity {
         btnNewElec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 12/03/17 add elec bill
+                Intent intent = UtilityEditActivity.getUtilityEditIntent(Utilities_Activities.this);
+                intent.putExtra("mode", BillEditMode.ADD);
+                intent.putExtra("type", BillType.ELECTRIC);
+                startActivity(intent);
             }
         });
 
         btnNewGas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 12/03/17 add gas bill
+                Intent intent = UtilityEditActivity.getUtilityEditIntent(Utilities_Activities.this);
+                intent.putExtra("mode", BillEditMode.ADD);
+                intent.putExtra("type", BillType.GAS);
+                startActivity(intent);
             }
         });
     }

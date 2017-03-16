@@ -7,28 +7,33 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import cmpt276.jade.carbontracker.R;
+import cmpt276.jade.carbontracker.UtilityEditActivity;
+import cmpt276.jade.carbontracker.model.Bill;
 
 public class UtilitiesAdapter extends ArrayAdapter{
 
-    public UtilitiesAdapter(Context context, ArrayList<Object> list) {
+    public UtilitiesAdapter(Context context, List list) {
         super(context, 0, list);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Object o = getItem(position);       // ***
+        Bill bill = (Bill) getItem(position);
 
         if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.utility_list, parent, false);
 
-        TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
+        String date = UtilityEditActivity.dateFormat.format(bill.getStartDate())
+                + " - " + UtilityEditActivity.dateFormat.format(bill.getEndDate());
+
+        TextView tvEmission = (TextView) convertView.findViewById(R.id.tvEmission);
         TextView tvDate = (TextView) convertView.findViewById(R.id.tvDate);
 
-        tvName.setText(o.toString());       // ***
-        tvDate.setText("Dummy date");       // ***
+        tvEmission.setText(String.valueOf(Math.round(bill.getEmissionTotal())) + "Kg CO2");
+        tvDate.setText(date);
 
         return convertView;
     }
