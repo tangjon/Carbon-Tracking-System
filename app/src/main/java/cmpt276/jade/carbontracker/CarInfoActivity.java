@@ -145,7 +145,7 @@ public class CarInfoActivity extends AppCompatActivity {
 
     public void setUpCancelBtn() {
         Button btn = (Button) findViewById(R.id.btn_delete);
-        btn.setText(getString(R.string.lable_cancel));
+        btn.setText(getString(R.string.label_cancel));
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

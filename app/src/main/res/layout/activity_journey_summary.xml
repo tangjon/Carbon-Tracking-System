@@ -12,7 +12,7 @@
     tools:context="cmpt276.jade.carbontracker.JourneySummaryActivity">
 
     <Button
-        android:text="@string/back"
+        android:text="@string/label_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -70,7 +70,7 @@
         android:id="@+id/Route_Info_back_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/back2"
+        android:text="@string/label_back"
         android:layout_alignTop="@+id/Route_Info_text_enter_highway"
         android:layout_alignParentEnd="true" />
 

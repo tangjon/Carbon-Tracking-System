@@ -1,4 +1,8 @@
 <resources>
+    <!--DEFAULT PLACE HOLDERS-->
+    <string name="DEFAULT_NUM">##</string>
+    <string name="DEFAULT_TXT">TextView</string>
+
     <!--Authors -->
     <string name="jonathan_tang">Jonathan Tang</string>
     <string name="sean_ehrenfellner">Sean Ehrenfellner</string>
@@ -8,17 +12,8 @@
 
     <!--General Purpose-->
     <string name="app_name">Carbon Tracker</string>
-    <string name="label_make">Manufacturer:</string>
-    <string name="label_year">Year:</string>
-    <string name="label_model">Model:</string>
-    <string name="label_CityMPG">City MPG:</string>
-    <string name="label_HighwayMPG">Highway MPG:</string>
     <string name="label_add">ADD</string>
     <string name="label_next">NEXT</string>
-    <string name="label_displ">Displacement</string>
-    <string name="label_engine">Engine</string>
-    <string name="label_fuel_cost">Fuel Cost</string>
-    <string name="label_transmission">Transmission</string>
     <string name="label_short_summary">Short Summary</string>
     <string name="label_delete">DELETE</string>
     <string name="label_skip">Skip</string>
@@ -32,8 +27,10 @@
     <string name="label_route_name">Route Name:</string>
     <string name="label_highway">HighWay:</string>
     <string name="label_city">City:</string>
-    <string name="DEFAULT_NUM">##</string>
-    <string name="DEFAULT_TXT">TXT</string>
+    <string name="label_back">Back</string>
+    <string name="label_accept">Accept</string>
+    <string name="label_cancel">Cancel</string>
+    <string name="label_preview">Preview</string>
 
     <!--Action ToolBar Hints-->
     <string name="CarListActivityHint">Select/Add a Car</string>
@@ -58,6 +55,15 @@
     </string>
 
     <!--CAR INFO-->
+    <string name="label_displ">Displacement</string>
+    <string name="label_engine">Engine</string>
+    <string name="label_fuel_cost">Fuel Cost</string>
+    <string name="label_transmission">Transmission</string>
+    <string name="label_make">Manufacturer:</string>
+    <string name="label_year">Year:</string>
+    <string name="label_model">Model:</string>
+    <string name="label_CityMPG">City MPG:</string>
+    <string name="label_HighwayMPG">Highway MPG:</string>
     <string name="car_info">Name: %1$s
         \nManufacturer: %2$s
         \nModel: %3$s
@@ -65,7 +71,14 @@
         \nFuel Type: %5$s
     </string>
 
+    <!--CAR INFO ACTIVITY-->
+    <string name="carinfo_confirm_edit">Confirm Edit</string>
+
+
     <!--EMISSIONS INFO-->
+    <string name="total_city_high_emission">Total Highway Emissions(Kg):</string>
+    <string name="total_city_emission">Total City Emissions(Kg):</string>
+    <string name="total_emission">Total Emissions(Kg):</string>
     <string name="emission_info">Total Highway Emission(Kg): %1$.2f
         \nTotal City Emissions(Kg): %2$.2f
         \nTotal Emissions(Kg): %3$.2f
@@ -100,7 +113,7 @@
     <string name="textview2">TextView</string>
     <string name="done">Done</string>
     <string name="dd_mm_yyyy">dd/mm/yyyy</string>
-    <string name="back">Back</string>
+
     <string name="car_nickname">Car Nickname</string>
     <string name="textview3">TextView</string>
     <string name="route_nickname">Route Nickname</string>
@@ -118,7 +131,6 @@
     <string name="highway">HighWay:</string>
     <string name="city">City:</string>
     <string name="km2">km</string>
-    <string name="back2">BACK</string>
     <string name="route_name">Route Name:</string>
     <string name="delete2">DELETE</string>
     <string name="save">SAVE</string>
@@ -134,25 +146,19 @@
     <string name="route_info_mode_hint2">You are now in edit and deletion mode</string>
     <string name="route_list_hint">Select or Add a Route</string>
     <string name="route_info_hint">Fill in your route info</string>
-    <string name="lable_cancel">Cancel</string>
-    <string name="carinfo_confirm_edit">Confirm Edit</string>
-    <string name="label_name">Name: </string>
-    <string name="label_date">\nDate: </string>
 
     <string name="label_fuel_type">Fuel Type:</string>
-    <string name="total_city_high_emission">Total Highway Emissions(Kg):</string>
-    <string name="total_city_emission">Total City Emissions(Kg):</string>
-    <string name="total_emission">Total Emissions(Kg):</string>
+
     <string name="label_edit">Edit</string>
     <string name="title_activity_main_menu">MainMenuActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!--Action ToolBar-->
     <string name="action_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nav_overview">Overview</string>
     <string name="nav_journeys">Journeys</string>
     <string name="nav_utilities">Utilities</string>
@@ -176,9 +182,10 @@
         <item>Usage (kWh)</item>
         <item>Usage (GJ)</item>
     </string-array>
-    <string name="label_accept">Accept</string>
-    <string name="label_cancel">Cancel</string>
-    <string name="label_preview">Preview</string>
+
+    <!--New Strings to Organize-->
+    <!--STRING FORMAT GUIDE-->
+    <!--<WHERE>_<WHAT>-->
     <string name="label_delete_confirm">Are you sure you want to delete this bill?</string>
     <string name="toast_bad_date">Please enter valid billing dates!</string>
 
