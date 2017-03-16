@@ -145,7 +145,7 @@ public class CarInfoActivity extends AppCompatActivity {
 
     public void setUpCancelBtn() {
         Button btn = (Button) findViewById(R.id.btn_delete);
-        btn.setText(getString(R.string.lable_cancel));
+        btn.setText(getString(R.string.label_cancel));
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,7 +157,7 @@ public class CarInfoActivity extends AppCompatActivity {
     private void setUpFinishEditBtn(final UUID key) {
         Button btn = (Button) findViewById(R.id.btn_next);
         final EditText et = (EditText) findViewById(R.id.et_nickname);
-        btn.setText(R.string.carinfo_confirm_edit);
+        btn.setText(R.string.car_info_confirm_edit);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
