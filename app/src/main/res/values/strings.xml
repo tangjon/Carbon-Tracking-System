@@ -99,6 +99,7 @@
 
 
     <!--JOURNEY LIST ACTIVITY-->
+    <string name="journey_list_confirm_delete_message">Are you sure you want to delete\n \"%1$s\"</string>
     <string name="label_toggle_graph">Toggle Display</string>
     <string name="hint_click_journey_to_see_summary_long_press_to_edit_or_delete">Hint: Click journey to see summary. Long press to edit or delete.</string>
 

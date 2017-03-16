@@ -1,8 +1,10 @@
 package cmpt276.jade.carbontracker;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +22,7 @@ import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.model.Transportation;
+import cmpt276.jade.carbontracker.utils.BillType;
 
 /**
  *Journey List is your list of journeys and can either add a new journey going to car list or to the emissions overview
@@ -98,8 +101,6 @@ public class JourneyListActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Transportation trans = new Transportation();
                 Route route = new Route("TEMP ROUTE NAME AND DATA", -1, -1);
                 Journey journey = new Journey("TEMP NAME", trans, route);
@@ -180,12 +181,31 @@ public class JourneyListActivity extends AppCompatActivity {
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                listOfJourneys.deleteJourney(position);
-                Emission.getInstance().setJourneyCollection(listOfJourneys);
-                populateList();
+                setupDeleteAlert(position);
                 return true;
             }
         });
     }
 
+    // Inspired by Raz
+    private void setupDeleteAlert( final int index) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        Journey thisJourney = listOfJourneys.getJourney(index);
+        builder.setMessage(getString(R.string.journey_list_confirm_delete_message, thisJourney.getName()));
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(getString(R.string.label_delete), new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                listOfJourneys.deleteJourney(index);
+                Emission.getInstance().setJourneyCollection(listOfJourneys);
+                populateList();
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.label_cancel), null);
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 }
