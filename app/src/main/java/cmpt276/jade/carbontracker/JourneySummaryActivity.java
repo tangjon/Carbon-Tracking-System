@@ -45,28 +45,30 @@ public class JourneySummaryActivity extends AppCompatActivity {
     }
 
     private void setData() {
+        // Display Journey Info
         TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
-        journeyInfo.setText(getString(R.string.label_name)+ " "+journey.getName() + getString(R.string.label_date) + " " + journey.getDate());
+        journeyInfo.setText(getString(R.string.journey_info,journey.getName(),journey.getDate()));
+        // Display Route Info
         TextView routeInfo = (TextView) findViewById(R.id.textRouteInfo);
-        routeInfo.setText(
-                getString(R.string.label_name) +  " " + route.getName() +
-                "\n" + getString(R.string.journey_summary_total_city_distance) + " "+ route.getCityDistance()+
-                "\n" + getString(R.string.journey_summary_total_highway_distance) + " "+route.getHighWayDistance() +
-                "\n" + getString(R.string.journey_summary_total_distance) + " " + journey.getTotalDriven());
-
+        routeInfo.setText(getString(R.string.route_info,
+                journey.getName(),
+                route.getCityDistance(),
+                route.getHighWayDistance(),
+                journey.getTotalDriven()));
+        // Display Car Info
         TextView carInfo = (TextView) findViewById(R.id.textCarInfo);
-        carInfo.setText(getString(
-                R.string.label_name) + " "+car.getNickName() +
-                "\n" + getString(R.string.label_make) + " " + car.getMake() +
-                "\n" + getString(R.string.label_model) + " " + car.getModel()+
-                "\n" + getString(R.string.label_year) + " "+ car.getYear() +
-                "\n" + getString(R.string.label_fuel_type) + " " + car.getFuelType());
-        TextView hwayDrive = (TextView) findViewById(R.id.textEmissionsInfo);
-        hwayDrive.setText(getString(R.string.total_city_high_emission) + " "+ String.format("%.2f",journey.getTotalHighway()) +
-                "\n" + getString(R.string.total_city_emission) + " "+ String.format("%.2f",journey.getTotalCity()) +
-                "\n" + getString(R.string.total_emission)+ " " + String.format("%.2f",journey.getTotalTravelledEmissions()));
-
-
+        carInfo.setText(getString(R.string.car_info,car.getNickName(),
+                car.getMake(),
+                car.getModel(),
+                car.getYear(),
+                car.getFuelType()));
+        // Display Emission Info
+        TextView hWayDrive = (TextView) findViewById(R.id.textEmissionsInfo);
+        hWayDrive.setText(getString(R.string.emission_info,
+                journey.getTotalHighway(),
+                journey.getTotalCity(),
+                journey.getTotalTravelledEmissions()
+        ));
     }
 
     private void setupBackBtn() {
