@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:text="@string/textview8"
+        android:text="@string/DEFAULT_TXT"
         android:textSize="18sp"
         android:textStyle="bold" />
 

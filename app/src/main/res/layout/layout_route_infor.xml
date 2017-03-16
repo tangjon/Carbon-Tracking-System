@@ -19,7 +19,7 @@
         android:layout_below="@+id/Route_Info_text_enter_name"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="@string/name2"
+        android:hint="@string/route_info_label_name"
         android:inputType="textPersonName" />
 
     <EditText
@@ -63,7 +63,7 @@
         android:layout_below="@+id/RouRoute_Info_text_enter_city"
         android:layout_marginTop="27dp"
         android:ems="10"
-        android:hint="@string/km2"
+        android:hint="@string/km"
         android:inputType="numberDecimal" />
 
     <Button
@@ -97,7 +97,7 @@
         android:id="@+id/Route_Info_delete_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/delete2"
+        android:text="@string/label_delete"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="10dp" />
