@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/label_new_electric"
-        android:layout_above="@+id/list_gas"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
 
     <Button
@@ -24,17 +24,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/label_new_gas"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignBaseline="@+id/txt_gas"
+        android:layout_alignBottom="@+id/txt_gas"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/txt_elec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/list_elec"
         android:text="@string/label_list_electric"
-        android:paddingBottom="16dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
         android:textStyle="bold"/>
 
     <TextView
@@ -44,32 +46,45 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:text="@string/label_list_gas"
-        android:paddingBottom="16dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
         android:textStyle="bold"/>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/txt_elec"
-        android:layout_above="@id/btn_new_electric"
-        android:id="@+id/list_elec" />
+        android:layout_below="@+id/btn_new_electric"
+        android:layout_above="@id/btn_new_gas"
+        android:id="@id/list_elec" />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/txt_gas"
-        android:layout_above="@id/btn_new_gas"
+        android:layout_below="@+id/btn_new_gas"
+        android:layout_above="@+id/edit_residents"
         android:id="@+id/list_gas" />
 
     <EditText
-        android:id="@+id/edit_residents"
+        android:id="@id/edit_residents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/list_gas"
         android:ems="10"
         android:hint="@string/hint_residents"
-        android:inputType="number" />
+        android:inputType="number"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="@string/hint_residents"
+        android:layout_alignBaseline="@+id/edit_residents"
+        android:layout_alignBottom="@+id/edit_residents"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
