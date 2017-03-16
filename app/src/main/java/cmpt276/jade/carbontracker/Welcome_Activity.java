@@ -61,7 +61,7 @@ public class Welcome_Activity extends AppCompatActivity {
 
         // Todo Make Sure this is uncommented
         // Uncomment this to load dummy data
-         LoadDummyData.load();
+//         LoadDummyData.load();
     }
     //Sean - makes screen clickable
     private void setupLayoutClick() {
