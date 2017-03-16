@@ -89,6 +89,7 @@ public class Route_List_Activity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 RouteCollection routes= showDifferentListView();
                 Route route = routes.getRouteByIndex(position);
+                //To Sean
                 //for car           (nickname,highway,city)  getOtherDistance=0,getMode=1
                 //for bike          (nickname,0,0)           getOtherDistance=distance,getMode=2
                 //for walk          (nickname,0,0)           getOtherDistance=distance,getMode=5
@@ -175,12 +176,14 @@ public class Route_List_Activity extends AppCompatActivity {
                         RouteCollection routes= showDifferentListView();
                         String RouteName = data.getStringExtra("pass back the route name");
                         String StrWalkDistance = data.getStringExtra("pass back the distance");
+                        int BikeOrWalk = data.getIntExtra("pass back the mode",0);
                         double distance = Double.parseDouble(StrWalkDistance);
                         Route addedRoute = new Route(RouteName, 0, 0);
                         //set bus as name,0,0
                         //but will set distance and set mode
                         addedRoute.setOtherDistance(distance);
-                        if(mode==2) {addedRoute.setMode(2);}
+                        if(BikeOrWalk==2) {addedRoute.setMode(2);}//bike
+                        else if(BikeOrWalk==5) {addedRoute.setMode(5);}//walk
                         else if(mode==3) {addedRoute.setMode(3);}
                         else if(mode==4) {addedRoute.setMode(4);}
                         routes.addRoute(addedRoute);

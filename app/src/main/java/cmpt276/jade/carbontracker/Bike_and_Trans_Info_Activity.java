@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,13 +22,12 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_bike_info);
-
-        setupOKbtn();
-
+        getMode();
         setupUI();
         setupCanselBtn();
         setupDeleteBtn();
-
+        if(getMode()==2){setupTwoBtn();}//add bike btn and add walk btn
+        else if (getMode()!=2){setupOKbtn();}//otherwise, just have a ok btn
     }
 
 
@@ -46,24 +46,42 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
 
 
     private void setupOKbtn() {
+        //hide the bike and walk btn
+        Button bike = (Button) findViewById(R.id.Bike_Info_bike_btn);
+        Button walk = (Button) findViewById(R.id.Bike_Info_walk_btn);
+        bike.getBackground().setAlpha(00);
+        walk.getBackground().setAlpha(00);
+        bike.setText("");
+        walk.setText("");
+
         Button btn = (Button) findViewById(R.id.Bike_Info_ok_btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Check_empty_input(R.id.Bike_Info_edit_name) == 0) {
-                    Toast.makeText(getApplicationContext(), "You haven't enter the name" + " please try again", Toast.LENGTH_LONG).show();
-                } else {
-                    if (Check_empty_input(R.id.Bike_Info_edit_distance) == 0) {
-                        Toast.makeText(getApplicationContext(), "You did not entered any number for Distance " + " please try again", Toast.LENGTH_LONG).show();
-                    } else {
-                        double distance = Double.parseDouble(getNameById(R.id.Bike_Info_edit_distance));
-                        if (distance >= 0) {
-                            pass_back_route();
-                            finish();
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(), "You entered a invalid numer " + " please try again", Toast.LENGTH_LONG).show();
-                            }}}}});
+                check_and_add_to_list(getMode());
+            }
+        });
+    }
+
+    private void setupTwoBtn() {
+        //hide ok btn
+        Button bike = (Button) findViewById(R.id.Bike_Info_bike_btn);
+        Button walk = (Button) findViewById(R.id.Bike_Info_walk_btn);
+        Button ok = (Button) findViewById(R.id.Bike_Info_ok_btn);
+        ok.getBackground().setAlpha(00);
+        ok.setText("");
+        bike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                check_and_add_to_list(2);
+            }});
+        walk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    check_and_add_to_list(5);
+                }
+            });
+
     }
 
 
@@ -81,11 +99,12 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
         return EditRouteName.getText().toString();
     }
 
-    private void pass_back_route() {
+    private void pass_back_route(int mode) {
         Intent back_Route = new Intent();
         //back_Route.putExtra("Journey", journey);
         back_Route.putExtra("pass back the route name", getNameById(R.id.Bike_Info_edit_name));
         back_Route.putExtra("pass back the distance", getNameById(R.id.Bike_Info_edit_distance));
+        back_Route.putExtra("pass back the mode", mode);
         if (getClickedRoutePosition() != null) {
             back_Route.putExtra("delete is clicked", "0");
             back_Route.putExtra("pass back the route position", getClickedRoutePosition());
@@ -148,6 +167,23 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void check_and_add_to_list(int mode) {
+        if (Check_empty_input(R.id.Bike_Info_edit_name) == 0) {
+            Toast.makeText(getApplicationContext(), "You haven't enter the name" + " please try again", Toast.LENGTH_LONG).show();
+        } else {
+            if (Check_empty_input(R.id.Bike_Info_edit_distance) == 0) {
+                Toast.makeText(getApplicationContext(), "You did not entered any number for Distance " + " please try again", Toast.LENGTH_LONG).show();
+            } else {
+                double distance = Double.parseDouble(getNameById(R.id.Bike_Info_edit_distance));
+                if (distance >= 0) {
+                    pass_back_route(mode);
+                    finish();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "You entered a invalid numer " + " please try again", Toast.LENGTH_LONG).show();
+                }}}
     }
 
 
