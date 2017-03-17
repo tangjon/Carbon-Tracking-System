@@ -72,7 +72,11 @@ public class Graph {
             if (bills.size() < 1) bills.add(
                     utilities.getNearestBill(dateSelected, BillType.ELECTRIC));
         }
-        else bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.ELECTRIC);
+        else {
+            bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.ELECTRIC);
+            if (bills.size() < 1) bills.add(
+                    utilities.getNearestBill(dateSelected, BillType.ELECTRIC));
+        }
         for (Bill b : bills) {
             billSum += b.getEmissionAvg();
         }
@@ -85,7 +89,11 @@ public class Graph {
             if (bills.size() < 1) bills.add(
                     utilities.getNearestBill(dateSelected, BillType.GAS));
         }
-        else bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.GAS);
+        else {
+            bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.GAS);
+            if (bills.size() < 1) bills.add(
+                    utilities.getNearestBill(dateSelected, BillType.GAS));
+        }
         for (Bill b : bills)
             billSum += b.getEmissionAvg();
         pieEntries.add(new PieEntry(billSum, "Gas"));
