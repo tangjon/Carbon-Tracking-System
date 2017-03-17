@@ -62,6 +62,36 @@ public class Utilities implements Serializable {
         return usableBills;
     }
 
+    public Bill getNearestBill(Date date, BillType type) {
+        List<Bill> bills;
+
+        if (type == BillType.ELECTRIC) bills = listBillElec;
+        else bills = listBillGas;
+
+        long dateDiffStart, dateDiffEnd, dateDiffStartLast, dateDiffEndLast;
+        dateDiffStartLast = 0; dateDiffEndLast = 0;
+        Bill billSelected = bills.get(0);
+
+        for (Bill b : bills) {
+            dateDiffStart = Math.abs(date.getTime() - b.getStartDate().getTime());
+            dateDiffEnd = Math.abs(date.getTime() - b.getEndDate().getTime());
+
+            if (dateDiffStartLast == 0) {
+                dateDiffStartLast = dateDiffStart;
+                dateDiffEndLast = dateDiffEnd;
+                billSelected = b;
+            }
+
+            if (dateDiffStart < dateDiffStartLast || dateDiffEnd < dateDiffEndLast) {
+                dateDiffStartLast = dateDiffStart;
+                dateDiffEndLast = dateDiffEnd;
+                billSelected = b;
+            }
+        }
+
+        return billSelected;
+    }
+
     public int getNumResidents() {
         return numResidents;
     }

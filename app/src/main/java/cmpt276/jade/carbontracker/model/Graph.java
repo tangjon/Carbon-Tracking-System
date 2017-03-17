@@ -67,7 +67,11 @@ public class Graph {
 
         // Electric Bills
         if (mode == 0) bills = utilities.getListBillElec();
-        else if (mode == 1) bills = utilities.getBillsOnDay(dateSelected, BillType.ELECTRIC);
+        else if (mode == 1) {
+            bills = utilities.getBillsOnDay(dateSelected, BillType.ELECTRIC);
+            if (bills.size() < 1) bills.add(
+                    utilities.getNearestBill(dateSelected, BillType.ELECTRIC));
+        }
         else bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.ELECTRIC);
         for (Bill b : bills) {
             billSum += b.getEmissionAvg();
@@ -76,7 +80,11 @@ public class Graph {
 
         // Gas Bills
         if (mode == 0) bills = utilities.getListBillGas();
-        else if (mode == 1) bills = utilities.getBillsOnDay(dateSelected, BillType.GAS);
+        else if (mode == 1) {
+            bills = utilities.getBillsOnDay(dateSelected, BillType.GAS);
+            if (bills.size() < 1) bills.add(
+                    utilities.getNearestBill(dateSelected, BillType.GAS));
+        }
         else bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.GAS);
         for (Bill b : bills)
             billSum += b.getEmissionAvg();
