@@ -108,7 +108,9 @@ public class JourneyListActivity extends AppCompatActivity {
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                EditDialog editDialog = new EditDialog();
+
+                // Set Up Edit Dialog Includes Edit and Delete Features
+                EditDialog editDialog = EditDialog.newInstance(listOfJourneys.getJourney(position));
                 editDialog.setPosition(position);
                 editDialog.setEditDialogListener(new EditDialog.EditDialogListener() {
                     @Override

@@ -64,7 +64,7 @@ public class CarListActivity extends AppCompatActivity {
         lstView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                EditDialog editDialog = new EditDialog();
+                EditDialog editDialog = EditDialog.newInstance(recentCarList.getCar(position));
                 editDialog.setPosition(position);
                 editDialog.setEditDialogListener(new EditDialog.EditDialogListener() {
                     @Override
@@ -129,33 +129,6 @@ public class CarListActivity extends AppCompatActivity {
 
     }
     */
-
-    private void setUpEditInterface(final int index){
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final View mView = getLayoutInflater().inflate(R.layout.dialog_fragment_edit, null);
-        Button btn_delete = (Button) mView.findViewById(R.id.btn_delete);
-        Button btn_edit = (Button) mView.findViewById(R.id.btn_edit);
-        builder.setView(mView);
-        final AlertDialog alert = builder.create();
-        alert.show();
-        btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setupDelete(index);
-                alert.dismiss();
-            }
-        });
-        btn_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
-                intent.putExtra(CAR_KEY, recentCarList.getCar(index).getKEY().toString());
-                startActivity(intent);
-                alert.dismiss();
-            }
-        });
-    }
-
 
     // Inspired by Raz
     private void setupDelete( final int index) {
