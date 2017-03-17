@@ -94,7 +94,7 @@ public class CarInfoActivity extends AppCompatActivity {
     private UUID loadCurrentCar() {
         String key = getIntent().getExtras().getString(CarListActivity.CAR_KEY);
         userSelectedCar = CarListActivity.recentCarList.getCarByKey(key);
-        Log.i(TAG, "onEdit: " + userSelectedCar);
+        Log.i(TAG, "onEditDialogEdit: " + userSelectedCar);
         UUID thisKey = userSelectedCar.getKEY();
         selectMake = userSelectedCar.getMake();
         selectModel = userSelectedCar.getModel();
@@ -137,7 +137,7 @@ public class CarInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 userSelectedCar.setKEY(key);
                 Boolean bool = CarListActivity.recentCarList.remove(userSelectedCar);
-                Log.i(TAG, "onDelete: " + bool);
+                Log.i(TAG, "onEditDialogDelete: " + bool);
                 finish();
             }
         });
