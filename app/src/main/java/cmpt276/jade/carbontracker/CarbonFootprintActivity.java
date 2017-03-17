@@ -138,19 +138,20 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     }
 
     private void setupPieChart() {
-        List<PieEntry> pieEntries = new ArrayList<>();
+        /*List<PieEntry> pieEntries = new ArrayList<>();
         for (int i = 0; i < NUM_ENTRIES; ++i)
             pieEntries.add(new PieEntry(emissionValues[i], emissionRouteNames[i]));
 
         PieDataSet dataSet = new PieDataSet(pieEntries, getResources().getString(R.string.label_graph_title));
         dataSet.setColors(ColorTemplate.PASTEL_COLORS);
-        PieData data = new PieData(dataSet);
+        PieData data = new PieData(dataSet);*/
+
+        PieData data = Emission.getInstance().getGraph()
+                .getPieData(getString(R.string.label_graph_title));
         data.setValueTextSize(12f);
 
         pieChart = (PieChart) findViewById(R.id.pie_graph);
         pieChart.setData(data);
-        /*Legend l = pieChart.getLegend();
-        l.setWordWrapEnabled(true);*/
         pieChart.getLegend().setEnabled(false);
 
         Description desc = new Description();
