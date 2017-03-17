@@ -48,7 +48,7 @@ public class Utilities_Activities extends AppCompatActivity {
         builder.setMessage(getString(R.string.label_delete_confirm));
         builder.setCancelable(true);
 
-        builder.setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener(){
+        builder.setPositiveButton(getString(R.string.label_delete), new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 utilities.deleteBill(type, index);

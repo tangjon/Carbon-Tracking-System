@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/textView13"
-            android:text="@string/textview" />
+            android:text="@string/DEFAULT_TXT" />
 
         <TextView
             android:id="@+id/txtRouteInfo"
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/textView23"
             android:layout_below="@+id/textView23"
-            android:text="@string/textview2" />
+            android:text="@string/DEFAULT_TXT" />
 
         <Button
             android:id="@+id/btnFinish"
@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:text="@string/done" />
+            android:text="@string/label_done" />
 
         <EditText
             android:id="@+id/editDate"

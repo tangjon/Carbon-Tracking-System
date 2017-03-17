@@ -14,7 +14,7 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:text="@string/textview9"
+        android:text="@string/DEFAULT_TXT"
         android:textColor="@color/primary_text"
         android:textSize="18sp"
         android:textStyle="bold" />
