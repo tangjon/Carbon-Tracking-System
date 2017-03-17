@@ -2,6 +2,7 @@ package cmpt276.jade.carbontracker.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cmpt276.jade.carbontracker.utils.BillType;
@@ -22,6 +23,38 @@ public class Utilities implements Serializable {
         listBillElec = new ArrayList<>();
         listBillGas = new ArrayList<>();
 
+    }
+
+    public List<Bill> getBillsOnDay(Date date, BillType type) {
+        List<Bill> usableBills = new ArrayList<>();
+        List<Bill> bills = new ArrayList<>();
+
+        if (type == BillType.ELECTRIC) bills.addAll(listBillElec);
+        else bills.addAll(listBillGas);
+
+        for (Bill b : bills) {
+            if (b.getStartDate().before(date) && b.getEndDate().after(date))
+                usableBills.add(b);
+        }
+
+        return usableBills;
+    }
+
+    public List<Bill> getBillsWithinRange(Date start, Date end, BillType type) {
+        List<Bill> usableBills = new ArrayList<>();
+        List<Bill> bills = new ArrayList<>();
+
+        if (type == BillType.ELECTRIC) bills.addAll(listBillElec);
+        else bills.addAll(listBillGas);
+
+        for (Bill b : bills) {
+            if (b.getStartDate().after(start) && b.getStartDate().before(end))
+                usableBills.add(b);
+            else if (b.getEndDate().after(start) && b.getEndDate().before(end))
+                usableBills.add(b);
+        }
+
+        return usableBills;
     }
 
     public int getNumResidents() {
