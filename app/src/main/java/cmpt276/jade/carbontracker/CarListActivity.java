@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.adapter.CarListAdapter;
 import cmpt276.jade.carbontracker.fragment.EditDialog;
@@ -64,16 +65,8 @@ public class CarListActivity extends AppCompatActivity implements EditDialog.Edi
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 EditDialog editDialog = new EditDialog();
-//                Bundle args = new Bundle();
-//                args.putInt("pos", position);
-//                editDialog.setArguments(args);
-                editDialog.show(getSupportFragmentManager(),"HELLO");
-
-//                setUpEditInterface(position);
-//                Car car = (Car) parent.getAdapter().getItem(position);
-//                Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
-//                intent.putExtra(CAR_KEY, car.getKEY().toString());
-//                startActivity(intent);
+                editDialog.setPosition(position);
+                editDialog.show(getSupportFragmentManager(), "EditDialog");
                 return true;
             }
         });
@@ -172,13 +165,16 @@ public class CarListActivity extends AppCompatActivity implements EditDialog.Edi
         alert.show();
     }
 
-    @Override
-    public void onEditDialogDelete() {
 
+    @Override
+    public void onEditDialogDelete(int pos) {
+        setupDelete(pos);
     }
 
     @Override
-    public void onEditDialogEdit() {
-
+    public void onEditDialogEdit(int pos) {
+        Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
+        intent.putExtra(CAR_KEY, recentCarList.getCar(pos).getKEY().toString());
+        startActivity(intent);
     }
 }

@@ -23,6 +23,7 @@ public class EditDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+//        position = getArguments().getInt("pos");
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.dialog_fragment_edit,null);
@@ -32,7 +33,7 @@ public class EditDialog extends DialogFragment {
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHost.onEditDialogDelete();
+                mHost.onEditDialogDelete(position);
                 dismiss();
             }
         });
@@ -40,13 +41,16 @@ public class EditDialog extends DialogFragment {
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHost.onEditDialogEdit();
+                mHost.onEditDialogEdit(position);
                 dismiss();
             }
         });
 
         return builder.create();
 
+    }
+    public void setPosition(int pos){
+        position = pos;
     }
 
     @Override
@@ -56,8 +60,8 @@ public class EditDialog extends DialogFragment {
     }
 
     public interface EditDialogListener{
-        public void onEditDialogDelete();
-        public void onEditDialogEdit();
+        public void onEditDialogDelete(int pos);
+        public void onEditDialogEdit(int pos);
     }
 }
 
