@@ -12,13 +12,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.model.Graph;
 import cmpt276.jade.carbontracker.model.Utilities;
 import cmpt276.jade.carbontracker.utils.BillEditMode;
 import cmpt276.jade.carbontracker.utils.BillType;
@@ -34,7 +33,6 @@ public class UtilityEditActivity extends AppCompatActivity {
     private EditText editDateStart;
     private EditText editDateEnd;
     private Calendar calendar;
-    public static SimpleDateFormat dateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,6 @@ public class UtilityEditActivity extends AppCompatActivity {
 
         emission = Emission.getInstance();
         calendar = Calendar.getInstance();
-        dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
         getIntentData();
         setupUI();
@@ -59,7 +56,7 @@ public class UtilityEditActivity extends AppCompatActivity {
                 dateNew.set(year, month, dayOfMonth);
 
                 if (dateNew.getTime().before(buffer.getEndDate())) {
-                    editDateStart.setText(dateFormat.format(dateNew.getTime()));
+                    editDateStart.setText(Emission.DATE_FORMAT.format(dateNew.getTime()));
                     buffer.setStartDate(dateNew.getTime());
                 } else {
                     Toast.makeText(UtilityEditActivity.this,
@@ -75,7 +72,7 @@ public class UtilityEditActivity extends AppCompatActivity {
                 dateNew.set(year, month, dayOfMonth);
 
                 if (dateNew.getTime().after(buffer.getStartDate())) {
-                    editDateEnd.setText(dateFormat.format(dateNew.getTime()));
+                    editDateEnd.setText(Emission.DATE_FORMAT.format(dateNew.getTime()));
                     buffer.setEndDate(dateNew.getTime());
                 } else {
                     Toast.makeText(UtilityEditActivity.this,
@@ -159,8 +156,8 @@ public class UtilityEditActivity extends AppCompatActivity {
         if (mode == BillEditMode.EDIT) {
             EditText editInput = (EditText) findViewById(R.id.editBillInput);
 
-            editDateStart.setText(dateFormat.format(buffer.getStartDate()));
-            editDateEnd.setText(dateFormat.format(buffer.getEndDate()));
+            editDateStart.setText(Emission.DATE_FORMAT.format(buffer.getStartDate()));
+            editDateEnd.setText(Emission.DATE_FORMAT.format(buffer.getEndDate()));
             editInput.setText(String.valueOf(buffer.getInput()));
         }
 

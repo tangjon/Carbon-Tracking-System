@@ -5,19 +5,16 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import cmpt276.jade.carbontracker.utils.BillType;
 
 /**
- * Manages graph generation
+ * Static class which generates data for graphing
  */
 public class Graph {
-    private static final Graph graph = new Graph();
     private static Emission emission;
     private static Utilities utilities;
     private static JourneyCollection journeyCollection;
@@ -26,10 +23,7 @@ public class Graph {
         updateData();
     }
 
-    public static final SimpleDateFormat DATE_FORMAT =
-            new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-
-    static void updateData(){
+    private static void updateData(){
         emission = Emission.getInstance();
         utilities = emission.getUtilities();
         journeyCollection = emission.getJourneyCollection();

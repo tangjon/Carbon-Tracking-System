@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 /**
  * Singleton facade for use by UI
  */
@@ -23,6 +26,9 @@ public class Emission {
      */
     private Journey buffer;
     private Bill bufferBill;
+
+    public static final SimpleDateFormat DATE_FORMAT =
+            new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
     private Emission() {
         if (instance != null)
