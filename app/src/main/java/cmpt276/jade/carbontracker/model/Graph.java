@@ -40,89 +40,31 @@ public class Graph {
     }
 
     // Returns PieData used for generating pie graph in UI
-    // This version uses all data
+    // mode : set to 0 if using all data, 1 if using specific date, 2 if within date range
+    // Specific date arguments can be null if not used (see 'mode')
     // TODO: adapt to other emission-producing things
-    public PieData getPieData(String label) {
+    public PieData getPieData(String label, int mode,
+                              Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
         List<PieEntry> pieEntries = new ArrayList<>();
-        RouteData routeData = new RouteData(journeyCollection);
-        List<Bill> bills;
-        float billSum = 0f;
 
-        // Journeys
-        for (int i = 0; i < journeyCollection.countJourneys(); ++i)
-            pieEntries.add(new PieEntry(routeData.values[i], routeData.nameRoute[i]));
-
-        // Electric Bills
-        bills = utilities.getListBillElec();
-        for (Bill b : bills)
-            billSum += b.getEmissionAvg();
-        pieEntries.add(new PieEntry(billSum, "Electricity"));
-
-        // Gas Bills
-        bills = utilities.getListBillGas();
-        for (Bill b : bills)
-            billSum += b.getEmissionAvg();
-        pieEntries.add(new PieEntry(billSum, "Gas"));
-
-        PieDataSet dataSet = new PieDataSet(pieEntries, label);
-        dataSet.setColors(ColorTemplate.PASTEL_COLORS);
-
-        return new PieData(dataSet);
-    }
-
-    // This version uses only data occurring on a specific date
-    // TODO: adapt to other emission-producing things
-    public PieData getPieData(String label, Date dateSelected) {
-        List<PieEntry> pieEntries = new ArrayList<>();
         JourneyCollection buffer = new JourneyCollection();
 
-        // TODO: use Date objects from Journey
-        for (int i = 0; i < journeyCollection.countJourneys(); ++i)
-            // if (journeyCollection.getJourney(i).getDate().equals(dateSelected))
+        if (mode == 0) buffer = journeyCollection;
+        else if (mode == 1) {
+            for (int i = 0; i < journeyCollection.countJourneys(); ++i)
+                if (journeyCollection.getJourney(i).getDate().equals(dateSelected))     // *****
+                    buffer.addJourney(journeyCollection.getJourney(i));
+        } else {
+            Journey j;
+            for (int i = 0; i < journeyCollection.countJourneys(); ++i) {
+                /*j = journeyCollection.getJourney(i);                                  // *****
+                Date d = j.getDate();
+                if (d.equals(dateRangeStart) || d.equals(dateRangeEnd)
+                       || (d.before(dateRangeEnd) && d.after(dateRangeStart)))
+                   buffer.addJourney(j);
+                */
                 buffer.addJourney(journeyCollection.getJourney(i));
-
-        RouteData routeData = new RouteData(buffer);
-        List<Bill> bills;
-        float billSum = 0f;
-
-        // Journeys
-        for (int i = 0; i < buffer.countJourneys(); ++i)
-            pieEntries.add(new PieEntry(routeData.values[i], routeData.nameRoute[i]));
-
-        // Electric Bills
-        bills = utilities.getBillsOnDay(dateSelected, BillType.ELECTRIC);
-        for (Bill b : bills)
-            billSum += b.getEmissionAvg();
-        pieEntries.add(new PieEntry(billSum, "Electricity"));
-
-        // Gas Bills
-        bills = utilities.getBillsOnDay(dateSelected, BillType.GAS);
-        for (Bill b : bills)
-            billSum += b.getEmissionAvg();
-        pieEntries.add(new PieEntry(billSum, "Gas"));
-
-        PieDataSet dataSet = new PieDataSet(pieEntries, label);
-        dataSet.setColors(ColorTemplate.PASTEL_COLORS);
-
-        return new PieData(dataSet);
-    }
-
-    // This version uses only data occurring within a specific range
-    // TODO: adapt to other emission-producing things
-    public PieData getPieData(String label, Date dateRangeStart, Date dateRangeEnd) {
-        List<PieEntry> pieEntries = new ArrayList<>();
-        JourneyCollection buffer = new JourneyCollection();
-        Journey j;
-
-        // TODO: use Date objects from Journey
-        for (int i = 0; i < journeyCollection.countJourneys(); ++i) {
-            /*j = journeyCollection.getJourney(i);
-            Date d = j.getDate();
-            if (d.equals(dateRangeStart) || d.equals(dateRangeEnd)
-                    || (d.before(dateRangeEnd) && d.after(dateRangeStart)))
-                buffer.addJourney(j);
-            */
-            buffer.addJourney(journeyCollection.getJourney(i));
+            }
         }
 
         RouteData routeData = new RouteData(buffer);
@@ -134,13 +76,18 @@ public class Graph {
             pieEntries.add(new PieEntry(routeData.values[i], routeData.nameRoute[i]));
 
         // Electric Bills
-        bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.ELECTRIC);
-        for (Bill b : bills)
+        if (mode == 0) bills = utilities.getListBillElec();
+        else if (mode == 1) bills = utilities.getBillsOnDay(dateSelected, BillType.ELECTRIC);
+        else bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.ELECTRIC);
+        for (Bill b : bills) {
             billSum += b.getEmissionAvg();
+        }
         pieEntries.add(new PieEntry(billSum, "Electricity"));
 
         // Gas Bills
-        bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.GAS);
+        if (mode == 0) bills = utilities.getListBillGas();
+        else if (mode == 1) bills = utilities.getBillsOnDay(dateSelected, BillType.GAS);
+        else bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.GAS);
         for (Bill b : bills)
             billSum += b.getEmissionAvg();
         pieEntries.add(new PieEntry(billSum, "Gas"));
