@@ -19,23 +19,27 @@ import cmpt276.jade.carbontracker.utils.BillType;
  * Manages graph generation
  */
 public class Graph {
+    private static final Graph graph = new Graph();
     private Emission emission;
-    private Utilities utilities;
-    private JourneyCollection journeyCollection;
+    private static Utilities utilities;
+    private static JourneyCollection journeyCollection;
     private Date dateSelected;
     private Date dateRangeStart;
     private Date dateRangeEnd;
     private Calendar dateNew;
 
+    private Graph() {
+        updateData();
+    }
+
     public static final SimpleDateFormat DATE_FORMAT =
             new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
-    public Graph(){
+    void updateData(){
         emission = Emission.getInstance();
         utilities = emission.getUtilities();
         journeyCollection = emission.getJourneyCollection();
         dateNew = Calendar.getInstance();
-
         dateSelected = dateNew.getTime();
     }
 
@@ -43,10 +47,9 @@ public class Graph {
     // mode : set to 0 if using all data, 1 if using specific date, 2 if within date range
     // Specific date arguments can be null if not used (see 'mode')
     // TODO: adapt to other emission-producing things
-    public PieData getPieData(String label, int mode,
+    public static PieData getPieData(String label, int mode,
                               Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
         List<PieEntry> pieEntries = new ArrayList<>();
-
         JourneyCollection buffer = new JourneyCollection();
 
         if (mode == 0) buffer = journeyCollection;
@@ -98,11 +101,6 @@ public class Graph {
         return new PieData(dataSet);
     }
 
-    public void updateData() {
-        utilities = emission.getUtilities();
-        journeyCollection = emission.getJourneyCollection();
-    }
-
     public Date getDateSelected() {
         return dateSelected;
     }
@@ -127,7 +125,7 @@ public class Graph {
         this.dateRangeEnd = dateRangeEnd;
     }
 
-    private class RouteData {
+    private static class RouteData {
         public List<Entry> entries;
         public String nameRoute[];
         public String nameVehicle[];

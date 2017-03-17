@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.model.Graph;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 /*
@@ -146,8 +147,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         dataSet.setColors(ColorTemplate.PASTEL_COLORS);
         PieData data = new PieData(dataSet);*/
 
-        PieData data = Emission.getInstance().getGraph()
-                .getPieData(getString(R.string.label_graph_title));
+        PieData data = Graph.getPieData(getString(R.string.label_graph_title), 0, null, null, null);
         data.setValueTextSize(12f);
 
         pieChart = (PieChart) findViewById(R.id.pie_graph);
