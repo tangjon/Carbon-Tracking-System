@@ -33,7 +33,9 @@ public class Utilities implements Serializable {
         else bills.addAll(listBillGas);
 
         for (Bill b : bills) {
-            if (b.getStartDate().before(date) && b.getEndDate().after(date))
+            if ((b.getStartDate().before(date) && b.getEndDate().after(date))
+                    || b.getStartDate().compareTo(date) == 0
+                    || b.getEndDate().compareTo(date) == 0)
                 usableBills.add(b);
         }
 
@@ -51,6 +53,9 @@ public class Utilities implements Serializable {
             if (b.getStartDate().after(start) && b.getStartDate().before(end))
                 usableBills.add(b);
             else if (b.getEndDate().after(start) && b.getEndDate().before(end))
+                usableBills.add(b);
+            else if (b.getStartDate().compareTo(start) == 0 || b.getStartDate().compareTo(end) == 0
+                    || b.getEndDate().compareTo(start) == 0 || b.getEndDate().compareTo(end) == 0)
                 usableBills.add(b);
         }
 
