@@ -53,10 +53,8 @@ public class EditDialog extends DialogFragment {
         position = pos;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mHost = (EditDialogListener) context;
+    public void setEditDialogListener(EditDialogListener e){
+        mHost = e;
     }
 
     public interface EditDialogListener{

@@ -23,7 +23,7 @@ import cmpt276.jade.carbontracker.utils.Mode;
  * Display a list of recently added Cars to user
  */
 
-public class CarListActivity extends AppCompatActivity implements EditDialog.EditDialogListener {
+public class CarListActivity extends AppCompatActivity {
     // Field for Recent Car List
     public static CarCollection recentCarList = new CarCollection();
 
@@ -66,6 +66,19 @@ public class CarListActivity extends AppCompatActivity implements EditDialog.Edi
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 EditDialog editDialog = new EditDialog();
                 editDialog.setPosition(position);
+                editDialog.setEditDialogListener(new EditDialog.EditDialogListener() {
+                    @Override
+                    public void onEditDialogDelete(int pos) {
+                        setupDelete(pos);
+                    }
+
+                    @Override
+                    public void onEditDialogEdit(int pos) {
+                        Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
+                        intent.putExtra(CAR_KEY, recentCarList.getCar(pos).getKEY().toString());
+                        startActivity(intent);
+                    }
+                });
                 editDialog.show(getSupportFragmentManager(), "EditDialog");
                 return true;
             }
@@ -163,18 +176,5 @@ public class CarListActivity extends AppCompatActivity implements EditDialog.Edi
 
         AlertDialog alert = builder.create();
         alert.show();
-    }
-
-
-    @Override
-    public void onEditDialogDelete(int pos) {
-        setupDelete(pos);
-    }
-
-    @Override
-    public void onEditDialogEdit(int pos) {
-        Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
-        intent.putExtra(CAR_KEY, recentCarList.getCar(pos).getKEY().toString());
-        startActivity(intent);
     }
 }

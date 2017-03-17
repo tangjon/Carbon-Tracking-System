@@ -29,7 +29,7 @@ import android.content.Context;
  *Journey List is your list of journeys and can either add a new journey going to car list or to the emissions overview
  * Can also edit journey entries or delete journey entries
  */
-public class JourneyListActivity extends AppCompatActivity implements EditDialog.EditDialogListener{
+public class JourneyListActivity extends AppCompatActivity {
     public static JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
     //  private Journey intentJourney;
     private int Mode = 0;
@@ -110,6 +110,22 @@ public class JourneyListActivity extends AppCompatActivity implements EditDialog
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 EditDialog editDialog = new EditDialog();
                 editDialog.setPosition(position);
+                editDialog.setEditDialogListener(new EditDialog.EditDialogListener() {
+                    @Override
+                    public void onEditDialogDelete(int pos) {
+                        setupDeleteAlert(pos);
+                        populateList();
+                    }
+
+                    @Override
+                    public void onEditDialogEdit(int pos) {
+                        Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
+                        Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(pos));
+                        Emission.getInstance().getJourneyBuffer().setPosition(pos);
+                        Emission.getInstance().getJourneyBuffer().setMode(1);
+                        startActivity(intent);
+                    }
+                });
                 editDialog.show(getSupportFragmentManager(),"EditDialog");
 
 
@@ -131,7 +147,7 @@ public class JourneyListActivity extends AppCompatActivity implements EditDialog
         builder.setMessage(getString(R.string.journey_list_confirm_delete_message, thisJourney.getName()));
         builder.setCancelable(true);
 
-        builder.setPositiveButton(getString(R.string.label_delete), new DialogInterface.OnClickListener(){
+        builder.setPositiveButton(getString(R.string.label_delete), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 listOfJourneys.deleteJourney(index);
@@ -144,20 +160,5 @@ public class JourneyListActivity extends AppCompatActivity implements EditDialog
 
         AlertDialog alert = builder.create();
         alert.show();
-    }
-
-    @Override
-    public void onEditDialogDelete(int pos) {
-        setupDeleteAlert(pos);
-        populateList();
-    }
-
-    @Override
-    public void onEditDialogEdit(int pos) {
-        Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
-        Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(pos));
-        Emission.getInstance().getJourneyBuffer().setPosition(pos);
-        Emission.getInstance().getJourneyBuffer().setMode(1);
-        startActivity(intent);
     }
 }
