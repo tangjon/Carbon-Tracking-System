@@ -16,7 +16,8 @@ import android.content.Context;
         import java.nio.Buffer;
 
         import cmpt276.jade.carbontracker.adapter.RouteListAdapter;
-        import cmpt276.jade.carbontracker.fragment.EditDialog;
+import cmpt276.jade.carbontracker.enums.Transport;
+import cmpt276.jade.carbontracker.fragment.EditDialog;
         import cmpt276.jade.carbontracker.model.Car;
         import cmpt276.jade.carbontracker.model.Emission;
         import cmpt276.jade.carbontracker.model.Journey;
@@ -109,8 +110,10 @@ public class JourneyListActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
+                Journey journey = listOfJourneys.getJourney(position);
+
                 // Set Up Edit Dialog Includes Edit and Delete Features
-                EditDialog editDialog = EditDialog.newInstance(listOfJourneys.getJourney(position));
+                EditDialog editDialog = EditDialog.newInstance(journey);
                 editDialog.setPosition(position);
                 editDialog.setEditDialogListener(new EditDialog.EditDialogListener() {
                     @Override
