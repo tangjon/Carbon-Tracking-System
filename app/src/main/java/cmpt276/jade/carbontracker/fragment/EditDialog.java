@@ -1,31 +1,21 @@
 package cmpt276.jade.carbontracker.fragment;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
-import android.support.v7.widget.LinearLayoutCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.R;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.Journey;
-import cmpt276.jade.carbontracker.model.Transportation;
-import cmpt276.jade.carbontracker.utils.Mode;
-
-import static android.content.ContentValues.TAG;
-import static cmpt276.jade.carbontracker.enums.Transport.*;
 
 /**
  * Created by tangj on 3/16/2017.
@@ -106,7 +96,7 @@ public class EditDialog extends DialogFragment {
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHost.onEditDialogDelete(position);
+                mHost.onDeleteClicked(position);
                 dismiss();
             }
         });
@@ -114,7 +104,7 @@ public class EditDialog extends DialogFragment {
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHost.onEditDialogEdit(position);
+                mHost.onEditClicked(position);
                 dismiss();
             }
         });
@@ -171,8 +161,8 @@ public class EditDialog extends DialogFragment {
 
 
     public interface EditDialogListener{
-        public void onEditDialogDelete(int pos);
-        public void onEditDialogEdit(int pos);
+        public void onDeleteClicked(int pos);
+        public void onEditClicked(int pos);
     }
 }
 

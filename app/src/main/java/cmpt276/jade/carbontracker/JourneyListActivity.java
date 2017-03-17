@@ -117,13 +117,13 @@ public class JourneyListActivity extends AppCompatActivity {
                 editDialog.setPosition(position);
                 editDialog.setEditDialogListener(new EditDialog.EditDialogListener() {
                     @Override
-                    public void onEditDialogDelete(int pos) {
+                    public void onDeleteClicked(int pos) {
                         setupDeleteAlert(pos);
                         populateList();
                     }
 
                     @Override
-                    public void onEditDialogEdit(int pos) {
+                    public void onEditClicked(int pos) {
                         Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
                         Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(pos));
                         Emission.getInstance().getJourneyBuffer().setPosition(pos);

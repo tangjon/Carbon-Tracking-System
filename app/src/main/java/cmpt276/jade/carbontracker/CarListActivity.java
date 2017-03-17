@@ -69,12 +69,12 @@ public class CarListActivity extends AppCompatActivity {
                 editDialog.setPosition(position);
                 editDialog.setEditDialogListener(new EditDialog.EditDialogListener() {
                     @Override
-                    public void onEditDialogDelete(int pos) {
+                    public void onDeleteClicked(int pos) {
                         setupDelete(position);
                     }
 
                     @Override
-                    public void onEditDialogEdit(int pos) {
+                    public void onEditClicked(int pos) {
                         Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
                         intent.putExtra(CAR_KEY, recentCarList.getCar(position).getKEY().toString());
                         startActivity(intent);
