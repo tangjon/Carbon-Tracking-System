@@ -16,6 +16,7 @@ public class Emission {
     private CarCollection carCollection = new CarCollection();
     private JourneyCollection journeyCollection = new JourneyCollection();
     private Utilities utilities = new Utilities();
+    private Graph graph = new Graph();
 
     /**
      * useful for keeping temporary journey to work with throughout journey creation process
@@ -94,5 +95,13 @@ public class Emission {
 
     public void setBufferBill(Bill bufferBill) {
         this.bufferBill = bufferBill;
+    }
+
+    public Graph getGraph() {
+        return graph;
+    }
+
+    public void setGraph(Graph graph) {
+        this.graph = graph;
     }
 }
