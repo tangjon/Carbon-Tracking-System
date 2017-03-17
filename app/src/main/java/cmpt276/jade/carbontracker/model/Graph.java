@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import cmpt276.jade.carbontracker.utils.BillType;
+
 /**
  * Manages graph generation
  */
@@ -38,7 +40,7 @@ public class Graph {
     }
 
     // Returns PieData used for generating pie graph in UI
-    // TODO: adapt to various display date ranges
+    // This version uses all data
     // TODO: adapt to other emission-producing things
     public PieData getPieData(String label) {
         List<PieEntry> pieEntries = new ArrayList<>();
@@ -59,7 +61,88 @@ public class Graph {
         // Gas Bills
         bills = utilities.getListBillGas();
         for (Bill b : bills)
-            billSum += b.getEmissionAvg();  // TODO: double-check gas bill calc
+            billSum += b.getEmissionAvg();
+        pieEntries.add(new PieEntry(billSum, "Gas"));
+
+        PieDataSet dataSet = new PieDataSet(pieEntries, label);
+        dataSet.setColors(ColorTemplate.PASTEL_COLORS);
+
+        return new PieData(dataSet);
+    }
+
+    // This version uses only data occurring on a specific date
+    // TODO: adapt to other emission-producing things
+    public PieData getPieData(String label, Date dateSelected) {
+        List<PieEntry> pieEntries = new ArrayList<>();
+        JourneyCollection buffer = new JourneyCollection();
+
+        // TODO: use Date objects from Journey
+        for (int i = 0; i < journeyCollection.countJourneys(); ++i)
+            // if (journeyCollection.getJourney(i).getDate().equals(dateSelected))
+                buffer.addJourney(journeyCollection.getJourney(i));
+
+        RouteData routeData = new RouteData(buffer);
+        List<Bill> bills;
+        float billSum = 0f;
+
+        // Journeys
+        for (int i = 0; i < buffer.countJourneys(); ++i)
+            pieEntries.add(new PieEntry(routeData.values[i], routeData.nameRoute[i]));
+
+        // Electric Bills
+        bills = utilities.getBillsOnDay(dateSelected, BillType.ELECTRIC);
+        for (Bill b : bills)
+            billSum += b.getEmissionAvg();
+        pieEntries.add(new PieEntry(billSum, "Electricity"));
+
+        // Gas Bills
+        bills = utilities.getBillsOnDay(dateSelected, BillType.GAS);
+        for (Bill b : bills)
+            billSum += b.getEmissionAvg();
+        pieEntries.add(new PieEntry(billSum, "Gas"));
+
+        PieDataSet dataSet = new PieDataSet(pieEntries, label);
+        dataSet.setColors(ColorTemplate.PASTEL_COLORS);
+
+        return new PieData(dataSet);
+    }
+
+    // This version uses only data occurring within a specific range
+    // TODO: adapt to other emission-producing things
+    public PieData getPieData(String label, Date dateRangeStart, Date dateRangeEnd) {
+        List<PieEntry> pieEntries = new ArrayList<>();
+        JourneyCollection buffer = new JourneyCollection();
+        Journey j;
+
+        // TODO: use Date objects from Journey
+        for (int i = 0; i < journeyCollection.countJourneys(); ++i) {
+            /*j = journeyCollection.getJourney(i);
+            Date d = j.getDate();
+            if (d.equals(dateRangeStart) || d.equals(dateRangeEnd)
+                    || (d.before(dateRangeEnd) && d.after(dateRangeStart)))
+                buffer.addJourney(j);
+            */
+            buffer.addJourney(journeyCollection.getJourney(i));
+        }
+
+        RouteData routeData = new RouteData(buffer);
+        List<Bill> bills;
+        float billSum = 0f;
+
+        // Journeys
+        for (int i = 0; i < buffer.countJourneys(); ++i)
+            pieEntries.add(new PieEntry(routeData.values[i], routeData.nameRoute[i]));
+
+        // Electric Bills
+        bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.ELECTRIC);
+        for (Bill b : bills)
+            billSum += b.getEmissionAvg();
+        pieEntries.add(new PieEntry(billSum, "Electricity"));
+
+        // Gas Bills
+        bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.GAS);
+        for (Bill b : bills)
+            billSum += b.getEmissionAvg();
         pieEntries.add(new PieEntry(billSum, "Gas"));
 
         PieDataSet dataSet = new PieDataSet(pieEntries, label);
