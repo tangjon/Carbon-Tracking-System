@@ -1,20 +1,23 @@
 package cmpt276.jade.carbontracker;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.adapter.CarListAdapter;
+import cmpt276.jade.carbontracker.enums.Transport;
+import cmpt276.jade.carbontracker.fragment.EditDialog;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
-import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.utils.Mode;
 
 /**
@@ -59,14 +62,25 @@ public class CarListActivity extends AppCompatActivity {
         lstView.setAdapter(adapter);
 
         // React to Long Click (EDIT MODE)
-        // Send CarInfoActivity existing data about Car for Editting
         lstView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Car car = (Car) parent.getAdapter().getItem(position);
-                Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
-                intent.putExtra(CAR_KEY, car.getKEY().toString());
-                startActivity(intent);
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                EditDialog editDialog = EditDialog.newInstance(recentCarList.getCar(position).getName(), Transport.CAR);
+                editDialog.setPosition(position);
+                editDialog.setEditDialogListener(new EditDialog.EditDialogListener() {
+                    @Override
+                    public void onDeleteClicked(int pos) {
+                        setupDelete(position);
+                    }
+
+                    @Override
+                    public void onEditClicked(int pos) {
+                        Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
+                        intent.putExtra(CAR_KEY, recentCarList.getCar(position).getKEY().toString());
+                        startActivity(intent);
+                    }
+                });
+                editDialog.show(getSupportFragmentManager(), "EditDialog");
                 return true;
             }
         });
@@ -116,4 +130,25 @@ public class CarListActivity extends AppCompatActivity {
 
     }
     */
+
+    // Inspired by Raz
+    private void setupDelete( final int index) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        Car thisCar = recentCarList.getCar(index);
+        builder.setMessage(getString(R.string.journey_list_confirm_delete_message, thisCar.getName()));
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(getString(R.string.label_delete), new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                recentCarList.remove(index);
+                updateUI();
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.label_cancel), null);
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 }
