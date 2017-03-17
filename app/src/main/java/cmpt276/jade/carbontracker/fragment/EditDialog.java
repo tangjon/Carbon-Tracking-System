@@ -19,6 +19,7 @@ import cmpt276.jade.carbontracker.R;
 public class EditDialog extends DialogFragment {
 
     private EditDialogListener mHost;
+    private int position;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

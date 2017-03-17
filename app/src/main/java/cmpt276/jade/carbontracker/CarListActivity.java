@@ -64,7 +64,11 @@ public class CarListActivity extends AppCompatActivity implements EditDialog.Edi
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 EditDialog editDialog = new EditDialog();
+//                Bundle args = new Bundle();
+//                args.putInt("pos", position);
+//                editDialog.setArguments(args);
                 editDialog.show(getSupportFragmentManager(),"HELLO");
+
 //                setUpEditInterface(position);
 //                Car car = (Car) parent.getAdapter().getItem(position);
 //                Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
