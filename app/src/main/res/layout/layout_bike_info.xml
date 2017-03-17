@@ -64,4 +64,22 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="33dp"
         android:text="DELETE" />
+
+    <Button
+        android:id="@+id/Bike_Info_walk_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Bike_Info_cansel_btn"
+        android:layout_marginTop="44dp"
+        android:layout_toEndOf="@+id/Bike_info_mode"
+        android:text="ADD WALK" />
+
+    <Button
+        android:id="@+id/Bike_Info_bike_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/Bike_Info_walk_btn"
+        android:layout_toStartOf="@+id/Bike_Info_cansel_btn"
+        android:text="ADD BIKE" />
+
 </RelativeLayout>
