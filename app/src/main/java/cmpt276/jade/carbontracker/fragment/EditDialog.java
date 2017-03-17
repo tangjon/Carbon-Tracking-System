@@ -11,16 +11,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.R;
+import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.Journey;
+import cmpt276.jade.carbontracker.model.Transportation;
+import cmpt276.jade.carbontracker.utils.Mode;
 
 import static android.content.ContentValues.TAG;
+import static cmpt276.jade.carbontracker.enums.Transport.*;
 
 /**
  * Created by tangj on 3/16/2017.
@@ -33,9 +38,21 @@ public class EditDialog extends DialogFragment {
 
     // Members
     String objectName;
+    Transport objectMode;
+    String thisMode;
 
     // KEY
-    public static String KEY_NAME = "name";
+    private static String KEY_NAME = "name";
+    private static String KEY_MODE = "mode";
+
+    public static EditDialog newInstance(String title, Transport mode) {
+        Bundle args = new Bundle();
+        EditDialog fragment = new EditDialog();
+        args.putString(KEY_NAME, title);
+        args.putSerializable(KEY_MODE, mode);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
 
     public static EditDialog newInstance(Car car) {
@@ -75,7 +92,13 @@ public class EditDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.dialog_fragment_edit,null);
         // Display Custom Contents
-        setUpTextView(v);
+
+        if(objectName != null){
+            setUpTextView(v);
+        }
+        if(objectMode != null){
+            setUpImageView(v);
+        }
 
         // Confirm
         builder.setView(v);
@@ -108,9 +131,32 @@ public class EditDialog extends DialogFragment {
         }
     }
 
+    private void setUpImageView(View v){
+        ImageView iv = (ImageView) v.findViewById(R.id.dialog_image);
+        switch (objectMode){
+            case CAR:
+                iv.setImageResource(R.drawable.car);
+                break;
+            case TRANSIT:
+                break;
+            case BUS:
+                iv.setImageResource(R.drawable.bus);
+                break;
+            case SKYTRAIN:
+                iv.setImageResource(R.drawable.skytrain);
+                break;
+            case WALK:
+            case BIKE:
+                iv.setImageResource(R.drawable.bike);
+                break;
+
+        }
+    }
+
 
     private void readArguments(){
         objectName = getArguments().getString(KEY_NAME,null);
+        objectMode = (Transport) getArguments().getSerializable(KEY_MODE);
     }
 
 

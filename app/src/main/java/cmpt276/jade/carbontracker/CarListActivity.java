@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.adapter.CarListAdapter;
+import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.fragment.EditDialog;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
@@ -63,19 +64,19 @@ public class CarListActivity extends AppCompatActivity {
         // React to Long Click (EDIT MODE)
         lstView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                EditDialog editDialog = EditDialog.newInstance(recentCarList.getCar(position));
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                EditDialog editDialog = EditDialog.newInstance(recentCarList.getCar(position).getName(), Transport.CAR);
                 editDialog.setPosition(position);
                 editDialog.setEditDialogListener(new EditDialog.EditDialogListener() {
                     @Override
                     public void onEditDialogDelete(int pos) {
-                        setupDelete(pos);
+                        setupDelete(position);
                     }
 
                     @Override
                     public void onEditDialogEdit(int pos) {
                         Intent intent = CarInfoActivity.getIntentFromActivity(CarListActivity.this, Mode.EDIT);
-                        intent.putExtra(CAR_KEY, recentCarList.getCar(pos).getKEY().toString());
+                        intent.putExtra(CAR_KEY, recentCarList.getCar(position).getKEY().toString());
                         startActivity(intent);
                     }
                 });
