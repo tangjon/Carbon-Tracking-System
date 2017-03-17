@@ -108,35 +108,40 @@ public class Route_List_Activity extends AppCompatActivity {
 
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Route route = (Route) list.getItemAtPosition(position);
-                EditDialog dialog = EditDialog.newInstance(route.getName(), Transport.BIKE);
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                RouteCollection routes= showDifferentListView();
+                Route clickedRoute = routes.getRouteByIndex(position);
+                EditDialog dialog = EditDialog.newInstance(clickedRoute.getName(),getMode() );
                 dialog.setEditDialogListener(new EditDialogListener() {
                     @Override
                     public void onDeleteClicked(int pos) {
-
+                        RouteCollection routes= showDifferentListView();
+                        routes.deleteRoute(position);
+                        populateListView(routes);
                     }
 
                     @Override
                     public void onEditClicked(int pos) {
-
+                        RouteCollection routes= showDifferentListView();
+                        String strPosition = Integer.toString(position);
+                        Route clickedRoute = routes.getRouteByIndex(position);
+                        if(getMode()==1 )//car
+                        {
+                            Intent Intent_for_editing = Route_Info_Activity.IntentForEditRoute(
+                                Route_List_Activity.this, clickedRoute, strPosition);
+                            startActivityForResult(Intent_for_editing, EDIT_ROUTE);}
+                        else
+                        {
+                            Intent Intent_for_editing_other_route = Bike_and_Trans_Info_Activity.IntentForEditRoute(Route_List_Activity.this, clickedRoute, strPosition);
+                            startActivityForResult(Intent_for_editing_other_route, EDIT_ROUTE2);
+                        }
                     }
+
+
                 });
 
+                dialog.show(getSupportFragmentManager(),"EditDialog");
 
-//                RouteCollection routes= showDifferentListView();
-//                String strPosition = Integer.toString(position);
-//                Route clickedRoute = routes.getRouteByIndex(position);
-//                if(getMode()==1 )//car
-//                {
-//                    Intent Intent_for_editing = Route_Info_Activity.IntentForEditRoute(
-//                        Route_List_Activity.this, clickedRoute, strPosition);
-//                    startActivityForResult(Intent_for_editing, EDIT_ROUTE);}
-//                else
-//                {
-//                    Intent Intent_for_editing_other_route = Bike_and_Trans_Info_Activity.IntentForEditRoute(Route_List_Activity.this, clickedRoute, strPosition);
-//                    startActivityForResult(Intent_for_editing_other_route, EDIT_ROUTE2);
-//                }
                 return true;
             }
         });

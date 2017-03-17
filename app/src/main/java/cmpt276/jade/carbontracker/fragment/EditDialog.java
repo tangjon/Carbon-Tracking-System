@@ -44,6 +44,34 @@ public class EditDialog extends DialogFragment {
         return fragment;
     }
 
+    public static EditDialog newInstance(String title, int thisMode) {
+        Transport mode = null;
+        switch (thisMode){
+            case 1:
+                mode = Transport.CAR;
+                break;
+            case 2:
+                mode = Transport.BIKE;
+                break;
+            case 3:
+                mode = Transport.BUS;
+                break;
+
+            case 4:
+                mode = Transport.SKYTRAIN;
+                break;
+            case 5:
+                mode = Transport.WALK;
+                break;
+
+        }
+        Bundle args = new Bundle();
+        EditDialog fragment = new EditDialog();
+        args.putString(KEY_NAME, title);
+        args.putSerializable(KEY_MODE, mode);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     public static EditDialog newInstance(Car car) {
         Bundle args = new Bundle();
