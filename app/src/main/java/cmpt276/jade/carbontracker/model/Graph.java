@@ -1,6 +1,5 @@
 package cmpt276.jade.carbontracker.model;
 
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -8,7 +7,6 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -20,13 +18,9 @@ import cmpt276.jade.carbontracker.utils.BillType;
  */
 public class Graph {
     private static final Graph graph = new Graph();
-    private Emission emission;
+    private static Emission emission;
     private static Utilities utilities;
     private static JourneyCollection journeyCollection;
-    private Date dateSelected;
-    private Date dateRangeStart;
-    private Date dateRangeEnd;
-    private Calendar dateNew;
 
     private Graph() {
         updateData();
@@ -35,12 +29,10 @@ public class Graph {
     public static final SimpleDateFormat DATE_FORMAT =
             new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
-    void updateData(){
+    static void updateData(){
         emission = Emission.getInstance();
         utilities = emission.getUtilities();
         journeyCollection = emission.getJourneyCollection();
-        dateNew = Calendar.getInstance();
-        dateSelected = dateNew.getTime();
     }
 
     // Returns PieData used for generating pie graph in UI
@@ -49,6 +41,7 @@ public class Graph {
     // TODO: adapt to other emission-producing things
     public static PieData getPieData(String label, int mode,
                               Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
+        updateData();
         List<PieEntry> pieEntries = new ArrayList<>();
         JourneyCollection buffer = new JourneyCollection();
 
@@ -101,32 +94,7 @@ public class Graph {
         return new PieData(dataSet);
     }
 
-    public Date getDateSelected() {
-        return dateSelected;
-    }
-
-    public void setDateSelected(Date dateSelected) {
-        this.dateSelected = dateSelected;
-    }
-
-    public Date getDateRangeStart() {
-        return dateRangeStart;
-    }
-
-    public void setDateRangeStart(Date dateRangeStart) {
-        this.dateRangeStart = dateRangeStart;
-    }
-
-    public Date getDateRangeEnd() {
-        return dateRangeEnd;
-    }
-
-    public void setDateRangeEnd(Date dateRangeEnd) {
-        this.dateRangeEnd = dateRangeEnd;
-    }
-
     private static class RouteData {
-        public List<Entry> entries;
         public String nameRoute[];
         public String nameVehicle[];
         public String date[];
