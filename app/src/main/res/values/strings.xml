@@ -190,7 +190,6 @@
         <item>Usage (kWh)</item>
         <item>Usage (GJ)</item>
     </string-array>
-
     <!--
      ===================================
      New Strings to Organize
@@ -198,14 +197,5 @@
      <WHERE>_<WHAT>
      ===================================
      -->
-
-
-
-
-
-
-
-
-
 
 </resources>
