@@ -10,8 +10,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import cmpt276.jade.carbontracker.R;
-import cmpt276.jade.carbontracker.UtilityEditActivity;
 import cmpt276.jade.carbontracker.model.Bill;
+import cmpt276.jade.carbontracker.model.Emission;
 
 public class UtilitiesAdapter extends ArrayAdapter{
 
@@ -26,8 +26,8 @@ public class UtilitiesAdapter extends ArrayAdapter{
         if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.utility_list, parent, false);
 
-        String date = UtilityEditActivity.dateFormat.format(bill.getStartDate())
-                + " - " + UtilityEditActivity.dateFormat.format(bill.getEndDate());
+        String date = Emission.DATE_FORMAT.format(bill.getStartDate())
+                + " - " + Emission.DATE_FORMAT.format(bill.getEndDate());
 
         TextView tvEmission = (TextView) convertView.findViewById(R.id.tvEmission);
         TextView tvDate = (TextView) convertView.findViewById(R.id.tvDate);

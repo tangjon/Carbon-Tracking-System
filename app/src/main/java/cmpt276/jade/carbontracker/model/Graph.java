@@ -80,7 +80,7 @@ public class Graph {
         for (Bill b : bills) {
             billSum += b.getEmissionAvg();
         }
-        pieEntries.add(new PieEntry(billSum, "Electricity"));
+        if (bills.size() > 0) pieEntries.add(new PieEntry(billSum, "Electricity"));
 
         // Gas Bills
         if (mode == 0) bills = utilities.getListBillGas();
@@ -96,7 +96,7 @@ public class Graph {
         }
         for (Bill b : bills)
             billSum += b.getEmissionAvg();
-        pieEntries.add(new PieEntry(billSum, "Gas"));
+        if (bills.size() > 0) pieEntries.add(new PieEntry(billSum, "Gas"));
 
         PieDataSet dataSet = new PieDataSet(pieEntries, label);
         dataSet.setColors(ColorTemplate.PASTEL_COLORS);
