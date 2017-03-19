@@ -85,29 +85,15 @@ public class Graph {
 
         List<Bill> bills;
 
-        if (type == BillType.ELECTRIC) {
-            if (mode == 0) bills = utilities.getListBillElec();
-            else if (mode == 1) {
-                bills = utilities.getBillsOnDay(dateSelected, BillType.ELECTRIC);
-                if (bills.size() < 1) bills.add(
-                        utilities.getNearestBill(dateSelected, BillType.ELECTRIC));
-            } else {
-                bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.ELECTRIC);
-                if (bills.size() < 1) bills.add(
-                        utilities.getNearestBill(dateSelected, BillType.ELECTRIC));
-            }
+        if (mode == 0) {
+            if (type == BillType.ELECTRIC) bills = utilities.getListBillElec();
+            else bills = utilities.getListBillGas();
+        } else if (mode == 1) {
+            bills = utilities.getBillsOnDay(dateSelected, type);
+            if (bills.size() < 1) bills.add(utilities.getNearestBill(dateSelected, type));
         } else {
-            if (mode == 0) bills = utilities.getListBillGas();
-            else if (mode == 1) {
-                bills = utilities.getBillsOnDay(dateSelected, BillType.GAS);
-                if (bills.size() < 1) bills.add(
-                        utilities.getNearestBill(dateSelected, BillType.GAS));
-            }
-            else {
-                bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.GAS);
-                if (bills.size() < 1) bills.add(
-                        utilities.getNearestBill(dateSelected, BillType.GAS));
-            }
+            bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, type);
+            if (bills.size() < 1) bills.add(utilities.getNearestBill(dateSelected, type));
         }
 
         return bills;
