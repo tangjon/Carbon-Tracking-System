@@ -5,15 +5,21 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Graph;
@@ -27,6 +33,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
     private JourneyCollection journeyCollection = Emission.getInstance().getJourneyCollection();
     private PieChart pieChart;
+    private BarChart barChart;
     private TableLayout table;
     private Boolean pieShown = true;
     private final int NUM_ENTRIES = journeyCollection.countJourneys();
@@ -120,13 +127,16 @@ public class CarbonFootprintActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (pieShown) {
-                    pieChart.setVisibility(View.INVISIBLE);
+                    //pieChart.setVisibility(View.INVISIBLE);
+                    barChart.setVisibility(View.INVISIBLE);
                     table.setVisibility(View.VISIBLE);
                     pieShown = false;
                 } else {
-                    pieChart.setVisibility(View.VISIBLE);
+                    //pieChart.setVisibility(View.VISIBLE);
                     table.setVisibility(View.INVISIBLE);
-                    pieChart.invalidate();
+                    //pieChart.invalidate();
+                    barChart.setVisibility(View.VISIBLE);
+                    barChart.invalidate();
                     pieShown = true;
                 }
             }
@@ -134,15 +144,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     }
 
     private void setupPieChart() {
-        /*List<PieEntry> pieEntries = new ArrayList<>();
-        for (int i = 0; i < NUM_ENTRIES; ++i)
-            pieEntries.add(new PieEntry(emissionValues[i], emissionRouteNames[i]));
-
-        PieDataSet dataSet = new PieDataSet(pieEntries, getResources().getString(R.string.label_graph_title));
-        dataSet.setColors(ColorTemplate.PASTEL_COLORS);
-        PieData data = new PieData(dataSet);*/
-
-        PieData data = Graph.getPieData(getString(R.string.label_graph_title), 0, null, null, null);
+        /*PieData data = Graph.getPieData(getString(R.string.label_graph_title), 0, null, null, null);
         data.setValueTextSize(12f);
 
         pieChart = (PieChart) findViewById(R.id.pie_graph);
@@ -153,10 +155,45 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         desc.setEnabled(false);
         pieChart.setDescription(desc);
         pieChart.animateY(600);
-        pieChart.invalidate();
+        pieChart.invalidate();*/
+
+        BarData data = Graph.getBarData(getString(R.string.label_graph_title), 0, null, null, null);
+        data.setValueTextSize(12f);
+
+        barChart = (BarChart) findViewById(R.id.bar_graph);
+        barChart.setData(data);
+        barChart.getLegend().setEnabled(false);
+
+        String[] labels = {"Journeys", "Electricity", "Gas"};
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setDrawLabels(true);
+        xAxis.setValueFormatter(new XAxisValueFormatter(labels));
+        xAxis.setGranularity(1f);
+
+        Description desc = new Description();
+        desc.setEnabled(false);
+
+        barChart.setDescription(desc);
+        barChart.animateY(600);
+        barChart.setFitBars(true);
+        barChart.invalidate();
     }
 
     public static Intent getIntent(Context context) {
         return new Intent(context, CarbonFootprintActivity.class);
+    }
+
+    private class XAxisValueFormatter implements IAxisValueFormatter {
+        private String[] labels;
+
+        public XAxisValueFormatter(String[] labels) {
+            this.labels = labels;
+        }
+
+        @Override
+        public String getFormattedValue(float value, AxisBase axis) {
+            return labels[(int) value];
+        }
     }
 }

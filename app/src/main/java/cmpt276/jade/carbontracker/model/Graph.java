@@ -1,11 +1,15 @@
 package cmpt276.jade.carbontracker.model;
 
 import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,13 +46,13 @@ public class Graph {
         List<PieEntry> pieEntries = new ArrayList<>();
         JourneyCollection buffer = getJourneys(mode, dateSelected, dateRangeStart, dateRangeEnd);
 
-        RouteData routeData = new RouteData(buffer);
+        JourneyData journeyData = new JourneyData(buffer);
         List<Bill> bills;
         float billSum = 0f;
 
         // Journeys
         for (int i = 0; i < buffer.countJourneys(); ++i)
-            pieEntries.add(new PieEntry(routeData.values[i], routeData.nameRoute[i]));
+            pieEntries.add(new PieEntry(journeyData.values[i], journeyData.nameRoute[i]));
 
         // Electric Bills
         bills = getBills(BillType.ELECTRIC, mode, dateSelected, dateRangeStart, dateRangeEnd);
@@ -76,8 +80,37 @@ public class Graph {
     public static BarData getBarData(String label, int mode,
                                      Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
         updateData();
+        List<BarEntry> barEntries = new ArrayList<>();
+        JourneyCollection buffer = getJourneys(mode, dateSelected, dateRangeStart, dateRangeEnd);
 
-        return null;
+        final JourneyData journeyData = new JourneyData(buffer);
+        List<Bill> bills;
+        float billSum = 0f;
+
+        // Journeys
+        barEntries.add(new BarEntry(0, journeyData.values, "Journeys"));
+
+        // Electric Bills
+        bills = getBills(BillType.ELECTRIC, mode, dateSelected, dateRangeStart, dateRangeEnd);
+        for (Bill b : bills)
+            billSum += b.getEmissionAvg();
+        if (bills.size() > 0) {
+            barEntries.add(new BarEntry(1, new float[] {billSum}, "Electricity"));
+        }
+
+        // Gas Bills
+        billSum = 0f;
+        bills = getBills(BillType.GAS, mode, dateSelected, dateRangeStart, dateRangeEnd);
+        for (Bill b : bills)
+            billSum += b.getEmissionAvg();
+        if (bills.size() > 0) {
+            barEntries.add(new BarEntry(2, new float[] {billSum}, "Gas"));
+        }
+
+        BarDataSet dataSet = new BarDataSet(barEntries, label);
+        dataSet.setColors(ColorTemplate.PASTEL_COLORS);
+
+        return new BarData(dataSet);
     }
 
     private static List<Bill> getBills(
@@ -125,7 +158,7 @@ public class Graph {
         return buffer;
     }
 
-    private static class RouteData {
+    private static class JourneyData {
         public String nameRoute[];
         public String nameVehicle[];
         public String date[];
@@ -133,7 +166,7 @@ public class Graph {
         public double distance[];
         private JourneyCollection journeyCollection;
 
-        RouteData(JourneyCollection jc) {
+        JourneyData(JourneyCollection jc) {
             journeyCollection = jc;
             int size = journeyCollection.countJourneys();
             nameRoute = new String[size];
