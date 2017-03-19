@@ -178,7 +178,7 @@ public class Graph {
             Journey j;
             for (int i = 0; i < size; ++i) {
                 j = journeyCollection.getJourney(i);
-                nameRoute[i] = j.getRoute().getName();
+                nameRoute[i] = j.getName();
                 nameVehicle[i] = j.getTransType().getCar().getNickname();
                 date[i] = j.getDate();
                 values[i] = (float) j.getTotalTravelledEmissions();
