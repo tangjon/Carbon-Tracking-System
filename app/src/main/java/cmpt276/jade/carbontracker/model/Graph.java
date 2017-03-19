@@ -1,5 +1,7 @@
 package cmpt276.jade.carbontracker.model;
 
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -35,8 +37,85 @@ public class Graph {
     // TODO: adapt to other emission-producing things
     public static PieData getPieData(String label, int mode,
                               Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
+
         updateData();
         List<PieEntry> pieEntries = new ArrayList<>();
+        JourneyCollection buffer = getJourneys(mode, dateSelected, dateRangeStart, dateRangeEnd);
+
+        RouteData routeData = new RouteData(buffer);
+        List<Bill> bills;
+        float billSum = 0f;
+
+        // Journeys
+        for (int i = 0; i < buffer.countJourneys(); ++i)
+            pieEntries.add(new PieEntry(routeData.values[i], routeData.nameRoute[i]));
+
+        // Electric Bills
+        bills = getBills(BillType.ELECTRIC, mode, dateSelected, dateRangeStart, dateRangeEnd);
+        for (Bill b : bills)
+            billSum += b.getEmissionAvg();
+        if (bills.size() > 0) pieEntries.add(new PieEntry(billSum, "Electricity"));
+
+        // Gas Bills
+        billSum = 0f;
+        bills = getBills(BillType.GAS, mode, dateSelected, dateRangeStart, dateRangeEnd);
+        for (Bill b : bills)
+            billSum += b.getEmissionAvg();
+        if (bills.size() > 0) pieEntries.add(new PieEntry(billSum, "Gas"));
+
+        PieDataSet dataSet = new PieDataSet(pieEntries, label);
+        dataSet.setColors(ColorTemplate.PASTEL_COLORS);
+
+        return new PieData(dataSet);
+    }
+
+    // Returns BarData used for generating bar graph in UI
+    // mode : set to 0 if using all data, 1 if using specific date, 2 if within date range
+    // Specific date arguments can be null if not used (see 'mode')
+    // TODO: adapt to other emission-producing things
+    public static BarData getBarData(String label, int mode,
+                                     Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
+        updateData();
+
+        return null;
+    }
+
+    private static List<Bill> getBills(
+            BillType type, int mode, Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
+
+        List<Bill> bills;
+
+        if (type == BillType.ELECTRIC) {
+            if (mode == 0) bills = utilities.getListBillElec();
+            else if (mode == 1) {
+                bills = utilities.getBillsOnDay(dateSelected, BillType.ELECTRIC);
+                if (bills.size() < 1) bills.add(
+                        utilities.getNearestBill(dateSelected, BillType.ELECTRIC));
+            } else {
+                bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.ELECTRIC);
+                if (bills.size() < 1) bills.add(
+                        utilities.getNearestBill(dateSelected, BillType.ELECTRIC));
+            }
+        } else {
+            if (mode == 0) bills = utilities.getListBillGas();
+            else if (mode == 1) {
+                bills = utilities.getBillsOnDay(dateSelected, BillType.GAS);
+                if (bills.size() < 1) bills.add(
+                        utilities.getNearestBill(dateSelected, BillType.GAS));
+            }
+            else {
+                bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.GAS);
+                if (bills.size() < 1) bills.add(
+                        utilities.getNearestBill(dateSelected, BillType.GAS));
+            }
+        }
+
+        return bills;
+    }
+
+    private static JourneyCollection getJourneys(
+            int mode, Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
+
         JourneyCollection buffer = new JourneyCollection();
 
         if (mode == 0) buffer = journeyCollection;
@@ -57,51 +136,7 @@ public class Graph {
             }
         }
 
-        RouteData routeData = new RouteData(buffer);
-        List<Bill> bills;
-        float billSum = 0f;
-
-        // Journeys
-        for (int i = 0; i < buffer.countJourneys(); ++i)
-            pieEntries.add(new PieEntry(routeData.values[i], routeData.nameRoute[i]));
-
-        // Electric Bills
-        if (mode == 0) bills = utilities.getListBillElec();
-        else if (mode == 1) {
-            bills = utilities.getBillsOnDay(dateSelected, BillType.ELECTRIC);
-            if (bills.size() < 1) bills.add(
-                    utilities.getNearestBill(dateSelected, BillType.ELECTRIC));
-        }
-        else {
-            bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.ELECTRIC);
-            if (bills.size() < 1) bills.add(
-                    utilities.getNearestBill(dateSelected, BillType.ELECTRIC));
-        }
-        for (Bill b : bills) {
-            billSum += b.getEmissionAvg();
-        }
-        if (bills.size() > 0) pieEntries.add(new PieEntry(billSum, "Electricity"));
-
-        // Gas Bills
-        if (mode == 0) bills = utilities.getListBillGas();
-        else if (mode == 1) {
-            bills = utilities.getBillsOnDay(dateSelected, BillType.GAS);
-            if (bills.size() < 1) bills.add(
-                    utilities.getNearestBill(dateSelected, BillType.GAS));
-        }
-        else {
-            bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, BillType.GAS);
-            if (bills.size() < 1) bills.add(
-                    utilities.getNearestBill(dateSelected, BillType.GAS));
-        }
-        for (Bill b : bills)
-            billSum += b.getEmissionAvg();
-        if (bills.size() > 0) pieEntries.add(new PieEntry(billSum, "Gas"));
-
-        PieDataSet dataSet = new PieDataSet(pieEntries, label);
-        dataSet.setColors(ColorTemplate.PASTEL_COLORS);
-
-        return new PieData(dataSet);
+        return buffer;
     }
 
     private static class RouteData {

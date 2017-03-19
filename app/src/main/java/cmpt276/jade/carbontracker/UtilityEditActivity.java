@@ -125,8 +125,8 @@ public class UtilityEditActivity extends AppCompatActivity {
             buffer.setInput(input);
 
             TextView tvPreview = (TextView) findViewById(R.id.txt_bill_preview);
-            String text = "Total Emissions: " + Math.round(buffer.getEmissionTotal()) +
-                    "kg CO2, Average Emissions: " + Math.round(buffer.getEmissionAvg()) + "kg CO2";
+            String text = "Total Emissions: " + Emission.round(buffer.getEmissionTotal()) +
+                    "kg CO2, Average Emissions: " + Emission.round(buffer.getEmissionAvg()) + "kg CO2";
 
             tvPreview.setText(text);
         }

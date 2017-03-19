@@ -28,11 +28,17 @@ public class UtilitiesAdapter extends ArrayAdapter{
 
         String date = Emission.DATE_FORMAT.format(bill.getStartDate())
                 + " - " + Emission.DATE_FORMAT.format(bill.getEndDate());
+        String unit;
+        if (bill.isGas()) unit = "GJ";
+        else unit = "kWh";
+
+        String info = "" + Emission.round(bill.getEmissionAvg()) + "kg CO2 / day : " +
+                Emission.round(bill.getInput()) + unit;
 
         TextView tvEmission = (TextView) convertView.findViewById(R.id.tvEmission);
         TextView tvDate = (TextView) convertView.findViewById(R.id.tvDate);
 
-        tvEmission.setText(String.valueOf(Math.round(bill.getEmissionTotal())) + "Kg CO2");
+        tvEmission.setText(info);
         tvDate.setText(date);
 
         return convertView;

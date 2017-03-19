@@ -89,5 +89,9 @@ public class Bill implements Serializable {
         return input;
     }
 
+    public Boolean isGas() {
+        return gas;
+    }
+
 }
 
