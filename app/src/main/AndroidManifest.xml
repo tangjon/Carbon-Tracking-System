@@ -35,7 +35,9 @@
         <activity android:name=".Bike_and_Trans_Info_Activity" />
         <activity android:name=".UtilityEditActivity" />
         <activity android:name=".BusListActivity" />
-        <activity android:name=".BusInfoActivity"></activity>
+        <activity android:name=".BusInfoActivity" />
+        <activity android:name=".JourneySummaryActivity$SkytrainInfoActivity" />
+        <activity android:name=".SkytrainInfoActivity"></activity>
     </application>
 
 </manifest>

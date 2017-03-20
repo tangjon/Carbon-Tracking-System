@@ -190,6 +190,18 @@
         <item>Usage (kWh)</item>
         <item>Usage (GJ)</item>
     </string-array>
+
+    <!-- Bus Info Activity -->
+    <string name="label_busNickname">Bus Nickname</string>
+    <string name="label_busRouteNumber">Route Number</string>
+
+
+    <!-- Skytrain Info Activity -->
+    <string name="label_skytrainNickname">Skytrain Nickname</string>
+    <string name="label_skytrainLine">Train Line Name</string>
+    <string name="label_skytrainBoardingStation">Boarding Station</string>
+    <string name="hint_station">Station</string>
+    <string name="hint_line">Line</string>
     <!--
      ===================================
      New Strings to Organize
@@ -197,7 +209,5 @@
      <WHERE>_<WHAT>
      ===================================
      -->
-    <!-- Bus Info Activity -->
-    <string name="label_busNickname">Bus Nickname</string>
-    <string name="label_busRouteNumber">Route Number</string>
+
 </resources>

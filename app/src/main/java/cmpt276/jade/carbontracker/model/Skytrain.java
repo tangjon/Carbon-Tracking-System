@@ -9,6 +9,8 @@ public class Skytrain {
     private String nickName;
     private String boardingStation;
     private String skytrainLine;
+    private int mode;
+    private int position;
 
     public Skytrain(){
 
@@ -39,5 +41,20 @@ public class Skytrain {
         this.skytrainLine = skytrainLine;
     }
 
+    public int getMode() {
+        return mode;
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
 
 }
