@@ -7,6 +7,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import cmpt276.jade.carbontracker.model.Car;
+import cmpt276.jade.carbontracker.model.Journey;
+import cmpt276.jade.carbontracker.model.Route;
 
 // TO USE:
 // Change the package (at top) to match your project.
@@ -70,12 +73,12 @@ public class DBAdapter {
     public static final String KEY_OtherDistance = "route_other_distance";//for bike,walk,bus,skytrain
     public static final String KEY_mode = "route_mode";//2 for bike and walk,3 for bus, 4 for skytrain
 
-    public static final String[] ALL_JOURNEY_KEYS = new String[] {KEY_CAR_NAME ,KEY_transDescription ,KEY_make ,
+    public static final String[] ALL_JOURNEY_KEYS = new String[] {KEY_JOURNEY_NAME,KEY_CAR_NAME ,KEY_transDescription ,KEY_make ,
         KEY_model ,KEY_nickName ,KEY_year ,KEY_cityMPG ,KEY_highwayMPG ,KEY_engineDescription ,
         KEY_engineDispLitres ,KEY_fuelType ,KEY_fuelAnnualCost ,KEY_carbonTailPipe, KEY_name ,
         KEY_HighWayDistance ,KEY_CityDistance ,KEY_OtherDistance ,KEY_mode};
 
-
+    public static final int COL_KEY_JOURNEY_NAME = 19;
     public static final int COL_KEY_CAR_NAME = 1;
     public static final int COL_KEY_transDescription = 2;
     public static final int COL_KEY_make = 3;
@@ -137,7 +140,8 @@ public class DBAdapter {
                 + KEY_HighWayDistance + " real is not null, "
                 + KEY_CityDistance + " real is not null, "
                 + KEY_OtherDistance + " real is not null, "
-                + KEY_mode + " integer is not null"
+                + KEY_mode + " integer is not null, "
+                + KEY_JOURNEY_NAME + " text is not null"
 
                     // Rest  of creation:
                     + ");";
@@ -201,6 +205,44 @@ public class DBAdapter {
         initialValues.put(KEY_NAME, name);
         initialValues.put(KEY_STUDENTNUM, studentNum);
         initialValues.put(KEY_FAVCOLOUR, favColour);
+
+        // Insert it into the database.
+        return db.insert(DB_TABLE, null, initialValues);
+    }
+
+    // Add a new set of values to the database.
+    public long insertRow(String DB_TABLE, Journey j) {
+		/*
+		 * CHANGE 3:
+		 */
+        // TODO: Update data in the row with new fields.
+        // TODO: Also change the function's arguments to be what you need!
+        // Create row's data
+        ContentValues initialValues = new ContentValues();
+        // Journey
+        initialValues.put(KEY_JOURNEY_NAME, j.getName());
+        // Car
+        Car c = j.getCar();
+        initialValues.put(KEY_CAR_NAME, c.getName() );
+        initialValues.put(KEY_transDescription, c.getTransDescription());
+        initialValues.put(KEY_make, c.getMake());
+        initialValues.put(KEY_model, c.getModel());
+        initialValues.put(KEY_nickName, c.getNickName());
+        initialValues.put(KEY_year, c.getYear());
+        initialValues.put(KEY_cityMPG, c.getCityMPG());
+        initialValues.put(KEY_highwayMPG, c.getHighwayMPG());
+        initialValues.put(KEY_engineDescription, c.getEngineDescription());
+        initialValues.put(KEY_engineDispLitres, c.getEngineDispLitres());
+        initialValues.put(KEY_fuelType, c.getFuelType());
+        initialValues.put(KEY_fuelAnnualCost, c.getFuelAnnualCost());
+        initialValues.put(KEY_carbonTailPipe, c.getCarbonTailPipe());
+        // Route
+        Route r = j.getRoute();
+        initialValues.put(KEY_name, r.getName());
+        initialValues.put(KEY_HighWayDistance, r.getHighWayDistance());
+        initialValues.put(KEY_CityDistance, r.getCityDistance());
+        initialValues.put(KEY_OtherDistance, r.getOtherDistance());
+        initialValues.put(KEY_mode, r.getMode());
 
         // Insert it into the database.
         return db.insert(DB_TABLE, null, initialValues);

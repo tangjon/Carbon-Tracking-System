@@ -161,6 +161,10 @@ public class Journey implements Serializable{
 
     }
 
+    public Car getCar(){
+        return car;
+    }
+
 
     public double getTotalDriven() {
         return totalDriven;
