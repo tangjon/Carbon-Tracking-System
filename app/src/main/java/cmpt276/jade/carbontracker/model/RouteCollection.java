@@ -1,5 +1,7 @@
 package cmpt276.jade.carbontracker.model;
 
+import android.content.SharedPreferences;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,18 +11,11 @@ import java.util.List;
  *
  */
 public class RouteCollection {
+
     private String nickname;
 
     private List<Route> List_Rout = new ArrayList<>();
 
-    public double getTotleHighWayDistance() {
-        double HighWayDistance = 0;
-        for (int i = 0; i < countRoutes(); i++) {
-            Route route = getRouteByIndex(i);
-            HighWayDistance = HighWayDistance + route.getHighWayDistance();
-        }
-        return HighWayDistance;
-    }
 
     public double getTotleCityDistance() {
         double CityDistance = 0;
@@ -31,9 +26,70 @@ public class RouteCollection {
         return CityDistance;
     }
 
-    public void SetJourneyName(String name) {
-        this.nickname=name;
+    public double getTotleHighWayDistance() {
+        double HighWayDistance = 0;
+        for (int i = 0; i < countRoutes(); i++) {
+            Route route = getRouteByIndex(i);
+            HighWayDistance = HighWayDistance + route.getHighWayDistance();
+        }
+        return HighWayDistance;
     }
+    public double getTotleBikeDistance() {
+        double BikeDistance = 0;
+        for (int i = 0; i < countRoutes(); i++) {
+            Route route = getRouteByIndex(i);
+            if (route.getMode() == 2) {
+                BikeDistance = BikeDistance + route.getOtherDistance();
+            }
+        }
+        return BikeDistance;
+    }
+
+    public double getTotleBusDistance() {
+        double BusDistance = 0;
+        for (int i = 0; i < countRoutes(); i++) {
+            Route route = getRouteByIndex(i);
+            if (route.getMode() == 3) {
+                BusDistance = BusDistance + route.getOtherDistance();
+            }
+        }
+        return BusDistance;
+    }
+    public double getTotleSkyTrainDistance() {
+        double SkyTrainDistance = 0;
+        for (int i = 0; i < countRoutes(); i++) {
+            Route route = getRouteByIndex(i);
+            if (route.getMode() == 4) {
+                SkyTrainDistance = SkyTrainDistance + route.getOtherDistance();
+            }
+        }
+        return SkyTrainDistance;
+    }
+
+    public double getTotleWalkDistance() {
+        double WalkDistance = 0;
+        for (int i = 0; i < countRoutes(); i++) {
+            Route route = getRouteByIndex(i);
+            if (route.getMode() == 5) {
+                WalkDistance = WalkDistance + route.getOtherDistance();
+            }
+        }
+        return WalkDistance;
+    }
+
+
+
+
+    public void DeleteAll() {
+        List_Rout.clear();
+    }
+
+
+
+    public void SetJourneyName(String name) {
+        this.nickname = name;
+    }
+
     public String getJourneyName() {
         return this.nickname;
     }
@@ -67,30 +123,25 @@ public class RouteCollection {
         String[] detail = new String[countRoutes()];
         for (int i = 0; i < countRoutes(); i++) {
             Route route = getRouteByIndex(i);
-            int mode=route.getMode();
-            if(mode==2)//bike
+            int mode = route.getMode();
+            if (mode == 2)//bike
             {
                 detail[i] = "Bike: " + route.getName()
                         + ", Distance:"
                         + route.getOtherDistance() + "km.";
-            }
-            else if(mode==3)//bus mode
+            } else if (mode == 3)//bus mode
             {
                 detail[i] = "Bus: " + route.getName() + ", Distance:"
                         + route.getOtherDistance() + "km.";
-            }
-            else if(mode==4)//skytrain mode
+            } else if (mode == 4)//skytrain mode
             {
                 detail[i] = "Sktrain: " + route.getName() + ", Distance:"
                         + route.getOtherDistance() + "km.";
-            }
-            else if(mode==5)//walk mode
+            } else if (mode == 5)//walk mode
             {
                 detail[i] = "Walk: " + route.getName() + ", Distance:"
                         + route.getOtherDistance() + "km.";
-            }
-            else
-            {
+            } else {
                 detail[i] = "Route: " + route.getName() + ", HighWay:"
                         + route.getHighWayDistance() + "km, " +
                         " City:" + route.getCityDistance() + "km.";
@@ -104,4 +155,5 @@ public class RouteCollection {
             throw new IllegalArgumentException();
         }
     }
+
 }
