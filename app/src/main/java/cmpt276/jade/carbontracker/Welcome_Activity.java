@@ -1,6 +1,7 @@
 package cmpt276.jade.carbontracker;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,8 +12,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.sample.LoadDummyData;
 import cmpt276.jade.carbontracker.utils.CarManager;
 
@@ -25,11 +28,60 @@ public class Welcome_Activity extends AppCompatActivity {
 
 
     private static final String TAG = "welcome_activity" ;
+    DBAdapter myDb;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        closeDB();
+    }
+
+
+    private void openDB() {
+        myDb = new DBAdapter(this);
+        myDb.open();
+    }
+    private void closeDB() {
+        myDb.close();
+    }
+
+    private void displayRecordSet(Cursor cursor) {
+        String message = "";
+        // populate the message from the cursor
+
+        // Reset cursor to start, checking to see if there's data:
+        if (cursor.moveToFirst()) {
+            do {
+                // Process the data:
+                int id = cursor.getInt(DBAdapter.COL_ROWID);
+                String journeyName = cursor.getString(DBAdapter.COL_KEY_JOURNEY_NAME);
+                String carName = cursor.getString(DBAdapter.COL_KEY_CAR_NAME);
+                String model = cursor.getString(DBAdapter.COL_KEY_model);
+
+                // Append data to the message:
+                message += "id=" + id
+                    +", Journey Name=" + journeyName
+                    +", Car Name=" + carName
+                    +", Model=" + model
+                    +"\n";
+            } while(cursor.moveToNext());
+        }
+
+        // Close the cursor to avoid a resource leak.
+        cursor.close();
+
+        Log.i(TAG, "displayRecordSet: " + message);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_welcome_);
+
+
+
+
+
         // Load Required Files to Emissions
         loadRequiredApplicationResources();
 
@@ -61,7 +113,14 @@ public class Welcome_Activity extends AppCompatActivity {
 
         // Todo Make Sure this is uncommented
         // Uncomment this to load dummy data
-         LoadDummyData.load();
+//         LoadDummyData.load();
+
+        myDb = new DBAdapter(this);
+        openDB();
+        Cursor cursor = myDb.getAllRows(DBAdapter.TABLE_JOURNEY);
+        Journey journey = LoadDummyData.generateJourney();
+        myDb.insertRow(DBAdapter.TABLE_JOURNEY,journey);
+        displayRecordSet(cursor);
     }
     //Sean - makes screen clickable
     private void setupLayoutClick() {

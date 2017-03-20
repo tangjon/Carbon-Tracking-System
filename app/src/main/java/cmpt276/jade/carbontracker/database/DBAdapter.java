@@ -123,25 +123,25 @@ public class DBAdapter {
                     //		(http://www.sqlite.org/datatype3.html)
                     //  - "not null" means it is a required field (must be given a value).
                     // NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
-                + KEY_CAR_NAME + " text is not null, "
-                + KEY_transDescription + " text is not null, "
-                + KEY_make + " text is not null, "
-                + KEY_model + " text is not null, "
-                + KEY_nickName + " text is not null, "
-                + KEY_year + " integer is not null, "
-                + KEY_cityMPG + " real is not null, "
-                + KEY_highwayMPG + " real is not null, "
-                + KEY_engineDescription + " text is not null, "
-                + KEY_engineDispLitres + " real is not null, "
-                + KEY_fuelType + " text is not null, "
-                + KEY_fuelAnnualCost + " real is not null, "
-                + KEY_carbonTailPipe + " real is not null, "
-                + KEY_name + " text is not null, "
-                + KEY_HighWayDistance + " real is not null, "
-                + KEY_CityDistance + " real is not null, "
-                + KEY_OtherDistance + " real is not null, "
-                + KEY_mode + " integer is not null, "
-                + KEY_JOURNEY_NAME + " text is not null"
+                + KEY_CAR_NAME + " text not null, "
+                + KEY_transDescription + " text not null, "
+                + KEY_make + " text not null, "
+                + KEY_model + " text not null, "
+                + KEY_nickName + " text not null, "
+                + KEY_year + " integer not null, "
+                + KEY_cityMPG + " real not null, "
+                + KEY_highwayMPG + " real not null, "
+                + KEY_engineDescription + " text not null, "
+                + KEY_engineDispLitres + " real not null, "
+                + KEY_fuelType + " text not null, "
+                + KEY_fuelAnnualCost + " real not null, "
+                + KEY_carbonTailPipe + " real not null, "
+                + KEY_name + " text not null, "
+                + KEY_HighWayDistance + " real not null, "
+                + KEY_CityDistance + " real not null, "
+                + KEY_OtherDistance + " real not null, "
+                + KEY_mode + " integer not null, "
+                + KEY_JOURNEY_NAME + " text not null"
 
                     // Rest  of creation:
                     + ");";
@@ -244,6 +244,7 @@ public class DBAdapter {
         initialValues.put(KEY_OtherDistance, r.getOtherDistance());
         initialValues.put(KEY_mode, r.getMode());
 
+        Log.i(TAG, "insertRow: " + j.toString());
         // Insert it into the database.
         return db.insert(DB_TABLE, null, initialValues);
     }
@@ -342,4 +343,6 @@ public class DBAdapter {
             onCreate(_db);
         }
     }
+
+
 }
