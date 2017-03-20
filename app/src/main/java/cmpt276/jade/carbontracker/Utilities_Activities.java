@@ -127,6 +127,7 @@ public class Utilities_Activities extends AppCompatActivity {
                 Intent intent = UtilityEditActivity.getUtilityEditIntent(Utilities_Activities.this);
                 intent.putExtra("mode", mode);
                 intent.putExtra("type", type);
+                intent.putExtra("index", position);
                 emission.setBufferBill(utilities.getListBillElec().get(index));
                 startActivity(intent);
             }
@@ -150,6 +151,7 @@ public class Utilities_Activities extends AppCompatActivity {
                 Intent intent = UtilityEditActivity.getUtilityEditIntent(Utilities_Activities.this);
                 intent.putExtra("mode", mode);
                 intent.putExtra("type", type);
+                intent.putExtra("index", position);
                 emission.setBufferBill(utilities.getListBillGas().get(index));
                 startActivity(intent);
             }

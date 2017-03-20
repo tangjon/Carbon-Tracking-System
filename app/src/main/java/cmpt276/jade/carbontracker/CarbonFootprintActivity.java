@@ -46,13 +46,13 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private PieChart pieChart;
     private BarChart barChart;
     private TableLayout table;
-    //private Boolean pieShown = true;
     private List<Bill> billsElec;
     private List<Bill> billsGas;
     private final int NUM_ENTRIES = journeyCollection.countJourneys();
     private DatePickerDialog dialog;
 
     private int mode = 0;
+    private int dateMode = 0;
 
     private Calendar calendar = Calendar.getInstance();
     private Date dateSelected = calendar.getTime();
@@ -105,11 +105,11 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                 Date date;
                 switch (position) {
                     case 0:
-                        mode = 1;
+                        dateMode = 1;
                         dialog.show();
                         break;
                     case 1:
-                        mode = 2;
+                        dateMode = 2;
                         date = calendar.getTime();
                         dateEnd = date;
                         calendar.setTime(date);
@@ -118,7 +118,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                         dateStart = date;
                         break;
                     case 2:
-                        mode = 2;
+                        dateMode = 2;
                         date = calendar.getTime();
                         dateEnd = date;
                         calendar.setTime(date);
@@ -131,6 +131,9 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                 setupPieChart();
                 setupBarChart();
                 setupTable();
+                pieChart.invalidate();
+                barChart.invalidate();
+                table.invalidate();
             }
 
             @Override
@@ -322,8 +325,8 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     }
 
     private void setupPieChart() {
-        PieData data = Graph.getPieData(getString(R.string.label_graph_title), mode, dateSelected,
-                dateStart, dateEnd);
+        PieData data = Graph.getPieData(getString(R.string.label_graph_title), dateMode,
+                dateSelected, dateStart, dateEnd);
         data.setValueTextSize(12f);
 
         pieChart = (PieChart) findViewById(R.id.pie_graph);
@@ -338,8 +341,8 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     }
 
     private void setupBarChart() {
-        BarData data = Graph.getBarData(getString(R.string.label_graph_title), mode, dateSelected,
-                dateStart, dateEnd);
+        BarData data = Graph.getBarData(getString(R.string.label_graph_title), dateMode,
+                dateSelected, dateStart, dateEnd);
         data.setValueTextSize(12f);
 
         barChart = (BarChart) findViewById(R.id.bar_graph);

@@ -28,7 +28,7 @@ public class Bill implements Serializable {
         this.endDate = endDate;
         this.input = input;
 
-        calculateEmission();
+        if (startDate != null && endDate != null) calculateEmission();
     }
 
     private void calculateEmission() {
@@ -64,7 +64,7 @@ public class Bill implements Serializable {
 
     public void setStartDate(Date d) {
         startDate = d;
-        calculateEmission();
+        if (startDate != null && endDate != null) calculateEmission();
     }
 
     public Date getStartDate() {
@@ -73,7 +73,7 @@ public class Bill implements Serializable {
 
     public void setEndDate(Date d) {
         endDate = d;
-        calculateEmission();
+        if (startDate != null && endDate != null) calculateEmission();
     }
 
     public Date getEndDate() {

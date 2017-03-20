@@ -57,13 +57,13 @@ public class Graph {
         // Electric Bills
         bills = getBills(BillType.ELECTRIC, mode, dateSelected, dateRangeStart, dateRangeEnd);
         for (Bill b : bills) if (b != null) billSum += b.getEmissionAvg();
-        if (bills.size() > 0) pieEntries.add(new PieEntry(billSum, "Electricity"));
+        if (bills.size() > 0 && bills.get(0) != null) pieEntries.add(new PieEntry(billSum, "Electricity"));
 
         // Gas Bills
         billSum = 0f;
         bills = getBills(BillType.GAS, mode, dateSelected, dateRangeStart, dateRangeEnd);
         for (Bill b : bills) if (b != null) billSum += b.getEmissionAvg();
-        if (bills.size() > 0) pieEntries.add(new PieEntry(billSum, "Gas"));
+        if (bills.size() > 0 && bills.get(0) != null) pieEntries.add(new PieEntry(billSum, "Gas"));
 
         PieDataSet dataSet = new PieDataSet(pieEntries, label);
         dataSet.setColors(ColorTemplate.PASTEL_COLORS);

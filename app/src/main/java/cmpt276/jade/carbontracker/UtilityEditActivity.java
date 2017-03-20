@@ -55,7 +55,10 @@ public class UtilityEditActivity extends AppCompatActivity {
                 Calendar dateNew = Calendar.getInstance();
                 dateNew.set(year, month, dayOfMonth);
 
-                if (dateNew.getTime().before(buffer.getEndDate())) {
+                if (buffer.getEndDate() == null) {
+                    editDateStart.setText(Emission.DATE_FORMAT.format(dateNew.getTime()));
+                    buffer.setStartDate(dateNew.getTime());
+                } else if (dateNew.getTime().before(buffer.getEndDate())) {
                     editDateStart.setText(Emission.DATE_FORMAT.format(dateNew.getTime()));
                     buffer.setStartDate(dateNew.getTime());
                 } else {
@@ -71,7 +74,10 @@ public class UtilityEditActivity extends AppCompatActivity {
                 Calendar dateNew = Calendar.getInstance();
                 dateNew.set(year, month, dayOfMonth);
 
-                if (dateNew.getTime().after(buffer.getStartDate())) {
+                if (buffer.getStartDate() == null) {
+                    editDateEnd.setText(Emission.DATE_FORMAT.format(dateNew.getTime()));
+                    buffer.setEndDate(dateNew.getTime());
+                } else if (dateNew.getTime().after(buffer.getStartDate())) {
                     editDateEnd.setText(Emission.DATE_FORMAT.format(dateNew.getTime()));
                     buffer.setEndDate(dateNew.getTime());
                 } else {
@@ -176,7 +182,7 @@ public class UtilityEditActivity extends AppCompatActivity {
         index = intent.getIntExtra("index", 0);
 
         if (mode == BillEditMode.EDIT) buffer = emission.getBufferBill();
-        else buffer = new Bill(type, new Date(), new Date(), 0);
+        else buffer = new Bill(type, null, null, 0);
     }
 
 }
