@@ -197,5 +197,7 @@
      <WHERE>_<WHAT>
      ===================================
      -->
-
+    <!-- Bus Info Activity -->
+    <string name="label_busNickname">Bus Nickname</string>
+    <string name="label_busRouteNumber">Route Number</string>
 </resources>

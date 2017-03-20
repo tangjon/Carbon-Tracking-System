@@ -8,6 +8,8 @@ public class Bus {
 
     private String nickName;
     private String routeNumber;
+    private int mode;
+    private int position;
 
     public Bus(){
 
@@ -29,5 +31,20 @@ public class Bus {
         this.routeNumber = routeNumber;
     }
 
+    public void setMode(int mode){
+        this.mode = mode;
+    }
+
+    public int getMode(){
+        return mode;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
 
 }
