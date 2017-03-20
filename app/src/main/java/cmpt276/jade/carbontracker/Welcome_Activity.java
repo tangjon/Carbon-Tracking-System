@@ -143,4 +143,6 @@ public class Welcome_Activity extends AppCompatActivity {
         imageBTN.animate().translationX(imageBTN.getTranslationX() + distance).setDuration(speed);
     }
 
+
+
 }
