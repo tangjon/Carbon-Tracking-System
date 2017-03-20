@@ -120,9 +120,24 @@ public class DBAdapter {
                     //		(http://www.sqlite.org/datatype3.html)
                     //  - "not null" means it is a required field (must be given a value).
                     // NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
-                    + KEY_NAME + " text not null, "
-                    + KEY_STUDENTNUM + " integer not null, "
-                    + KEY_FAVCOLOUR + " string not null"
+                + KEY_CAR_NAME + " text is not null, "
+                + KEY_transDescription + " text is not null, "
+                + KEY_make + " text is not null, "
+                + KEY_model + " text is not null, "
+                + KEY_nickName + " text is not null, "
+                + KEY_year + " integer is not null, "
+                + KEY_cityMPG + " real is not null, "
+                + KEY_highwayMPG + " real is not null, "
+                + KEY_engineDescription + " text is not null, "
+                + KEY_engineDispLitres + " real is not null, "
+                + KEY_fuelType + " text is not null, "
+                + KEY_fuelAnnualCost + " real is not null, "
+                + KEY_carbonTailPipe + " real is not null, "
+                + KEY_name + " text is not null, "
+                + KEY_HighWayDistance + " real is not null, "
+                + KEY_CityDistance + " real is not null, "
+                + KEY_OtherDistance + " real is not null, "
+                + KEY_mode + " integer is not null"
 
                     // Rest  of creation:
                     + ");";
@@ -130,6 +145,13 @@ public class DBAdapter {
     private static final String CREATE_TABLE_UTILITY =
         "create table " + TABLE_JOURNEY
             + " (" + KEY_ROWID + " integer primary key autoincrement, "
+            // TODO: Place your fields here!
+            // + KEY_{...} + " {type} not null"
+            //	- Key is the column name you created above.
+            //	- {type} is one of: text, integer, real, blob
+            //		(http://www.sqlite.org/datatype3.html)
+            //  - "not null" means it is a required field (must be given a value).
+            // NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
             // TODO: Place your fields here!
             + KEY_NAME + " text not null, "
             + KEY_STUDENTNUM + " integer not null, "
