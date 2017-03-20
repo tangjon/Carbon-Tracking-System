@@ -13,9 +13,6 @@ public class Journey implements Serializable{
 
     public static String KEY = "JOURNEY";
     private String name;
-
-
-
     private Transportation transType;
     private Route route;
     private Car car;
