@@ -37,6 +37,15 @@ public class SkytrainCollection {
         return trainList;
     }
 
+    public String[] getSkytrainDetails(){
+        String[] details = new String[countTrains()];
+        for (int i = 0; i < countTrains(); i++) {
+           Skytrain train = getTrain(i);
+            details[i] = train.getNickName()+ " - "+ train.getSkytrainLine() + " - " + train.getBoardingStation();
+        }
+        return details;
+
+    }
 
 
 }

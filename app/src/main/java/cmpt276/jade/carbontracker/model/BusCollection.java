@@ -37,5 +37,14 @@ public class BusCollection {
         return busList;
     }
 
+    public String[] getBusDetails(){
+        String[] details = new String[countBuses()];
+        for (int i = 0; i < countBuses(); i++) {
+            Bus bus = getBus(i);
+            details[i] = bus.getNickName()+ " - "+ bus.getRouteNumber();
+        }
+        return details;
+
+    }
 
 }
