@@ -101,9 +101,9 @@ public class UtilityEditActivity extends AppCompatActivity {
                 if (!editInput.getText().toString().isEmpty()) {
                     Utilities utils = emission.getUtilities();
 
-                    if (mode == BillEditMode.ADD)
-                        utils.addBill(type, buffer);
+                    if (mode == BillEditMode.ADD) utils.addBill(type, buffer);
                     else utils.editBill(type, buffer, index);
+
                     finish();
                 }
             }

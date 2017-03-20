@@ -56,15 +56,13 @@ public class Graph {
 
         // Electric Bills
         bills = getBills(BillType.ELECTRIC, mode, dateSelected, dateRangeStart, dateRangeEnd);
-        for (Bill b : bills)
-            billSum += b.getEmissionAvg();
+        for (Bill b : bills) if (b != null) billSum += b.getEmissionAvg();
         if (bills.size() > 0) pieEntries.add(new PieEntry(billSum, "Electricity"));
 
         // Gas Bills
         billSum = 0f;
         bills = getBills(BillType.GAS, mode, dateSelected, dateRangeStart, dateRangeEnd);
-        for (Bill b : bills)
-            billSum += b.getEmissionAvg();
+        for (Bill b : bills) if (b != null) billSum += b.getEmissionAvg();
         if (bills.size() > 0) pieEntries.add(new PieEntry(billSum, "Gas"));
 
         PieDataSet dataSet = new PieDataSet(pieEntries, label);
@@ -92,8 +90,7 @@ public class Graph {
 
         // Electric Bills
         bills = getBills(BillType.ELECTRIC, mode, dateSelected, dateRangeStart, dateRangeEnd);
-        for (Bill b : bills)
-            billSum += b.getEmissionAvg();
+        for (Bill b : bills) if (b != null) billSum += b.getEmissionAvg();
         if (bills.size() > 0) {
             barEntries.add(new BarEntry(1, new float[] {billSum}, "Electricity"));
         }
@@ -101,8 +98,7 @@ public class Graph {
         // Gas Bills
         billSum = 0f;
         bills = getBills(BillType.GAS, mode, dateSelected, dateRangeStart, dateRangeEnd);
-        for (Bill b : bills)
-            billSum += b.getEmissionAvg();
+        for (Bill b : bills) if (b != null) billSum += b.getEmissionAvg();
         if (bills.size() > 0) {
             barEntries.add(new BarEntry(2, new float[] {billSum}, "Gas"));
         }

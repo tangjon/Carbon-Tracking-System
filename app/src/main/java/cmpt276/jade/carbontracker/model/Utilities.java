@@ -33,6 +33,7 @@ public class Utilities implements Serializable {
         else bills.addAll(listBillGas);
 
         for (Bill b : bills) {
+            if (b == null) return usableBills;
             if ((b.getStartDate().before(date) && b.getEndDate().after(date))
                     || b.getStartDate().compareTo(date) == 0
                     || b.getEndDate().compareTo(date) == 0)
@@ -70,7 +71,7 @@ public class Utilities implements Serializable {
 
         long dateDiffStart, dateDiffEnd, dateDiffStartLast, dateDiffEndLast;
         dateDiffStartLast = 0; dateDiffEndLast = 0;
-        Bill billSelected = bills.get(0);
+        Bill billSelected = null;
 
         for (Bill b : bills) {
             dateDiffStart = Math.abs(date.getTime() - b.getStartDate().getTime());
