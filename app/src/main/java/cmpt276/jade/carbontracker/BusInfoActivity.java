@@ -32,7 +32,7 @@ public class BusInfoActivity extends AppCompatActivity {
     }
 
     private void setupPage(){
-        if(Emission.getInstance().getJourneyBuffer().getTransType().getBus().getMode() == 1){
+        if(incomingBus.getMode() == 1){
             EditText inputName = (EditText) findViewById(R.id.editTextBusNickname);
             inputName.setText(incomingBus.getNickName());
             EditText inputRouteNumber = (EditText) findViewById(R.id.editTextRouteNumber);
