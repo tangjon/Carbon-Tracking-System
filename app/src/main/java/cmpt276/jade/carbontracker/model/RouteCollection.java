@@ -1,7 +1,5 @@
 package cmpt276.jade.carbontracker.model;
 
-import android.content.SharedPreferences;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +9,6 @@ import java.util.List;
  *
  */
 public class RouteCollection {
-
     private String nickname;
 
     private List<Route> List_Rout = new ArrayList<>();
@@ -39,9 +36,8 @@ public class RouteCollection {
     }
 
     public void SetJourneyName(String name) {
-        this.nickname = name;
+        this.nickname=name;
     }
-
     public String getJourneyName() {
         return this.nickname;
     }
@@ -75,25 +71,30 @@ public class RouteCollection {
         String[] detail = new String[countRoutes()];
         for (int i = 0; i < countRoutes(); i++) {
             Route route = getRouteByIndex(i);
-            int mode = route.getMode();
-            if (mode == 2)//bike
+            int mode=route.getMode();
+            if(mode==2)//bike
             {
                 detail[i] = "Bike: " + route.getName()
                         + ", Distance:"
                         + route.getOtherDistance() + "km.";
-            } else if (mode == 3)//bus mode
+            }
+            else if(mode==3)//bus mode
             {
                 detail[i] = "Bus: " + route.getName() + ", Distance:"
                         + route.getOtherDistance() + "km.";
-            } else if (mode == 4)//skytrain mode
+            }
+            else if(mode==4)//skytrain mode
             {
                 detail[i] = "Sktrain: " + route.getName() + ", Distance:"
                         + route.getOtherDistance() + "km.";
-            } else if (mode == 5)//walk mode
+            }
+            else if(mode==5)//walk mode
             {
                 detail[i] = "Walk: " + route.getName() + ", Distance:"
                         + route.getOtherDistance() + "km.";
-            } else {
+            }
+            else
+            {
                 detail[i] = "Route: " + route.getName() + ", HighWay:"
                         + route.getHighWayDistance() + "km, " +
                         " City:" + route.getCityDistance() + "km.";
@@ -107,5 +108,4 @@ public class RouteCollection {
             throw new IllegalArgumentException();
         }
     }
-
 }
