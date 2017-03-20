@@ -106,7 +106,12 @@ public class JourneyReviewActivity extends AppCompatActivity {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
 
-                    Journey journey = (Journey)intent.getSerializableExtra("Journey");
+                    /*
+
+                   This is not used anywhere is it needed?
+
+                     */
+                   // Journey journey = (Journey)intent.getSerializableExtra("Journey");
 
                 }
             }

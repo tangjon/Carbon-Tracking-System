@@ -100,7 +100,6 @@ public class Route_List_Activity extends AppCompatActivity {
                 //for skytrain      (nickname,0,0)           getOtherDistance=distance,getMode=4
                 Emission.getInstance().getJourneyBuffer().setRoute(route);
                 Intent intent = JourneyReviewActivity.getJourneyReviewIntent(Route_List_Activity.this);
-                //Should clear the whole back stack besides main menu
                 startActivity(intent);}
             }
         );
