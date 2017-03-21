@@ -22,7 +22,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 14;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -185,39 +185,6 @@ public class DBAdapter {
     // FOR REFERENCE
     ///////////////////////////
 
-    // TODO: Setup your fields here:
-    public static final String KEY_NAME = "name";
-    public static final String KEY_STUDENTNUM = "studentnum";
-    public static final String KEY_FAVCOLOUR = "favcolour";
-
-    // TODO: Setup your field numbers here (0 = KEY_ROWID, 1=...)
-    public static final int COL_NAME = 1;
-    public static final int COL_STUDENTNUM = 2;
-    public static final int COL_FAVCOLOUR = 3;
-    public static final String[] ALL_KEYS = new String[] {KEY_ROWID, KEY_NAME, KEY_STUDENTNUM, KEY_FAVCOLOUR};
-
-    private static final String DATABASE_CREATE_SQL =
-            "create table " + DATABASE_TABLE
-                    + " (" + KEY_ROWID + " integer primary key autoincrement, "
-
-			/*
-			 * CHANGE 2:
-			 */
-                    // TODO: Place your fields here!
-                    // + KEY_{...} + " {type} not null"
-                    //	- Key is the column name you created above.
-                    //	- {type} is one of: text, integer, real, blob
-                    //		(http://www.sqlite.org/datatype3.html)
-                    //  - "not null" means it is a required field (must be given a value).
-                    // NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
-                    + KEY_NAME + " text not null, "
-                    + KEY_STUDENTNUM + " integer not null, "
-                    + KEY_FAVCOLOUR + " string not null"
-
-                    // Rest  of creation:
-                    + ");";
-
-
     // Context of application who uses us.
     private final Context context;
 
@@ -359,23 +326,23 @@ public class DBAdapter {
 
     // UNTOUCHED
     // Change an existing row to be equal to new data.
-    public boolean updateRow(long rowId, String name, int studentNum, String favColour) {
-        String where = KEY_ROWID + "=" + rowId;
-
-		/*
-		 * CHANGE 4:
-		 */
-        // TODO: Update data in the row with new fields.
-        // TODO: Also change the function's arguments to be what you need!
-        // Create row's data:
-        ContentValues newValues = new ContentValues();
-        newValues.put(KEY_NAME, name);
-        newValues.put(KEY_STUDENTNUM, studentNum);
-        newValues.put(KEY_FAVCOLOUR, favColour);
-
-        // Insert it into the database.
-        return db.update(DATABASE_TABLE, newValues, where, null) != 0;
-    }
+//    public boolean updateRow(long rowId, String name, int studentNum, String favColour) {
+//        String where = KEY_ROWID + "=" + rowId;
+//
+//		/*
+//		 * CHANGE 4:
+//		 */
+//        // TODO: Update data in the row with new fields.
+//        // TODO: Also change the function's arguments to be what you need!
+//        // Create row's data:
+//        ContentValues newValues = new ContentValues();
+//        newValues.put(KEY_NAME, name);
+//        newValues.put(KEY_STUDENTNUM, studentNum);
+//        newValues.put(KEY_FAVCOLOUR, favColour);
+//
+//        // Insert it into the database.
+//        return db.update(DATABASE_TABLE, newValues, where, null) != 0;
+//    }
 
 
     /////////////////////////////////////////////////////////////////////
