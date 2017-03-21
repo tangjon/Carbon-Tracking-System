@@ -109,9 +109,14 @@ public class Welcome_Activity extends AppCompatActivity {
 //        displayRecordSetForCar(db.getAllRows(DBAdapter.DB_TABLE.CAR));
         // TEST ROUTE
         Route route = LoadDummyData.generateRoute();
-        long carRow = db.insertRow(route);
-        Route recRoute = db.getRoute(carRow);
+        long rRow = db.insertRow(route);
+        Route recRoute = db.getRoute(rRow);
         Log.i(TAG, "loadRequiredApplicationResources: " + recRoute.toString());
+        recRoute = (Route) db.getObject(DBAdapter.DB_TABLE.ROUTE,rRow);
+        Log.i(TAG, "loadRequiredApplicationResources: " + recRoute.toString());
+
+
+
 //        displayRecordSetForRoute(db.getAllRows(DBAdapter.DB_TABLE.ROUTE));
 
         // Test Bus

@@ -542,6 +542,43 @@ public class DBAdapter {
         return j;
     }
 
+    public Object getObject(DB_TABLE t, long rowId){
+        String where = KEY_ROWID + "=" + rowId;
+
+        Cursor c = null;
+        switch (t){
+            case CAR:
+                break;
+            case ROUTE:
+                c = db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
+                        where, null, null, null, null, null);
+                if (c != null) {
+                    c.moveToFirst();
+                }
+                double cityDistance = c.getDouble(DBAdapter.COL_ROUTE_CITY_DISTANCE);
+                double highWayDistance = c.getDouble(DBAdapter.COL_ROUTE_HIGH_WAY_DISTANCE);
+                double otherDistance = c.getDouble(DBAdapter.COL_ROUTE_OTHER_DISTANCE);//for bike,walk,bus,skytrain
+                int mode = c.getInt(DBAdapter.COL_ROUTE_MODE);//2 for bike and walk,3 for bus, 4 for skytrain
+                String name = c.getString(DBAdapter.COL_ROUTE_NAME);
+                return new Route(name, highWayDistance, cityDistance, otherDistance, mode);
+            case JOURNEY:
+                break;
+            case BILL:
+                break;
+            case BUS:
+                break;
+            case SKYTRAIN:
+                break;
+            case WALK:
+                break;
+            case BIKE:
+                break;
+            case TRANSIT:
+                break;
+        }
+        return null;
+    }
+
     /* [DONE] */
     public Route getRoute(long rowId){
         String where = KEY_ROWID + "=" + rowId;
