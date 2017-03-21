@@ -16,9 +16,7 @@ public class Route implements Serializable {
     public Route(String name, double HighWayDistance, double CityDistance) {
         this.name = name;
         this.HighWayDistance = HighWayDistance;
-        Log.i("HELLO", "Route: " + HighWayDistance);
         this.CityDistance = CityDistance;
-        Log.i("HELLO", "Route: " + CityDistance);
     }
 
     public double getOtherDistance() {

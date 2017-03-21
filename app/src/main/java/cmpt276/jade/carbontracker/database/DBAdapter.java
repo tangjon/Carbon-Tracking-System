@@ -22,7 +22,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 14;
+    public static final int DATABASE_VERSION = 15;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -114,37 +114,47 @@ public class DBAdapter {
 
 
     // TODO: Setup Route Fields Here
-    public static final String KEY_ROUTE_NAME = "route_name";
-    public static final String KEY_ROUTE_HIGH_WAY_DISTANCE = "route_highway_distance";
-    public static final String KEY_ROUTE_CITY_DISTANCE= "route_city_distance";
-    public static final String KEY_ROUTE_OTHER_DISTANCE = "route_other_distance";
-    public static final String KEY_ROUTE_MODE = "route_mode";
-
+    public static final String KEY_ROUTE_CITY_DISTANCE = "city_distance";
+    public static final String KEY_ROUTE_HIGH_WAY_DISTANCE = "high_way_distance";
+    public static final String KEY_ROUTE_OTHER_DISTANCE = "other_distance" ;
+    public static final String KEY_ROUTE_MODE = "mode";
+    public static final String KEY_ROUTE_NAME = "name";
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
-    public static final int COL_ROUTE_NAME = 1;
+    public static final int COL_ROUTE_CITY_DISTANCE = 1;
     public static final int COL_ROUTE_HIGH_WAY_DISTANCE = 2;
-    public static final int COL_ROUTE_CITY_DISTANCE= 3;
-    public static final int COL_ROUTE_OTHER_DISTANCE = 4;//for bike,walk,bus,skytrain
-    public static final int COL_ROUTE_MODE = 5;//2 for bike and walk,3 for bus, 4 for skytrain
+    public static final int COL_ROUTE_OTHER_DISTANCE = 3;
+    public static final int COL_ROUTE_MODE = 4;
+    public static final int COL_ROUTE_NAME = 5;
     // ALL KEYS
     public static final String[] ALL_ROUTE_KEYS = new String[] {
             KEY_ROWID,
-            KEY_ROUTE_HIGH_WAY_DISTANCE,
             KEY_ROUTE_CITY_DISTANCE,
+            KEY_ROUTE_HIGH_WAY_DISTANCE,
             KEY_ROUTE_OTHER_DISTANCE,
-            KEY_ROUTE_MODE};
+            KEY_ROUTE_MODE,
+            KEY_ROUTE_NAME
+    };
 
     // Create the Data Base (SQL)
     private static final String CREATE_TABLE_ROUTE =
             "create table " + TABLE_ROUTE
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
 
+			/*
+			 * CHANGE 2:
+			 */
                     // TODO: Place your fields here!
-                    + KEY_ROUTE_HIGH_WAY_DISTANCE + " real, "
-                    + KEY_ROUTE_CITY_DISTANCE + " real, "
-                    + KEY_ROUTE_OTHER_DISTANCE + " real, "
-                    + KEY_ROUTE_MODE + " integer"
-
+                    // + KEY_{...} + " {type} not null"
+                    //	- Key is the column name you created above.
+                    //	- {type} is one of: text, integer, real, blob
+                    //		(http://www.sqlite.org/datatype3.html)
+                    //  - "not null" means it is a required field (must be given a value).
+                    // NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
+                    +KEY_ROUTE_CITY_DISTANCE+" real,"
+                    +KEY_ROUTE_HIGH_WAY_DISTANCE+" real,"
+                    +KEY_ROUTE_OTHER_DISTANCE+" real,"
+                    +KEY_ROUTE_MODE+" integer,"
+                    +KEY_ROUTE_NAME+" text"
                     // Rest  of creation:
                     + ");";
 
@@ -311,10 +321,10 @@ public class DBAdapter {
                         where, null, null, null, null, null);
                 break;
             case ROUTE:
-                    String selectQuery = "SELECT  * FROM " + TABLE_ROUTE;
-                    c= db.rawQuery(selectQuery, null);
-//                c = db.query(true, table.toString(), ALL_ROUTE_KEYS,
-//                        where, null, null, null, null, null);
+//                    String selectQuery = "SELECT  * FROM " + TABLE_ROUTE;
+//                    c= db.rawQuery(selectQuery, null);
+                  c = db.query(true, table.toString(), ALL_ROUTE_KEYS,
+                        where, null, null, null, null, null);
                 break;
         }
 
