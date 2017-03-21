@@ -19,6 +19,14 @@ public class Route implements Serializable {
         this.CityDistance = CityDistance;
     }
 
+    public Route(String name, double HighWayDistance, double CityDistance, double otherDistance, int mode) {
+        this.name = name;
+        this.HighWayDistance = HighWayDistance;
+        this.CityDistance = CityDistance;
+        this.mode = mode;
+        this.OtherDistance = otherDistance;
+    }
+
     public double getOtherDistance() {
         return OtherDistance;
     }
@@ -69,5 +77,17 @@ public class Route implements Serializable {
         } else {
             this.name = name;
         }
+    }
+
+
+    @Override
+    public String toString() {
+        return "Route{" +
+                "CityDistance=" + CityDistance +
+                ", HighWayDistance=" + HighWayDistance +
+                ", OtherDistance=" + OtherDistance +
+                ", mode=" + mode +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

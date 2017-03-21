@@ -308,7 +308,78 @@ public class DBAdapter {
         }
         return c;
     }
+    // ==========================
+    // GETTERS
+    // ==========================
 
+    /* [DONE] */
+    public Car getCar(long rowId){
+        String where = KEY_ROWID + "=" + rowId;
+
+        Cursor c = db.query(true, TABLE_CAR, ALL_CAR_KEYS,
+                        where, null, null, null, null, null);
+
+        if (c != null) {
+            c.moveToFirst();
+        }
+        Car car = new Car();
+        // Process the data:
+        double carbonTailPipe = c.getDouble(DBAdapter.COL_CAR_CARBON_TAIL_PIPE);
+        double engineDispLitres = c.getDouble(DBAdapter.COL_CAR_ENGINE_DISP_LITRES);
+        int cityMPG = c.getInt(DBAdapter.COL_CAR_CITY_MPG);
+        int fuelAnnualCost= c.getInt(DBAdapter.COL_CAR_FUEL_ANNUAL_COST);
+        int highwayMPG = c.getInt(DBAdapter.COL_CAR_HIGHWAY_MPG);
+        int year = c.getInt(DBAdapter.COL_CAR_YEAR);
+        String engineDescription = c.getString(DBAdapter.COL_CAR_ENGINE_DESCRIPTION);
+        String fuelType = c.getString(DBAdapter.COL_CAR_FUEL_TYPE);
+        String make = c.getString(DBAdapter.COL_CAR_MAKE);
+        String model = c.getString(DBAdapter.COL_CAR_MODEL);
+        String nickName = c.getString(DBAdapter.COL_CAR_NICK_NAME);
+        String transDescription= c.getString(DBAdapter.COL_CAR_TRANS_DESCRIPTION);
+        car.setCarbonTailPipe(carbonTailPipe);
+        car.setEngineDispLitres(engineDispLitres);
+        car.setCityMPG(cityMPG);
+        car.setFuelAnnualCost(fuelAnnualCost);
+        car.setHighwayMPG(highwayMPG);
+        car.setYear(year);
+        car.setEngineDescription(engineDescription);
+        car.setFuelType(fuelType);
+        car.setMake(make);
+        car.setModel(model);
+        car.setNickName(nickName);
+        car.setTransDescription(transDescription);
+
+//        String message = "";
+        // populate the message from the cursor
+//        // Append data to the message:
+//        message += "make=" + make
+//                +", model=" + model
+//                +", cityMPG=" + cityMPG
+//                +", fuelType=" + fuelType
+//                +"\n";
+
+
+        return car;
+    }
+
+    public Route getRoute(long rowId){
+        String where = KEY_ROWID + "=" + rowId;
+
+        Cursor c = db.query(true, TABLE_CAR, ALL_ROUTE_KEYS,
+                where, null, null, null, null, null);
+
+        if (c != null) {
+            c.moveToFirst();
+        }
+
+        double cityDistance = c.getDouble(DBAdapter.COL_ROUTE_CITY_DISTANCE);
+        double highWayDistance = c.getDouble(DBAdapter.COL_ROUTE_HIGH_WAY_DISTANCE);
+        double otherDistance = c.getDouble(DBAdapter.COL_ROUTE_OTHER_DISTANCE);//for bike,walk,bus,skytrain
+        int mode = c.getInt(DBAdapter.COL_ROUTE_MODE);//2 for bike and walk,3 for bus, 4 for skytrain
+        String name = c.getString(DBAdapter.COL_ROUTE_NAME);
+
+        return new Route(name, highWayDistance, cityDistance, otherDistance, mode);
+    }
 
     // [UPDATE]
     // Get a specific row (by rowId)
