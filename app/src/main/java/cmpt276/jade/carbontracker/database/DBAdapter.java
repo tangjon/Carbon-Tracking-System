@@ -34,6 +34,7 @@ public class DBAdapter {
     public static final String TABLE_ROUTE = "routes";
     public static final String TABLE_JOURNEY = "journeys";
 
+
     // DB Fields
     public static final String KEY_ROWID = "_id";
     public static final int COL_ROWID = 0;
@@ -57,6 +58,7 @@ public class DBAdapter {
     public static final String KEY_CAR_NICK_NAME = "car_nick_name";
     public static final String KEY_CAR_TRANS_DESCRIPTION = "car_descrip";
     public static final String KEY_CAR_YEAR = "car_year";
+
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
     public static final int COL_CAR_CARBON_TAIL_PIPE = 1;
     public static final int COL_CAR_CITY_MPG = 2;
@@ -70,8 +72,10 @@ public class DBAdapter {
     public static final int COL_CAR_NICK_NAME = 10;
     public static final int COL_CAR_TRANS_DESCRIPTION = 11;
     public static final int COL_CAR_YEAR = 12;
+
     // ALL KEYS (Contains all KEYS in array of strings)
     public static final String[] ALL_CAR_KEYS = new String[] {
+            KEY_ROWID,
             KEY_CAR_CARBON_TAIL_PIPE,
             KEY_CAR_CITY_MPG,
             KEY_CAR_ENGINE_DESCRIPTION,
@@ -84,6 +88,30 @@ public class DBAdapter {
             KEY_CAR_NICK_NAME,
             KEY_CAR_TRANS_DESCRIPTION,
             KEY_CAR_YEAR };
+
+    // Create the Data Base (SQL)
+    private static final String CREATE_TABLE_CAR =
+            "create table " + TABLE_CAR
+                    + " (" + KEY_ROWID + " integer primary key autoincrement, "
+
+                    // TODO: Place your fields here!
+                    + KEY_CAR_CARBON_TAIL_PIPE + " real, "
+                    + KEY_CAR_CITY_MPG + " real, "
+                    + KEY_CAR_ENGINE_DESCRIPTION + " integer, "
+                    + KEY_CAR_ENGINE_DISP_LITRES + " real, "
+                    + KEY_CAR_FUEL_ANNUAL_COST + " integer, "
+                    + KEY_CAR_FUEL_TYPE + " text, "
+                    + KEY_CAR_HIGHWAY_MPG + " integer, "
+                    + KEY_CAR_MAKE + " text, "
+                    + KEY_CAR_MODEL + " text, "
+                    + KEY_CAR_NICK_NAME + " text, "
+                    + KEY_CAR_TRANS_DESCRIPTION + " text, "
+                    + KEY_CAR_YEAR + " integer"
+
+                    // Rest  of creation:
+                    + ");";
+
+
 
     // TODO: Setup Route Fields Here
 
@@ -193,28 +221,69 @@ public class DBAdapter {
         return db.insert(DATABASE_TABLE, null, initialValues);
     }
 
+    // Add a new set of values to the database.
+    public long insertRow(Car car) {
+		/*
+		 * CHANGE 3:
+		 */
+        // TODO: Update data in the row with new fields.
+        // TODO: Also change the function's arguments to be what you need!
+        // Create row's data:
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_CAR_CARBON_TAIL_PIPE,car.getCarbonTailPipe());
+        initialValues.put(KEY_CAR_CITY_MPG,car.getCityMPG());
+        initialValues.put(KEY_CAR_ENGINE_DESCRIPTION,car.getEngineDescription());
+        initialValues.put(KEY_CAR_ENGINE_DISP_LITRES,car.getEngineDispLitres());
+        initialValues.put(KEY_CAR_FUEL_ANNUAL_COST,car.getFuelAnnualCost());
+        initialValues.put(KEY_CAR_FUEL_TYPE,car.getFuelType());
+        initialValues.put(KEY_CAR_HIGHWAY_MPG,car.getHighwayMPG());
+        initialValues.put(KEY_CAR_MAKE,car.getMake());
+        initialValues.put(KEY_CAR_MODEL,car.getModel());
+        initialValues.put(KEY_CAR_NICK_NAME,car.getNickName());
+        initialValues.put(KEY_CAR_TRANS_DESCRIPTION,car.getTransDescription());
+        initialValues.put(KEY_CAR_YEAR,car.getYear());
+
+        // Insert it into the database.
+        return db.insert(TABLE_CAR, null, initialValues);
+    }
+
     // Delete a row from the database, by rowId (primary key)
     public boolean deleteRow(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
         return db.delete(DATABASE_TABLE, where, null) != 0;
     }
 
-    public void deleteAll() {
-        Cursor c = getAllRows();
+    // Delete a row from the database, by rowId (primary key)
+    public boolean deleteRow(String DB_TABLE, long rowId) {
+        String where = KEY_ROWID + "=" + rowId;
+        return db.delete(DB_TABLE, where, null) != 0;
+    }
+
+    public void deleteAll(String DB_TABLE) {
+        Cursor c = getAllRows(DB_TABLE);
         long rowId = c.getColumnIndexOrThrow(KEY_ROWID);
         if (c.moveToFirst()) {
             do {
-                deleteRow(c.getLong((int) rowId));
+                deleteRow(DB_TABLE,c.getLong((int) rowId));
             } while (c.moveToNext());
         }
         c.close();
     }
 
     // Return all data in the database.
-    public Cursor getAllRows() {
+    public Cursor getAllRows(String DB_TABLE) {
         String where = null;
-        Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS,
-                where, null, null, null, null, null);
+
+        Cursor c = null;
+        switch (DB_TABLE){
+            case TABLE_CAR:
+                c = 	db.query(true, DB_TABLE, ALL_CAR_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            default:
+                break;
+        }
+
         if (c != null) {
             c.moveToFirst();
         }
@@ -269,7 +338,8 @@ public class DBAdapter {
 
         @Override
         public void onCreate(SQLiteDatabase _db) {
-            _db.execSQL(DATABASE_CREATE_SQL);
+//            _db.execSQL(DATABASE_CREATE_SQL);
+            _db.execSQL(CREATE_TABLE_CAR);
         }
 
         @Override
@@ -278,7 +348,8 @@ public class DBAdapter {
                     + " to " + newVersion + ", which will destroy all old data!");
 
             // Destroy old database:
-            _db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
+//            _db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
+            _db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAR);
 
             // Recreate new database:
             onCreate(_db);

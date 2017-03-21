@@ -11,8 +11,12 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.database.DBAdapter;
+import cmpt276.jade.carbontracker.database.DB_TABLE;
+import cmpt276.jade.carbontracker.enums.Transport;
+import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
@@ -29,14 +33,6 @@ public class Welcome_Activity extends AppCompatActivity {
 
     private static final String TAG = "welcome_activity" ;
     DBAdapter myDb;
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        closeDB();
-    }
-
-
 
 
     @Override
@@ -72,21 +68,6 @@ public class Welcome_Activity extends AppCompatActivity {
         flash.startAnimation(anim);
     }
 
-    private void loadRequiredApplicationResources() {
-        // Read vehicles.csv and population emissions CarCollection
-        Log.i(TAG, "loadRequiredApplicationResources: " + "vehicles.csv loaded!");
-        Emission.getInstance().setCarCollection(new CarCollection(CarManager.readCarData(this, R.raw.vehicle_trimmed)));
-
-        // Todo Make Sure this is uncommented
-        // Uncomment this to load dummy data
-//         LoadDummyData.load();
-
-        openDB();
-        Journey journey = LoadDummyData.generateJourney();
-        myDb.insertRow(DBAdapter.TABLE_JOURNEY,journey);
-        Cursor cursor = myDb.getAllRows(DBAdapter.TABLE_JOURNEY);
-        displayRecordSet(cursor);
-    }
     //Sean - makes screen clickable
     private void setupLayoutClick() {
         RelativeLayout click = (RelativeLayout) findViewById(R.id.activity_welcome_);
@@ -107,32 +88,54 @@ public class Welcome_Activity extends AppCompatActivity {
         imageBTN.animate().translationX(imageBTN.getTranslationX() + distance).setDuration(speed);
     }
 
-    private void openDB() {
-        myDb = new DBAdapter(this);
-        myDb.open();
-    }
-    private void closeDB() {
-        myDb.close();
+
+    private void loadRequiredApplicationResources() {
+        // Read vehicles.csv and population emissions CarCollection
+        Log.i(TAG, "loadRequiredApplicationResources: " + "vehicles.csv loaded!");
+        Emission.getInstance().setCarCollection(new CarCollection(CarManager.readCarData(this, R.raw.vehicle_trimmed)));
+
+        // Todo Make Sure this is uncommented
+        // Uncomment this to load dummy data
+//         LoadDummyData.load();
+
+        Car car = LoadDummyData.generateCar();
+
+        DBAdapter db = new DBAdapter(this);
+        db.open();
+        db.insertRow(car);
+        Cursor cursor = db.getAllRows(DB_TABLE.TABLE_CAR.toString());
+        displayRecordSet(cursor);
+
     }
 
     private void displayRecordSet(Cursor cursor) {
         String message = "";
         // populate the message from the cursor
 
+        Car car = new Car();
+
         // Reset cursor to start, checking to see if there's data:
         if (cursor.moveToFirst()) {
             do {
                 // Process the data:
-                int id = cursor.getInt(DBAdapter.COL_ROWID);
-                String journeyName = cursor.getString(DBAdapter.COL_KEY_JOURNEY_NAME);
-                String carName = cursor.getString(DBAdapter.COL_KEY_CAR_NAME);
-                String model = cursor.getString(DBAdapter.COL_KEY_model);
+                double carbonTailPipe = cursor.getDouble(DBAdapter.COL_CAR_CARBON_TAIL_PIPE);
+                double engineDispLitres = cursor.getDouble(DBAdapter.COL_CAR_ENGINE_DISP_LITRES);
+                int cityMPG = cursor.getInt(DBAdapter.COL_CAR_CITY_MPG);
+                int fuelAnnualCost= cursor.getInt(DBAdapter.COL_CAR_FUEL_ANNUAL_COST);
+                int highwayMPG = cursor.getInt(DBAdapter.COL_CAR_HIGHWAY_MPG);
+                int year = cursor.getInt(DBAdapter.COL_CAR_YEAR);
+                String engineDescription = cursor.getString(DBAdapter.COL_CAR_ENGINE_DESCRIPTION);
+                String fuelType = cursor.getString(DBAdapter.COL_CAR_FUEL_TYPE);
+                String make = cursor.getString(DBAdapter.COL_CAR_MAKE);
+                String model = cursor.getString(DBAdapter.COL_CAR_MODEL);
+                String nickName = cursor.getString(DBAdapter.COL_CAR_NICK_NAME);
+                String transDescription= cursor.getString(DBAdapter.COL_CAR_TRANS_DESCRIPTION);
 
                 // Append data to the message:
-                message += "id=" + id
-                        +", Journey Name=" + journeyName
-                        +", Car Name=" + carName
-                        +", Model=" + model
+                message += "make=" + make
+                        +", model=" + model
+                        +", cityMPG=" + cityMPG
+                        +", fuelType=" + fuelType
                         +"\n";
             } while(cursor.moveToNext());
         }
@@ -142,5 +145,4 @@ public class Welcome_Activity extends AppCompatActivity {
 
         Log.i(TAG, "displayRecordSet: " + message);
     }
-
 }
