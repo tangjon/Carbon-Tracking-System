@@ -19,44 +19,101 @@ public class DBAdapter {
     /////////////////////////////////////////////////////////////////////
     //	Constants & Data
     /////////////////////////////////////////////////////////////////////
-
-    // DB info: it's name, and the table we are using (just one).
-    public static final String DATABASE_NAME = "MyDb";
-    public static final String DATABASE_TABLE = "mainTable";
+    // For logging:
+    private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
     public static final int DATABASE_VERSION = 2;
 
-    // For logging:
-    private static final String TAG = "DBAdapter";
+    // DB info: it's name, and the table we are using (just one).
+    public static final String DATABASE_NAME = "MyDb";
+
+    // DB Tables
+    public static final String DATABASE_TABLE = "mainTable";
+    public static final String TABLE_CAR = "cars";
+    public static final String TABLE_ROUTE = "routes";
+    public static final String TABLE_JOURNEY = "journeys";
 
     // DB Fields
     public static final String KEY_ROWID = "_id";
     public static final int COL_ROWID = 0;
 
-
-
-
-
-
     // TODO: Setup Journey Fields Here
 
-    // ----TODO: Setup Car Fields Here
-
-    // ----TODO: Setup Route Fields Here
-
-    // COLUMN FIELD NUMBERS
-
-
-    // ----CAR
-
-    // ----ROUTE
+    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
 
     // ALL KEYS
 
+    // TODO: Setup Car Fields Here
+    public static final String KEY_CAR_CARBON_TAIL_PIPE = "car_carbon_tail_pipe";
+    public static final String KEY_CAR_CITY_MPG = "car_city_mpg";
+    public static final String KEY_CAR_ENGINE_DESCRIPTION = "car_engine_descrip";
+    public static final String KEY_CAR_ENGINE_DISP_LITRES = "car_engine_displacement";
+    public static final String KEY_CAR_FUEL_ANNUAL_COST = "car_fuel_annual_cost";
+    public static final String KEY_CAR_FUEL_TYPE = "car_fuel_type";
+    public static final String KEY_CAR_HIGHWAY_MPG = "car_highway_mpg";
+    public static final String KEY_CAR_MAKE = "car_make ";
+    public static final String KEY_CAR_MODEL = "car_model";
+    public static final String KEY_CAR_NICK_NAME = "car_nick_name";
+    public static final String KEY_CAR_TRANS_DESCRIPTION = "car_descrip";
+    public static final String KEY_CAR_YEAR = "car_year";
+    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
+    public static final int COL_CAR_CARBON_TAIL_PIPE = 1;
+    public static final int COL_CAR_CITY_MPG = 2;
+    public static final int COL_CAR_ENGINE_DESCRIPTION = 3;
+    public static final int COL_CAR_ENGINE_DISP_LITRES = 4;
+    public static final int COL_CAR_FUEL_ANNUAL_COST = 5;
+    public static final int COL_CAR_FUEL_TYPE = 6;
+    public static final int COL_CAR_HIGHWAY_MPG = 7;
+    public static final int COL_CAR_MAKE = 8;
+    public static final int COL_CAR_MODEL = 9;
+    public static final int COL_CAR_NICK_NAME = 10;
+    public static final int COL_CAR_TRANS_DESCRIPTION = 11;
+    public static final int COL_CAR_YEAR = 12;
+    // ALL KEYS (Contains all KEYS in array of strings)
+    public static final String[] ALL_CAR_KEYS = new String[] {
+            KEY_CAR_CARBON_TAIL_PIPE,
+            KEY_CAR_CITY_MPG,
+            KEY_CAR_ENGINE_DESCRIPTION,
+            KEY_CAR_ENGINE_DISP_LITRES,
+            KEY_CAR_FUEL_ANNUAL_COST,
+            KEY_CAR_FUEL_TYPE,
+            KEY_CAR_HIGHWAY_MPG,
+            KEY_CAR_MAKE,
+            KEY_CAR_MODEL,
+            KEY_CAR_NICK_NAME,
+            KEY_CAR_TRANS_DESCRIPTION,
+            KEY_CAR_YEAR };
+
+    // TODO: Setup Route Fields Here
+
+    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
+
+    // ALL KEYS
+
+    // TODO: Setup Bus Fields Here
+
+    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
+
+    // ALL KEYS
+
+
+    // TODO: Setup Skytrain Fields Here
+
+    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
+
+    // ALL KEYS
+
+    // TODO: Setup Walk Fields Here
+
+    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
+
+    // ALL KEYS
+
+
     // TODO: Setup Utilities Fields Here
 
-    // COLUMN FIELD NUMBERS
+    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
 
     // ALL KEYS
 

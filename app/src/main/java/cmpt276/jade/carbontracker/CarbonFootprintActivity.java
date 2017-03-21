@@ -113,7 +113,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
             emissionDate[i] = j.getDate();
             emissionRouteNames[i] = j.getName();
             emissionDistance[i] = j.getRoute().getCityDistance() + j.getRoute().getCityDistance();
-            emissionVehicleNames[i] = j.getTransType().getCar().getNickname();
+            emissionVehicleNames[i] = j.getTransType().getCar().getNickName();
             emissionValues[i] = (float) j.getTotalTravelled();
         }
     }
