@@ -29,7 +29,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 16;
+    public static final int DATABASE_VERSION = 17;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -60,7 +60,7 @@ public class DBAdapter {
     public static final String KEY_JOURNEY_TRANS_TYPE = "journey_trans_type";
     public static final String KEY_JOURNEY_DATE = "journey_date";
     public static final String KEY_JOURNEY_ROUTE_ID = "journey_route";
-    public static final String KEY_JOURNEY_CAR_ID = "journey_car";
+    public static final String KEY_TRANSPORT_OBJECT_ID = "journey_car";
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
     public static final int COL_JOURNEY_NAME = 1;
     public static final int COL_JOURNEY_TRANS_TYPE = 2;
@@ -74,7 +74,7 @@ public class DBAdapter {
             KEY_JOURNEY_TRANS_TYPE,
             KEY_JOURNEY_DATE,
             KEY_JOURNEY_ROUTE_ID,
-            KEY_JOURNEY_CAR_ID};
+            KEY_TRANSPORT_OBJECT_ID};
     // Create the Data Base (SQL)
     private static final String CREATE_TABLE_JOURNEY =
             "create table " + TABLE_JOURNEY
@@ -85,7 +85,7 @@ public class DBAdapter {
                     + KEY_JOURNEY_TRANS_TYPE + " text, "
                     + KEY_JOURNEY_DATE + " text, "
                     + KEY_JOURNEY_ROUTE_ID + " integer, "
-                    + KEY_JOURNEY_CAR_ID + " integer"
+                    + KEY_TRANSPORT_OBJECT_ID + " integer"
 
                     // Rest  of creation:
                     + ");";
@@ -324,6 +324,9 @@ public class DBAdapter {
         myDBHelper.close();
     }
 
+    //////////////////////
+    // INSERT FUNCTIONS
+    /////////////////////
 
     /* [DONE] */
     public long insertRow(Car car) {
@@ -365,6 +368,17 @@ public class DBAdapter {
         return db.insert(TABLE_ROUTE, null, initialValues);
     }
 
+
+    public long insertRow(Bus bus) {
+        // TODO: Update data in the row with new fields.
+        // TODO: Also change the function's arguments to be what you need!
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_BUS_NICK_NAME, bus.getNickName() );
+        initialValues.put(KEY_BUS_ROUTE_NUMBER, bus.getRouteNumber() );
+        // Insert it into the database.
+        return db.insert(TABLE_BUS, null, initialValues);
+    }
+
     public long insertRow(Journey journey) {
         // TODO: Update data in the row with new fields.
         // TODO: Also change the function's arguments to be what you need!
@@ -383,7 +397,7 @@ public class DBAdapter {
             case CAR:
                 // Insert Car
                 long carID = insertRow(journey.getTransType().getCar());
-                initialValues.put(KEY_JOURNEY_CAR_ID, carID);
+                initialValues.put(KEY_TRANSPORT_OBJECT_ID, carID);
                 break;
             case BIKE:
                 break;
@@ -595,7 +609,20 @@ public class DBAdapter {
 
     // todo getBus
     public Bus getBus(long rowId){
-        return null;
+        String where = KEY_ROWID + "=" + rowId;
+
+        Cursor c = db.query(true, TABLE_BUS, ALL_BUS_KEYS,
+                where, null, null, null, null, null);
+
+        if (c != null) {
+            c.moveToFirst();
+        }
+        Bus bus = new Bus();
+
+        bus.setNickName(c.getString(COL_BUS_NICK_NAME));
+        bus.setRouteNumber(c.getString(COL_BUS_ROUTE_NUMBER));
+
+        return bus;
     }
     // todo getWalk
 //    public Walk getWalk(long rowId){
@@ -607,6 +634,15 @@ public class DBAdapter {
 //    }
     // todo getSkytrain
     public Skytrain getSkytrain(long rowId){
+        String where = KEY_ROWID + "=" + rowId;
+
+        Cursor c = db.query(true, TABLE_SKYTRAIN, ALL_SKYTRAIN_KEYS,
+                where, null, null, null, null, null);
+
+        if (c != null) {
+            c.moveToFirst();
+        }
+
         return null;
     }
 
@@ -614,6 +650,14 @@ public class DBAdapter {
 
     // Todo getBill
     public Bill getBill(long rowId){
+        String where = KEY_ROWID + "=" + rowId;
+
+        Cursor c = db.query(true, TABLE_BILL, ALL_BILL_KEYS,
+                where, null, null, null, null, null);
+
+        if (c != null) {
+            c.moveToFirst();
+        }
         return null;
     }
 

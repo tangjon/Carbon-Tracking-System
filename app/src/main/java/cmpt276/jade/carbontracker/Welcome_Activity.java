@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
+import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
@@ -93,7 +94,11 @@ public class Welcome_Activity extends AppCompatActivity {
         // Uncomment this to load dummy data
 //         LoadDummyData.load();
 
+        DATABASETESTINGFUNCTION();
 
+    }
+
+    private void DATABASETESTINGFUNCTION(){
         DBAdapter db = new DBAdapter(this);
         db.open();
         // TEST CAR
@@ -102,7 +107,6 @@ public class Welcome_Activity extends AppCompatActivity {
         Car recCar = db.getCar(carID);
         Log.i(TAG, "loadRequiredApplicationResources: " + recCar.toString());
 //        displayRecordSetForCar(db.getAllRows(DBAdapter.DB_TABLE.CAR));
-
         // TEST ROUTE
         Route route = LoadDummyData.generateRoute();
         long carRow = db.insertRow(route);
@@ -110,13 +114,19 @@ public class Welcome_Activity extends AppCompatActivity {
         Log.i(TAG, "loadRequiredApplicationResources: " + recRoute.toString());
 //        displayRecordSetForRoute(db.getAllRows(DBAdapter.DB_TABLE.ROUTE));
 
+        // Test Bus
+        Bus bus = new Bus("someName", "Route123");
+        long busRow = db.insertRow(bus);
+        bus = db.getBus(busRow);
+        Log.i(TAG, "DATABASETESTINGFUNCTION: " + bus.toString());
+
+        // Test Journey
         Journey journey = LoadDummyData.generateJourney();
         journey.getTransType().setTransMode(Transport.CAR);
         long jRow = db.insertRow(journey);
         Journey recJ = db.getJourney(jRow);
         Log.i(TAG, "loadRequiredApplicationResources: " + recJ.toString());
         Log.i(TAG, "loadRequiredApplicationResources: " + recJ.getTransType().getCar().toString());
-
     }
 
     // KEEP THIS
