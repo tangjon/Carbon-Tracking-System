@@ -13,7 +13,7 @@ import cmpt276.jade.carbontracker.utils.BillType;
  *  input validation expected to be done by calling class
  */
 public class Bill implements Serializable {
-    private Boolean gas = false;
+    private BillType type;
     private double emissionTotal;   // Kg CO2
     private double emissionAvg;     // Kg CO2 / time
     private Date startDate;
@@ -21,9 +21,10 @@ public class Bill implements Serializable {
     private double input;
     private final double CALC_ELEC = 0.009;     // 9000Kg CO2 / GWh
     private final double CALC_GAS = 56.1;       // 56.1Kg CO2 / GJ
+    private int numResidents = Emission.getInstance().getUtilities().getNumResidents();
 
     public Bill(BillType t, Date startDate, Date endDate, double input) {
-        if (t == BillType.GAS) gas = true;
+        type = t;
         this.startDate = startDate;
         this.endDate = endDate;
         this.input = input;
@@ -32,7 +33,7 @@ public class Bill implements Serializable {
     }
 
     private void calculateEmission() {
-        if (gas) {
+        if (type == BillType.GAS) {
             // input in GJ
             emissionTotal = CALC_GAS * input;
         } else {
@@ -50,8 +51,7 @@ public class Bill implements Serializable {
     }
 
     public BillType getBillType() {
-        if (gas) return BillType.GAS;
-        else return BillType.ELECTRIC;
+        return type;
     }
 
     public double getEmissionTotal() {
@@ -89,5 +89,12 @@ public class Bill implements Serializable {
         return input;
     }
 
+    public int getNumResidents() {
+        return numResidents;
+    }
+
+    public void setNumResidents(int numResidents) {
+        this.numResidents = numResidents;
+    }
 }
 
