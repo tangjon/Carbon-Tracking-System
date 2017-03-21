@@ -15,10 +15,10 @@ public class Tips_List_Activity extends AppCompatActivity {
     double TotalEmissions;
     double TotalCity=OneDayRoutes.getTotleCityDistance();
     double TotalHighWay=OneDayRoutes.getTotleHighWayDistance();
-    double TotalWalk=OneDayRoutes.getTotleWalkDistance();
-    double TotalBike=OneDayRoutes.getTotleBikeDistance();
-    double TotalBus=OneDayRoutes.getTotleBusDistance();
-    double TotalSkyTrain=OneDayRoutes.getTotleSkyTrainDistance();
+    double TotalWalk= 1.0;
+    double TotalBike=1.0;
+    double TotalBus=1.0;
+    double TotalSkyTrain=1.0;
 
     private List<String> List_Tips = new ArrayList<>();
 
