@@ -219,6 +219,12 @@ public class DBAdapter {
 
     // TODO: Setup Utilities Fields Here
 
+    // ----- TODO: Setup Bills
+    public static final String KEY_BILL_TYPE = "BILL_TYPE";
+    public static final String KEY_BILL_START_DATE = "START_DATE";
+    public static final String KEY_BILL_END_DATE = "END_DATE";
+    public static final String KEY_BILL_INPUT = "INPUT";
+
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
 
     // ALL KEYS
