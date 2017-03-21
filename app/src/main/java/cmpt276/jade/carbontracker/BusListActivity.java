@@ -14,6 +14,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import cmpt276.jade.carbontracker.adapter.BusListAdapter;
+import cmpt276.jade.carbontracker.enums.Transport;
+import cmpt276.jade.carbontracker.fragment.EditDialog;
 import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.BusCollection;
 import cmpt276.jade.carbontracker.model.Emission;
@@ -35,6 +37,7 @@ public class BusListActivity extends AppCompatActivity {
 
         setupAddBtn();
         setupListview();
+        populateList();
     }
 
 
@@ -68,14 +71,37 @@ public class BusListActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                //TODO
-                //Get group to explain EditDialog too tired to figure it out how to get it working
+                Bus bus = busList.getBus(position);
+                EditDialog editDialog = EditDialog.newInstance(bus.getNickName(), Transport.BUS);
+                editDialog.setPosition(position);
+                editDialog.setEditDialogListener(new EditDialog.EditDialogListener() {
+                    @Override
+                    public void onDeleteClicked(int pos) {
+                        setupDeleteAlert(pos);
+                        populateList();
+                    }
 
-                return false;
+                    @Override
+                    public void onEditClicked(int pos) {
+                        Intent intent = BusInfoActivity.getIntent(BusListActivity.this);
+                        Emission.getInstance().getJourneyBuffer().getTransType().setBus(busList.getBus(pos));
+                        Emission.getInstance().getJourneyBuffer().getTransType().getBus().setPosition(pos);
+                        Emission.getInstance().getJourneyBuffer().getTransType().getBus().setMode(1);
+                        startActivity(intent);
+                    }
+                });
+                editDialog.show(getSupportFragmentManager(),"EditDialog");
+                return true;
             }
         });
     }
 
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        populateList();
+    }
 
     // Inspired by Raz
     private void setupDeleteAlert( final int index) {

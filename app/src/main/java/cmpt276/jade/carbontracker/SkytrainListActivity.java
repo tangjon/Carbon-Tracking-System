@@ -13,6 +13,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import cmpt276.jade.carbontracker.adapter.BusListAdapter;
+import cmpt276.jade.carbontracker.adapter.SkytrainListAdaptor;
+import cmpt276.jade.carbontracker.enums.Transport;
+import cmpt276.jade.carbontracker.fragment.EditDialog;
+import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.model.SkytrainCollection;
@@ -25,6 +29,10 @@ public class SkytrainListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skytrain_list);
+
+        setupAddBtn();
+        setupListview();
+        populateList();
     }
 
     private void setupAddBtn(){
@@ -57,12 +65,35 @@ public class SkytrainListActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                //TODO
-                //Get group to explain EditDialog too tired to figure it out how to get it working
+                Skytrain train = trainList.getTrain(position);
+                EditDialog editDialog = EditDialog.newInstance(train.getNickName(), Transport.SKYTRAIN);
+                editDialog.setPosition(position);
+                editDialog.setEditDialogListener(new EditDialog.EditDialogListener() {
+                    @Override
+                    public void onDeleteClicked(int pos) {
+                        setupDeleteAlert(pos);
+                        populateList();
+                    }
 
+                    @Override
+                    public void onEditClicked(int pos) {
+                        Intent intent = SkytrainInfoActivity.getIntent(SkytrainListActivity.this);
+                        Emission.getInstance().getJourneyBuffer().getTransType().setSkytrain(trainList.getTrain(pos));
+                        Emission.getInstance().getJourneyBuffer().getTransType().getSkytrain().setPosition(pos);
+                        Emission.getInstance().getJourneyBuffer().getTransType().getSkytrain().setMode(1);
+                        startActivity(intent);
+                    }
+                });
+                editDialog.show(getSupportFragmentManager(),"EditDialog");
                 return false;
             }
         });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        populateList();
     }
 
 
@@ -90,7 +121,7 @@ public class SkytrainListActivity extends AppCompatActivity {
     private void populateList(){
         //TODO
         //Make Adaptor
-        ListAdapter adapt=new BusListAdapter(this,trainList.getSkytrainDetails());
+        ListAdapter adapt=new SkytrainListAdaptor(this,trainList.getSkytrainDetails());
         ListView list = (ListView) findViewById(R.id.listViewSkytrainList);
         list.setAdapter(adapt);
     }

@@ -15,7 +15,8 @@ import android.content.Context;
 
         import java.nio.Buffer;
 
-        import cmpt276.jade.carbontracker.adapter.RouteListAdapter;
+import cmpt276.jade.carbontracker.adapter.JourneyListAdapter;
+import cmpt276.jade.carbontracker.adapter.RouteListAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.fragment.EditDialog;
         import cmpt276.jade.carbontracker.model.Car;
@@ -141,7 +142,7 @@ public class JourneyListActivity extends AppCompatActivity {
 
     private void populateList() {
         //ListAdapter bucky=new RouteListAdapter(this,listOfJourneys.getJourneyDetails(),getMode());
-        ListAdapter bucky=new RouteListAdapter(this,listOfJourneys.getJourneyDetails(),1);
+        ListAdapter bucky=new JourneyListAdapter(this,listOfJourneys.getJourneyDetails(), listOfJourneys);
         ListView list = (ListView) findViewById(R.id.listviewJourney);
         list.setAdapter(bucky);
     }

@@ -22,6 +22,10 @@ public class RouteCollection {
         return HighWayDistance;
     }
 
+    public void DeleteAll() {
+        List_Rout.clear();
+    }
+
     public double getTotleCityDistance() {
         double CityDistance = 0;
         for (int i = 0; i < countRoutes(); i++) {

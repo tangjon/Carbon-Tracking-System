@@ -21,14 +21,16 @@ public class SkytrainInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skytrain_info);
 
+        setupNextBtn();
         setupPage();
+        getTrainData();
     }
 
     public static Intent getIntent(Context context) {
         return new Intent(context, SkytrainInfoActivity.class);
     }
     private void setupPage() {
-        if (incomingTrain.getMode() == 1) {
+        if (incomingTrain != null && incomingTrain.getMode() == 1) {
             EditText inputName = (EditText) findViewById(R.id.editTextSkytrainName);
             inputName.setText(incomingTrain.getNickName());
             EditText inputLine = (EditText) findViewById(R.id.editTextSkytrainLine);
@@ -43,22 +45,7 @@ public class SkytrainInfoActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //If no list
-                EditText inputName = (EditText) findViewById(R.id.editTextSkytrainName);
-                EditText inputLine = (EditText) findViewById(R.id.editTextSkytrainLine);
-                EditText inputStation = (EditText) findViewById(R.id.editTextSkytrainBoardingStation);
-                outgoingTrain.setNickName(inputName.getText().toString().trim());
-                outgoingTrain.setSkytrainLine(inputLine.getText().toString().trim());
-                outgoingTrain.setBoardingStation(inputStation.getText().toString().trim());
-                Emission.getInstance().getJourneyBuffer().getTransType().setSkytrain(outgoingTrain);
-                Intent intent = Route_List_Activity.IntentForRouteList(SkytrainInfoActivity.this, 4);
-                startActivity(intent);
-                finish();
 
-
-
-                //Else if there is a list
-                /*
                 EditText inputName = (EditText) findViewById(R.id.editTextSkytrainName);
                 EditText inputLine = (EditText) findViewById(R.id.editTextSkytrainLine);
                 EditText inputStation = (EditText) findViewById(R.id.editTextSkytrainBoardingStation);
@@ -66,23 +53,25 @@ public class SkytrainInfoActivity extends AppCompatActivity {
                 outgoingTrain.setSkytrainLine(inputLine.getText().toString().trim());
                 outgoingTrain.setBoardingStation(inputStation.getText().toString().trim());
 
-                if (incomingTrain.getMode() == 0) {
+                if (incomingTrain == null ||incomingTrain.getMode() == 0) {
                     SkytrainListActivity.trainList.addTrain(outgoingTrain);
                 }
-                else if (incomingTrain.getMode() == 1){
+                else if (incomingTrain != null && incomingTrain.getMode() == 1){
                     SkytrainListActivity.trainList.editTrain(outgoingTrain, incomingTrain.getPosition());
                 }
                 Emission.getInstance().getJourneyBuffer().getTransType().setSkytrain(outgoingTrain);
-                Intent intent = SkytrainListActivity.IntentForRouteList(SkytrainInfoActivity.this, 4);
+                Intent intent = SkytrainListActivity.getIntent(SkytrainInfoActivity.this);
                 startActivity(intent);
                 finish();
-                */
+
             }
         });
     }
 
     private void getTrainData(){
-        this.incomingTrain = Emission.getInstance().getJourneyBuffer().getTransType().getSkytrain();
-        this.outgoingTrain = new Skytrain();
+
+            this.incomingTrain = Emission.getInstance().getJourneyBuffer().getTransType().getSkytrain();
+            this.outgoingTrain = new Skytrain();
+
     }
 }
