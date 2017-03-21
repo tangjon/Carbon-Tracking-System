@@ -10,16 +10,6 @@ import cmpt276.jade.carbontracker.enums.Transport;
 
 public class Transportation implements Serializable {
 
-    Transport transMode;
-
-    public void setTransMode(Transport transMode) {
-        this.transMode = transMode;
-    }
-
-    public Transport getTransMode() {
-        return transMode;
-    }
-
     private Car car;
     private Bus bus;
     private Skytrain train;
