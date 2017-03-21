@@ -21,6 +21,7 @@ public class Bill implements Serializable {
     private double input;
     private final double CALC_ELEC = 0.009;     // 9000Kg CO2 / GWh
     private final double CALC_GAS = 56.1;       // 56.1Kg CO2 / GJ
+    private int numResidents = Emission.getInstance().getUtilities().getNumResidents();
 
     public Bill(BillType t, Date startDate, Date endDate, double input) {
         type = t;
@@ -88,5 +89,12 @@ public class Bill implements Serializable {
         return input;
     }
 
+    public int getNumResidents() {
+        return numResidents;
+    }
+
+    public void setNumResidents(int numResidents) {
+        this.numResidents = numResidents;
+    }
 }
 
