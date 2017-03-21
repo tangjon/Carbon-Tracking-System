@@ -66,7 +66,7 @@ public class DBAdapter {
     public static final int COL_JOURNEY_TRANS_TYPE = 2;
     public static final int COL_JOURNEY_DATE = 3;
     public static final int COL_JOURNEY_ROUTE_ID = 4;
-    public static final int COL_JOURNEY_CAR_ID = 5;
+    public static final int COL_TRANSPORT_OBJECT_ID = 5;
     // ALL KEYS
     public static final String[] ALL_JOURNEY_KEYS = new String[] {
             KEY_ROWID,
@@ -404,6 +404,8 @@ public class DBAdapter {
             case WALK:
                 break;
             case BUS:
+                long busID = insertRow(journey.getTransType().getBus());
+                initialValues.put(KEY_TRANSPORT_OBJECT_ID, busID);
                 break;
             case SKYTRAIN:
                 break;
@@ -519,7 +521,7 @@ public class DBAdapter {
         transportation.setTransMode(buffTrans(TRANS_TYPE));
         switch (transportation.getTransMode()){
             case CAR:
-                long CAR_ID = c.getInt(COL_JOURNEY_CAR_ID);
+                long CAR_ID = c.getInt(COL_TRANSPORT_OBJECT_ID);
                 transportation.setCar(getCar(CAR_ID));
                 break;
             case BIKE:
@@ -527,6 +529,8 @@ public class DBAdapter {
             case WALK:
                 break;
             case BUS:
+                long busID = c.getInt(COL_TRANSPORT_OBJECT_ID);
+                transportation.setBus(getBus(busID));
                 break;
             case SKYTRAIN:
                 break;
@@ -537,6 +541,7 @@ public class DBAdapter {
         // Todo set date
         return j;
     }
+
     /* [DONE] */
     public Route getRoute(long rowId){
         String where = KEY_ROWID + "=" + rowId;
@@ -607,7 +612,7 @@ public class DBAdapter {
         return car;
     }
 
-    // todo getBus
+    /* [DONE] */
     public Bus getBus(long rowId){
         String where = KEY_ROWID + "=" + rowId;
 
