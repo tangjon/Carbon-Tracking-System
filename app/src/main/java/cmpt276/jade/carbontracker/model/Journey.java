@@ -175,5 +175,20 @@ public class Journey implements Serializable{
     }
 
 
-
+    @Override
+    public String toString() {
+        return "Journey{" +
+                "name='" + name + '\'' +
+                ", transType=" + transType +
+                ", route=" + route +
+                ", car=" + car +
+                ", totalDriven=" + totalDriven +
+                ", totalEmissionsCity=" + totalEmissionsCity +
+                ", totalEmissionsHighway=" + totalEmissionsHighway +
+                ", totalTravelledEmissions=" + totalTravelledEmissions +
+                ", mode=" + mode +
+                ", position=" + position +
+                ", Date='" + Date + '\'' +
+                '}';
+    }
 }

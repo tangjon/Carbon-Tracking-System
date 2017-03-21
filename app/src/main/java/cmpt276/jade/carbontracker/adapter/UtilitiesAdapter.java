@@ -13,6 +13,8 @@ import cmpt276.jade.carbontracker.R;
 import cmpt276.jade.carbontracker.UtilityEditActivity;
 import cmpt276.jade.carbontracker.model.Bill;
 
+
+
 public class UtilitiesAdapter extends ArrayAdapter{
 
     public UtilitiesAdapter(Context context, List list) {

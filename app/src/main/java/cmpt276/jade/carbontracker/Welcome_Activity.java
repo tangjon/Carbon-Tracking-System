@@ -37,41 +37,7 @@ public class Welcome_Activity extends AppCompatActivity {
     }
 
 
-    private void openDB() {
-        myDb = new DBAdapter(this);
-        myDb.open();
-    }
-    private void closeDB() {
-        myDb.close();
-    }
 
-    private void displayRecordSet(Cursor cursor) {
-        String message = "";
-        // populate the message from the cursor
-
-        // Reset cursor to start, checking to see if there's data:
-        if (cursor.moveToFirst()) {
-            do {
-                // Process the data:
-                int id = cursor.getInt(DBAdapter.COL_ROWID);
-                String journeyName = cursor.getString(DBAdapter.COL_KEY_JOURNEY_NAME);
-                String carName = cursor.getString(DBAdapter.COL_KEY_CAR_NAME);
-                String model = cursor.getString(DBAdapter.COL_KEY_model);
-
-                // Append data to the message:
-                message += "id=" + id
-                    +", Journey Name=" + journeyName
-                    +", Car Name=" + carName
-                    +", Model=" + model
-                    +"\n";
-            } while(cursor.moveToNext());
-        }
-
-        // Close the cursor to avoid a resource leak.
-        cursor.close();
-
-        Log.i(TAG, "displayRecordSet: " + message);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,11 +81,10 @@ public class Welcome_Activity extends AppCompatActivity {
         // Uncomment this to load dummy data
 //         LoadDummyData.load();
 
-        myDb = new DBAdapter(this);
         openDB();
-        Cursor cursor = myDb.getAllRows(DBAdapter.TABLE_JOURNEY);
         Journey journey = LoadDummyData.generateJourney();
         myDb.insertRow(DBAdapter.TABLE_JOURNEY,journey);
+        Cursor cursor = myDb.getAllRows(DBAdapter.TABLE_JOURNEY);
         displayRecordSet(cursor);
     }
     //Sean - makes screen clickable
@@ -137,12 +102,45 @@ public class Welcome_Activity extends AppCompatActivity {
 
 
     }
-
     private void setupMoving(int id, int distance, int speed) {
         ImageView imageBTN = (ImageView) findViewById(id);
         imageBTN.animate().translationX(imageBTN.getTranslationX() + distance).setDuration(speed);
     }
 
+    private void openDB() {
+        myDb = new DBAdapter(this);
+        myDb.open();
+    }
+    private void closeDB() {
+        myDb.close();
+    }
 
+    private void displayRecordSet(Cursor cursor) {
+        String message = "";
+        // populate the message from the cursor
+
+        // Reset cursor to start, checking to see if there's data:
+        if (cursor.moveToFirst()) {
+            do {
+                // Process the data:
+                int id = cursor.getInt(DBAdapter.COL_ROWID);
+                String journeyName = cursor.getString(DBAdapter.COL_KEY_JOURNEY_NAME);
+                String carName = cursor.getString(DBAdapter.COL_KEY_CAR_NAME);
+                String model = cursor.getString(DBAdapter.COL_KEY_model);
+
+                // Append data to the message:
+                message += "id=" + id
+                        +", Journey Name=" + journeyName
+                        +", Car Name=" + carName
+                        +", Model=" + model
+                        +"\n";
+            } while(cursor.moveToNext());
+        }
+
+        // Close the cursor to avoid a resource leak.
+        cursor.close();
+
+        Log.i(TAG, "displayRecordSet: " + message);
+    }
 
 }
