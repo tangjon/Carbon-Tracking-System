@@ -56,7 +56,7 @@ public class SkytrainListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Emission.getInstance().getJourneyBuffer().getTransType().setSkytrain(trainList.getTrain(position));
-                Intent intent = Route_List_Activity.IntentForRouteList(SkytrainListActivity.this,3);
+                Intent intent = Route_List_Activity.IntentForRouteList(SkytrainListActivity.this,4);
                 startActivity(intent);
             }
         });

@@ -14,7 +14,6 @@ public class Transportation implements Serializable {
     private Car car;
     private Bus bus;
     private Skytrain train;
-    //  private Walk walk;
     private Transport transMode;
 
 
