@@ -9,9 +9,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import cmpt276.jade.carbontracker.enums.Transport;
+import cmpt276.jade.carbontracker.model.Bill;
+import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.Route;
+import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.model.Transportation;
 
 // TO USE:
@@ -203,15 +206,31 @@ public class DBAdapter {
                     + ");";
 
     // TODO: Setup Bus Fields Here
+    private static final String KEY_BUS_NICK_NAME = "bus_nick_name";
+    private static final String KEY_BUS_ROUTE_NUMBER = "bus_route_number";
 
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
+    public static final int COL_BUS_NICK_NAME = 1;
+    public static final int COL_BUS_ROUTE_NUMBER = 2;
 
     // ALL KEYS
     public static final String[] ALL_BUS_KEYS = new String[] {
-
+            KEY_ROWID,
+            KEY_BUS_NICK_NAME,
+            KEY_BUS_ROUTE_NUMBER
     };
 
     // Create the Data Base (SQL)
+    private static final String CREATE_TABLE_BUS =
+            "create table " + TABLE_BUS
+                    + " (" + KEY_ROWID + " integer primary key autoincrement, "
+
+                    // TODO: Place your fields here!
+                    + KEY_BUS_NICK_NAME + " text, "
+                    + KEY_BUS_ROUTE_NUMBER + " text"
+
+                    // Rest  of creation:
+                    + ");";
 
     // TODO: Setup Skytrain Fields Here
 
@@ -463,6 +482,67 @@ public class DBAdapter {
     // GETTERS
     // ==========================
 
+    public Journey getJourney(long rowId){
+        String where = KEY_ROWID + "=" + rowId;
+
+        Cursor c = db.query(true, TABLE_JOURNEY, ALL_JOURNEY_KEYS,
+                where, null, null, null, null, null);
+
+        if (c != null) {
+            c.moveToFirst();
+        }
+
+        String name = c.getString(COL_JOURNEY_NAME);
+        String TRANS_TYPE = c.getString(COL_JOURNEY_TRANS_TYPE);
+        String DATE = c.getString(COL_JOURNEY_DATE);
+        long ROUTE_ID = c.getInt(COL_JOURNEY_ROUTE_ID);
+
+        // Get and set Route
+        Route route = getRoute(ROUTE_ID);
+
+        // Get and set Transport Type
+        Transportation transportation = new Transportation();
+        transportation.setTransMode(buffTrans(TRANS_TYPE));
+        switch (transportation.getTransMode()){
+            case CAR:
+                long CAR_ID = c.getInt(COL_JOURNEY_CAR_ID);
+                transportation.setCar(getCar(CAR_ID));
+                break;
+            case BIKE:
+                break;
+            case WALK:
+                break;
+            case BUS:
+                break;
+            case SKYTRAIN:
+                break;
+            case TRANSIT:
+                break;
+        }
+        Journey j = new Journey(name, transportation,route);
+        // Todo set date
+        return j;
+    }
+    /* [DONE] */
+    public Route getRoute(long rowId){
+        String where = KEY_ROWID + "=" + rowId;
+
+        Cursor c = db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
+                where, null, null, null, null, null);
+
+        if (c != null) {
+            c.moveToFirst();
+        }
+
+        double cityDistance = c.getDouble(DBAdapter.COL_ROUTE_CITY_DISTANCE);
+        double highWayDistance = c.getDouble(DBAdapter.COL_ROUTE_HIGH_WAY_DISTANCE);
+        double otherDistance = c.getDouble(DBAdapter.COL_ROUTE_OTHER_DISTANCE);//for bike,walk,bus,skytrain
+        int mode = c.getInt(DBAdapter.COL_ROUTE_MODE);//2 for bike and walk,3 for bus, 4 for skytrain
+        String name = c.getString(DBAdapter.COL_ROUTE_NAME);
+
+        return new Route(name, highWayDistance, cityDistance, otherDistance, mode);
+    }
+
     /* [DONE] */
     public Car getCar(long rowId){
         String where = KEY_ROWID + "=" + rowId;
@@ -512,65 +592,29 @@ public class DBAdapter {
 
         return car;
     }
-    /* [DONE] */
-    public Route getRoute(long rowId){
-        String where = KEY_ROWID + "=" + rowId;
 
-        Cursor c = db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
-                where, null, null, null, null, null);
-
-        if (c != null) {
-            c.moveToFirst();
-        }
-
-        double cityDistance = c.getDouble(DBAdapter.COL_ROUTE_CITY_DISTANCE);
-        double highWayDistance = c.getDouble(DBAdapter.COL_ROUTE_HIGH_WAY_DISTANCE);
-        double otherDistance = c.getDouble(DBAdapter.COL_ROUTE_OTHER_DISTANCE);//for bike,walk,bus,skytrain
-        int mode = c.getInt(DBAdapter.COL_ROUTE_MODE);//2 for bike and walk,3 for bus, 4 for skytrain
-        String name = c.getString(DBAdapter.COL_ROUTE_NAME);
-
-        return new Route(name, highWayDistance, cityDistance, otherDistance, mode);
+    // todo getBus
+    public Bus getBus(long rowId){
+        return null;
+    }
+    // todo getWalk
+//    public Walk getWalk(long rowId){
+//        return null;
+//    }
+//    // todo getBike
+//    public Bike getBike(long rowId){
+//        return null;
+//    }
+    // todo getSkytrain
+    public Skytrain getSkytrain(long rowId){
+        return null;
     }
 
-    public Journey getJourney(long rowId){
-        String where = KEY_ROWID + "=" + rowId;
+    // todo geTransit
 
-        Cursor c = db.query(true, TABLE_JOURNEY, ALL_JOURNEY_KEYS,
-                where, null, null, null, null, null);
-
-        if (c != null) {
-            c.moveToFirst();
-        }
-
-        String NAME = c.getString(COL_JOURNEY_NAME);
-        String TRANS_TYPE = c.getString(COL_JOURNEY_TRANS_TYPE);
-        String DATE = c.getString(COL_JOURNEY_DATE);
-        long ROUTE_ID = c.getInt(COL_JOURNEY_ROUTE_ID);
-
-        // Get and set Route
-        Route route = getRoute(ROUTE_ID);
-
-        // Get and set Transport Type
-        Transportation transportation = new Transportation();
-        transportation.setTransMode(buffTrans(TRANS_TYPE));
-        switch (transportation.getTransMode()){
-            case CAR:
-                long CAR_ID = c.getInt(COL_JOURNEY_CAR_ID);
-                transportation.setCar(getCar(CAR_ID));
-                break;
-            case BIKE:
-                break;
-            case WALK:
-                break;
-            case BUS:
-                break;
-            case SKYTRAIN:
-                break;
-            case TRANSIT:
-                break;
-        }
-        Journey j = new Journey(NAME, transportation,route);
-        return j;
+    // Todo getBill
+    public Bill getBill(long rowId){
+        return null;
     }
 
     public Transport buffTrans(String trans){
@@ -684,6 +728,7 @@ public class DBAdapter {
             _db.execSQL(CREATE_TABLE_ROUTE);
             _db.execSQL(CREATE_TABLE_CAR);
             _db.execSQL(CREATE_TABLE_JOURNEY);
+            _db.execSQL(CREATE_TABLE_BUS);
         }
 
         @Override
@@ -696,6 +741,7 @@ public class DBAdapter {
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROUTE);
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAR);
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_JOURNEY);
+            _db.execSQL("DROP TABLE IF EXISTS " + TABLE_BUS);
 
             // Recreate new database:
             onCreate(_db);
@@ -707,10 +753,9 @@ public class DBAdapter {
      */
 
     public static enum DB_TABLE {
-        CAR(DBAdapter.TABLE_CAR), ROUTE(DBAdapter.TABLE_CAR), JOURNEY(DBAdapter.TABLE_CAR),
+        CAR(DBAdapter.TABLE_CAR), ROUTE(DBAdapter.TABLE_ROUTE), JOURNEY(DBAdapter.TABLE_JOURNEY),
         BILL(DBAdapter.TABLE_BILL), BUS(DBAdapter.TABLE_BUS), SKYTRAIN(DBAdapter.TABLE_SKYTRAIN),
         WALK(DBAdapter.TABLE_WALK), BIKE(DBAdapter.TABLE_BIKE), TRANSIT(DBAdapter.TABLE_TRANSIT);
-        ;
 
         private String name;
 
