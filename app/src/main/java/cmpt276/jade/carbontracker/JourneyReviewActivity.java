@@ -58,7 +58,7 @@ public class JourneyReviewActivity extends AppCompatActivity {
             transInfo.setText(storedJourney.getTransType().getBus().getNickName() + "\nRoute #: " +
             storedJourney.getTransType().getBus().getRouteNumber());
 
-            routeInfo.setText(storedJourney.getRoute().getName() + "\nTotal Distance: ");
+            routeInfo.setText(storedJourney.getRoute().getName() + "\nTotal Distance: " + storedJourney.getRoute().getOtherDistance());
 
         }
         else if(Emission.getInstance().getJourneyBuffer().getTransType().getTransMode().equals(Transport.SKYTRAIN)){
@@ -67,7 +67,7 @@ public class JourneyReviewActivity extends AppCompatActivity {
             storedJourney.getTransType().getSkytrain().getSkytrainLine() + "\nBoarding Station: " +
             storedJourney.getTransType().getSkytrain().getBoardingStation());
 
-            routeInfo.setText(storedJourney.getRoute().getName() + "\nTotal Distance: ");
+            routeInfo.setText(storedJourney.getRoute().getName() + "\nTotal Distance: " + storedJourney.getRoute().getOtherDistance());
         }
         if(journey.getMode() == 1){
             EditText inputName = (EditText) findViewById(R.id.editJourneyName);

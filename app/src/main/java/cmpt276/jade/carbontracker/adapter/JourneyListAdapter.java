@@ -27,20 +27,20 @@ public class JourneyListAdapter extends ArrayAdapter<String> {
         String route=getItem(position);
         TextView tv=(TextView) OneBucky.findViewById(R.id.new_journey_list);
 
-        ImageView image=(ImageView)  OneBucky.findViewById(R.id.imageBus);
+        ImageView image=(ImageView)  OneBucky.findViewById(R.id.journeyListImage);
 
         tv.setText(route);
-        if(list.getJourney(position).getTransType().getTransMode().equals(Transport.CAR)) {
-            image.setImageResource(R.drawable.car);
-        }
-        else if(list.getJourney(position).getTransType().getTransMode().equals(Transport.BIKE)){
-            image.setImageResource(R.drawable.bike);
-        }
-        else if(list.getJourney(position).getTransType().getTransMode().equals(Transport.BUS)) {
-            image.setImageResource(R.drawable.bus);
-        }
-        else if(list.getJourney(position).getTransType().getTransMode().equals(Transport.SKYTRAIN)){
-            image.setImageResource(R.drawable.skytrain);
+
+        if(list.countJourneys() != 0) {
+            if (list.getJourney(position).getTransType().getTransMode().equals(Transport.CAR)) {
+                image.setImageResource(R.drawable.car);
+            } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.BIKE)) {
+                image.setImageResource(R.drawable.bike);
+            } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.BUS)) {
+                image.setImageResource(R.drawable.bus);
+            } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.SKYTRAIN)) {
+                image.setImageResource(R.drawable.skytrain);
+            }
         }
 
         return OneBucky;
