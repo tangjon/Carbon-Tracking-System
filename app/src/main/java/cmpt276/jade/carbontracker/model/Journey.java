@@ -12,17 +12,20 @@ public class Journey implements Serializable{
 
 
     public static String KEY = "JOURNEY";
-    private String name;
 
+
+    private String name;
     private Transportation transType;
     private Route route;
+    private String Date = "TEMP";
+
     private double totalDriven;
     private double totalEmissionsCity;
     private double totalEmissionsHighway;
     private double totalTravelledEmissions;
     private int mode = 0;  //0 is add.    1 is edit.
     private int position = -1;
-    private String Date = "TEMP";
+
 
     public Journey(String inputName,Transportation inputTransType , Route inputRoute){
         this.name = inputName;
@@ -162,5 +165,19 @@ public class Journey implements Serializable{
     }
 
 
-
+    @Override
+    public String toString() {
+        return "Journey{" +
+                "name='" + name + '\'' +
+                ", transType=" + transType +
+                ", route=" + route +
+                ", Date='" + Date + '\'' +
+                ", totalDriven=" + totalDriven +
+                ", totalEmissionsCity=" + totalEmissionsCity +
+                ", totalEmissionsHighway=" + totalEmissionsHighway +
+                ", totalTravelledEmissions=" + totalTravelledEmissions +
+                ", mode=" + mode +
+                ", position=" + position +
+                '}';
+    }
 }

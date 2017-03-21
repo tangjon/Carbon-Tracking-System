@@ -13,9 +13,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import cmpt276.jade.carbontracker.database.DBAdapter;
+import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.sample.LoadDummyData;
 import cmpt276.jade.carbontracker.utils.CarManager;
@@ -108,6 +110,12 @@ public class Welcome_Activity extends AppCompatActivity {
         Log.i(TAG, "loadRequiredApplicationResources: " + recRoute.toString());
 //        displayRecordSetForRoute(db.getAllRows(DBAdapter.DB_TABLE.ROUTE));
 
+        Journey journey = LoadDummyData.generateJourney();
+        journey.getTransType().setTransMode(Transport.CAR);
+        long jRow = db.insertRow(journey);
+        Journey recJ = db.getJourney(jRow);
+        Log.i(TAG, "loadRequiredApplicationResources: " + recJ.toString());
+        Log.i(TAG, "loadRequiredApplicationResources: " + recJ.getTransType().getCar().toString());
 
     }
 

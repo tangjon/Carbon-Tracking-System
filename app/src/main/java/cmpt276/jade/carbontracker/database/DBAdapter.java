@@ -7,8 +7,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Car;
+import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.Route;
+import cmpt276.jade.carbontracker.model.Transportation;
 
 // TO USE:
 // Change the package (at top) to match your project.
@@ -22,7 +26,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 15;
+    public static final int DATABASE_VERSION = 16;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -40,12 +44,42 @@ public class DBAdapter {
     public static final int COL_ROWID = 0;
 
     // TODO: Setup Journey Fields Here
-
+    public static final String KEY_JOURNEY_NAME = "journey_name";
+    public static final String KEY_JOURNEY_TRANS_TYPE = "journey_trans_type";
+    public static final String KEY_JOURNEY_DATE = "journey_date";
+    public static final String KEY_JOURNEY_ROUTE_ID = "journey_route";
+    public static final String KEY_JOURNEY_CAR_ID = "journey_car";
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
-
+    public static final int COL_JOURNEY_NAME = 1;
+    public static final int COL_JOURNEY_TRANS_TYPE = 2;
+    public static final int COL_JOURNEY_DATE = 3;
+    public static final int COL_JOURNEY_ROUTE_ID = 4;
+    public static final int COL_JOURNEY_CAR_ID = 5;
     // ALL KEYS
+    public static final String[] ALL_JOURNEY_KEYS = new String[] {
+            KEY_ROWID,
+            KEY_JOURNEY_NAME,
+            KEY_JOURNEY_TRANS_TYPE,
+            KEY_JOURNEY_DATE,
+            KEY_JOURNEY_ROUTE_ID,
+            KEY_JOURNEY_CAR_ID};
+    // Create the Data Base (SQL)
+    private static final String CREATE_TABLE_JOURNEY =
+            "create table " + TABLE_JOURNEY
+                    + " (" + KEY_ROWID + " integer primary key autoincrement, "
+
+                    // TODO: Place your fields here!
+                    + KEY_JOURNEY_NAME + " text, "
+                    + KEY_JOURNEY_TRANS_TYPE + " text, "
+                    + KEY_JOURNEY_DATE + " text, "
+                    + KEY_JOURNEY_ROUTE_ID + " integer, "
+                    + KEY_JOURNEY_CAR_ID + " integer"
+
+                    // Rest  of creation:
+                    + ");";
 
     // TODO: Setup Car Fields Here
+
     public static final String KEY_CAR_CARBON_TAIL_PIPE = "car_carbon_tail_pipe";
     public static final String KEY_CAR_CITY_MPG = "car_city_mpg";
     public static final String KEY_CAR_ENGINE_DESCRIPTION = "car_engine_descrip";
@@ -114,6 +148,7 @@ public class DBAdapter {
 
 
     // TODO: Setup Route Fields Here
+
     public static final String KEY_ROUTE_CITY_DISTANCE = "city_distance";
     public static final String KEY_ROUTE_HIGH_WAY_DISTANCE = "high_way_distance";
     public static final String KEY_ROUTE_OTHER_DISTANCE = "other_distance" ;
@@ -262,6 +297,44 @@ public class DBAdapter {
         return db.insert(TABLE_ROUTE, null, initialValues);
     }
 
+    public long insertRow(Journey journey) {
+        // TODO: Update data in the row with new fields.
+        // TODO: Also change the function's arguments to be what you need!
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_JOURNEY_NAME, journey.getName() );
+        initialValues.put(KEY_JOURNEY_TRANS_TYPE, journey.getTransType().getTransMode().toString());
+        initialValues.put(KEY_JOURNEY_DATE, journey.getDate().toString());
+
+        // Insert Route
+        long routeID = insertRow(journey.getRoute());
+        initialValues.put(KEY_JOURNEY_ROUTE_ID, routeID);
+
+        Transport mode = journey.getTransType().getTransMode();
+
+        switch (mode){
+            case CAR:
+                // Insert Car
+                long carID = insertRow(journey.getTransType().getCar());
+                initialValues.put(KEY_JOURNEY_CAR_ID, carID);
+                break;
+            case BIKE:
+                break;
+            case WALK:
+                break;
+            case BUS:
+                break;
+            case SKYTRAIN:
+                break;
+            case TRANSIT:
+                break;
+        }
+
+
+        // Insert it into the database.
+        return db.insert(TABLE_JOURNEY, null, initialValues);
+    }
+
+
     /* [DONE]
     Delete a row from the database, by rowId (primary key)
     */
@@ -380,6 +453,66 @@ public class DBAdapter {
         return new Route(name, highWayDistance, cityDistance, otherDistance, mode);
     }
 
+    public Journey getJourney(long rowId){
+        String where = KEY_ROWID + "=" + rowId;
+
+        Cursor c = db.query(true, TABLE_JOURNEY, ALL_JOURNEY_KEYS,
+                where, null, null, null, null, null);
+
+        if (c != null) {
+            c.moveToFirst();
+        }
+
+        String NAME = c.getString(COL_JOURNEY_NAME);
+        String TRANS_TYPE = c.getString(COL_JOURNEY_TRANS_TYPE);
+        String DATE = c.getString(COL_JOURNEY_DATE);
+        long ROUTE_ID = c.getInt(COL_JOURNEY_ROUTE_ID);
+
+        // Get and set Route
+        Route route = getRoute(ROUTE_ID);
+
+        // Get and set Transport Type
+        Transportation transportation = new Transportation();
+        transportation.setTransMode(buffTrans(TRANS_TYPE));
+        switch (transportation.getTransMode()){
+            case CAR:
+                long CAR_ID = c.getInt(COL_JOURNEY_CAR_ID);
+                transportation.setCar(getCar(CAR_ID));
+                break;
+            case BIKE:
+                break;
+            case WALK:
+                break;
+            case BUS:
+                break;
+            case SKYTRAIN:
+                break;
+            case TRANSIT:
+                break;
+        }
+        Journey j = new Journey(NAME, transportation,route);
+        return j;
+    }
+
+    public Transport buffTrans(String trans){
+        switch (trans){
+            case "Car":
+                return Transport.CAR;
+            case "Walk":
+                return Transport.WALK;
+            case "Bike":
+                return Transport.BIKE;
+            case "Bus":
+                return Transport.BUS;
+            case "SkyTrain":
+                return Transport.SKYTRAIN;
+            case "Transit":
+                return Transport.TRANSIT;
+            default:
+                assert false;
+        }
+        return null;
+    }
     // [UPDATE]
     // Get a specific row (by rowId)
     public Cursor getRow(DB_TABLE table,long rowId) {
@@ -445,6 +578,7 @@ public class DBAdapter {
 //            _db.execSQL(DATABASE_CREATE_SQL);
             _db.execSQL(CREATE_TABLE_ROUTE);
             _db.execSQL(CREATE_TABLE_CAR);
+            _db.execSQL(CREATE_TABLE_JOURNEY);
         }
 
         @Override
@@ -456,6 +590,7 @@ public class DBAdapter {
 //            _db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROUTE);
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAR);
+            _db.execSQL("DROP TABLE IF EXISTS " + TABLE_JOURNEY);
 
             // Recreate new database:
             onCreate(_db);
