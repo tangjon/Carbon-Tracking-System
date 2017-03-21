@@ -40,7 +40,7 @@ public class SkytrainListActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = BusInfoActivity.getIntent(SkytrainListActivity.this);
+                Intent intent = SkytrainInfoActivity.getIntent(SkytrainListActivity.this);
                 startActivity(intent);
             }
         });
