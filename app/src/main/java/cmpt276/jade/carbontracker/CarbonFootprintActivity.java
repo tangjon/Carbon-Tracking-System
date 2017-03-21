@@ -373,7 +373,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private class XAxisValueFormatter implements IAxisValueFormatter {
         private String[] labels;
 
-        public XAxisValueFormatter(String[] labels) {
+        XAxisValueFormatter(String[] labels) {
             this.labels = labels;
         }
 

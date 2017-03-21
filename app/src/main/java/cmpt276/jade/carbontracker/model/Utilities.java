@@ -131,12 +131,8 @@ public class Utilities implements Serializable {
     }
 
     public void editBill(BillType type, Bill newBill, int index) {
-        if (type == BillType.ELECTRIC) {
-            listBillElec.set(index, newBill);
-        }
-        else {
-            listBillGas.set(index, newBill);
-        }
+        if (type == BillType.ELECTRIC) listBillElec.set(index, newBill);
+        else listBillGas.set(index, newBill);
     }
 
     public void deleteBill(BillType type, int index) {

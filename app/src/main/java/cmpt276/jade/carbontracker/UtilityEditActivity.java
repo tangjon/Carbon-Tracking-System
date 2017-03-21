@@ -127,14 +127,16 @@ public class UtilityEditActivity extends AppCompatActivity {
     private void previewEmissions() {
         EditText editInput = (EditText) findViewById(R.id.editBillInput);
         if (!editInput.getText().toString().isEmpty()) {
+
             double input = Double.parseDouble(editInput.getText().toString());
             buffer.setInput(input);
 
             TextView tvPreview = (TextView) findViewById(R.id.txt_bill_preview);
-            String text = "Total Emissions: " + Emission.round(buffer.getEmissionTotal()) +
-                    "kg CO2, Average Emissions: " + Emission.round(buffer.getEmissionAvg()) + "kg CO2";
+            String text = getString(R.string.label_bill_preview);
 
-            tvPreview.setText(text);
+            tvPreview.setText(String.format(text, buffer.getEmissionTotal(),
+                    buffer.getEmissionAvg(),
+                    buffer.getEmissionAvg() / emission.getUtilities().getNumResidents()));
         }
     }
 

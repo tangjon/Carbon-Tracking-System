@@ -1,7 +1,5 @@
 package cmpt276.jade.carbontracker.model;
 
-import android.util.Log;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -44,9 +42,6 @@ public class Bill implements Serializable {
         dateDiff = TimeUnit.DAYS.convert(dateDiff, TimeUnit.MILLISECONDS);
 
         emissionAvg = emissionTotal / dateDiff;
-
-        Log.i("calculateEmission", "dateDiff = "+dateDiff);
-        Log.i("calculateEmission", "emissionTotal = "+emissionTotal+", emissionAvg = "+emissionAvg);
     }
 
     public BillType getBillType() {
