@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import cmpt276.jade.carbontracker.model.Car;
-import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.Route;
 
 // TO USE:
@@ -30,12 +29,13 @@ public class DBAdapter {
 
     // DB Tables
     public static final String DATABASE_TABLE = "mainTable";
+
     public static final String TABLE_CAR = "cars";
     public static final String TABLE_ROUTE = "routes";
     public static final String TABLE_JOURNEY = "journeys";
 
 
-    // DB Fields
+    // General DB Fields
     public static final String KEY_ROWID = "_id";
     public static final int COL_ROWID = 0;
 
@@ -73,7 +73,7 @@ public class DBAdapter {
     public static final int COL_CAR_TRANS_DESCRIPTION = 11;
     public static final int COL_CAR_YEAR = 12;
 
-    // ALL KEYS (Contains all KEYS in array of strings)
+    // ALL KEYS (Contains all KEYS in array of strings) (DETERMINES THE COLUMNS NUMBERS)
     public static final String[] ALL_CAR_KEYS = new String[] {
             KEY_ROWID,
             KEY_CAR_CARBON_TAIL_PIPE,
@@ -114,10 +114,39 @@ public class DBAdapter {
 
 
     // TODO: Setup Route Fields Here
+    public static final String KEY_ROUTE_NAME = "route_name";
+    public static final String KEY_ROUTE_HIGH_WAY_DISTANCE = "route_highway_distance";
+    public static final String KEY_ROUTE_CITY_DISTANCE= "route_city_distance";
+    public static final String KEY_ROUTE_OTHER_DISTANCE = "route_other_distance";
+    public static final String KEY_ROUTE_MODE = "route_mode";
 
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
-
+    public static final int COL_ROUTE_NAME = 1;
+    public static final int COL_ROUTE_HIGH_WAY_DISTANCE = 2;
+    public static final int COL_ROUTE_CITY_DISTANCE= 3;
+    public static final int COL_ROUTE_OTHER_DISTANCE = 4;//for bike,walk,bus,skytrain
+    public static final int COL_ROUTE_MODE = 5;//2 for bike and walk,3 for bus, 4 for skytrain
     // ALL KEYS
+    public static final String[] ALL_ROUTE_KEYS = new String[] {
+            KEY_ROWID,
+            KEY_ROUTE_HIGH_WAY_DISTANCE,
+            KEY_ROUTE_CITY_DISTANCE,
+            KEY_ROUTE_OTHER_DISTANCE,
+            KEY_ROUTE_MODE};
+
+    // Create the Data Base (SQL)
+    private static final String CREATE_TABLE_ROUTE =
+            "create table " + TABLE_ROUTE
+                    + " (" + KEY_ROWID + " integer primary key autoincrement, "
+
+                    // TODO: Place your fields here!
+                    + KEY_ROUTE_HIGH_WAY_DISTANCE + " real, "
+                    + KEY_ROUTE_CITY_DISTANCE + " real, "
+                    + KEY_ROUTE_OTHER_DISTANCE + " real, "
+                    + KEY_ROUTE_MODE + " integer"
+
+                    // Rest  of creation:
+                    + ");";
 
     // TODO: Setup Bus Fields Here
 
@@ -125,6 +154,7 @@ public class DBAdapter {
 
     // ALL KEYS
 
+    // Create the Data Base (SQL)
 
     // TODO: Setup Skytrain Fields Here
 
@@ -132,12 +162,15 @@ public class DBAdapter {
 
     // ALL KEYS
 
+    // Create the Data Base (SQL)
+
     // TODO: Setup Walk Fields Here
 
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
 
     // ALL KEYS
 
+    // Create the Data Base (SQL)
 
     // TODO: Setup Utilities Fields Here
 
@@ -145,6 +178,12 @@ public class DBAdapter {
 
     // ALL KEYS
 
+    // Create the Data Base (SQL)
+
+
+    ///////////////////////////
+    // FOR REFERENCE
+    ///////////////////////////
 
     // TODO: Setup your fields here:
     public static final String KEY_NAME = "name";
@@ -178,6 +217,7 @@ public class DBAdapter {
                     // Rest  of creation:
                     + ");";
 
+
     // Context of application who uses us.
     private final Context context;
 
@@ -204,24 +244,9 @@ public class DBAdapter {
         myDBHelper.close();
     }
 
-    // Add a new set of values to the database.
-    public long insertRow(String name, int studentNum, String favColour) {
-		/*
-		 * CHANGE 3:
-		 */
-        // TODO: Update data in the row with new fields.
-        // TODO: Also change the function's arguments to be what you need!
-        // Create row's data:
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_NAME, name);
-        initialValues.put(KEY_STUDENTNUM, studentNum);
-        initialValues.put(KEY_FAVCOLOUR, favColour);
-
-        // Insert it into the database.
-        return db.insert(DATABASE_TABLE, null, initialValues);
-    }
 
     // Add a new set of values to the database.
+    // [DONE]
     public long insertRow(Car car) {
 		/*
 		 * CHANGE 3:
@@ -247,40 +272,82 @@ public class DBAdapter {
         return db.insert(TABLE_CAR, null, initialValues);
     }
 
-    // Delete a row from the database, by rowId (primary key)
-    public boolean deleteRow(long rowId) {
-        String where = KEY_ROWID + "=" + rowId;
-        return db.delete(DATABASE_TABLE, where, null) != 0;
+    public long insertRow(Route route) {
+        // TODO: Update data in the row with new fields.
+        // TODO: Also change the function's arguments to be what you need!
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_ROUTE_NAME, route.getName() );
+        initialValues.put(KEY_ROUTE_HIGH_WAY_DISTANCE, route.getHighWayDistance() );
+        initialValues.put(KEY_ROUTE_CITY_DISTANCE, route.getCityDistance() );
+        initialValues.put(KEY_ROUTE_OTHER_DISTANCE, route.getOtherDistance() );
+        initialValues.put(KEY_ROUTE_MODE, route.getMode() );
+
+        // Insert it into the database.
+        return db.insert(TABLE_ROUTE, null, initialValues);
     }
 
+
+    //  [DONE]
     // Delete a row from the database, by rowId (primary key)
-    public boolean deleteRow(String DB_TABLE, long rowId) {
+    public boolean deleteRow(DB_TABLE table, long rowId) {
         String where = KEY_ROWID + "=" + rowId;
-        return db.delete(DB_TABLE, where, null) != 0;
+        return db.delete(table.toString(), where, null) != 0;
     }
 
-    public void deleteAll(String DB_TABLE) {
-        Cursor c = getAllRows(DB_TABLE);
+    // [DONE]
+    public void deleteAll(DB_TABLE table) {
+        Cursor c = getAllRows(table);
         long rowId = c.getColumnIndexOrThrow(KEY_ROWID);
         if (c.moveToFirst()) {
             do {
-                deleteRow(DB_TABLE,c.getLong((int) rowId));
+                deleteRow(table,c.getLong((int) rowId));
             } while (c.moveToNext());
         }
         c.close();
     }
 
-    // Return all data in the database.
-    public Cursor getAllRows(String DB_TABLE) {
-        String where = null;
 
+    // [UPDATE]
+    // Return all data in the database.
+    public Cursor getAllRows(DB_TABLE table) {
+        String where = null;
         Cursor c = null;
-        switch (DB_TABLE){
-            case TABLE_CAR:
-                c = 	db.query(true, DB_TABLE, ALL_CAR_KEYS,
+        switch(table){
+            case CAR:
+                c =	db.query(true, table.toString(), ALL_CAR_KEYS,
                         where, null, null, null, null, null);
                 break;
-            default:
+            case ROUTE:
+                String selectQuery = "SELECT  * FROM " + TABLE_ROUTE;
+                c= db.rawQuery(selectQuery, null);
+//                c =	db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
+//                        where, null, null, null, null, null);
+                break;
+        }
+
+
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
+    // [UPDATE]
+    // Get a specific row (by rowId)
+    public Cursor getRow(DB_TABLE table,long rowId) {
+        String where = KEY_ROWID + "=" + rowId;
+
+        Cursor c = null;
+        switch (table){
+            case CAR:
+                c = db.query(true, table.toString(), ALL_CAR_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case ROUTE:
+                    String selectQuery = "SELECT  * FROM " + TABLE_ROUTE;
+                    c= db.rawQuery(selectQuery, null);
+//                c = db.query(true, table.toString(), ALL_ROUTE_KEYS,
+//                        where, null, null, null, null, null);
                 break;
         }
 
@@ -290,17 +357,7 @@ public class DBAdapter {
         return c;
     }
 
-    // Get a specific row (by rowId)
-    public Cursor getRow(long rowId) {
-        String where = KEY_ROWID + "=" + rowId;
-        Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS,
-                where, null, null, null, null, null);
-        if (c != null) {
-            c.moveToFirst();
-        }
-        return c;
-    }
-
+    // UNTOUCHED
     // Change an existing row to be equal to new data.
     public boolean updateRow(long rowId, String name, int studentNum, String favColour) {
         String where = KEY_ROWID + "=" + rowId;
@@ -321,7 +378,6 @@ public class DBAdapter {
     }
 
 
-
     /////////////////////////////////////////////////////////////////////
     //	Private Helper Classes:
     /////////////////////////////////////////////////////////////////////
@@ -339,6 +395,7 @@ public class DBAdapter {
         @Override
         public void onCreate(SQLiteDatabase _db) {
 //            _db.execSQL(DATABASE_CREATE_SQL);
+            _db.execSQL(CREATE_TABLE_ROUTE);
             _db.execSQL(CREATE_TABLE_CAR);
         }
 
@@ -349,10 +406,30 @@ public class DBAdapter {
 
             // Destroy old database:
 //            _db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
+            _db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROUTE);
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAR);
 
             // Recreate new database:
             onCreate(_db);
+        }
+    }
+
+    /**
+     * Created by tangj on 3/20/2017.
+     */
+
+    public static enum DB_TABLE {
+        CAR(DBAdapter.TABLE_CAR), ROUTE(DBAdapter.TABLE_CAR), JOURNEY(DBAdapter.TABLE_CAR);
+
+        private String name;
+
+        private DB_TABLE(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString(){
+            return name;
         }
     }
 }

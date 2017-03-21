@@ -11,15 +11,12 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.database.DBAdapter;
-import cmpt276.jade.carbontracker.database.DB_TABLE;
-import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
-import cmpt276.jade.carbontracker.model.Journey;
+import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.sample.LoadDummyData;
 import cmpt276.jade.carbontracker.utils.CarManager;
 
@@ -39,10 +36,6 @@ public class Welcome_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_welcome_);
-
-
-
-
 
         // Load Required Files to Emissions
         loadRequiredApplicationResources();
@@ -98,17 +91,50 @@ public class Welcome_Activity extends AppCompatActivity {
         // Uncomment this to load dummy data
 //         LoadDummyData.load();
 
-        Car car = LoadDummyData.generateCar();
 
         DBAdapter db = new DBAdapter(this);
         db.open();
+        // TEST CAR
+        Car car = LoadDummyData.generateCar();
         db.insertRow(car);
-        Cursor cursor = db.getAllRows(DB_TABLE.TABLE_CAR.toString());
-        displayRecordSet(cursor);
+        displayRecordSetForCar(db.getAllRows(DBAdapter.DB_TABLE.CAR));
 
+        // TEST ROUTE
+        Route route = LoadDummyData.generateRoute();
+        db.insertRow(route);
+        displayRecordSetForRoute(db.getAllRows(DBAdapter.DB_TABLE.ROUTE));
     }
 
-    private void displayRecordSet(Cursor cursor) {
+    private void displayRecordSetForRoute(Cursor cursor) {
+        String message = "";
+        // populate the message from the cursor
+        // Reset cursor to start, checking to see if there's data:
+        if (cursor.moveToFirst()) {
+            do {
+                // Process the data:
+
+                double CityDistance = cursor.getDouble(DBAdapter.COL_ROUTE_CITY_DISTANCE);
+                double HighWayDistance = cursor.getDouble(DBAdapter.COL_ROUTE_HIGH_WAY_DISTANCE);
+                double OtherDistance = cursor.getDouble(DBAdapter.COL_ROUTE_OTHER_DISTANCE);//for bike,walk,bus,skytrain
+                int mode = cursor.getInt(DBAdapter.COL_ROUTE_MODE);//2 for bike and walk,3 for bus, 4 for skytrain
+                String name = cursor.getString(DBAdapter.COL_ROUTE_NAME);
+
+                // Append data to the message:
+                message += "name=" + name
+                        +", CityDistance=" + CityDistance
+                        +", HighWayDistance=" + HighWayDistance
+                        +", OtherDistance=" + OtherDistance
+                        +", mode=" + mode
+                        +"\n";
+            } while(cursor.moveToNext());
+        }
+
+        // Close the cursor to avoid a resource leak.
+        cursor.close();
+
+        Log.i(TAG, "displayRecordSetForRoute: " + message);
+    }
+    private void displayRecordSetForCar(Cursor cursor) {
         String message = "";
         // populate the message from the cursor
 
@@ -143,6 +169,6 @@ public class Welcome_Activity extends AppCompatActivity {
         // Close the cursor to avoid a resource leak.
         cursor.close();
 
-        Log.i(TAG, "displayRecordSet: " + message);
+        Log.i(TAG, "displayRecordSetForCar: " + message);
     }
 }

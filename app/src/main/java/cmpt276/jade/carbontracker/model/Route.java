@@ -7,11 +7,11 @@ import java.io.Serializable;
 //Route class   Route(Nickname,highway Distance,city Distance)
 //has getter and setter
 public class Route implements Serializable {
-    private String name;
-    private double HighWayDistance;
     private double CityDistance;
+    private double HighWayDistance;
     private double OtherDistance;//for bike,walk,bus,skytrain
     private int mode;//2 for bike and walk,3 for bus, 4 for skytrain
+    private String name;
 
     public Route(String name, double HighWayDistance, double CityDistance) {
         this.name = name;
