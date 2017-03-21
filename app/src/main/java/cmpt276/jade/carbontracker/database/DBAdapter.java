@@ -222,8 +222,7 @@ public class DBAdapter {
     }
 
 
-    // Add a new set of values to the database.
-    // [DONE]
+    /* [DONE] */
     public long insertRow(Car car) {
 		/*
 		 * CHANGE 3:
@@ -248,7 +247,7 @@ public class DBAdapter {
         // Insert it into the database.
         return db.insert(TABLE_CAR, null, initialValues);
     }
-
+    /* [DONE] */
     public long insertRow(Route route) {
         // TODO: Update data in the row with new fields.
         // TODO: Also change the function's arguments to be what you need!
@@ -263,9 +262,9 @@ public class DBAdapter {
         return db.insert(TABLE_ROUTE, null, initialValues);
     }
 
-
-    //  [DONE]
-    // Delete a row from the database, by rowId (primary key)
+    /* [DONE]
+    Delete a row from the database, by rowId (primary key)
+    */
     public boolean deleteRow(DB_TABLE table, long rowId) {
         String where = KEY_ROWID + "=" + rowId;
         return db.delete(table.toString(), where, null) != 0;
@@ -361,7 +360,7 @@ public class DBAdapter {
 
         return car;
     }
-
+    /* [DONE] */
     public Route getRoute(long rowId){
         String where = KEY_ROWID + "=" + rowId;
 
