@@ -295,10 +295,10 @@ public class DBAdapter {
                         where, null, null, null, null, null);
                 break;
             case ROUTE:
-                String selectQuery = "SELECT  * FROM " + TABLE_ROUTE;
-                c= db.rawQuery(selectQuery, null);
-//                c =	db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
-//                        where, null, null, null, null, null);
+//                String selectQuery = "SELECT  * FROM " + TABLE_ROUTE;
+//                c= db.rawQuery(selectQuery, null);
+                c =	db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
+                        where, null, null, null, null, null);
                 break;
         }
 
@@ -308,6 +308,7 @@ public class DBAdapter {
         }
         return c;
     }
+
 
     // [UPDATE]
     // Get a specific row (by rowId)
