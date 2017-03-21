@@ -9,18 +9,20 @@ import java.util.UUID;
  */
 
 public class Car implements Serializable{
-    private String transDescription;
+
+    private double carbonTailPipe;
+    private double engineDispLitres;
+    private int cityMPG;
+    private int fuelAnnualCost;
+    private int highwayMPG;
+    private int year;
+    private String engineDescription;
+    private String fuelType;
     private String make; // Manufacturer
     private String model;
     private String nickName;
-    private int year;
-    private int cityMPG;
-    private int highwayMPG;
-    private String engineDescription;
-    private double engineDispLitres;
-    private String fuelType;
-    private int fuelAnnualCost;
-    private double carbonTailPipe;
+    private String transDescription;
+
     private UUID KEY;
 
     public Car(){
@@ -98,9 +100,6 @@ public class Car implements Serializable{
         this.model = model;
     }
 
-    public String getNickname() {
-        return nickName;
-    }
 
     public void setNickname(String nickname) {
         this.nickName = nickname;

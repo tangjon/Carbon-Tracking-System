@@ -55,7 +55,7 @@ public class LoadDummyData {
 
     public static Car generateCar(){
         Random rn = new Random();
-        int index = rn.nextInt(cData.toList().size()) - 1;
+        int index = rn.nextInt(100);
         Car car = cData.toList().get(index);
         car.setNickname("Car" + index %20);
         return car;

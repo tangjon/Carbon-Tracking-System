@@ -101,7 +101,7 @@ public class CarInfoActivity extends AppCompatActivity {
         selectYear = Double.toString(userSelectedCar.getYear());
         // Load Existing nickname
         EditText et = (EditText) findViewById(R.id.et_nickname);
-        et.setText(userSelectedCar.getNickname());
+        et.setText(userSelectedCar.getNickName());
         return thisKey;
     }
 

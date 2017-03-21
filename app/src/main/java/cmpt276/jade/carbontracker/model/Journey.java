@@ -12,10 +12,9 @@ public class Journey implements Serializable{
 
 
     public static String KEY = "JOURNEY";
+
+
     private String name;
-
-
-
     private Transportation transType;
     private Route route;
     private double totalDriven;
@@ -152,7 +151,7 @@ public class Journey implements Serializable{
                 total = 10.16 * (routeDistance / carKMPG);
             }
         }
-            return total;
+        return total;
 
     }
 
@@ -166,5 +165,19 @@ public class Journey implements Serializable{
     }
 
 
-
+    @Override
+    public String toString() {
+        return "Journey{" +
+                "name='" + name + '\'' +
+                ", transType=" + transType +
+                ", route=" + route +
+                ", Date='" + Date + '\'' +
+                ", totalDriven=" + totalDriven +
+                ", totalEmissionsCity=" + totalEmissionsCity +
+                ", totalEmissionsHighway=" + totalEmissionsHighway +
+                ", totalTravelledEmissions=" + totalTravelledEmissions +
+                ", mode=" + mode +
+                ", position=" + position +
+                '}';
+    }
 }
