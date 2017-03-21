@@ -18,12 +18,6 @@ public class Journey implements Serializable{
 
     private Transportation transType;
     private Route route;
-    private Car car;
-
-    //TODO Add getter and setter when these classes are finished
-    //private Walk walk;
-    //private Transit transit;
-
     private double totalDriven;
     private double totalEmissionsCity;
     private double totalEmissionsHighway;
@@ -36,10 +30,6 @@ public class Journey implements Serializable{
         this.name = inputName;
         this.transType = inputTransType;
         this.route = inputRoute;
-        this.car = transType.getCar();
-        //TODO See above and will have to change emissions data
-        //this.walk = transType.getWalk();
-       // this.transit = transType.getTransit;
         if(transType.getCar() != null) {
             this.totalEmissionsCity = calcTotal(mtoKM(transType.getCar().getCityMPG()), route.getCityDistance());
             this.totalEmissionsHighway = calcTotal(mtoKM(transType.getCar().getHighwayMPG()), route.getHighWayDistance());
@@ -152,11 +142,11 @@ public class Journey implements Serializable{
     //Calculates total emissions
     public double calcTotal(double carKMPG, double routeDistance){
         double total = 0;
-        if(car.getFuelType() != null) {
-            if (car.getFuelType().equals("Regular Gasoline") || car.getFuelType().equals("Premium Gasoline")) {
+        if(transType.getCar().getFuelType() != null) {
+            if (transType.getCar().getFuelType().equals("Regular Gasoline") || transType.getCar().getFuelType().equals("Premium Gasoline")) {
                 total = 8.89 * (routeDistance / carKMPG);
             }
-            if (car.getFuelType().equals("Diesel")) {
+            if (transType.getCar().getFuelType().equals("Diesel")) {
                 total = 10.16 * (routeDistance / carKMPG);
             }
         }

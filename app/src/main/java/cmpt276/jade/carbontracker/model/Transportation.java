@@ -2,6 +2,8 @@ package cmpt276.jade.carbontracker.model;
 
 import java.io.Serializable;
 
+import cmpt276.jade.carbontracker.enums.Transport;
+
 /**
  * Created by Sean on 12/03/2017.
  */
@@ -12,7 +14,8 @@ public class Transportation implements Serializable {
     private Car car;
     private Bus bus;
     private Skytrain train;
-  //  private Walk walk;
+    //  private Walk walk;
+    private Transport transMode;
 
 
     public Transportation(){
@@ -43,5 +46,13 @@ public class Transportation implements Serializable {
         this.train = skytrain;
     }
 
+
+    public Transport getTransMode() {
+        return transMode;
+    }
+
+    public void setTransMode(Transport transMode) {
+        this.transMode = transMode;
+    }
 
 }

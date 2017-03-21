@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import cmpt276.jade.carbontracker.adapter.BusListAdapter;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.model.SkytrainCollection;
@@ -88,6 +90,9 @@ public class SkytrainListActivity extends AppCompatActivity {
     private void populateList(){
         //TODO
         //Make Adaptor
+        ListAdapter adapt=new BusListAdapter(this,trainList.getSkytrainDetails());
+        ListView list = (ListView) findViewById(R.id.listViewSkytrainList);
+        list.setAdapter(adapt);
     }
 
     public static Intent getIntent(Context context) {

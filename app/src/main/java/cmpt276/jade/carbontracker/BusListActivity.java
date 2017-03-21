@@ -8,13 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import cmpt276.jade.carbontracker.adapter.BusListAdapter;
 import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.BusCollection;
 import cmpt276.jade.carbontracker.model.Emission;
-import cmpt276.jade.carbontracker.model.Journey;
 
 
 /**
@@ -99,6 +101,9 @@ public class BusListActivity extends AppCompatActivity {
     private void populateList(){
         //TODO
         //Make Adaptor
+        ListAdapter adapt=new BusListAdapter(this,busList.getBusDetails());
+        ListView list = (ListView) findViewById(R.id.listviewBus);
+        list.setAdapter(adapt);
     }
 
     public static Intent getIntent(Context context) {
