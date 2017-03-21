@@ -34,10 +34,19 @@ public class DBAdapter {
     // DB Tables
     public static final String DATABASE_TABLE = "mainTable";
 
-    public static final String TABLE_CAR = "cars";
     public static final String TABLE_ROUTE = "routes";
-    public static final String TABLE_JOURNEY = "journeys";
 
+    // TRANSPORT TABLES
+    public static final String TABLE_CAR = "cars";
+    public static final String TABLE_JOURNEY = "journeys";
+    public static final String TABLE_BUS = "buss";
+    public static final String TABLE_SKYTRAIN = "sktrains";
+    public static final String TABLE_WALK = "walks";
+    public static final String TABLE_BIKE = "bikes";
+    public static final String TABLE_TRANSIT = "transits";
+
+    // UTILITY TABLES
+    public static final String TABLE_BILL = "bills";
 
     // General DB Fields
     public static final String KEY_ROWID = "_id";
@@ -198,6 +207,9 @@ public class DBAdapter {
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
 
     // ALL KEYS
+    public static final String[] ALL_BUS_KEYS = new String[] {
+
+    };
 
     // Create the Data Base (SQL)
 
@@ -206,6 +218,9 @@ public class DBAdapter {
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
 
     // ALL KEYS
+    public static final String[] ALL_SKYTRAIN_KEYS = new String[] {
+
+    };
 
     // Create the Data Base (SQL)
 
@@ -214,6 +229,31 @@ public class DBAdapter {
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
 
     // ALL KEYS
+    public static final String[] ALL_WALK_KEYS = new String[] {
+
+    };
+
+    // Create the Data Base (SQL)
+
+    // TODO: Setup Bike Fields Here
+
+    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
+
+    // ALL KEYS
+    public static final String[] ALL_BIKE_KEYS = new String[] {
+
+    };
+
+    // Create the Data Base (SQL)
+
+    // TODO: Setup Transit Fields Here
+
+    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
+
+    // ALL KEYS
+    public static final String[] ALL_TRANSIT_KEYS = new String[] {
+
+    };
 
     // Create the Data Base (SQL)
 
@@ -228,6 +268,9 @@ public class DBAdapter {
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
 
     // ALL KEYS
+    public static final String[] ALL_BILL_KEYS = new String[] {
+
+    };
 
     // Create the Data Base (SQL)
 
@@ -341,6 +384,10 @@ public class DBAdapter {
     }
 
 
+
+    //////////////////////
+    // GENERAL FUNCTIONS
+    /////////////////////
     /* [DONE]
     Delete a row from the database, by rowId (primary key)
     */
@@ -373,9 +420,35 @@ public class DBAdapter {
                         where, null, null, null, null, null);
                 break;
             case ROUTE:
-//                String selectQuery = "SELECT  * FROM " + TABLE_ROUTE;
-//                c= db.rawQuery(selectQuery, null);
                 c =	db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case JOURNEY:
+                c =	db.query(true, TABLE_ROUTE, ALL_JOURNEY_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case BILL:
+                c =	db.query(true, TABLE_BILL, ALL_BILL_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case BUS:
+                c =	db.query(true, TABLE_BUS, ALL_BUS_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case SKYTRAIN:
+                c =	db.query(true, TABLE_SKYTRAIN, ALL_SKYTRAIN_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case WALK:
+                c =	db.query(true, TABLE_WALK, ALL_WALK_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case BIKE:
+                c =	db.query(true, TABLE_BIKE, ALL_BIKE_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case TRANSIT:
+                c =	db.query(true, TABLE_TRANSIT, ALL_TRANSIT_KEYS,
                         where, null, null, null, null, null);
                 break;
         }
@@ -525,15 +598,41 @@ public class DBAdapter {
         String where = KEY_ROWID + "=" + rowId;
 
         Cursor c = null;
-        switch (table){
+        switch(table){
             case CAR:
-                c = db.query(true, table.toString(), ALL_CAR_KEYS,
+                c =	db.query(true, table.toString(), ALL_CAR_KEYS,
                         where, null, null, null, null, null);
                 break;
             case ROUTE:
-//                    String selectQuery = "SELECT  * FROM " + TABLE_ROUTE;
-//                    c= db.rawQuery(selectQuery, null);
-                  c = db.query(true, table.toString(), ALL_ROUTE_KEYS,
+                c =	db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case JOURNEY:
+                c =	db.query(true, TABLE_ROUTE, ALL_JOURNEY_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case BILL:
+                c =	db.query(true, TABLE_BILL, ALL_BILL_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case BUS:
+                c =	db.query(true, TABLE_BUS, ALL_BUS_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case SKYTRAIN:
+                c =	db.query(true, TABLE_SKYTRAIN, ALL_SKYTRAIN_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case WALK:
+                c =	db.query(true, TABLE_WALK, ALL_WALK_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case BIKE:
+                c =	db.query(true, TABLE_BIKE, ALL_BIKE_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case TRANSIT:
+                c =	db.query(true, TABLE_TRANSIT, ALL_TRANSIT_KEYS,
                         where, null, null, null, null, null);
                 break;
         }
@@ -608,7 +707,10 @@ public class DBAdapter {
      */
 
     public static enum DB_TABLE {
-        CAR(DBAdapter.TABLE_CAR), ROUTE(DBAdapter.TABLE_CAR), JOURNEY(DBAdapter.TABLE_CAR);
+        CAR(DBAdapter.TABLE_CAR), ROUTE(DBAdapter.TABLE_CAR), JOURNEY(DBAdapter.TABLE_CAR),
+        BILL(DBAdapter.TABLE_BILL), BUS(DBAdapter.TABLE_BUS), SKYTRAIN(DBAdapter.TABLE_SKYTRAIN),
+        WALK(DBAdapter.TABLE_WALK), BIKE(DBAdapter.TABLE_BIKE), TRANSIT(DBAdapter.TABLE_TRANSIT);
+        ;
 
         private String name;
 
