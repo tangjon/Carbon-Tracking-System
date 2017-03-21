@@ -8,13 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import cmpt276.jade.carbontracker.enums.Transport;
+import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
+import cmpt276.jade.carbontracker.model.Skytrain;
 
 /*
  *  Allows user to select type of transportation (only car currently supported)
  */
 public class TransportSelectActivity extends AppCompatActivity {
-    private Journey journey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +27,6 @@ public class TransportSelectActivity extends AppCompatActivity {
         setupCarBtn();
         setupWalkBtn();
         setupBusBtn();
-        getIntentData();
         setupSkytrainBtn();
     }
 
@@ -36,7 +37,7 @@ public class TransportSelectActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = CarListActivity.getIntentFromActivity(TransportSelectActivity.this);
-                intent.putExtra("Journey", journey);
+                Emission.getInstance().getJourneyBuffer().getTransType().setTransMode(Transport.CAR);
                 startActivity(intent);
             }
         });
@@ -49,6 +50,7 @@ public class TransportSelectActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = Route_List_Activity.IntentForRouteList(TransportSelectActivity.this,2);
+                Emission.getInstance().getJourneyBuffer().getTransType().setTransMode(Transport.WALK);
                 startActivity(intent);
             }
         });
@@ -60,7 +62,8 @@ public class TransportSelectActivity extends AppCompatActivity {
         btnCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = Route_List_Activity.IntentForRouteList(TransportSelectActivity.this,3);
+                Intent intent = BusListActivity.getIntent(TransportSelectActivity.this);
+                Emission.getInstance().getJourneyBuffer().getTransType().setTransMode(Transport.BUS);
                 startActivity(intent);
             }
         });
@@ -72,7 +75,8 @@ public class TransportSelectActivity extends AppCompatActivity {
         btnCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = Route_List_Activity.IntentForRouteList(TransportSelectActivity.this,4);
+                Intent intent = SkytrainListActivity.getIntent(TransportSelectActivity.this);
+                Emission.getInstance().getJourneyBuffer().getTransType().setTransMode(Transport.SKYTRAIN);
                 startActivity(intent);
             }
         });
@@ -83,11 +87,4 @@ public class TransportSelectActivity extends AppCompatActivity {
         return new Intent(context, TransportSelectActivity.class);
     }
 
-    public void getIntentData() {
-        Intent intent = getIntent();
-        Journey j;
-
-        j = (Journey) intent.getSerializableExtra("Journey");
-        if (j != null) journey = j;
-    }
 }

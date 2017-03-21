@@ -17,15 +17,15 @@ public class Journey implements Serializable{
     private String name;
     private Transportation transType;
     private Route route;
-    private String Date = "TEMP";
-
     private double totalDriven;
     private double totalEmissionsCity;
     private double totalEmissionsHighway;
     private double totalTravelledEmissions;
     private int mode = 0;  //0 is add.    1 is edit.
     private int position = -1;
-
+    private String Date = "TEMP";
+    private double busEmissions;
+    private double skytrainEmissions;
 
     public Journey(String inputName,Transportation inputTransType , Route inputRoute){
         this.name = inputName;

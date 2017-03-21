@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
@@ -45,30 +46,60 @@ public class JourneySummaryActivity extends AppCompatActivity {
     }
 
     private void setData() {
-        // Display Journey Info
-        TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
-        journeyInfo.setText(getString(R.string.journey_info,journey.getName(),journey.getDate()));
-        // Display Route Info
-        TextView routeInfo = (TextView) findViewById(R.id.textRouteInfo);
-        routeInfo.setText(getString(R.string.route_info,
-                journey.getName(),
-                route.getCityDistance(),
-                route.getHighWayDistance(),
-                journey.getTotalDriven()));
-        // Display Car Info
-        TextView carInfo = (TextView) findViewById(R.id.textCarInfo);
-        carInfo.setText(getString(R.string.car_info,car.getNickName(),
-                car.getMake(),
-                car.getModel(),
-                car.getYear(),
-                car.getFuelType()));
-        // Display Emission Info
-        TextView hWayDrive = (TextView) findViewById(R.id.textEmissionsInfo);
-        hWayDrive.setText(getString(R.string.emission_info,
-                journey.getTotalHighway(),
-                journey.getTotalCity(),
-                journey.getTotalTravelledEmissions()
-        ));
+
+        if(journey.getTransType().getTransMode().equals(Transport.CAR)) {
+            // Display Journey Info
+            TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
+            journeyInfo.setText(getString(R.string.journey_info, journey.getName(), journey.getDate()));
+            // Display Route Info
+            TextView routeInfo = (TextView) findViewById(R.id.textRouteInfo);
+            routeInfo.setText(getString(R.string.route_info,
+                    journey.getName(),
+                    route.getCityDistance(),
+                    route.getHighWayDistance(),
+                    journey.getTotalDriven()));
+            // Display Car Info
+            TextView carInfo = (TextView) findViewById(R.id.textCarInfo);
+            carInfo.setText(getString(R.string.car_info, car.getNickName(),
+                    car.getMake(),
+                    car.getModel(),
+                    car.getYear(),
+                    car.getFuelType()));
+            // Display Emission Info
+            TextView hWayDrive = (TextView) findViewById(R.id.textEmissionsInfo);
+            hWayDrive.setText(getString(R.string.emission_info,
+                    journey.getTotalHighway(),
+                    journey.getTotalCity(),
+                    journey.getTotalTravelledEmissions()
+            ));
+        }
+        else if (journey.getTransType().getTransMode().equals(Transport.BUS)){
+            // Display Journey Info
+            TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
+            journeyInfo.setText(getString(R.string.journey_info, journey.getName(), journey.getDate()));
+            // Display Route Info
+            TextView routeInfo = (TextView) findViewById(R.id.textRouteInfo);
+            routeInfo.setText(journey.getRoute().getName() + "\nTotal Distance: " + journey.getRoute().getOtherDistance());
+            //Display Bus Info
+            TextView busInfo = (TextView) findViewById(R.id.textCarInfo);
+            busInfo.setText(journey.getTransType().getBus().getNickName() + "\nRoute #: " +
+            journey.getTransType().getBus().getRouteNumber());
+            //TODO Will display emissions when I do them
+
+        }
+        else if (journey.getTransType().getTransMode().equals(Transport.SKYTRAIN)){
+            // Display Journey Info
+            TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
+            journeyInfo.setText(getString(R.string.journey_info, journey.getName(), journey.getDate()));
+            // Display Route Info
+            TextView routeInfo = (TextView) findViewById(R.id.textRouteInfo);
+            routeInfo.setText(journey.getRoute().getName() + "\nTotal Distance: " + journey.getRoute().getOtherDistance());
+            //Display Skytrain Info
+            TextView trainInfo = (TextView) findViewById(R.id.textCarInfo);
+            trainInfo.setText(journey.getTransType().getSkytrain().getNickName() + "\nLine Name: " +
+                    journey.getTransType().getSkytrain().getSkytrainLine() + "\nBoarding Station: " +
+            journey.getTransType().getSkytrain().getBoardingStation());
+        }
     }
 
     private void setupBackBtn() {
@@ -80,4 +111,6 @@ public class JourneySummaryActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

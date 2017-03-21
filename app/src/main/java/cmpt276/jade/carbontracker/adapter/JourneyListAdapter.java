@@ -9,13 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import cmpt276.jade.carbontracker.R;
+import cmpt276.jade.carbontracker.enums.Transport;
+import cmpt276.jade.carbontracker.model.JourneyCollection;
 
 public class JourneyListAdapter extends ArrayAdapter<String> {
-
-    int RouteMode;
-    public JourneyListAdapter(Context context, String[] item,int mode) {
+    JourneyCollection list;
+    public JourneyListAdapter(Context context, String[] item, JourneyCollection list) {
         super(context, R.layout.journey_list, item);
-        RouteMode=mode;
+        this.list = list;
     }
 
     @Override
@@ -26,15 +27,21 @@ public class JourneyListAdapter extends ArrayAdapter<String> {
         String route=getItem(position);
         TextView tv=(TextView) OneBucky.findViewById(R.id.new_journey_list);
 
-
-        ImageView image=(ImageView)  OneBucky.findViewById(R.id.imageBus);
+        ImageView image=(ImageView)  OneBucky.findViewById(R.id.journeyListImage);
 
         tv.setText(route);
 
-        if(RouteMode==1) {image.setImageResource(R.drawable.car);}
-        else if(RouteMode==2) {image.setImageResource(R.drawable.bike);}
-        else if(RouteMode==3) {image.setImageResource(R.drawable.bus);}
-        else if(RouteMode==4) {image.setImageResource(R.drawable.skytrain);}
+        if(list.countJourneys() != 0) {
+            if (list.getJourney(position).getTransType().getTransMode().equals(Transport.CAR)) {
+                image.setImageResource(R.drawable.car);
+            } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.BIKE)) {
+                image.setImageResource(R.drawable.bike);
+            } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.BUS)) {
+                image.setImageResource(R.drawable.bus);
+            } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.SKYTRAIN)) {
+                image.setImageResource(R.drawable.skytrain);
+            }
+        }
 
         return OneBucky;
     }
