@@ -365,7 +365,7 @@ public class DBAdapter {
     public Route getRoute(long rowId){
         String where = KEY_ROWID + "=" + rowId;
 
-        Cursor c = db.query(true, TABLE_CAR, ALL_ROUTE_KEYS,
+        Cursor c = db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
                 where, null, null, null, null, null);
 
         if (c != null) {

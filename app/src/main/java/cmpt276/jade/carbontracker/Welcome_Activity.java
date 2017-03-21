@@ -103,10 +103,15 @@ public class Welcome_Activity extends AppCompatActivity {
 
         // TEST ROUTE
         Route route = LoadDummyData.generateRoute();
-        db.insertRow(route);
-        displayRecordSetForRoute(db.getAllRows(DBAdapter.DB_TABLE.ROUTE));
+        long carRow = db.insertRow(route);
+        Route recRoute = db.getRoute(carRow);
+        Log.i(TAG, "loadRequiredApplicationResources: " + recRoute.toString());
+//        displayRecordSetForRoute(db.getAllRows(DBAdapter.DB_TABLE.ROUTE));
+
+
     }
 
+    // KEEP THIS
     private void displayRecordSetForRoute(Cursor cursor) {
         String message = "";
         // populate the message from the cursor
