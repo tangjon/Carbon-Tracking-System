@@ -49,20 +49,30 @@ public class SkytrainInfoActivity extends AppCompatActivity {
                 EditText inputName = (EditText) findViewById(R.id.editTextSkytrainName);
                 EditText inputLine = (EditText) findViewById(R.id.editTextSkytrainLine);
                 EditText inputStation = (EditText) findViewById(R.id.editTextSkytrainBoardingStation);
-                outgoingTrain.setNickName(inputName.getText().toString().trim());
-                outgoingTrain.setSkytrainLine(inputLine.getText().toString().trim());
-                outgoingTrain.setBoardingStation(inputStation.getText().toString().trim());
+                if (inputName.getText().toString().trim().length() == 0) {
+                    inputName.setError("Please Enter a Nickname");
+                }
+                else if(inputLine.getText().toString().trim().length() == 0){
+                    inputLine.setError("Please Enter the Line You Used");
+                }
+                else  if(inputStation.getText().toString().trim().length() == 0){
+                    inputStation.setError("Please Enter a Boarding Station");
+                }
+                else {
+                    outgoingTrain.setNickName(inputName.getText().toString().trim());
+                    outgoingTrain.setSkytrainLine(inputLine.getText().toString().trim());
+                    outgoingTrain.setBoardingStation(inputStation.getText().toString().trim());
 
-                if (incomingTrain == null ||incomingTrain.getMode() == 0) {
-                    SkytrainListActivity.trainList.addTrain(outgoingTrain);
+                    if (incomingTrain == null || incomingTrain.getMode() == 0) {
+                        SkytrainListActivity.trainList.addTrain(outgoingTrain);
+                    } else if (incomingTrain != null && incomingTrain.getMode() == 1) {
+                        SkytrainListActivity.trainList.editTrain(outgoingTrain, incomingTrain.getPosition());
+                    }
+                    Emission.getInstance().getJourneyBuffer().getTransType().setSkytrain(outgoingTrain);
+                    Intent intent = SkytrainListActivity.getIntent(SkytrainInfoActivity.this);
+                    startActivity(intent);
+                    finish();
                 }
-                else if (incomingTrain != null && incomingTrain.getMode() == 1){
-                    SkytrainListActivity.trainList.editTrain(outgoingTrain, incomingTrain.getPosition());
-                }
-                Emission.getInstance().getJourneyBuffer().getTransType().setSkytrain(outgoingTrain);
-                Intent intent = SkytrainListActivity.getIntent(SkytrainInfoActivity.this);
-                startActivity(intent);
-                finish();
 
             }
         });

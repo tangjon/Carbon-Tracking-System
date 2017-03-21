@@ -49,16 +49,23 @@ public class BusInfoActivity extends AppCompatActivity {
 
                 EditText inputName = (EditText) findViewById(R.id.editTextBusNickname);
                 EditText inputRouteNumber = (EditText) findViewById(R.id.editTextRouteNumber);
-                outgoingBus.setNickName(inputName.getText().toString().trim());
-                outgoingBus.setRouteNumber(inputRouteNumber.getText().toString().trim());
+                if (inputName.getText().toString().trim().length() == 0) {
+                    inputName.setError("Please Enter a Nickname");
+                }
+                else if(inputRouteNumber.getText().toString().trim().length() == 0){
+                    inputRouteNumber.setError("Please Enter a Route Number");
+                }
+                else {
+                    outgoingBus.setNickName(inputName.getText().toString().trim());
+                    outgoingBus.setRouteNumber(inputRouteNumber.getText().toString().trim());
 
-                if (incomingBus == null || incomingBus.getMode() == 0) {
-                    BusListActivity.busList.addBus(outgoingBus);
+                    if (incomingBus == null || incomingBus.getMode() == 0) {
+                        BusListActivity.busList.addBus(outgoingBus);
+                    } else if (incomingBus != null && incomingBus.getMode() == 1) {
+                        BusListActivity.busList.editBus(outgoingBus, incomingBus.getPosition());
+                    }
+                    finish();
                 }
-                else if (incomingBus != null && incomingBus.getMode() == 1){
-                    BusListActivity.busList.editBus(outgoingBus, incomingBus.getPosition());
-                }
-                finish();
 
             }
         });

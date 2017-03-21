@@ -25,6 +25,8 @@ public class Journey implements Serializable{
     private int mode = 0;  //0 is add.    1 is edit.
     private int position = -1;
     private String Date = "TEMP";
+    private double busEmissions;
+    private double skytrainEmissions;
 
     public Journey(String inputName,Transportation inputTransType , Route inputRoute){
         this.name = inputName;

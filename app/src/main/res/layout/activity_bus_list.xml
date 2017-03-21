@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/mainbackground"
     tools:context="cmpt276.jade.carbontracker.BusListActivity">
 
     <RelativeLayout
@@ -11,14 +12,6 @@
         android:layout_height="495dp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
-
-        <Button
-            android:id="@+id/btnEditDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toStartOf="@+id/btnBusAdd"
-            android:text="Delete" />
 
         <Button
             android:id="@+id/btnBusAdd"
@@ -37,6 +30,14 @@
             android:layout_above="@+id/btnBusAdd"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hint: Click list item to continue.\nLong press to edit or delete."
+            android:layout_below="@+id/listviewBus"
+            android:layout_alignParentStart="true" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
