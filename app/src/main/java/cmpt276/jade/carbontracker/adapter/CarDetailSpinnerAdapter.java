@@ -12,9 +12,12 @@ import java.util.List;
 
 import cmpt276.jade.carbontracker.R;
 import cmpt276.jade.carbontracker.model.Car;
-
 /**
- * Created by tangj on 2/28/2017.
+ * Class: CarDetailSpinnerAdapter
+ * Description: Adapter that helps parse a list of Cars and display them
+ *              in spinners
+ *
+ * Bugs:
  */
 
 public class CarDetailSpinnerAdapter extends ArrayAdapter<Car> {

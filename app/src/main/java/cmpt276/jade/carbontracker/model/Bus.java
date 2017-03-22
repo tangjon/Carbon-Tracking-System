@@ -15,6 +15,11 @@ public class Bus {
 
     }
 
+    public Bus(String nickName, String routeNumber) {
+        this.nickName = nickName;
+        this.routeNumber = routeNumber;
+    }
+
     public String getNickName() {
         return nickName;
     }
@@ -47,4 +52,11 @@ public class Bus {
         this.position = position;
     }
 
+    @Override
+    public String toString() {
+        return "Bus{" +
+                "nickName='" + nickName + '\'' +
+                ", routeNumber='" + routeNumber + '\'' +
+                '}';
+    }
 }

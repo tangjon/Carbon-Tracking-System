@@ -17,6 +17,7 @@ import android.content.Context;
 
 import cmpt276.jade.carbontracker.adapter.JourneyListAdapter;
 import cmpt276.jade.carbontracker.adapter.RouteListAdapter;
+import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.fragment.EditDialog;
         import cmpt276.jade.carbontracker.model.Car;
@@ -82,7 +83,7 @@ public class JourneyListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Transportation trans = new Transportation();
                 Route route = new Route("TEMP ROUTE NAME AND DATA", -1, -1);
-                Journey journey = new Journey("TEMP NAME", trans, route);
+                Journey journey = new Journey("T3EMP NAME", trans, route);
                 Emission.getInstance().setJourneyBuffer(journey);
                 Intent intent = TransportSelectActivity.getTransportIntent(JourneyListActivity.this);
                 startActivity(intent);
@@ -139,6 +140,15 @@ public class JourneyListActivity extends AppCompatActivity {
     }
 
     private void populateList() {
+        // Save Journey to Data Base by complete refresh
+        DBAdapter db = new DBAdapter(this);
+        db.open();
+        db.deleteAll(DBAdapter.DB_TABLE.JOURNEY);
+        for (Journey j: Emission.getInstance().getJourneyCollection().getJourneyList()) {
+            db.insertRow(j);
+        }
+        db.close();
+
         //ListAdapter bucky=new RouteListAdapter(this,listOfJourneys.getJourneyDetails(),getMode());
         ListAdapter bucky=new JourneyListAdapter(this,listOfJourneys.getJourneyDetails(), listOfJourneys);
         ListView list = (ListView) findViewById(R.id.listviewJourney);
@@ -161,7 +171,6 @@ public class JourneyListActivity extends AppCompatActivity {
         });
 
         builder.setNegativeButton(getString(R.string.label_cancel), null);
-
         AlertDialog alert = builder.create();
         alert.show();
     }

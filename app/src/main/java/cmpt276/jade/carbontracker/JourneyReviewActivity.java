@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Date;
 
+import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
@@ -27,6 +28,8 @@ import cmpt276.jade.carbontracker.model.JourneyCollection;
 public class JourneyReviewActivity extends AppCompatActivity {
     private Journey journey;
     private Journey storedJourney;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,9 +122,11 @@ public class JourneyReviewActivity extends AppCompatActivity {
                     Log.i("JourneyDate","****************** Date = "+storedJourney.getDateObj().toString());
 
                     if (journey.getMode() == 0) {
-                        JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
-                        listOfJourneys.addJourney(storedJourney);
-                        Emission.getInstance().setJourneyCollection(listOfJourneys);
+//                        JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
+//                        listOfJourneys.addJourney(storedJourney);
+//                        Emission.getInstance().setJourneyCollection(listOfJourneys);
+                      Emission.getInstance().getJourneyCollection().addJourney(storedJourney);
+                      DBAdapter.save(JourneyReviewActivity.this, storedJourney);
                     } else if (journey.getMode() == 1) {
                         JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
                         listOfJourneys.editJourney(storedJourney, journey.getPosition());
