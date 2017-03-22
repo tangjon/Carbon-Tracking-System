@@ -34,6 +34,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Bike_and_Trans_Info_Activity" />
         <activity android:name=".UtilityEditActivity" />
+        <activity android:name=".BusListActivity" />
+        <activity android:name=".BusInfoActivity" />
+        <activity android:name=".SkytrainInfoActivity" />
+        <activity android:name=".SkytrainListActivity"></activity>
+        <activity android:name=".Tips_List_Activity"></activity>
     </application>
 
 </manifest>

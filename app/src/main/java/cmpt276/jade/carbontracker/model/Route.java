@@ -7,18 +7,24 @@ import java.io.Serializable;
 //Route class   Route(Nickname,highway Distance,city Distance)
 //has getter and setter
 public class Route implements Serializable {
-    private String name;
-    private double HighWayDistance;
     private double CityDistance;
+    private double HighWayDistance;
     private double OtherDistance;//for bike,walk,bus,skytrain
     private int mode;//2 for bike and walk,3 for bus, 4 for skytrain
+    private String name;
 
     public Route(String name, double HighWayDistance, double CityDistance) {
         this.name = name;
         this.HighWayDistance = HighWayDistance;
-        Log.i("HELLO", "Route: " + HighWayDistance);
         this.CityDistance = CityDistance;
-        Log.i("HELLO", "Route: " + CityDistance);
+    }
+
+    public Route(String name, double HighWayDistance, double CityDistance, double otherDistance, int mode) {
+        this.name = name;
+        this.HighWayDistance = HighWayDistance;
+        this.CityDistance = CityDistance;
+        this.mode = mode;
+        this.OtherDistance = otherDistance;
     }
 
     public double getOtherDistance() {
@@ -71,5 +77,17 @@ public class Route implements Serializable {
         } else {
             this.name = name;
         }
+    }
+
+
+    @Override
+    public String toString() {
+        return "Route{" +
+                "CityDistance=" + CityDistance +
+                ", HighWayDistance=" + HighWayDistance +
+                ", OtherDistance=" + OtherDistance +
+                ", mode=" + mode +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

@@ -6,6 +6,7 @@ import java.util.Random;
 
 import cmpt276.jade.carbontracker.CarListActivity;
 import cmpt276.jade.carbontracker.Route_List_Activity;
+import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
@@ -54,7 +55,7 @@ public class LoadDummyData {
 
     public static Car generateCar(){
         Random rn = new Random();
-        int index = rn.nextInt(cData.toList().size()) - 1;
+        int index = rn.nextInt(100);
         Car car = cData.toList().get(index);
         car.setNickname("Car" + index %20);
         return car;
@@ -72,6 +73,7 @@ public class LoadDummyData {
         Car car = generateCar();
         Transportation trans = new Transportation();
         trans.setCar(car);
+        trans.setTransMode(Transport.CAR);
         Route route = generateRoute();
         Journey journey = new Journey("Journey " + index, trans,route);
         journey.setDate("" + (rn.nextInt(26)+1) + "/" + (rn.nextInt(12) + 1) + "/2016");

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
@@ -37,10 +38,37 @@ public class JourneyReviewActivity extends AppCompatActivity {
     }
 
     private void setupPage() {
-        TextView carInfo = (TextView) findViewById(R.id.txtCarInfo);
-        carInfo.setText(storedJourney.getTransType().getCar().getNickName() + "\nMake: " + storedJourney.getTransType().getCar().getMake() + "\nModel: " + storedJourney.getTransType().getCar().getModel() + "\nYear: " + storedJourney.getTransType().getCar().getYear());
+        TextView transInfo = (TextView) findViewById(R.id.txtTransInfo);
+        TextView transTag = (TextView) findViewById(R.id.textViewJourneyReviewTransportTag);
         TextView routeInfo = (TextView) findViewById(R.id.txtRouteInfo);
-        routeInfo.setText(storedJourney.getRoute().getName() + "\nCity Distance: "+ storedJourney.getRoute().getCityDistance() + "\nHighway Distance : " + storedJourney.getRoute().getHighWayDistance());
+        if(Emission.getInstance().getJourneyBuffer().getTransType().getTransMode().equals(Transport.CAR)) {
+            transTag.setText(R.string.car);
+            transInfo.setText(storedJourney.getTransType().getCar().getNickName() + "\nMake: " +
+                    storedJourney.getTransType().getCar().getMake() + "\nModel: " +
+                    storedJourney.getTransType().getCar().getModel() + "\nYear: " +
+                    storedJourney.getTransType().getCar().getYear());
+
+
+            routeInfo.setText(storedJourney.getRoute().getName() + "\nCity Distance: " +
+                    storedJourney.getRoute().getCityDistance() + "\nHighway Distance : "
+                    + storedJourney.getRoute().getHighWayDistance());
+        }
+        else if(Emission.getInstance().getJourneyBuffer().getTransType().getTransMode().equals(Transport.BUS)){
+            transTag.setText(R.string.bus);
+            transInfo.setText(storedJourney.getTransType().getBus().getNickName() + "\nRoute #: " +
+            storedJourney.getTransType().getBus().getRouteNumber());
+
+            routeInfo.setText(storedJourney.getRoute().getName() + "\nTotal Distance: " + storedJourney.getRoute().getOtherDistance());
+
+        }
+        else if(Emission.getInstance().getJourneyBuffer().getTransType().getTransMode().equals(Transport.SKYTRAIN)){
+            transTag.setText(R.string.Skytrain);
+            transInfo.setText(storedJourney.getTransType().getSkytrain().getNickName() + "\nLine Name: " +
+            storedJourney.getTransType().getSkytrain().getSkytrainLine() + "\nBoarding Station: " +
+            storedJourney.getTransType().getSkytrain().getBoardingStation());
+
+            routeInfo.setText(storedJourney.getRoute().getName() + "\nTotal Distance: " + storedJourney.getRoute().getOtherDistance());
+        }
         if(journey.getMode() == 1){
             EditText inputName = (EditText) findViewById(R.id.editJourneyName);
             inputName.setText(journey.getName());
@@ -106,7 +134,12 @@ public class JourneyReviewActivity extends AppCompatActivity {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
 
-                    Journey journey = (Journey)intent.getSerializableExtra("Journey");
+                    /*
+
+                   This is not used anywhere is it needed?
+
+                     */
+                   // Journey journey = (Journey)intent.getSerializableExtra("Journey");
 
                 }
             }

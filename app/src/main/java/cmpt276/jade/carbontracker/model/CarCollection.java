@@ -35,6 +35,9 @@ public class CarCollection {
         }
         return false;
     }
+    public void remove(int index){
+        carList.remove(index);
+    }
 
     // Return specific collection containing the make, and model
     public CarCollection search(String make, String model) {
@@ -141,4 +144,12 @@ public class CarCollection {
         }
         return false;
     }
+
+    public Car getCar(int index){
+        return carList.get(index);
+    }
+
+
+
+
 }

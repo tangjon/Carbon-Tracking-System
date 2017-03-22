@@ -22,6 +22,10 @@ public class RouteCollection {
         return HighWayDistance;
     }
 
+    public void DeleteAll() {
+        List_Rout.clear();
+    }
+
     public double getTotleCityDistance() {
         double CityDistance = 0;
         for (int i = 0; i < countRoutes(); i++) {
@@ -68,9 +72,9 @@ public class RouteCollection {
         for (int i = 0; i < countRoutes(); i++) {
             Route route = getRouteByIndex(i);
             int mode=route.getMode();
-            if(mode==2)//bike and walk mode
+            if(mode==2)//bike
             {
-                detail[i] = "Walk or Bike route: " + route.getName()
+                detail[i] = "Bike: " + route.getName()
                         + ", Distance:"
                         + route.getOtherDistance() + "km.";
             }
@@ -82,6 +86,11 @@ public class RouteCollection {
             else if(mode==4)//skytrain mode
             {
                 detail[i] = "Sktrain: " + route.getName() + ", Distance:"
+                        + route.getOtherDistance() + "km.";
+            }
+            else if(mode==5)//walk mode
+            {
+                detail[i] = "Walk: " + route.getName() + ", Distance:"
                         + route.getOtherDistance() + "km.";
             }
             else
