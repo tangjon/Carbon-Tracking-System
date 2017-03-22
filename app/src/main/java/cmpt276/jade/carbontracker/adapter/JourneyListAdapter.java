@@ -12,6 +12,8 @@ import cmpt276.jade.carbontracker.R;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 
+
+
 public class JourneyListAdapter extends ArrayAdapter<String> {
     JourneyCollection list;
     public JourneyListAdapter(Context context, String[] item, JourneyCollection list) {
