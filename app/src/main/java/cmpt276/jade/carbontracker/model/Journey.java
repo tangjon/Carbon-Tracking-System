@@ -2,6 +2,8 @@ package cmpt276.jade.carbontracker.model;
 
 import java.io.Serializable;
 
+import cmpt276.jade.carbontracker.enums.Transport;
+
 /**
  * Created by Sean on 02/03/2017.
  * Journey object stores both the car and route objects used
@@ -11,6 +13,10 @@ import java.io.Serializable;
 public class Journey implements Serializable{
 
 
+    public static final double GASOLINECO2FACTOR = 8.89;
+    public static final double DIESELCO2FACTOR = 10.16;
+    public static final double KILOMETERSINAMILE = 1.60934;
+    public static final double TRANSLINKBUSEMISSIONSTAT = 1.7; //got this number from translink
     public static String KEY = "JOURNEY";
 
 
@@ -36,6 +42,11 @@ public class Journey implements Serializable{
             this.totalEmissionsHighway = calcTotal(mtoKM(transType.getCar().getHighwayMPG()), route.getHighWayDistance());
             this.totalTravelledEmissions = totalEmissionsCity + totalEmissionsHighway;
             this.totalDriven = route.getCityDistance() + route.getHighWayDistance();
+        }
+        else if(transType.getBus() != null) {
+            this.totalDriven = route.getOtherDistance();
+            this.busEmissions = totalDriven* TRANSLINKBUSEMISSIONSTAT;
+
         }
     }
 
@@ -137,18 +148,18 @@ public class Journey implements Serializable{
 
     //Miles to KM
     public double mtoKM(double input){
-        return input * 1.60934;
+        return input * KILOMETERSINAMILE;
     }
 
     //Calculates total emissions
     public double calcTotal(double carKMPG, double routeDistance){
         double total = 0;
         if(transType.getCar().getFuelType() != null) {
-            if (transType.getCar().getFuelType().equals("Regular Gasoline") || transType.getCar().getFuelType().equals("Premium Gasoline")) {
-                total = 8.89 * (routeDistance / carKMPG);
+            if (transType.getCar().getFuelType().equals("Regular Gasoline") || transType.getCar().getFuelType().equals("Premium Gasoline") || transType.getCar().getFuelType().equals("Midgrade")) {
+                total = GASOLINECO2FACTOR * (routeDistance / carKMPG);
             }
             if (transType.getCar().getFuelType().equals("Diesel")) {
-                total = 10.16 * (routeDistance / carKMPG);
+                total = DIESELCO2FACTOR * (routeDistance / carKMPG);
             }
         }
         return total;
@@ -163,6 +174,24 @@ public class Journey implements Serializable{
     public void setTotalDriven(double totalDriven) {
         this.totalDriven = totalDriven;
     }
+
+
+    public double getBusEmissions() {
+        return busEmissions;
+    }
+
+    public void setBusEmissions(double busEmissions) {
+        this.busEmissions = busEmissions;
+    }
+
+    public double getSkytrainEmissions() {
+        return skytrainEmissions;
+    }
+
+    public void setSkytrainEmissions(double skytrainEmissions) {
+        this.skytrainEmissions = skytrainEmissions;
+    }
+
 
 
     @Override

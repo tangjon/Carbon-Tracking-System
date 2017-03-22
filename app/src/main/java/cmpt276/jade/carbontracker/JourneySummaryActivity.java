@@ -46,8 +46,9 @@ public class JourneySummaryActivity extends AppCompatActivity {
     }
 
     private void setData() {
-
+        TextView transInfoLabel = (TextView) findViewById(R.id.textViewJourneySummaryTranportationInfo);
         if(journey.getTransType().getTransMode().equals(Transport.CAR)) {
+            transInfoLabel.setText("Car Info");
             // Display Journey Info
             TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
             journeyInfo.setText(getString(R.string.journey_info, journey.getName(), journey.getDate()));
@@ -74,6 +75,7 @@ public class JourneySummaryActivity extends AppCompatActivity {
             ));
         }
         else if (journey.getTransType().getTransMode().equals(Transport.BUS)){
+            transInfoLabel.setText("Bus Info");
             // Display Journey Info
             TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
             journeyInfo.setText(getString(R.string.journey_info, journey.getName(), journey.getDate()));
@@ -84,10 +86,13 @@ public class JourneySummaryActivity extends AppCompatActivity {
             TextView busInfo = (TextView) findViewById(R.id.textCarInfo);
             busInfo.setText(journey.getTransType().getBus().getNickName() + "\nRoute #: " +
             journey.getTransType().getBus().getRouteNumber());
-            //TODO Will display emissions when I do them
+            //Display Emission Info
+            TextView emissions = (TextView) findViewById(R.id.textEmissionsInfo);
+            emissions.setText("Carbon Emission (Kg): " +String.valueOf(journey.getBusEmissions()));
 
         }
         else if (journey.getTransType().getTransMode().equals(Transport.SKYTRAIN)){
+            transInfoLabel.setText("Skytrain Info");
             // Display Journey Info
             TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
             journeyInfo.setText(getString(R.string.journey_info, journey.getName(), journey.getDate()));
@@ -99,6 +104,21 @@ public class JourneySummaryActivity extends AppCompatActivity {
             trainInfo.setText(journey.getTransType().getSkytrain().getNickName() + "\nLine Name: " +
                     journey.getTransType().getSkytrain().getSkytrainLine() + "\nBoarding Station: " +
             journey.getTransType().getSkytrain().getBoardingStation());
+        }
+        else{
+            transInfoLabel.setText("Walk Info");
+            TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
+            journeyInfo.setText(getString(R.string.journey_info, journey.getName(), journey.getDate()));
+            // Display Route Info
+            TextView routeInfo = (TextView) findViewById(R.id.textRouteInfo);
+            routeInfo.setText(journey.getRoute().getName() + "\nTotal Distance: " + journey.getRoute().getOtherDistance());
+            //Display Walk Info
+            TextView trainInfo = (TextView) findViewById(R.id.textCarInfo);
+            trainInfo.setText("Congratulations on making no carbon impact!");
+            //Display Emission Info
+            TextView emissions = (TextView) findViewById(R.id.textEmissionsInfo);
+            emissions.setText("Carbon Emission (Kg): " +String.valueOf(0));
+
         }
     }
 

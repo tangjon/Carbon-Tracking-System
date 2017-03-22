@@ -84,9 +84,7 @@ public class JourneyListActivity extends AppCompatActivity {
                 Route route = new Route("TEMP ROUTE NAME AND DATA", -1, -1);
                 Journey journey = new Journey("TEMP NAME", trans, route);
                 Emission.getInstance().setJourneyBuffer(journey);
-                //Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
                 Intent intent = TransportSelectActivity.getTransportIntent(JourneyListActivity.this);
-                //intent.putExtra("Journey", journey);
                 startActivity(intent);
             }
         });
