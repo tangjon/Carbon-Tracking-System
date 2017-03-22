@@ -13,6 +13,7 @@ import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.Journey;
+import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.model.Transportation;
@@ -29,7 +30,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 18;
+    public static final int DATABASE_VERSION = 19;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -367,7 +368,7 @@ public class DBAdapter {
                         where, null, null, null, null, null);
                 break;
             case JOURNEY:
-                c =	db.query(true, TABLE_ROUTE, ALL_JOURNEY_KEYS,
+                c =	db.query(true, TABLE_JOURNEY, ALL_JOURNEY_KEYS,
                         where, null, null, null, null, null);
                 break;
             case BILL:
@@ -508,6 +509,8 @@ public class DBAdapter {
                 initialValues.put(KEY_TRANSPORT_OBJECT_ID, trainID);
                 break;
         }
+
+        Log.i(TAG, "insertRow: " + journey.toString());
         // Insert it into the database.
         return db.insert(TABLE_JOURNEY, null, initialValues);
     }
@@ -568,6 +571,61 @@ public class DBAdapter {
         Journey j = new Journey(name, transportation,route);
         // Todo set date
         return j;
+    }
+
+    public JourneyCollection getAllJourney(){
+        Cursor cursor =  getAllRows(DB_TABLE.JOURNEY);
+        JourneyCollection jC = new JourneyCollection();
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(COL_JOURNEY_NAME);
+                String TRANS_TYPE = cursor.getString(COL_JOURNEY_TRANS_TYPE);
+                String DATE = cursor.getString(COL_JOURNEY_DATE);
+                long ROUTE_ID = cursor.getInt(COL_JOURNEY_ROUTE_ID);
+
+                Log.i(TAG, "getAllJourney: " + name);
+
+                // Get and set Route
+                Route route = getRoute(ROUTE_ID);
+
+                // Get and set Transport Type
+                Transportation transportation = new Transportation();
+                transportation.setTransMode(buffTrans(TRANS_TYPE));
+                // (1) Get Object
+                // (2) Attach id to Transportation Object
+                switch (transportation.getTransMode()){
+                    case CAR:
+                        long CAR_ID = cursor.getInt(COL_TRANSPORT_OBJECT_ID);
+                        transportation.setCar(getCar(CAR_ID));
+                        break;
+                    case BIKE:
+                        // Do nothing
+                        break;
+                    case WALK:
+                        // Do nothing
+                        break;
+                    case BUS:
+                        long busID = cursor.getInt(COL_TRANSPORT_OBJECT_ID);
+                        transportation.setBus(getBus(busID));
+                        break;
+                    case SKYTRAIN:
+                        long trainID = cursor.getInt(COL_TRANSPORT_OBJECT_ID);
+                        transportation.setSkytrain(getSkytrain(trainID));
+                        break;
+                }
+                Journey j = new Journey(name, transportation,route);
+
+                Log.i(TAG, "getAllJourney: " + j.toString());
+                jC.addJourney(j);
+
+            } while(cursor.moveToNext());
+
+        }
+
+        // Close the cursor to avoid a resource leak.
+        cursor.close();
+
+        return jC;
     }
 
     // [POSSIBLE REFACTOR]
@@ -856,6 +914,13 @@ public class DBAdapter {
             // Recreate new database:
             onCreate(_db);
         }
+    }
+
+    public static void save(Context ctx, Journey journey){
+        DBAdapter db = new DBAdapter(ctx);
+        db.open();
+        db.insertRow(journey);
+        db.close();
     }
 
     /**

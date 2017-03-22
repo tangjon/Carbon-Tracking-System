@@ -150,6 +150,7 @@ public class CarCollection {
     }
 
 
-
-
+    public int getSize() {
+        return carList.size();
+    }
 }

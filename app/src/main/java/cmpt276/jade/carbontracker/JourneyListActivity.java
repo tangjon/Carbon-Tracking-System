@@ -82,7 +82,7 @@ public class JourneyListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Transportation trans = new Transportation();
                 Route route = new Route("TEMP ROUTE NAME AND DATA", -1, -1);
-                Journey journey = new Journey("TEMP NAME", trans, route);
+                Journey journey = new Journey("T3EMP NAME", trans, route);
                 Emission.getInstance().setJourneyBuffer(journey);
                 //Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
                 Intent intent = TransportSelectActivity.getTransportIntent(JourneyListActivity.this);

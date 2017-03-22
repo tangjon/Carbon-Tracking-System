@@ -21,20 +21,20 @@ import cmpt276.jade.carbontracker.model.Transportation;
  * Load Dummy Data to Emissions Class with Journeys, Car and Routes to recent lists
  */
 
-public class LoadDummyData {
+public class GenerateDummyData {
     private static String TAG = "LOADDUMMYCLASS";
     private static JourneyCollection jDummy;
     private static CarCollection cData;
     private static String instance = null;
     public static int MAX = 1000;
 
-    private LoadDummyData() {
+    private GenerateDummyData() {
 
     }
 
     // Generates a Route and Car into the recent lists
     // Does not generate a journey..
-    public static void load() {
+    public static void generateAll() {
 
         if (instance == null) {
 
@@ -56,11 +56,26 @@ public class LoadDummyData {
         }
     }
 
+    public static void generateRecentLists() {
+        CarListActivity.recentCarList.add(generateCar());
+        CarListActivity.recentCarList.add(generateCar());
+        CarListActivity.recentCarList.add(generateCar());
+
+        Route_List_Activity.CarRoutesList.addRoute(generateRoute());
+        Route_List_Activity.CarRoutesList.addRoute(generateRoute());
+        Route_List_Activity.BikeNWalkRoutesList.addRoute(generateRoute());
+        Route_List_Activity.BikeNWalkRoutesList.addRoute(generateRoute());
+        Route_List_Activity.SkytrainRoutesList.addRoute(generateRoute());
+        Route_List_Activity.SkytrainRoutesList.addRoute(generateRoute());
+        Route_List_Activity.BusRoutesList.addRoute(generateRoute());
+        Route_List_Activity.BusRoutesList.addRoute(generateRoute());
+    }
+
 
     public static Car generateCar() {
         Random rn = new Random();
-        int index = rn.nextInt(MAX);
-        Car car = cData.toList().get(index);
+        int index = rn.nextInt(Emission.getInstance().getCarCollection().getSize()) - 1;
+        Car car = Emission.getInstance().getCarCollection().getCar(index);
         car.setNickname("Car" + index % 20);
         return car;
     }
@@ -100,8 +115,8 @@ public class LoadDummyData {
 
         // 6 Enums
         int index = rn.nextInt(6);
-        for (Transport trans: Transport.values()) {
-            if(trans.ordinal() == index){
+        for (Transport trans : Transport.values()) {
+            if (trans.ordinal() == index) {
                 mode = trans;
                 break;
             }
@@ -112,7 +127,7 @@ public class LoadDummyData {
         // Set the Mode
         transportation.setTransMode(mode);
         Route route = generateRoute();
-        switch (mode){
+        switch (mode) {
             case CAR:
                 transportation.setCar(generateCar());
                 break;
@@ -131,7 +146,7 @@ public class LoadDummyData {
         }
 
         // Generate Date
-        Journey journey = new Journey("Journey" + rn.nextInt(MAX), transportation,route);
+        Journey journey = new Journey("Journey" + rn.nextInt(MAX), transportation, route);
         journey.setDate("" + (rn.nextInt(26) + 1) + "/" + (rn.nextInt(12) + 1) + "/2016");
         return journey;
 

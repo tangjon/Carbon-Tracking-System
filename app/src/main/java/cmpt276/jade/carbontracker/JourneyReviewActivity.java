@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
@@ -88,7 +89,7 @@ public class JourneyReviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText inputName = (EditText) findViewById(R.id.editJourneyName);
-                EditText inputDate = (EditText) findViewById(R.id.editDate);
+                                EditText inputDate = (EditText) findViewById(R.id.editDate);
                 String[] dateCheck = inputDate.getText().toString().trim().split("/", 3);
                 int month = 0;
                 int day = 0;
@@ -115,12 +116,16 @@ public class JourneyReviewActivity extends AppCompatActivity {
                     storedJourney.setName(inputName.getText().toString().trim());
                     Emission.getInstance().setJourneyBuffer(storedJourney);
 
+                    Log.i("TAG", "onClick: " + inputName.getText().toString().trim());
 
 
                         if (journey.getMode() == 0) {
-                            JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
-                            listOfJourneys.addJourney(storedJourney);
-                            Emission.getInstance().setJourneyCollection(listOfJourneys);
+//                            JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
+//                            listOfJourneys.addJourney(storedJourney);
+//                            Emission.getInstance().setJourneyCollection(listOfJourneys);
+                            Emission.getInstance().getJourneyCollection().addJourney(storedJourney);
+                            DBAdapter.save(JourneyReviewActivity.this, storedJourney);
+
                         } else if (journey.getMode() == 1) {
                             JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
                             listOfJourneys.editJourney(storedJourney, journey.getPosition());

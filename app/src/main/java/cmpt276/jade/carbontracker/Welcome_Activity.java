@@ -19,9 +19,11 @@ import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
+import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.model.Skytrain;
-import cmpt276.jade.carbontracker.sample.LoadDummyData;
+import cmpt276.jade.carbontracker.model.Transportation;
+import cmpt276.jade.carbontracker.sample.GenerateDummyData;
 import cmpt276.jade.carbontracker.utils.CarManager;
 
 /**
@@ -87,24 +89,39 @@ public class Welcome_Activity extends AppCompatActivity {
 
 
     private void loadRequiredApplicationResources() {
+
+        myDb = new DBAdapter(this);
+        myDb.open();
+
         // Read vehicles.csv and population emissions CarCollection
         Log.i(TAG, "loadRequiredApplicationResources: " + "vehicles.csv loaded!");
+        // Load Vehicles.csv
         Emission.getInstance().setCarCollection(new CarCollection(CarManager.readCarData(this, R.raw.vehicle_trimmed)));
+
+        // Load Recent Lists
+        GenerateDummyData.generateRecentLists();
+
+        // Load Saved JourneyList
+        JourneyCollection jC = myDb.getAllJourney();
+        Emission.getInstance().setJourneyCollection(jC);
+
 
         // Todo Make Sure this is uncommented
         // Uncomment this to load dummy data
 //         LoadDummyData.load();
 
 //        DATABASETESTINGFUNCTION();
+//         testComplexJourney();
+    }
 
-
-        DBAdapter db = new DBAdapter(this);
-        db.open();
+    private void testComplexJourney() {
+        myDb = new DBAdapter(this);
+        myDb.open();
         // Generate Journey
-        Journey j = LoadDummyData.generateComplexJourney();
+        Journey j = GenerateDummyData.generateComplexJourney();
         Log.i(TAG, "DBReadbefore: " + j.toString());
-        long id = db.insertRow(j);
-        j = db.getJourney(id);
+        long id = myDb.insertRow(j);
+        j = myDb.getJourney(id);
         Log.i(TAG, "DBReadafter: " + j.toString());
     }
 
@@ -112,34 +129,34 @@ public class Welcome_Activity extends AppCompatActivity {
         DBAdapter db = new DBAdapter(this);
         db.open();
         // TEST CAR
-        Car car = LoadDummyData.generateCar();
+        Car car = GenerateDummyData.generateCar();
         long carID = db.insertRow(car);
         Car recCar = db.getCar(carID);
-        Log.i(TAG, "loadRequiredApplicationResources: " + recCar.toString());
-//        displayRecordSetForCar(db.getAllRows(DBAdapter.DB_TABLE.CAR));
+        Log.i(TAG, "DATABASETESTINGFUNCTION: " + recCar.toString());
+        displayRecordSetForCar(db.getAllRows(DBAdapter.DB_TABLE.CAR));
         // TEST ROUTE
-        Route route = LoadDummyData.generateRoute();
+        Route route = GenerateDummyData.generateRoute();
         long rRow = db.insertRow(route);
         Route recRoute = db.getRoute(rRow);
-        Log.i(TAG, "loadRequiredApplicationResources: " + recRoute.toString());
-//        displayRecordSetForRoute(db.getAllRows(DBAdapter.DB_TABLE.ROUTE));
+        Log.i(TAG, "DATABASETESTINGFUNCTION: " + recRoute.toString());
+        displayRecordSetForRoute(db.getAllRows(DBAdapter.DB_TABLE.ROUTE));
 
         // Test Bus
-        Bus bus = LoadDummyData.generateBus();
+        Bus bus = GenerateDummyData.generateBus();
         long busRow = db.insertRow(bus);
         bus = db.getBus(busRow);
         Log.i(TAG, "DATABASETESTINGFUNCTION: " + bus.toString());
 
         // Test Journey
-        Journey journey = LoadDummyData.generateJourney();
+        Journey journey = GenerateDummyData.generateJourney();
         journey.getTransType().setTransMode(Transport.CAR);
         long jRow = db.insertRow(journey);
         Journey recJ = db.getJourney(jRow);
-        Log.i(TAG, "loadRequiredApplicationResources: " + recJ.toString());
-        Log.i(TAG, "loadRequiredApplicationResources: " + recJ.getTransType().getCar().toString());
+        Log.i(TAG, "DATABASETESTINGFUNCTION: " + recJ.toString());
+        Log.i(TAG, "DATABASETESTINGFUNCTION: " + recJ.getTransType().getCar().toString());
 
         // Test Skytrain
-        Skytrain train = LoadDummyData.generateSkytrain();
+        Skytrain train = GenerateDummyData.generateSkytrain();
         long trainRow = db.insertRow(train);
         train = db.getSkytrain(trainRow);
         Log.i(TAG, "DATABASETESTINGFUNCTION: " + train.toString());
@@ -213,4 +230,56 @@ public class Welcome_Activity extends AppCompatActivity {
 
         Log.i(TAG, "displayRecordSetForCar: " + message);
     }
+
+    private JourneyCollection displayRecordSetForJourney(Cursor cursor) {
+        JourneyCollection jC = new JourneyCollection();
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(DBAdapter.COL_JOURNEY_NAME);
+                String TRANS_TYPE = cursor.getString(DBAdapter.COL_JOURNEY_TRANS_TYPE);
+                String DATE = cursor.getString(DBAdapter.COL_JOURNEY_DATE);
+                long ROUTE_ID = cursor.getInt(DBAdapter.COL_JOURNEY_ROUTE_ID);
+
+                // Get and set Route
+                Route route = myDb.getRoute(ROUTE_ID);
+
+                // Get and set Transport Type
+                Transportation transportation = new Transportation();
+                transportation.setTransMode(myDb.buffTrans(TRANS_TYPE));
+                // (1) Get Object
+                // (2) Attach id to Transportation Object
+                switch (transportation.getTransMode()){
+                    case CAR:
+                        long CAR_ID = cursor.getInt(DBAdapter.COL_TRANSPORT_OBJECT_ID);
+                        transportation.setCar(myDb.getCar(CAR_ID));
+                        break;
+                    case BIKE:
+                        // Do nothing
+                        break;
+                    case WALK:
+                        // Do nothing
+                        break;
+                    case BUS:
+                        long busID = cursor.getInt(DBAdapter.COL_TRANSPORT_OBJECT_ID);
+                        transportation.setBus(myDb.getBus(busID));
+                        break;
+                    case SKYTRAIN:
+                        long trainID = cursor.getInt(DBAdapter.COL_TRANSPORT_OBJECT_ID);
+                        transportation.setSkytrain(myDb.getSkytrain(trainID));
+                        break;
+                }
+                Journey j = new Journey(name, transportation,route);
+                jC.addJourney(j);
+
+            } while(cursor.moveToNext());
+
+        }
+
+        // Close the cursor to avoid a resource leak.
+        cursor.close();
+
+        return jC;
+    }
+
+
 }
