@@ -12,9 +12,11 @@ import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.Car;
+import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
+import cmpt276.jade.carbontracker.model.RouteCollection;
 import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.model.Transportation;
 
@@ -30,7 +32,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 19;
+    public static final int DATABASE_VERSION = 20;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -349,6 +351,12 @@ public class DBAdapter {
                 deleteRow(table,c.getLong((int) rowId));
             } while (c.moveToNext());
         }
+        if(table.equals(DB_TABLE.JOURNEY)){
+            deleteAll(DB_TABLE.CAR);
+            deleteAll(DB_TABLE.ROUTE);
+            deleteAll(DB_TABLE.SKYTRAIN);
+            deleteAll(DB_TABLE.BUS);
+        }
         c.close();
     }
 
@@ -626,6 +634,84 @@ public class DBAdapter {
         cursor.close();
 
         return jC;
+    }
+
+    public RouteCollection getAllRoute(){
+        String message = "";
+        // populate the message from the cursor
+        // Reset cursor to start, checking to see if there's data:
+        RouteCollection rC = new RouteCollection();
+        Cursor cursor =  getAllRows(DB_TABLE.ROUTE);
+        if (cursor.moveToFirst()) {
+            do {
+                // Process the data:
+
+                double cityDistance = cursor.getDouble(DBAdapter.COL_ROUTE_CITY_DISTANCE);
+                double highWayDistance = cursor.getDouble(DBAdapter.COL_ROUTE_HIGH_WAY_DISTANCE);
+                double otherDistance = cursor.getDouble(DBAdapter.COL_ROUTE_OTHER_DISTANCE);//for bike,walk,bus,skytrain
+                int mode = cursor.getInt(DBAdapter.COL_ROUTE_MODE);//2 for bike and walk,3 for bus, 4 for skytrain
+                String name = cursor.getString(DBAdapter.COL_ROUTE_NAME);
+
+                // Append data to the message:
+                message += "name=" + name
+                        +", CityDistance=" + cityDistance
+                        +", HighWayDistance=" + highWayDistance
+                        +", OtherDistance=" + otherDistance
+                        +", mode=" + mode
+                        +"\n";
+
+                rC.addRoute(new Route(name,highWayDistance,cityDistance,otherDistance,mode));
+            } while(cursor.moveToNext());
+        }
+
+        // Close the cursor to avoid a resource leak.
+        cursor.close();
+
+//        Log.i(TAG, "displayRecordSetForRoute: " + message);
+        return rC;
+    }
+
+    public CarCollection getAllCar(){
+        String message = "";
+        // populate the message from the cursor
+
+        CarCollection cC = new CarCollection();
+        Cursor cursor =  getAllRows(DB_TABLE.CAR);
+
+        // Reset cursor to start, checking to see if there's data:
+        if (cursor.moveToFirst()) {
+            do {
+                // Process the data:
+                double carbonTailPipe = cursor.getDouble(DBAdapter.COL_CAR_CARBON_TAIL_PIPE);
+                double engineDispLitres = cursor.getDouble(DBAdapter.COL_CAR_ENGINE_DISP_LITRES);
+                int cityMPG = cursor.getInt(DBAdapter.COL_CAR_CITY_MPG);
+                int fuelAnnualCost= cursor.getInt(DBAdapter.COL_CAR_FUEL_ANNUAL_COST);
+                int highwayMPG = cursor.getInt(DBAdapter.COL_CAR_HIGHWAY_MPG);
+                int year = cursor.getInt(DBAdapter.COL_CAR_YEAR);
+                String engineDescription = cursor.getString(DBAdapter.COL_CAR_ENGINE_DESCRIPTION);
+                String fuelType = cursor.getString(DBAdapter.COL_CAR_FUEL_TYPE);
+                String make = cursor.getString(DBAdapter.COL_CAR_MAKE);
+                String model = cursor.getString(DBAdapter.COL_CAR_MODEL);
+                String nickName = cursor.getString(DBAdapter.COL_CAR_NICK_NAME);
+                String transDescription= cursor.getString(DBAdapter.COL_CAR_TRANS_DESCRIPTION);
+
+                // Append data to the message:
+                message += "make=" + make
+                        +", model=" + model
+                        +", cityMPG=" + cityMPG
+                        +", fuelType=" + fuelType
+                        +"\n";
+
+                cC.add(new Car(nickName,make,model,year,cityMPG,highwayMPG,
+                        engineDescription,engineDispLitres,fuelType,fuelAnnualCost,carbonTailPipe,transDescription));
+            } while(cursor.moveToNext());
+        }
+
+        // Close the cursor to avoid a resource leak.
+        cursor.close();
+
+//        Log.i(TAG, "displayRecordSetForCar: " + message);
+        return cC;
     }
 
     // [POSSIBLE REFACTOR]
@@ -922,6 +1008,8 @@ public class DBAdapter {
         db.insertRow(journey);
         db.close();
     }
+
+
 
     /**
      * Created by tangj on 3/20/2017.

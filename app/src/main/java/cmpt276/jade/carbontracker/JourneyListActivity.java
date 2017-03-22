@@ -17,6 +17,7 @@ import android.content.Context;
 
 import cmpt276.jade.carbontracker.adapter.JourneyListAdapter;
 import cmpt276.jade.carbontracker.adapter.RouteListAdapter;
+import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.fragment.EditDialog;
         import cmpt276.jade.carbontracker.model.Car;
@@ -166,5 +167,17 @@ public class JourneyListActivity extends AppCompatActivity {
 
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        DBAdapter db = new DBAdapter(this);
+        db.open();
+        db.deleteAll(DBAdapter.DB_TABLE.JOURNEY);
+        for (Journey j: Emission.getInstance().getJourneyCollection().getJourneyList()) {
+            db.insertRow(j);
+        }
+        db.close();
     }
 }

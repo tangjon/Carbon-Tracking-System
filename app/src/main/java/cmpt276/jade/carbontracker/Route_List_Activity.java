@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.adapter.RouteListAdapter;
+import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.fragment.EditDialog;
 import cmpt276.jade.carbontracker.fragment.EditDialog.EditDialogListener;
