@@ -20,6 +20,15 @@ import cmpt276.jade.carbontracker.model.RouteCollection;
 import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.model.Transportation;
 
+/*
+* Class: DBAdapter
+* Description: Data Base Adapter/Manager for saving to SQLlite database,
+*              supports saving Journey, Route, Skytrain, Car, Bus, Walk,
+*              Bike objects
+* Bugs: none
+* Todo: Save bills
+* */
+
 // TO USE:
 // Change the package (at top) to match your project.
 // Search for "TODO", and make the appropriate changes.

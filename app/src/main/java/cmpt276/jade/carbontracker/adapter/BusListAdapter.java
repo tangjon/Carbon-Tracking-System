@@ -12,6 +12,10 @@ import cmpt276.jade.carbontracker.R;
 
 /**
  * Created by Sean on 21/03/2017.
+ * Class:
+ * Description:
+ *
+ * Bugs:
  */
 
 public class BusListAdapter extends ArrayAdapter<String> {

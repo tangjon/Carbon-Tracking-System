@@ -18,7 +18,8 @@ import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.model.Transportation;
 
 /**
- * Load Dummy Data to Emissions Class with Journeys, Car and Routes to recent lists
+ *  Generate Dummy Data to the entire application
+ *  FOR TESTING PURPOSES ONLY
  */
 
 public class GenerateDummyData {
