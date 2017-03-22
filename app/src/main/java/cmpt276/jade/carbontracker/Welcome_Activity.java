@@ -20,6 +20,7 @@ import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.Route;
+import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.sample.LoadDummyData;
 import cmpt276.jade.carbontracker.utils.CarManager;
 
@@ -112,11 +113,6 @@ public class Welcome_Activity extends AppCompatActivity {
         long rRow = db.insertRow(route);
         Route recRoute = db.getRoute(rRow);
         Log.i(TAG, "loadRequiredApplicationResources: " + recRoute.toString());
-        recRoute = (Route) db.getObject(DBAdapter.DB_TABLE.ROUTE,rRow);
-        Log.i(TAG, "loadRequiredApplicationResources: " + recRoute.toString());
-
-
-
 //        displayRecordSetForRoute(db.getAllRows(DBAdapter.DB_TABLE.ROUTE));
 
         // Test Bus
@@ -132,6 +128,12 @@ public class Welcome_Activity extends AppCompatActivity {
         Journey recJ = db.getJourney(jRow);
         Log.i(TAG, "loadRequiredApplicationResources: " + recJ.toString());
         Log.i(TAG, "loadRequiredApplicationResources: " + recJ.getTransType().getCar().toString());
+
+        // Test Skytrain
+        Skytrain train = new Skytrain("someName","1922","Rainbow");
+        long trainRow = db.insertRow(train);
+        train = db.getSkytrain(trainRow);
+        Log.i(TAG, "DATABASETESTINGFUNCTION: " + train.toString());
     }
 
     // KEEP THIS

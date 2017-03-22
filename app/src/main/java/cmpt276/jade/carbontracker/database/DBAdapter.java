@@ -29,7 +29,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 17;
+    public static final int DATABASE_VERSION = 18;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -233,15 +233,32 @@ public class DBAdapter {
                     + ");";
 
     // TODO: Setup Skytrain Fields Here
-
+    private static final String KEY_SKYTRAIN_NICK_NAME = "skytrain_nick_name";
+    private static final String KEY_SKYTRAIN_BOARDING_STATION = "skytrain_boarding_station";
+    private static final String KEY_SKYTRAIN_LINE = "key_skytrain_line";
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
-
+    private static final int COL_SKYTRAIN_NICK_NAME = 1;
+    private static final int COL_SKYTRAIN_BOARDING_STATION = 2;
+    private static final int COL_SKYTRAIN_LINE = 3;
     // ALL KEYS
     public static final String[] ALL_SKYTRAIN_KEYS = new String[] {
-
-    };
+            KEY_ROWID,
+            KEY_SKYTRAIN_NICK_NAME,
+            KEY_SKYTRAIN_BOARDING_STATION,
+            KEY_SKYTRAIN_LINE };
 
     // Create the Data Base (SQL)
+    private static final String CREATE_TABLE_SKYTRAIN =
+            "create table " + TABLE_SKYTRAIN
+                    + " (" + KEY_ROWID + " integer primary key autoincrement, "
+
+                    // TODO: Place your fields here!
+                    + KEY_SKYTRAIN_NICK_NAME + " text, "
+                    + KEY_SKYTRAIN_BOARDING_STATION + " text, "
+                    + KEY_SKYTRAIN_LINE + " text"
+
+                    // Rest  of creation:
+                    + ");";
 
     // TODO: Setup Walk Fields Here
 
@@ -324,108 +341,10 @@ public class DBAdapter {
         myDBHelper.close();
     }
 
-    //////////////////////
-    // INSERT FUNCTIONS
-    /////////////////////
-
-    /* [DONE] */
-    public long insertRow(Car car) {
-		/*
-		 * CHANGE 3:
-		 */
-        // TODO: Update data in the row with new fields.
-        // TODO: Also change the function's arguments to be what you need!
-        // Create row's data:
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_CAR_CARBON_TAIL_PIPE,car.getCarbonTailPipe());
-        initialValues.put(KEY_CAR_CITY_MPG,car.getCityMPG());
-        initialValues.put(KEY_CAR_ENGINE_DESCRIPTION,car.getEngineDescription());
-        initialValues.put(KEY_CAR_ENGINE_DISP_LITRES,car.getEngineDispLitres());
-        initialValues.put(KEY_CAR_FUEL_ANNUAL_COST,car.getFuelAnnualCost());
-        initialValues.put(KEY_CAR_FUEL_TYPE,car.getFuelType());
-        initialValues.put(KEY_CAR_HIGHWAY_MPG,car.getHighwayMPG());
-        initialValues.put(KEY_CAR_MAKE,car.getMake());
-        initialValues.put(KEY_CAR_MODEL,car.getModel());
-        initialValues.put(KEY_CAR_NICK_NAME,car.getNickName());
-        initialValues.put(KEY_CAR_TRANS_DESCRIPTION,car.getTransDescription());
-        initialValues.put(KEY_CAR_YEAR,car.getYear());
-
-        // Insert it into the database.
-        return db.insert(TABLE_CAR, null, initialValues);
-    }
-    /* [DONE] */
-    public long insertRow(Route route) {
-        // TODO: Update data in the row with new fields.
-        // TODO: Also change the function's arguments to be what you need!
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_ROUTE_NAME, route.getName() );
-        initialValues.put(KEY_ROUTE_HIGH_WAY_DISTANCE, route.getHighWayDistance() );
-        initialValues.put(KEY_ROUTE_CITY_DISTANCE, route.getCityDistance() );
-        initialValues.put(KEY_ROUTE_OTHER_DISTANCE, route.getOtherDistance() );
-        initialValues.put(KEY_ROUTE_MODE, route.getMode() );
-
-        // Insert it into the database.
-        return db.insert(TABLE_ROUTE, null, initialValues);
-    }
-
-
-    public long insertRow(Bus bus) {
-        // TODO: Update data in the row with new fields.
-        // TODO: Also change the function's arguments to be what you need!
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_BUS_NICK_NAME, bus.getNickName() );
-        initialValues.put(KEY_BUS_ROUTE_NUMBER, bus.getRouteNumber() );
-        // Insert it into the database.
-        return db.insert(TABLE_BUS, null, initialValues);
-    }
-
-    public long insertRow(Journey journey) {
-        // TODO: Update data in the row with new fields.
-        // TODO: Also change the function's arguments to be what you need!
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_JOURNEY_NAME, journey.getName() );
-        initialValues.put(KEY_JOURNEY_TRANS_TYPE, journey.getTransType().getTransMode().toString());
-        initialValues.put(KEY_JOURNEY_DATE, journey.getDate().toString());
-
-        // Insert Route
-        long routeID = insertRow(journey.getRoute());
-        initialValues.put(KEY_JOURNEY_ROUTE_ID, routeID);
-
-        Transport mode = journey.getTransType().getTransMode();
-
-        switch (mode){
-            case CAR:
-                // Insert Car
-                long carID = insertRow(journey.getTransType().getCar());
-                initialValues.put(KEY_TRANSPORT_OBJECT_ID, carID);
-                break;
-            case BIKE:
-                break;
-            case WALK:
-                break;
-            case BUS:
-                long busID = insertRow(journey.getTransType().getBus());
-                initialValues.put(KEY_TRANSPORT_OBJECT_ID, busID);
-                break;
-            case SKYTRAIN:
-                break;
-            case TRANSIT:
-                break;
-        }
-
-
-        // Insert it into the database.
-        return db.insert(TABLE_JOURNEY, null, initialValues);
-    }
-
-
-
-    //////////////////////
+    // *********************
     // GENERAL FUNCTIONS
-    /////////////////////
-    /* [DONE]
-    Delete a row from the database, by rowId (primary key)
-    */
+    // *********************
+    //Delete a row from the database, by rowId (primary key)
     public boolean deleteRow(DB_TABLE table, long rowId) {
         String where = KEY_ROWID + "=" + rowId;
         return db.delete(table.toString(), where, null) != 0;
@@ -494,10 +413,126 @@ public class DBAdapter {
         }
         return c;
     }
+
+    // *********************
+    // INSERT FUNCTIONS
+    // *** STEP 1 create a insert function
+    // *********************
+
+    /* [DONE] */
+    public long insertRow(Car car) {
+		/*
+		 * CHANGE 3:
+		 */
+        // TODO: Update data in the row with new fields.
+        // TODO: Also change the function's arguments to be what you need!
+        // Create row's data:
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_CAR_CARBON_TAIL_PIPE,car.getCarbonTailPipe());
+        initialValues.put(KEY_CAR_CITY_MPG,car.getCityMPG());
+        initialValues.put(KEY_CAR_ENGINE_DESCRIPTION,car.getEngineDescription());
+        initialValues.put(KEY_CAR_ENGINE_DISP_LITRES,car.getEngineDispLitres());
+        initialValues.put(KEY_CAR_FUEL_ANNUAL_COST,car.getFuelAnnualCost());
+        initialValues.put(KEY_CAR_FUEL_TYPE,car.getFuelType());
+        initialValues.put(KEY_CAR_HIGHWAY_MPG,car.getHighwayMPG());
+        initialValues.put(KEY_CAR_MAKE,car.getMake());
+        initialValues.put(KEY_CAR_MODEL,car.getModel());
+        initialValues.put(KEY_CAR_NICK_NAME,car.getNickName());
+        initialValues.put(KEY_CAR_TRANS_DESCRIPTION,car.getTransDescription());
+        initialValues.put(KEY_CAR_YEAR,car.getYear());
+
+        // Insert it into the database.
+        return db.insert(TABLE_CAR, null, initialValues);
+    }
+    /* [DONE] */
+    public long insertRow(Route route) {
+        // TODO: Update data in the row with new fields.
+        // TODO: Also change the function's arguments to be what you need!
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_ROUTE_NAME, route.getName() );
+        initialValues.put(KEY_ROUTE_HIGH_WAY_DISTANCE, route.getHighWayDistance() );
+        initialValues.put(KEY_ROUTE_CITY_DISTANCE, route.getCityDistance() );
+        initialValues.put(KEY_ROUTE_OTHER_DISTANCE, route.getOtherDistance() );
+        initialValues.put(KEY_ROUTE_MODE, route.getMode() );
+        // Insert it into the database.
+        return db.insert(TABLE_ROUTE, null, initialValues);
+    }
+
+    // [DONE]
+    public long insertRow(Bus bus) {
+        // TODO: Update data in the row with new fields.
+        // TODO: Also change the function's arguments to be what you need!
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_BUS_NICK_NAME, bus.getNickName() );
+        initialValues.put(KEY_BUS_ROUTE_NUMBER, bus.getRouteNumber() );
+        // Insert it into the database.
+        return db.insert(TABLE_BUS, null, initialValues);
+    }
+
+    public long insertRow(Skytrain skytrain) {
+        // TODO: Update data in the row with new fields.
+        // TODO: Also change the function's arguments to be what you need!
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_SKYTRAIN_NICK_NAME, skytrain.getNickName() );
+        initialValues.put(KEY_SKYTRAIN_BOARDING_STATION, skytrain.getBoardingStation() );
+        initialValues.put(KEY_SKYTRAIN_LINE, skytrain.getSkytrainLine() );
+        // Insert it into the database.
+        return db.insert(TABLE_SKYTRAIN, null, initialValues);
+    }
+    // *** STEP 2 ATTACH TO JOURNEY TABLE
+    public long insertRow(Journey journey) {
+        // TODO: Update data in the row with new fields.
+        // TODO: Also change the function's arguments to be what you need!
+        ContentValues initialValues = new ContentValues();
+
+        // Insert Journey Info
+        initialValues.put(KEY_JOURNEY_NAME, journey.getName() );
+        initialValues.put(KEY_JOURNEY_TRANS_TYPE, journey.getTransType().getTransMode().toString());
+        initialValues.put(KEY_JOURNEY_DATE, journey.getDate().toString());
+
+        // Insert Route
+        long routeID = insertRow(journey.getRoute());
+        initialValues.put(KEY_JOURNEY_ROUTE_ID, routeID);
+
+        // Insert Transportation Object
+        // (1) Insert Object
+        // (2) Attach id to KEY_TRANSPORT_OBJECT_ID
+        Transport mode = journey.getTransType().getTransMode();
+        switch (mode){
+            case CAR:
+                // Insert Car
+                long carID = insertRow(journey.getTransType().getCar());
+                initialValues.put(KEY_TRANSPORT_OBJECT_ID, carID);
+                break;
+            case BIKE:
+                // Do nothing
+                break;
+            case WALK:
+                // Do nothing
+                break;
+            case BUS:
+                long busID = insertRow(journey.getTransType().getBus());
+                initialValues.put(KEY_TRANSPORT_OBJECT_ID, busID);
+                break;
+            case SKYTRAIN:
+                long trainID = insertRow(journey.getTransType().getSkytrain());
+                initialValues.put(KEY_TRANSPORT_OBJECT_ID, trainID);
+                break;
+        }
+        // Insert it into the database.
+        return db.insert(TABLE_JOURNEY, null, initialValues);
+    }
+
+
+
+
     // ==========================
     // GETTERS
+    // *** STEP 3 Create a getter for object
     // ==========================
+    // ***************************************
 
+    // *** STEP 4 Attach getter Journey
     public Journey getJourney(long rowId){
         String where = KEY_ROWID + "=" + rowId;
 
@@ -519,22 +554,26 @@ public class DBAdapter {
         // Get and set Transport Type
         Transportation transportation = new Transportation();
         transportation.setTransMode(buffTrans(TRANS_TYPE));
+        // (1) Get Object
+        // (2) Attach id to Transportation Object
         switch (transportation.getTransMode()){
             case CAR:
                 long CAR_ID = c.getInt(COL_TRANSPORT_OBJECT_ID);
                 transportation.setCar(getCar(CAR_ID));
                 break;
             case BIKE:
+                // Do nothing
                 break;
             case WALK:
+                // Do nothing
                 break;
             case BUS:
                 long busID = c.getInt(COL_TRANSPORT_OBJECT_ID);
                 transportation.setBus(getBus(busID));
                 break;
             case SKYTRAIN:
-                break;
-            case TRANSIT:
+                long trainID = c.getInt(COL_TRANSPORT_OBJECT_ID);
+                transportation.setSkytrain(getSkytrain(trainID));
                 break;
         }
         Journey j = new Journey(name, transportation,route);
@@ -542,6 +581,7 @@ public class DBAdapter {
         return j;
     }
 
+    // [POSSIBLE REFACTOR]
     public Object getObject(DB_TABLE t, long rowId){
         String where = KEY_ROWID + "=" + rowId;
 
@@ -560,6 +600,7 @@ public class DBAdapter {
                 double otherDistance = c.getDouble(DBAdapter.COL_ROUTE_OTHER_DISTANCE);//for bike,walk,bus,skytrain
                 int mode = c.getInt(DBAdapter.COL_ROUTE_MODE);//2 for bike and walk,3 for bus, 4 for skytrain
                 String name = c.getString(DBAdapter.COL_ROUTE_NAME);
+
                 return new Route(name, highWayDistance, cityDistance, otherDistance, mode);
             case JOURNEY:
                 break;
@@ -578,8 +619,7 @@ public class DBAdapter {
         }
         return null;
     }
-
-    /* [DONE] */
+    // [DONE]
     public Route getRoute(long rowId){
         String where = KEY_ROWID + "=" + rowId;
 
@@ -598,8 +638,7 @@ public class DBAdapter {
 
         return new Route(name, highWayDistance, cityDistance, otherDistance, mode);
     }
-
-    /* [DONE] */
+    // [DONE]
     public Car getCar(long rowId){
         String where = KEY_ROWID + "=" + rowId;
 
@@ -648,8 +687,7 @@ public class DBAdapter {
 
         return car;
     }
-
-    /* [DONE] */
+    // [DONE]
     public Bus getBus(long rowId){
         String where = KEY_ROWID + "=" + rowId;
 
@@ -666,15 +704,7 @@ public class DBAdapter {
 
         return bus;
     }
-    // todo getWalk
-//    public Walk getWalk(long rowId){
-//        return null;
-//    }
-//    // todo getBike
-//    public Bike getBike(long rowId){
-//        return null;
-//    }
-    // todo getSkytrain
+    // [DONE]
     public Skytrain getSkytrain(long rowId){
         String where = KEY_ROWID + "=" + rowId;
 
@@ -685,10 +715,13 @@ public class DBAdapter {
             c.moveToFirst();
         }
 
-        return null;
-    }
+        Skytrain train = new Skytrain();
+        train.setNickName(c.getString(COL_SKYTRAIN_NICK_NAME));
+        train.setSkytrainLine(c.getString(COL_SKYTRAIN_LINE));
+        train.setBoardingStation(c.getString(COL_SKYTRAIN_BOARDING_STATION));
 
-    // todo geTransit
+        return train;
+    }
 
     // Todo getBill
     public Bill getBill(long rowId){
@@ -815,6 +848,7 @@ public class DBAdapter {
             _db.execSQL(CREATE_TABLE_CAR);
             _db.execSQL(CREATE_TABLE_JOURNEY);
             _db.execSQL(CREATE_TABLE_BUS);
+            _db.execSQL(CREATE_TABLE_SKYTRAIN);
         }
 
         @Override
@@ -828,6 +862,7 @@ public class DBAdapter {
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAR);
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_JOURNEY);
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_BUS);
+            _db.execSQL("DROP TABLE IF EXISTS " + TABLE_SKYTRAIN);
 
             // Recreate new database:
             onCreate(_db);

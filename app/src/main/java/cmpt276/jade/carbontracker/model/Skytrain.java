@@ -16,6 +16,11 @@ public class Skytrain {
 
     }
 
+    public Skytrain(String nickName, String boardingStation, String skytrainLine) {
+        this.nickName = nickName;
+        this.boardingStation = boardingStation;
+        this.skytrainLine = skytrainLine;
+    }
 
     public String getNickName() {
         return nickName;
@@ -57,4 +62,12 @@ public class Skytrain {
         this.position = position;
     }
 
+    @Override
+    public String toString() {
+        return "Skytrain{" +
+                "nickName='" + nickName + '\'' +
+                ", boardingStation='" + boardingStation + '\'' +
+                ", skytrainLine='" + skytrainLine + '\'' +
+                '}';
+    }
 }
