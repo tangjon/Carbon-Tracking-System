@@ -1,7 +1,5 @@
 package cmpt276.jade.carbontracker.model;
 
-import android.util.Log;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -29,7 +27,7 @@ public class Bill implements Serializable {
         this.endDate = endDate;
         this.input = input;
 
-        calculateEmission();
+        if (startDate != null && endDate != null) calculateEmission();
     }
 
     private void calculateEmission() {
@@ -45,9 +43,6 @@ public class Bill implements Serializable {
         dateDiff = TimeUnit.DAYS.convert(dateDiff, TimeUnit.MILLISECONDS);
 
         emissionAvg = emissionTotal / dateDiff;
-
-        Log.i("calculateEmission", "dateDiff = "+dateDiff);
-        Log.i("calculateEmission", "emissionTotal = "+emissionTotal+", emissionAvg = "+emissionAvg);
     }
 
     public BillType getBillType() {
@@ -64,7 +59,7 @@ public class Bill implements Serializable {
 
     public void setStartDate(Date d) {
         startDate = d;
-        calculateEmission();
+        if (startDate != null && endDate != null) calculateEmission();
     }
 
     public Date getStartDate() {
@@ -73,7 +68,7 @@ public class Bill implements Serializable {
 
     public void setEndDate(Date d) {
         endDate = d;
-        calculateEmission();
+        if (startDate != null && endDate != null) calculateEmission();
     }
 
     public Date getEndDate() {
@@ -96,5 +91,9 @@ public class Bill implements Serializable {
     public void setNumResidents(int numResidents) {
         this.numResidents = numResidents;
     }
+    public Boolean isGas() {
+        return (type == BillType.GAS);
+    }
+
 }
 

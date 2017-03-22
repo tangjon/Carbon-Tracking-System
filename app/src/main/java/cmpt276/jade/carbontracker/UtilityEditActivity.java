@@ -12,13 +12,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.model.Graph;
 import cmpt276.jade.carbontracker.model.Utilities;
 import cmpt276.jade.carbontracker.utils.BillEditMode;
 import cmpt276.jade.carbontracker.utils.BillType;
@@ -34,7 +33,6 @@ public class UtilityEditActivity extends AppCompatActivity {
     private EditText editDateStart;
     private EditText editDateEnd;
     private Calendar calendar;
-    public static SimpleDateFormat dateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,6 @@ public class UtilityEditActivity extends AppCompatActivity {
 
         emission = Emission.getInstance();
         calendar = Calendar.getInstance();
-        dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
         getIntentData();
         setupUI();
@@ -58,8 +55,11 @@ public class UtilityEditActivity extends AppCompatActivity {
                 Calendar dateNew = Calendar.getInstance();
                 dateNew.set(year, month, dayOfMonth);
 
-                if (dateNew.getTime().before(buffer.getEndDate())) {
-                    editDateStart.setText(dateFormat.format(dateNew.getTime()));
+                if (buffer.getEndDate() == null) {
+                    editDateStart.setText(Emission.DATE_FORMAT.format(dateNew.getTime()));
+                    buffer.setStartDate(dateNew.getTime());
+                } else if (dateNew.getTime().before(buffer.getEndDate())) {
+                    editDateStart.setText(Emission.DATE_FORMAT.format(dateNew.getTime()));
                     buffer.setStartDate(dateNew.getTime());
                 } else {
                     Toast.makeText(UtilityEditActivity.this,
@@ -74,8 +74,11 @@ public class UtilityEditActivity extends AppCompatActivity {
                 Calendar dateNew = Calendar.getInstance();
                 dateNew.set(year, month, dayOfMonth);
 
-                if (dateNew.getTime().after(buffer.getStartDate())) {
-                    editDateEnd.setText(dateFormat.format(dateNew.getTime()));
+                if (buffer.getStartDate() == null) {
+                    editDateEnd.setText(Emission.DATE_FORMAT.format(dateNew.getTime()));
+                    buffer.setEndDate(dateNew.getTime());
+                } else if (dateNew.getTime().after(buffer.getStartDate())) {
+                    editDateEnd.setText(Emission.DATE_FORMAT.format(dateNew.getTime()));
                     buffer.setEndDate(dateNew.getTime());
                 } else {
                     Toast.makeText(UtilityEditActivity.this,
@@ -104,9 +107,9 @@ public class UtilityEditActivity extends AppCompatActivity {
                 if (!editInput.getText().toString().isEmpty()) {
                     Utilities utils = emission.getUtilities();
 
-                    if (mode == BillEditMode.ADD)
-                        utils.addBill(type, buffer);
+                    if (mode == BillEditMode.ADD) utils.addBill(type, buffer);
                     else utils.editBill(type, buffer, index);
+
                     finish();
                 }
             }
@@ -124,14 +127,16 @@ public class UtilityEditActivity extends AppCompatActivity {
     private void previewEmissions() {
         EditText editInput = (EditText) findViewById(R.id.editBillInput);
         if (!editInput.getText().toString().isEmpty()) {
+
             double input = Double.parseDouble(editInput.getText().toString());
             buffer.setInput(input);
 
             TextView tvPreview = (TextView) findViewById(R.id.txt_bill_preview);
-            String text = "Total Emissions: " + Math.round(buffer.getEmissionTotal()) +
-                    "kg CO2, Average Emissions: " + Math.round(buffer.getEmissionAvg()) + "kg CO2";
+            String text = getString(R.string.label_bill_preview);
 
-            tvPreview.setText(text);
+            tvPreview.setText(String.format(text, buffer.getEmissionTotal(),
+                    buffer.getEmissionAvg(),
+                    buffer.getEmissionAvg() / emission.getUtilities().getNumResidents()));
         }
     }
 
@@ -159,8 +164,8 @@ public class UtilityEditActivity extends AppCompatActivity {
         if (mode == BillEditMode.EDIT) {
             EditText editInput = (EditText) findViewById(R.id.editBillInput);
 
-            editDateStart.setText(dateFormat.format(buffer.getStartDate()));
-            editDateEnd.setText(dateFormat.format(buffer.getEndDate()));
+            editDateStart.setText(Emission.DATE_FORMAT.format(buffer.getStartDate()));
+            editDateEnd.setText(Emission.DATE_FORMAT.format(buffer.getEndDate()));
             editInput.setText(String.valueOf(buffer.getInput()));
         }
 
@@ -179,7 +184,7 @@ public class UtilityEditActivity extends AppCompatActivity {
         index = intent.getIntExtra("index", 0);
 
         if (mode == BillEditMode.EDIT) buffer = emission.getBufferBill();
-        else buffer = new Bill(type, new Date(), new Date(), 0);
+        else buffer = new Bill(type, null, null, 0);
     }
 
 }

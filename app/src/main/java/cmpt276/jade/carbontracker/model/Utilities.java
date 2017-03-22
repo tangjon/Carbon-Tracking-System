@@ -2,6 +2,7 @@ package cmpt276.jade.carbontracker.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cmpt276.jade.carbontracker.utils.BillType;
@@ -22,6 +23,74 @@ public class Utilities implements Serializable {
         listBillElec = new ArrayList<>();
         listBillGas = new ArrayList<>();
 
+    }
+
+    public List<Bill> getBillsOnDay(Date date, BillType type) {
+        List<Bill> usableBills = new ArrayList<>();
+        List<Bill> bills = new ArrayList<>();
+
+        if (type == BillType.ELECTRIC) bills.addAll(listBillElec);
+        else bills.addAll(listBillGas);
+
+        for (Bill b : bills) {
+            if (b == null) return usableBills;
+            if ((b.getStartDate().before(date) && b.getEndDate().after(date))
+                    || b.getStartDate().compareTo(date) == 0
+                    || b.getEndDate().compareTo(date) == 0)
+                usableBills.add(b);
+        }
+
+        return usableBills;
+    }
+
+    public List<Bill> getBillsWithinRange(Date start, Date end, BillType type) {
+        List<Bill> usableBills = new ArrayList<>();
+        List<Bill> bills = new ArrayList<>();
+
+        if (type == BillType.ELECTRIC) bills.addAll(listBillElec);
+        else bills.addAll(listBillGas);
+
+        for (Bill b : bills) {
+            if (b.getStartDate().after(start) && b.getStartDate().before(end))
+                usableBills.add(b);
+            else if (b.getEndDate().after(start) && b.getEndDate().before(end))
+                usableBills.add(b);
+            else if (b.getStartDate().compareTo(start) == 0 || b.getStartDate().compareTo(end) == 0
+                    || b.getEndDate().compareTo(start) == 0 || b.getEndDate().compareTo(end) == 0)
+                usableBills.add(b);
+        }
+
+        return usableBills;
+    }
+
+    public Bill getNearestBill(Date date, BillType type) {
+        List<Bill> bills;
+
+        if (type == BillType.ELECTRIC) bills = listBillElec;
+        else bills = listBillGas;
+
+        long dateDiffStart, dateDiffEnd, dateDiffStartLast, dateDiffEndLast;
+        dateDiffStartLast = 0; dateDiffEndLast = 0;
+        Bill billSelected = null;
+
+        for (Bill b : bills) {
+            dateDiffStart = Math.abs(date.getTime() - b.getStartDate().getTime());
+            dateDiffEnd = Math.abs(date.getTime() - b.getEndDate().getTime());
+
+            if (dateDiffStartLast == 0) {
+                dateDiffStartLast = dateDiffStart;
+                dateDiffEndLast = dateDiffEnd;
+                billSelected = b;
+            }
+
+            if (dateDiffStart < dateDiffStartLast || dateDiffEnd < dateDiffEndLast) {
+                dateDiffStartLast = dateDiffStart;
+                dateDiffEndLast = dateDiffEnd;
+                billSelected = b;
+            }
+        }
+
+        return billSelected;
     }
 
     public int getNumResidents() {
@@ -62,12 +131,8 @@ public class Utilities implements Serializable {
     }
 
     public void editBill(BillType type, Bill newBill, int index) {
-        if (type == BillType.ELECTRIC) {
-            listBillElec.set(index, newBill);
-        }
-        else {
-            listBillGas.set(index, newBill);
-        }
+        if (type == BillType.ELECTRIC) listBillElec.set(index, newBill);
+        else listBillGas.set(index, newBill);
     }
 
     public void deleteBill(BillType type, int index) {
