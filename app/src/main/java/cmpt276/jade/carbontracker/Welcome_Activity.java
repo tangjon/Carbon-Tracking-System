@@ -1,7 +1,6 @@
 package cmpt276.jade.carbontracker;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,7 +21,6 @@ import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.model.Skytrain;
-import cmpt276.jade.carbontracker.model.Transportation;
 import cmpt276.jade.carbontracker.sample.GenerateDummyData;
 import cmpt276.jade.carbontracker.utils.CarManager;
 
@@ -98,33 +96,29 @@ public class Welcome_Activity extends AppCompatActivity {
         // Load Vehicles.csv
         Emission.getInstance().setCarCollection(new CarCollection(CarManager.readCarData(this, R.raw.vehicle_trimmed)));
 
-        // Load Recent Lists
-        GenerateDummyData.generateRecentLists();
-
         // Load Saved JourneyList
         JourneyCollection jC = myDb.getAllJourney();
-//
-
-        // to do remove this
-//        if(jC.getJourneyList().isEmpty()){
-//            // Load some journeys
-//            jC.addJourney(GenerateDummyData.generateComplexJourney());
-//            jC.addJourney(GenerateDummyData.generateComplexJourney());
-//            jC.addJourney(GenerateDummyData.generateComplexJourney());
-//            jC.addJourney(GenerateDummyData.generateComplexJourney());
-//            jC.addJourney(GenerateDummyData.generateComplexJourney());
-//            jC.addJourney(GenerateDummyData.generateComplexJourney());
-//        }
-
         Emission.getInstance().setJourneyCollection(jC);
 
+        // TODO REMOVE THIS
+//        GenerateDummyData.generateRecentLists();
+//         generateDummyJourneys();
 
-        // Todo Make Sure this is uncommented
-        // Uncomment this to load dummy data
-        // LoadDummyData.load();
 
-//        DATABASETESTINGFUNCTION();
-//         testComplexJourney();
+
+
+    }
+
+    private void generateDummyJourneys() {
+        if(Emission.getInstance().getJourneyCollection().getJourneyList().isEmpty()){
+            // Load some journeys
+            Emission.getInstance().getJourneyCollection().addJourney(GenerateDummyData.generateComplexJourney());
+            Emission.getInstance().getJourneyCollection().addJourney(GenerateDummyData.generateComplexJourney());
+            Emission.getInstance().getJourneyCollection().addJourney(GenerateDummyData.generateComplexJourney());
+            Emission.getInstance().getJourneyCollection().addJourney(GenerateDummyData.generateComplexJourney());
+            Emission.getInstance().getJourneyCollection().addJourney(GenerateDummyData.generateComplexJourney());
+            Emission.getInstance().getJourneyCollection().addJourney(GenerateDummyData.generateComplexJourney());
+        }
     }
 
     private void testComplexJourney() {
