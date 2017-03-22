@@ -1,6 +1,7 @@
 package cmpt276.jade.carbontracker.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by Sean on 02/03/2017.
@@ -24,6 +25,7 @@ public class Journey implements Serializable{
     private int mode = 0;  //0 is add.    1 is edit.
     private int position = -1;
     private String Date = "TEMP";
+    private Date dateObj;
     private double busEmissions;
     private double skytrainEmissions;
 
@@ -179,5 +181,13 @@ public class Journey implements Serializable{
                 ", mode=" + mode +
                 ", position=" + position +
                 '}';
+    }
+
+    public Date getDateObj() {
+        return dateObj;
+    }
+
+    public void setDateObj(Date dateObj) {
+        this.dateObj = dateObj;
     }
 }

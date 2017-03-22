@@ -1,5 +1,7 @@
 package cmpt276.jade.carbontracker.model;
 
+import android.util.Log;
+
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -128,26 +130,36 @@ public class Graph {
         return bills;
     }
 
-    private static JourneyCollection getJourneys(
+    public static JourneyCollection getJourneys(
             int mode, Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
 
         JourneyCollection buffer = new JourneyCollection();
 
+        Log.i("getJourneys","***************** mode = "+mode);
+
+        // TODO: 21/03/17 fix date comparison
         if (mode == 0) buffer = journeyCollection;
         else if (mode == 1) {
-            for (int i = 0; i < journeyCollection.countJourneys(); ++i)
-                if (journeyCollection.getJourney(i).getDate().equals(dateSelected))     // *****
+            for (int i = 0; i < journeyCollection.countJourneys(); ++i){
+                Log.i("GetJourneys","comparing "+journeyCollection.getJourney(i).getDateObj()+
+                " to "+dateSelected);
+                if (journeyCollection.getJourney(i).getDateObj().equals(dateSelected)) {
+                    Log.i("GetJourneys","added journey "+journeyCollection.getJourney(i).toString());
                     buffer.addJourney(journeyCollection.getJourney(i));
+                }
+            }
         } else {
             Journey j;
             for (int i = 0; i < journeyCollection.countJourneys(); ++i) {
-                /*j = journeyCollection.getJourney(i);                                  // *****
-                Date d = j.getDate();
+                j = journeyCollection.getJourney(i);
+                Date d = j.getDateObj();
+                Log.i("GetJourneys","comparing "+journeyCollection.getJourney(i).getDateObj()+
+                        " to "+dateRangeStart+" & "+dateRangeEnd);
                 if (d.equals(dateRangeStart) || d.equals(dateRangeEnd)
-                       || (d.before(dateRangeEnd) && d.after(dateRangeStart)))
-                   buffer.addJourney(j);
-                */
-                buffer.addJourney(journeyCollection.getJourney(i));
+                       || (d.before(dateRangeEnd) && d.after(dateRangeStart))) {
+                    buffer.addJourney(j);
+                    Log.i("GetJourneys","added journey "+j.toString());
+                }
             }
         }
 
@@ -172,11 +184,17 @@ public class Graph {
             distance = new double[size];
 
             Journey j;
+            Car c;
             for (int i = 0; i < size; ++i) {
                 j = journeyCollection.getJourney(i);
+                c = j.getTransType().getCar();
                 nameRoute[i] = j.getName();
-                nameVehicle[i] = j.getTransType().getCar().getNickname();
-                date[i] = j.getDate();
+                if (c != null) {
+                    nameVehicle[i] = c.getNickName();
+                } else {
+                    nameVehicle[i] = "n/a";
+                }
+                date[i] = Emission.DATE_FORMAT.format(j.getDateObj());
                 values[i] = (float) j.getTotalTravelledEmissions();
                 distance[i] = j.getTotalDriven();
             }

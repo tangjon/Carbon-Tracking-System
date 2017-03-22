@@ -254,11 +254,9 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                 switch (col) {
                     case 0:
                         tv.setText(Emission.DATE_FORMAT.format(b.getStartDate()));
-                        //tv.setTextSize(10f);
                         break;
                     case 1:
                         tv.setText(Emission.DATE_FORMAT.format(b.getEndDate()));
-                        //tv.setTextSize(10f);
                         break;
                     case 2:
                         tv.setText(String.valueOf(Emission.round(b.getInput())));
@@ -284,10 +282,14 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
         for (int i = 0; i < NUM_ENTRIES; ++i) {
             j = journeyCollection.getJourney(i);
-            emissionDate[i] = j.getDate();
+            emissionDate[i] = Emission.DATE_FORMAT.format(j.getDateObj());
             emissionRouteNames[i] = j.getName();
             emissionDistance[i] = j.getRoute().getCityDistance() + j.getRoute().getCityDistance();
-            emissionVehicleNames[i] = j.getTransType().getCar().getNickname();
+            if (j.getTransType().getCar() != null) {
+                emissionVehicleNames[i] = j.getTransType().getCar().getName();
+            } else {
+                emissionVehicleNames[i] = " n/a ";
+            }
             emissionValues[i] = (float) Math.round(j.getTotalTravelled());
         }
 
@@ -305,6 +307,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                         pieChart.setVisibility(View.INVISIBLE);
                         table.setVisibility(View.INVISIBLE);
                         barChart.setVisibility(View.VISIBLE);
+
                         barChart.invalidate();
                         break;
                     case 1:
