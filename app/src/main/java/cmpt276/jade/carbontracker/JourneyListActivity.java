@@ -142,6 +142,15 @@ public class JourneyListActivity extends AppCompatActivity {
     }
 
     private void populateList() {
+        // Save Journey to Data Base by complete refresh
+        DBAdapter db = new DBAdapter(this);
+        db.open();
+        db.deleteAll(DBAdapter.DB_TABLE.JOURNEY);
+        for (Journey j: Emission.getInstance().getJourneyCollection().getJourneyList()) {
+            db.insertRow(j);
+        }
+        db.close();
+
         //ListAdapter bucky=new RouteListAdapter(this,listOfJourneys.getJourneyDetails(),getMode());
         ListAdapter bucky=new JourneyListAdapter(this,listOfJourneys.getJourneyDetails(), listOfJourneys);
         ListView list = (ListView) findViewById(R.id.listviewJourney);
@@ -164,20 +173,7 @@ public class JourneyListActivity extends AppCompatActivity {
         });
 
         builder.setNegativeButton(getString(R.string.label_cancel), null);
-
         AlertDialog alert = builder.create();
         alert.show();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        DBAdapter db = new DBAdapter(this);
-        db.open();
-        db.deleteAll(DBAdapter.DB_TABLE.JOURNEY);
-        for (Journey j: Emission.getInstance().getJourneyCollection().getJourneyList()) {
-            db.insertRow(j);
-        }
-        db.close();
     }
 }
