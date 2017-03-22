@@ -20,6 +20,7 @@ import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.Route;
+import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.sample.LoadDummyData;
 import cmpt276.jade.carbontracker.utils.CarManager;
 
@@ -94,8 +95,17 @@ public class Welcome_Activity extends AppCompatActivity {
         // Uncomment this to load dummy data
 //         LoadDummyData.load();
 
-        DATABASETESTINGFUNCTION();
+//        DATABASETESTINGFUNCTION();
 
+
+        DBAdapter db = new DBAdapter(this);
+        db.open();
+        // Generate Journey
+        Journey j = LoadDummyData.generateComplexJourney();
+        Log.i(TAG, "DBReadbefore: " + j.toString());
+        long id = db.insertRow(j);
+        j = db.getJourney(id);
+        Log.i(TAG, "DBReadafter: " + j.toString());
     }
 
     private void DATABASETESTINGFUNCTION(){
@@ -112,15 +122,10 @@ public class Welcome_Activity extends AppCompatActivity {
         long rRow = db.insertRow(route);
         Route recRoute = db.getRoute(rRow);
         Log.i(TAG, "loadRequiredApplicationResources: " + recRoute.toString());
-        recRoute = (Route) db.getObject(DBAdapter.DB_TABLE.ROUTE,rRow);
-        Log.i(TAG, "loadRequiredApplicationResources: " + recRoute.toString());
-
-
-
 //        displayRecordSetForRoute(db.getAllRows(DBAdapter.DB_TABLE.ROUTE));
 
         // Test Bus
-        Bus bus = new Bus("someName", "Route123");
+        Bus bus = LoadDummyData.generateBus();
         long busRow = db.insertRow(bus);
         bus = db.getBus(busRow);
         Log.i(TAG, "DATABASETESTINGFUNCTION: " + bus.toString());
@@ -132,6 +137,13 @@ public class Welcome_Activity extends AppCompatActivity {
         Journey recJ = db.getJourney(jRow);
         Log.i(TAG, "loadRequiredApplicationResources: " + recJ.toString());
         Log.i(TAG, "loadRequiredApplicationResources: " + recJ.getTransType().getCar().toString());
+
+        // Test Skytrain
+        Skytrain train = LoadDummyData.generateSkytrain();
+        long trainRow = db.insertRow(train);
+        train = db.getSkytrain(trainRow);
+        Log.i(TAG, "DATABASETESTINGFUNCTION: " + train.toString());
+
     }
 
     // KEEP THIS
