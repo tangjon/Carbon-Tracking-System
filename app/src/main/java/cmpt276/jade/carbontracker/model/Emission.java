@@ -5,6 +5,10 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 /**
  * Singleton facade for use by UI
  */
@@ -23,6 +27,14 @@ public class Emission {
      */
     private Journey buffer;
     private Bill bufferBill;
+
+    public static final SimpleDateFormat DATE_FORMAT =
+            new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+    public static double round(double d) {
+        DecimalFormat format = new DecimalFormat("#.##");
+        return Double.valueOf(format.format(d));
+    }
 
     private Emission() {
         if (instance != null)
@@ -95,4 +107,5 @@ public class Emission {
     public void setBufferBill(Bill bufferBill) {
         this.bufferBill = bufferBill;
     }
+
 }

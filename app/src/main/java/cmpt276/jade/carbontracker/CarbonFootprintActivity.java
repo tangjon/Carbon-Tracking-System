@@ -1,39 +1,65 @@
 package cmpt276.jade.carbontracker;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
-import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.model.Graph;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
+import cmpt276.jade.carbontracker.model.Utilities;
+
 /*
- *  Displays user's carbon footprint in pie graph or table
+ *  Displays user's carbon footprint in graphs or table
  */
 public class CarbonFootprintActivity extends AppCompatActivity {
 
     private JourneyCollection journeyCollection = Emission.getInstance().getJourneyCollection();
+    private Utilities utilities = Emission.getInstance().getUtilities();
     private PieChart pieChart;
+    private BarChart barChart;
     private TableLayout table;
-    private Boolean pieShown = true;
+    private List<Bill> billsElec;
+    private List<Bill> billsGas;
     private final int NUM_ENTRIES = journeyCollection.countJourneys();
+    private DatePickerDialog dialog;
+
+    private int mode = 0;
+    private int dateMode = 1;
+
+    private Calendar calendar = Calendar.getInstance();
+    //private Date dateSelected = calendar.getTime();
+    private Date dateSelected = null;
+    private Date dateStart = null;
+    private Date dateEnd = null;
 
     private String emissionDate[] = new String[NUM_ENTRIES];
     private String emissionRouteNames[] = new String[NUM_ENTRIES];
@@ -46,17 +72,90 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carbon_footprint);
 
-        loadData();
 
-        setupTable();
-        setupPieChart();
+        dateSelected = currentDate();
+        setupDatePicker();
+        loadData();
         setupButton();
+        setupSpinner();
+    }
+
+    private void setupDatePicker() {
+        dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar c = Calendar.getInstance();
+                c.set(year, month, dayOfMonth);
+                dateSelected = c.getTime();
+                Log.i("datePicker","year = "+year);
+                Log.i("datePicker","dateSelected = "+dateSelected.toString());
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    private Date currentDate() {
+        Calendar c = Calendar.getInstance();
+        return new Date(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+    }
+
+    private void setupSpinner() {
+        Spinner spinner = (Spinner) findViewById(R.id.spinner_date);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.label_date_spinner, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Calendar calendar = Calendar.getInstance();
+                Date date;
+                switch (position) {
+                    case 0:
+                        dateMode = 1;
+                        dialog.show();
+                        break;
+                    case 1:
+                        dateMode = 2;
+                        date = calendar.getTime();
+                        dateEnd = date;
+                        calendar.setTime(date);
+                        calendar.add(Calendar.DAY_OF_MONTH, -28);
+                        date = calendar.getTime();
+                        dateStart = date;
+                        break;
+                    case 2:
+                        dateMode = 2;
+                        date = calendar.getTime();
+                        dateEnd = date;
+                        calendar.setTime(date);
+                        calendar.add(Calendar.YEAR, -1);
+                        date = calendar.getTime();
+                        dateStart = date;
+                        break;
+                }
+
+                setupPieChart();
+                setupBarChart();
+                setupTable();
+                pieChart.invalidate();
+                barChart.invalidate();
+                table.invalidate();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // do nothing
+            }
+        });
     }
 
     private void setupTable() {
         table = (TableLayout) findViewById(R.id.tableFootprint);
+        table.removeAllViews();
         table.setShrinkAllColumns(true);
 
+        // Journeys
         TableRow labelRow = new TableRow(this);
         String[] labels = getResources().getStringArray(R.array.label_table);
         for (int i = 0; i < labels.length; ++i) {
@@ -101,6 +200,86 @@ public class CarbonFootprintActivity extends AppCompatActivity {
             }
         }
 
+        // Electricity bills
+        TableRow labelRowElec = new TableRow(this);
+        String[] labelsElec = getResources().getStringArray(R.array.label_table_elec);
+        for (int i = 0; i < labelsElec.length; ++i) {
+            TextView tv = new TextView(this);
+            tv.setText(labelsElec[i]);
+            tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            tv.setTypeface(null, Typeface.BOLD);
+            labelRowElec.addView(tv);
+        }
+        table.addView(labelRowElec);
+
+        for (Bill b : billsElec) {
+            TableRow tableRow = new TableRow(this);
+            table.addView(tableRow);
+
+            for (int col = 0; col < labelsElec.length; ++col) {
+                TextView tv = new TextView(this);
+                switch (col) {
+                    case 0:
+                        tv.setText(Emission.DATE_FORMAT.format(b.getStartDate()));
+                        break;
+                    case 1:
+                        tv.setText(Emission.DATE_FORMAT.format(b.getEndDate()));
+                        break;
+                    case 2:
+                        tv.setText(String.valueOf(Emission.round(b.getInput())));
+                        break;
+                    case 3:
+                        tv.setText(String.valueOf(Emission.round(b.getEmissionTotal())));
+                        break;
+                    case 4:
+                        tv.setText(String.valueOf(Emission.round(b.getEmissionAvg())));
+                        break;
+                }
+                tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                tableRow.addView(tv);
+            }
+        }
+
+        // Gas bills
+        TableRow labelRowGas = new TableRow(this);
+        String[] labelsGas = getResources().getStringArray(R.array.label_table_gas);
+        for (int i = 0; i < labelsGas.length; ++i) {
+            TextView tv = new TextView(this);
+            tv.setText(labelsGas[i]);
+            tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            tv.setTypeface(null, Typeface.BOLD);
+            labelRowGas.addView(tv);
+        }
+        table.addView(labelRowGas);
+
+        for (Bill b : billsGas) {
+            TableRow tableRow = new TableRow(this);
+            table.addView(tableRow);
+
+            for (int col = 0; col < labelsGas.length; ++col) {
+                TextView tv = new TextView(this);
+                switch (col) {
+                    case 0:
+                        tv.setText(Emission.DATE_FORMAT.format(b.getStartDate()));
+                        break;
+                    case 1:
+                        tv.setText(Emission.DATE_FORMAT.format(b.getEndDate()));
+                        break;
+                    case 2:
+                        tv.setText(String.valueOf(Emission.round(b.getInput())));
+                        break;
+                    case 3:
+                        tv.setText(String.valueOf(Emission.round(b.getEmissionTotal())));
+                        break;
+                    case 4:
+                        tv.setText(String.valueOf(Emission.round(b.getEmissionAvg())));
+                        break;
+                }
+                tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                tableRow.addView(tv);
+            }
+        }
+
         table.setVisibility(View.INVISIBLE); // starts invisible
     }
 
@@ -110,12 +289,19 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
         for (int i = 0; i < NUM_ENTRIES; ++i) {
             j = journeyCollection.getJourney(i);
-            emissionDate[i] = j.getDate();
+            emissionDate[i] = Emission.DATE_FORMAT.format(j.getDateObj());
             emissionRouteNames[i] = j.getName();
             emissionDistance[i] = j.getRoute().getCityDistance() + j.getRoute().getCityDistance();
-            emissionVehicleNames[i] = j.getTransType().getCar().getNickName();
-            emissionValues[i] = (float) j.getTotalTravelled();
+            if (j.getTransType().getCar() != null) {
+                emissionVehicleNames[i] = j.getTransType().getCar().getName();
+            } else {
+                emissionVehicleNames[i] = " n/a ";
+            }
+            emissionValues[i] = (float) Math.round(j.getTotalTravelled());
         }
+
+        billsElec = utilities.getListBillElec();
+        billsGas = utilities.getListBillGas();
     }
 
     private void setupButton() {
@@ -123,34 +309,38 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (pieShown) {
-                    pieChart.setVisibility(View.INVISIBLE);
-                    table.setVisibility(View.VISIBLE);
-                    pieShown = false;
-                } else {
-                    pieChart.setVisibility(View.VISIBLE);
-                    table.setVisibility(View.INVISIBLE);
-                    pieChart.invalidate();
-                    pieShown = true;
+                switch (mode % 3){
+                    case 0:
+                        pieChart.setVisibility(View.INVISIBLE);
+                        table.setVisibility(View.INVISIBLE);
+                        barChart.setVisibility(View.VISIBLE);
+
+                        barChart.invalidate();
+                        break;
+                    case 1:
+                        pieChart.setVisibility(View.INVISIBLE);
+                        table.setVisibility(View.VISIBLE);
+                        barChart.setVisibility(View.INVISIBLE);
+                        break;
+                    case 2:
+                        pieChart.setVisibility(View.VISIBLE);
+                        table.setVisibility(View.INVISIBLE);
+                        barChart.setVisibility(View.INVISIBLE);
+                        pieChart.invalidate();
+                        break;
                 }
+                ++mode;
             }
         });
     }
 
     private void setupPieChart() {
-        List<PieEntry> pieEntries = new ArrayList<>();
-        for (int i = 0; i < NUM_ENTRIES; ++i)
-            pieEntries.add(new PieEntry(emissionValues[i], emissionRouteNames[i]));
-
-        PieDataSet dataSet = new PieDataSet(pieEntries, getResources().getString(R.string.label_graph_title));
-        dataSet.setColors(ColorTemplate.PASTEL_COLORS);
-        PieData data = new PieData(dataSet);
+        PieData data = Graph.getPieData(getString(R.string.label_graph_title), dateMode,
+                dateSelected, dateStart, dateEnd);
         data.setValueTextSize(12f);
 
         pieChart = (PieChart) findViewById(R.id.pie_graph);
         pieChart.setData(data);
-        /*Legend l = pieChart.getLegend();
-        l.setWordWrapEnabled(true);*/
         pieChart.getLegend().setEnabled(false);
 
         Description desc = new Description();
@@ -160,7 +350,46 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         pieChart.invalidate();
     }
 
+    private void setupBarChart() {
+        BarData data = Graph.getBarData(getString(R.string.label_graph_title), dateMode,
+                dateSelected, dateStart, dateEnd);
+        data.setValueTextSize(12f);
+
+        barChart = (BarChart) findViewById(R.id.bar_graph);
+        barChart.setData(data);
+        barChart.getLegend().setEnabled(false);
+
+        String[] labels = getResources().getStringArray(R.array.label_bar_graph);
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setDrawLabels(true);
+        xAxis.setValueFormatter(new XAxisValueFormatter(labels));
+        xAxis.setGranularity(1f);
+
+        Description desc = new Description();
+        desc.setEnabled(false);
+
+        barChart.setDescription(desc);
+        barChart.animateY(600);
+        barChart.setFitBars(true);
+        barChart.invalidate();
+        barChart.setVisibility(View.INVISIBLE);
+    }
+
     public static Intent getIntent(Context context) {
         return new Intent(context, CarbonFootprintActivity.class);
+    }
+
+    private class XAxisValueFormatter implements IAxisValueFormatter {
+        private String[] labels;
+
+        XAxisValueFormatter(String[] labels) {
+            this.labels = labels;
+        }
+
+        @Override
+        public String getFormattedValue(float value, AxisBase axis) {
+            return labels[(int) value];
+        }
     }
 }

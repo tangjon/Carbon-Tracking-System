@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import cmpt276.jade.carbontracker.model.Journey;
+
 import cmpt276.jade.carbontracker.model.Route;
 
 public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
