@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -52,10 +53,11 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private DatePickerDialog dialog;
 
     private int mode = 0;
-    private int dateMode = 0;
+    private int dateMode = 1;
 
     private Calendar calendar = Calendar.getInstance();
-    private Date dateSelected = calendar.getTime();
+    //private Date dateSelected = calendar.getTime();
+    private Date dateSelected = null;
     private Date dateStart = null;
     private Date dateEnd = null;
 
@@ -70,25 +72,30 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carbon_footprint);
 
-        loadData();
 
-        setupTable();
-        setupPieChart();
-        setupBarChart();
+        dateSelected = currentDate();
+        setupDatePicker();
+        loadData();
         setupButton();
         setupSpinner();
-        setupDatePicker();
     }
 
     private void setupDatePicker() {
         dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Calendar dateNew = Calendar.getInstance();
-                dateNew.set(year, month, dayOfMonth);
-                dateSelected = dateNew.getTime();
+                Calendar c = Calendar.getInstance();
+                c.set(year, month, dayOfMonth);
+                dateSelected = c.getTime();
+                Log.i("datePicker","year = "+year);
+                Log.i("datePicker","dateSelected = "+dateSelected.toString());
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    private Date currentDate() {
+        Calendar c = Calendar.getInstance();
+        return new Date(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
     }
 
     private void setupSpinner() {

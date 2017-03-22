@@ -14,6 +14,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -134,29 +135,28 @@ public class Graph {
             int mode, Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
 
         JourneyCollection buffer = new JourneyCollection();
+        Journey j;
 
-        Log.i("getJourneys","***************** mode = "+mode);
+        Log.i("getJourneys","mode = "+mode);
 
         // TODO: 21/03/17 fix date comparison
         if (mode == 0) buffer = journeyCollection;
         else if (mode == 1) {
             for (int i = 0; i < journeyCollection.countJourneys(); ++i){
-                Log.i("GetJourneys","comparing "+journeyCollection.getJourney(i).getDateObj()+
-                " to "+dateSelected);
-                if (journeyCollection.getJourney(i).getDateObj().equals(dateSelected)) {
+                j = journeyCollection.getJourney(i);
+
+                Log.i("getJourneys","compareDates returned "+compareDates(j.getDateObj(), dateSelected)+", needed 0");
+                if (compareDates(j.getDateObj(), dateSelected) == 0) {
                     Log.i("GetJourneys","added journey "+journeyCollection.getJourney(i).toString());
                     buffer.addJourney(journeyCollection.getJourney(i));
                 }
             }
         } else {
-            Journey j;
             for (int i = 0; i < journeyCollection.countJourneys(); ++i) {
                 j = journeyCollection.getJourney(i);
                 Date d = j.getDateObj();
-                Log.i("GetJourneys","comparing "+journeyCollection.getJourney(i).getDateObj()+
-                        " to "+dateRangeStart+" & "+dateRangeEnd);
-                if (d.equals(dateRangeStart) || d.equals(dateRangeEnd)
-                       || (d.before(dateRangeEnd) && d.after(dateRangeStart))) {
+
+                if (compareDates(d, dateRangeStart) > -1 && compareDates(d, dateRangeEnd) < 1) {
                     buffer.addJourney(j);
                     Log.i("GetJourneys","added journey "+j.toString());
                 }
@@ -164,6 +164,45 @@ public class Graph {
         }
 
         return buffer;
+    }
+
+    /**
+     * compares two dates while ignoring time portion
+     * returns  -1  :   date1 < date2
+     *          0   :   date1 = date2
+     *          1   :   date1 > date2
+     */
+    public static int compareDates(Date date1, Date date2) {
+        // maybe need better way of handling null dates in carbon footprint activity
+        if (date1 == null || date2 == null) return 0;
+
+        Log.i("compareDates", "Comparing "+date1.toString()+" with "+date2.toString());
+        if (date1.getYear() < date2.getYear()) {
+            Log.i("compareDates", ""+date1.getYear()+" < "+date2.getYear());
+            return -1;
+        } else if (date1.getYear() > date2.getYear()) {
+            Log.i("compareDates", ""+date1.getYear()+" > "+date2.getYear());
+            return 1;
+        } else {
+            if (date1.getMonth() < date2.getMonth()) {
+                Log.i("compareDates", ""+date1.getMonth()+" < "+date2.getMonth());
+                return -1;
+            } else if (date1.getMonth() > date2.getMonth()) {
+                Log.i("compareDates", ""+date1.getMonth()+" > "+date2.getMonth());
+                return 1;
+            } else {
+                if (date1.getDate() < date2.getDate()) {
+                    Log.i("compareDates", ""+date1.getDate()+" < "+date2.getDate());
+                    return -1;
+                } else if (date1.getDate() > date2.getDate()) {
+                    Log.i("compareDates", ""+date1.getDate()+" > "+date2.getDate());
+                    return 1;
+                } else {
+                    Log.i("compareDates", ""+date1.getDate()+" = "+date2.getDate());
+                    return 0;
+                }
+            }
+        }
     }
 
     private static class JourneyData {
