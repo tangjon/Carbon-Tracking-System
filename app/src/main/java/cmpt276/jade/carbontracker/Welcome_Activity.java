@@ -91,9 +91,9 @@ public class Welcome_Activity extends AppCompatActivity {
 
         // Todo Make Sure this is uncommented
         // Uncomment this to load dummy data
-//         LoadDummyData.load();
+        // LoadDummyData.load();
 
-
+/*
         DBAdapter db = new DBAdapter(this);
         db.open();
         // TEST CAR
@@ -116,7 +116,7 @@ public class Welcome_Activity extends AppCompatActivity {
         Journey recJ = db.getJourney(jRow);
         Log.i(TAG, "loadRequiredApplicationResources: " + recJ.toString());
         Log.i(TAG, "loadRequiredApplicationResources: " + recJ.getTransType().getCar().toString());
-
+*/
     }
 
     // KEEP THIS
