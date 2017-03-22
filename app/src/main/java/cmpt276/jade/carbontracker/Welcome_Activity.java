@@ -103,12 +103,18 @@ public class Welcome_Activity extends AppCompatActivity {
 
         // Load Saved JourneyList
         JourneyCollection jC = myDb.getAllJourney();
+//
 
-        if(jC.getJourneyList().isEmpty()){
-            // Load some journeys
-            jC.addJourney(GenerateDummyData.generateComplexJourney());
-            jC.addJourney(GenerateDummyData.generateComplexJourney());
-        }
+        // to do remove this
+//        if(jC.getJourneyList().isEmpty()){
+//            // Load some journeys
+//            jC.addJourney(GenerateDummyData.generateComplexJourney());
+//            jC.addJourney(GenerateDummyData.generateComplexJourney());
+//            jC.addJourney(GenerateDummyData.generateComplexJourney());
+//            jC.addJourney(GenerateDummyData.generateComplexJourney());
+//            jC.addJourney(GenerateDummyData.generateComplexJourney());
+//            jC.addJourney(GenerateDummyData.generateComplexJourney());
+//        }
 
         Emission.getInstance().setJourneyCollection(jC);
 
