@@ -46,7 +46,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 24;
+    public static final int DATABASE_VERSION = 25;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -716,43 +716,7 @@ public class DBAdapter {
         if (cursor.moveToFirst()) {
             do {
                 long ID = cursor.getLong(COL_ROWID);
-                String name = cursor.getString(COL_JOURNEY_NAME);
-                String TRANS_TYPE = cursor.getString(COL_JOURNEY_TRANS_TYPE);
-                String DATE = cursor.getString(COL_JOURNEY_DATE);
-                long ROUTE_ID = cursor.getInt(COL_JOURNEY_ROUTE_ID);
-
-                // Get and set Route
-                Route route = getRoute(ROUTE_ID);
-
-                // Get and set Transport Type
-                Transportation transportation = new Transportation();
-                transportation.setTransMode(buffTrans(TRANS_TYPE));
-                // (1) Get Object
-                // (2) Attach id to Transportation Object
-                switch (transportation.getTransMode()){
-                    case CAR:
-                        long CAR_ID = cursor.getInt(COL_TRANSPORT_OBJECT_ID);
-                        transportation.setCar(getCar(CAR_ID));
-                        break;
-                    case BIKE:
-                        // Do nothing
-                        break;
-                    case WALK:
-                        // Do nothing
-                        break;
-                    case BUS:
-                        long busID = cursor.getInt(COL_TRANSPORT_OBJECT_ID);
-                        transportation.setBus(getBus(busID));
-                        break;
-                    case SKYTRAIN:
-                        long trainID = cursor.getInt(COL_TRANSPORT_OBJECT_ID);
-                        transportation.setSkytrain(getSkytrain(trainID));
-                        break;
-                }
-                Journey j = new Journey(name, transportation,route);
-                j.setID(ID);
-                j.setDate(DATE);
-                Log.i(TAG, "CurrentJourneyInDB: " + j.toString());
+                Journey j = getJourney(ID);
                 jC.addJourney(j);
 
             } while(cursor.moveToNext());
