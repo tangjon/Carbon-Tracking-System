@@ -10,7 +10,6 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -127,16 +126,21 @@ public class Welcome_Activity extends AppCompatActivity {
         }
 
         // Load Recent Car Lists
-        boolean bool = CarListActivity.recentCarList.setCarList(myDb.getAllCars(DBAdapter.TAG_ID.RECENT).toList());
+        for (Car c : myDb.getAllCars(DBAdapter.TAG_ID.RECENT).toList()){
+            CarListActivity.recentCarList.add(c);
+            Log.i(TAG, "DBAdapterLoadRecetn:(CAR)" + c.toString());
+        }
 
         // Load Recent Bus Lists
         for (Bus b: myDb.getAllBus(DBAdapter.TAG_ID.RECENT).getBusList()) {
-            BusListActivity.busList.addBus(b);
+            BusListActivity.recentBusList.addBus(b);
+            Log.i(TAG, "DBAdapterLoadRecetn:(BUS)" + b.toString());
         }
 
         // Load Recent Skytrains
         for (Skytrain s: myDb.getAllSkytrain(DBAdapter.TAG_ID.RECENT).getTrainList()) {
-            SkytrainListActivity.trainList.addTrain(s);
+            SkytrainListActivity.recentSkyTrainList.addTrain(s);
+            Log.i(TAG, "DBAdapterLoadRecetn:(SKYTRAIN)" + s.toString());
         }
 
     }

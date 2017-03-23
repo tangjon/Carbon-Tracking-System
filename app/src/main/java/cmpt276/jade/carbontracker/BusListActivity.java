@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -20,10 +19,6 @@ import cmpt276.jade.carbontracker.fragment.EditDialog;
 import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.BusCollection;
 import cmpt276.jade.carbontracker.model.Emission;
-import cmpt276.jade.carbontracker.model.Journey;
-import cmpt276.jade.carbontracker.model.JourneyCollection;
-import cmpt276.jade.carbontracker.model.Skytrain;
-import cmpt276.jade.carbontracker.model.SkytrainCollection;
 
 
 /**
@@ -33,7 +28,7 @@ import cmpt276.jade.carbontracker.model.SkytrainCollection;
 
 public class BusListActivity extends AppCompatActivity {
 
-    public static BusCollection busList = new BusCollection();
+    public static BusCollection recentBusList = new BusCollection();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +63,7 @@ public class BusListActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Emission.getInstance().getJourneyBuffer().getTransType().setBus(busList.getBus(position));
+                Emission.getInstance().getJourneyBuffer().getTransType().setBus(recentBusList.getBus(position));
                 Intent intent = Route_List_Activity.IntentForRouteList(BusListActivity.this,3);
                 startActivity(intent);
             }
@@ -78,7 +73,7 @@ public class BusListActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Bus bus = busList.getBus(position);
+                Bus bus = recentBusList.getBus(position);
                 EditDialog editDialog = EditDialog.newInstance(bus.getNickName(), Transport.BUS);
                 editDialog.setPosition(position);
                 editDialog.setEditDialogListener(new EditDialog.EditDialogListener() {
@@ -91,7 +86,7 @@ public class BusListActivity extends AppCompatActivity {
                     @Override
                     public void onEditClicked(int pos) {
                         Intent intent = BusInfoActivity.getIntent(BusListActivity.this);
-                        Emission.getInstance().getJourneyBuffer().getTransType().setBus(busList.getBus(pos));
+                        Emission.getInstance().getJourneyBuffer().getTransType().setBus(recentBusList.getBus(pos));
                         Emission.getInstance().getJourneyBuffer().getTransType().getBus().setPosition(pos);
                         Emission.getInstance().getJourneyBuffer().getTransType().getBus().setMode(1);
                         startActivity(intent);
@@ -114,7 +109,7 @@ public class BusListActivity extends AppCompatActivity {
         db.deleteAll(DBAdapter.DB_TABLE.BUS, DBAdapter.TAG_ID.RECENT);
 
         // RE-ADD REMAINING RECENTS
-        for (Bus b: busList.getBusList()) {
+        for (Bus b: recentBusList.getBusList()) {
             db.insertRow(b, DBAdapter.TAG_ID.RECENT);
         }
         db.close();
@@ -129,14 +124,14 @@ public class BusListActivity extends AppCompatActivity {
     // Inspired by Raz
     private void setupDeleteAlert( final int index) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        Bus thisBus = busList.getBus(index);
+        Bus thisBus = recentBusList.getBus(index);
         builder.setMessage(getString(R.string.journey_list_confirm_delete_message, thisBus.getNickName()));
         builder.setCancelable(true);
 
         builder.setPositiveButton(getString(R.string.label_delete), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                busList.deleteBus(index);
+                recentBusList.deleteBus(index);
                 populateList();
             }
         });
@@ -151,7 +146,7 @@ public class BusListActivity extends AppCompatActivity {
         dbRefreshBusList();
         //TODO
         //Make Adaptor
-        ListAdapter adapt=new BusListAdapter(this,busList.getBusDetails());
+        ListAdapter adapt=new BusListAdapter(this, recentBusList.getBusDetails());
         ListView list = (ListView) findViewById(R.id.listviewBus);
         list.setAdapter(adapt);
     }

@@ -24,7 +24,7 @@ import cmpt276.jade.carbontracker.model.SkytrainCollection;
  */
 public class SkytrainListActivity extends AppCompatActivity {
 
-    public static SkytrainCollection trainList = new SkytrainCollection();
+    public static SkytrainCollection recentSkyTrainList = new SkytrainCollection();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class SkytrainListActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Emission.getInstance().getJourneyBuffer().getTransType().setSkytrain(trainList.getTrain(position));
+                Emission.getInstance().getJourneyBuffer().getTransType().setSkytrain(recentSkyTrainList.getTrain(position));
                 Intent intent = Route_List_Activity.IntentForRouteList(SkytrainListActivity.this,4);
                 startActivity(intent);
             }
@@ -66,7 +66,7 @@ public class SkytrainListActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Skytrain train = trainList.getTrain(position);
+                Skytrain train = recentSkyTrainList.getTrain(position);
                 EditDialog editDialog = EditDialog.newInstance(train.getNickName(), Transport.SKYTRAIN);
                 editDialog.setPosition(position);
                 editDialog.setEditDialogListener(new EditDialog.EditDialogListener() {
@@ -79,7 +79,7 @@ public class SkytrainListActivity extends AppCompatActivity {
                     @Override
                     public void onEditClicked(int pos) {
                         Intent intent = SkytrainInfoActivity.getIntent(SkytrainListActivity.this);
-                        Emission.getInstance().getJourneyBuffer().getTransType().setSkytrain(trainList.getTrain(pos));
+                        Emission.getInstance().getJourneyBuffer().getTransType().setSkytrain(recentSkyTrainList.getTrain(pos));
                         Emission.getInstance().getJourneyBuffer().getTransType().getSkytrain().setPosition(pos);
                         Emission.getInstance().getJourneyBuffer().getTransType().getSkytrain().setMode(1);
                         startActivity(intent);
@@ -101,14 +101,14 @@ public class SkytrainListActivity extends AppCompatActivity {
     // Inspired by Raz
     private void setupDeleteAlert( final int index) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        Skytrain thisTrain = trainList.getTrain(index);
+        Skytrain thisTrain = recentSkyTrainList.getTrain(index);
         builder.setMessage(getString(R.string.journey_list_confirm_delete_message, thisTrain.getNickName()));
         builder.setCancelable(true);
 
         builder.setPositiveButton(getString(R.string.label_delete), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                trainList.deleteTrain(index);
+                recentSkyTrainList.deleteTrain(index);
                 populateList();
             }
         });
@@ -123,7 +123,7 @@ public class SkytrainListActivity extends AppCompatActivity {
         dbRefreshSkytrainCarList();
         //TODO
         //Make Adaptor
-        ListAdapter adapt=new SkytrainListAdaptor(this,trainList.getSkytrainDetails());
+        ListAdapter adapt=new SkytrainListAdaptor(this, recentSkyTrainList.getSkytrainDetails());
         ListView list = (ListView) findViewById(R.id.listViewSkytrainList);
         list.setAdapter(adapt);
     }
@@ -138,7 +138,7 @@ public class SkytrainListActivity extends AppCompatActivity {
         myDB.deleteAll(DBAdapter.DB_TABLE.SKYTRAIN, DBAdapter.TAG_ID.RECENT);
 
         // RE-ADD REMAINING RECENTS
-        for (Skytrain s: trainList.getTrainList()) {
+        for (Skytrain s: recentSkyTrainList.getTrainList()) {
             myDB.insertRow(s, DBAdapter.TAG_ID.RECENT);
         }
         myDB.close();

@@ -63,9 +63,9 @@ public class BusInfoActivity extends AppCompatActivity {
                     outgoingBus.setRouteNumber(inputRouteNumber.getText().toString().trim());
 
                     if (incomingBus == null || incomingBus.getMode() == 0) {
-                        BusListActivity.busList.addBus(outgoingBus);
+                        BusListActivity.recentBusList.addBus(outgoingBus);
                     } else if (incomingBus != null && incomingBus.getMode() == 1) {
-                        BusListActivity.busList.editBus(outgoingBus, incomingBus.getPosition());
+                        BusListActivity.recentBusList.editBus(outgoingBus, incomingBus.getPosition());
                     }
                     finish();
                 }
