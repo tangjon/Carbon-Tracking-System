@@ -82,9 +82,11 @@ public class EditDialog extends DialogFragment {
     }
 
     public static EditDialog newInstance(Journey journey) {
+        Transport mode = journey.getTransType().getTransMode();
         Bundle args = new Bundle();
         EditDialog fragment = new EditDialog();
         args.putString(KEY_NAME, journey.getName());
+        args.putSerializable(KEY_MODE, mode);
         fragment.setArguments(args);
         return fragment;
     }
@@ -164,6 +166,8 @@ public class EditDialog extends DialogFragment {
                 iv.setImageResource(R.drawable.skytrain);
                 break;
             case WALK:
+                iv.setImageResource(R.drawable.walksymbol);
+                break;
             case BIKE:
                 iv.setImageResource(R.drawable.bike);
                 break;

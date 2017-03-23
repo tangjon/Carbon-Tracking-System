@@ -74,6 +74,18 @@ public class JourneyReviewActivity extends AppCompatActivity {
 
             routeInfo.setText(storedJourney.getRoute().getName() + "\nTotal Distance: " + storedJourney.getRoute().getOtherDistance());
         }
+        else if(Emission.getInstance().getJourneyBuffer().getTransType().getTransMode().equals(Transport.WALK)){
+            transTag.setText("Walked");
+            transInfo.setText(" ");
+
+            routeInfo.setText(storedJourney.getRoute().getName() + "\nTotal Distance: " + storedJourney.getRoute().getOtherDistance());
+        }
+        else if(Emission.getInstance().getJourneyBuffer().getTransType().getTransMode().equals(Transport.BIKE)){
+            transTag.setText("Rode Bike");
+            transInfo.setText(" ");
+
+            routeInfo.setText(storedJourney.getRoute().getName() + "\nTotal Distance: " + storedJourney.getRoute().getOtherDistance());
+        }
         if(journey.getMode() == 1){
             EditText inputName = (EditText) findViewById(R.id.editJourneyName);
             inputName.setText(journey.getName());
