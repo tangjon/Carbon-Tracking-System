@@ -19,6 +19,8 @@ import cmpt276.jade.carbontracker.model.Journey;
 
 /**
  * Created by tangj on 3/16/2017.
+ *
+ * For a nice uniform edit and delete function for lists dialog
  */
 
 public class EditDialog extends DialogFragment {

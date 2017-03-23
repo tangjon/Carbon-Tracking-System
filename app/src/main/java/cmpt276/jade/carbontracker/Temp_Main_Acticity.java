@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Buttons lead you to graphs journey list or utilities temporary until we figure out something prettier
+ */
 public class Temp_Main_Acticity extends AppCompatActivity {
 
     @Override

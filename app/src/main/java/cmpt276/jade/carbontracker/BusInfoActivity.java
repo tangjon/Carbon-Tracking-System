@@ -11,6 +11,9 @@ import android.widget.EditText;
 import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.Emission;
 
+/**
+ * Can add some info for the bus here
+ */
 public class BusInfoActivity extends AppCompatActivity {
 
     private Bus incomingBus;

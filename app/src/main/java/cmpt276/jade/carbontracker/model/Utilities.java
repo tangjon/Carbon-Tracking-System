@@ -7,6 +7,9 @@ import java.util.List;
 
 import cmpt276.jade.carbontracker.utils.BillType;
 
+/**
+ * Stores either a gas bill list or electricity bill list
+ */
 public class Utilities implements Serializable {
     private int numResidents;
     private List<Bill> listBillElec;

@@ -1,5 +1,7 @@
 package cmpt276.jade.carbontracker.fragment;
-
+/**
+ * Unused at the moment based off carbon footprint
+ */
 
 import android.content.Context;
 import android.content.Intent;

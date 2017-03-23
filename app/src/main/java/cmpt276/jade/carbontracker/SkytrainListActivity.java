@@ -20,7 +20,9 @@ import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.model.SkytrainCollection;
-
+/**
+* Displays all the skytrain objects and can add new ones
+ */
 public class SkytrainListActivity extends AppCompatActivity {
 
     public static SkytrainCollection trainList = new SkytrainCollection();

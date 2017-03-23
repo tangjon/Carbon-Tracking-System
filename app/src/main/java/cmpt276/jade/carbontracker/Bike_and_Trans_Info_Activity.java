@@ -17,6 +17,9 @@ import cmpt276.jade.carbontracker.model.Journey;
 
 import cmpt276.jade.carbontracker.model.Route;
 
+/**
+ * Can choose between a bike or walk while setting the route and distance
+ */
 public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
 
     @Override

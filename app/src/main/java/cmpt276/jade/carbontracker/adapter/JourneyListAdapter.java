@@ -13,7 +13,9 @@ import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 
 
-
+/**
+ * Displays the journey list with images
+ */
 public class JourneyListAdapter extends ArrayAdapter<String> {
     JourneyCollection list;
     public JourneyListAdapter(Context context, String[] item, JourneyCollection list) {

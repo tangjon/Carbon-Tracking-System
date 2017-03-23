@@ -6,6 +6,7 @@ import cmpt276.jade.carbontracker.enums.Transport;
 
 /**
  * Created by Sean on 12/03/2017.
+ * Transportation class that stores what type of transportation class you are using
  */
 
 public class Transportation implements Serializable {

@@ -11,6 +11,9 @@ import android.widget.EditText;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Skytrain;
 
+/**
+ * Add info to the skytrain object
+ */
 public class SkytrainInfoActivity extends AppCompatActivity {
 
     private Skytrain incomingTrain;
