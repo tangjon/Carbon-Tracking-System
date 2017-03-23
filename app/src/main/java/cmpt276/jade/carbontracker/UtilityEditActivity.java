@@ -112,10 +112,12 @@ public class UtilityEditActivity extends AppCompatActivity {
                     Utilities utils = emission.getUtilities();
 
                     if (mode == BillEditMode.ADD) {
+                        buffer.setInput(Double.parseDouble(editInput.getText().toString()));
                         utils.addBill(type, buffer);
                         DBAdapter db = new DBAdapter(UtilityEditActivity.this);
                         db.open();
                         db.insertRow(buffer);
+                        db.close();
                     }
                     else{
                         utils.editBill(type, buffer, index);
