@@ -128,7 +128,8 @@ public class GenerateDummyData {
             }
         }
 
-        return new Bill(type,date,date,rn.nextDouble() + 10);
+
+        return new Bill(type,date,date, rn.nextDouble() + rn.nextInt(10000));
     }
 
     public static Journey generateComplexJourney() {

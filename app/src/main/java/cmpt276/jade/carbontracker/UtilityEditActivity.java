@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 import java.util.Date;
 
+import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Graph;
@@ -110,9 +111,15 @@ public class UtilityEditActivity extends AppCompatActivity {
                 if (!editInput.getText().toString().isEmpty()) {
                     Utilities utils = emission.getUtilities();
 
-                    if (mode == BillEditMode.ADD) utils.addBill(type, buffer);
-                    else utils.editBill(type, buffer, index);
-
+                    if (mode == BillEditMode.ADD) {
+                        utils.addBill(type, buffer);
+                        DBAdapter db = new DBAdapter(UtilityEditActivity.this);
+                        db.open();
+                        db.insertRow(buffer);
+                    }
+                    else{
+                        utils.editBill(type, buffer, index);
+                    }
                     finish();
                 }
             }

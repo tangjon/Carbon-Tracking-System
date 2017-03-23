@@ -47,7 +47,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 22;
+    public static final int DATABASE_VERSION = 23;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -490,7 +490,7 @@ public class DBAdapter {
         initialValues.put(KEY_BILL_END_DATE, bill.getEndDate().getTime());
         initialValues.put(KEY_BILL_INPUT, bill.getInput());
 
-        Log.i(TAG, "insertRowBill: " + bill.getStartDate().getTime());
+        Log.i(TAG, "insertRowBill: " + bill.toString());
         // Insert it into the database.
         return db.insert(TABLE_BILL, null, initialValues);
     }
@@ -698,7 +698,7 @@ public class DBAdapter {
             do {
                 // Fetch objects info from db
                 Date start_date = new Date(cursor.getLong(COL_BILL_START_DATE));
-                Date end_date = new Date(cursor.getInt(COL_BILL_END_DATE));
+                Date end_date = new Date(cursor.getLong(COL_BILL_END_DATE));
                 Double input = cursor.getDouble(COL_BILL_INPUT);
                 BillType type = null;
 
@@ -713,9 +713,7 @@ public class DBAdapter {
                 billList.add(bill);
 
             } while(cursor.moveToNext());
-
         }
-
         // Close the cursor to avoid a resource leak.
         cursor.close();
 
@@ -1107,6 +1105,13 @@ public class DBAdapter {
         DBAdapter db = new DBAdapter(ctx);
         db.open();
         db.insertRow(journey);
+        db.close();
+    }
+
+    public static void save(Context ctx, Bill bill){
+        DBAdapter db = new DBAdapter(ctx);
+        db.open();
+        db.insertRow(bill);
         db.close();
     }
 
