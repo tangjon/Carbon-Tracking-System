@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.utils.BillType;
 
 /**
@@ -214,13 +215,17 @@ public class Graph {
             distance = new double[size];
 
             Journey j;
-            Car c;
+            Transportation t;
             for (int i = 0; i < size; ++i) {
                 j = journeyCollection.getJourney(i);
-                c = j.getTransType().getCar();
+                t = j.getTransType();
                 nameRoute[i] = j.getName();
-                if (c != null) {
-                    nameVehicle[i] = c.getNickName();
+                if (t.getCar() != null) {
+                    nameVehicle[i] = t.getCar().getNickName();
+                } else if (t.getSkytrain() != null) {
+                    nameVehicle[i] = t.getSkytrain().getNickName();
+                } else if (t.getBus() != null) {
+                    nameVehicle[i] = t.getBus().getNickName();
                 } else {
                     nameVehicle[i] = "n/a";
                 }
