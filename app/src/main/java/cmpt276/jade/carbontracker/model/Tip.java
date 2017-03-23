@@ -398,8 +398,7 @@ public class Tip {
         }
         if(electricityTipsNotRepeat[2] >8)
         {
-            String tip="You generate: "
-                    +totalElectricityEmissions +"kg  of CO2 today from Electricity use. " +
+            String tip=
                     "Tips: " +
                     "Turn off lights after leaving room, " +
                     "may reduce the emission.";
@@ -408,8 +407,7 @@ public class Tip {
         }
         else if(electricityTipsNotRepeat[3] >8)
         {
-            String tip="You generate: "
-                    +totalElectricityEmissions +"kg  of CO2 today from Electricity use, " +
+            String tip=
                     "Tips: " +
                     "Switch to compact fluorescent (CFL) or LED light bulbs, " +
                     "may reduce the emission.";
@@ -418,8 +416,7 @@ public class Tip {
         }
         else if(electricityTipsNotRepeat[4] >8)
         {
-            String tip="You generate: "
-                    +totalElectricityEmissions +"kg  of CO2 today from Electricity use, " +
+            String tip=
                     "Tips: " +
                     "Go for a walk instead of watching TV or booting up your computer, " +
                     "may reduce the emission.";
@@ -428,8 +425,7 @@ public class Tip {
         }
         else if(electricityTipsNotRepeat[5] >8)
         {
-            String tip="You generate: "
-                    +totalElectricityEmissions +"kg  of CO2 today from Electricity use, " +
+            String tip=
                     "Tips: " +
                     "Check walls, doors and windows for drafts and seal them up in winter to avoid " +
                     "heat loss. " ;
@@ -438,8 +434,7 @@ public class Tip {
         }
         else if(electricityTipsNotRepeat[6] >8)
         {
-            String tip="You generate: "
-                    +totalElectricityEmissions +"kg  of CO2 today from Electricity use, " +
+            String tip=
                     "Tips: " +
                     "Set your clothes washer to the warm or cold water setting, not hot " +
                     "may reduce the emission.";
@@ -448,8 +443,7 @@ public class Tip {
         }
         else if(electricityTipsNotRepeat[7] >8)
         {
-            String tip="You generate: "
-                    +totalElectricityEmissions +"kg  of CO2 today from Electricity use, " +
+            String tip=
                     "Tips: " +
                     "Turn down your water heater thermostat, " +
                     "may reduce the emission.";
@@ -458,8 +452,7 @@ public class Tip {
         }
         else if(electricityTipsNotRepeat[8] >8)
         {
-            String tip="You generate: "
-                    +totalElectricityEmissions +"kg  of CO2 today from Electricity use, " +
+            String tip=
                     "Tips: " +
                     "Plant shade trees and paint your house a light color if you live in a warm climate, " +
                     "or a dark color if you live in a cold climate.";
@@ -468,8 +461,7 @@ public class Tip {
         }
         else if(electricityTipsNotRepeat[9] >8)
         {
-            String tip="You generate: "
-                    +totalElectricityEmissions +"kg  of CO2 today from Electricity use, " +
+            String tip=
                     "Tips: " +
                     "Use less hot water by installing low-flow shower heads.";
             electricityTipsNotRepeat[9] = 1;
@@ -487,8 +479,7 @@ public class Tip {
         }
         if(gasTipsNotRepeat[0] > 8)
         {
-            String tip="You generate: "
-                    +totalGasEmissions +"kg  of CO2 today from nutural gas use, " +
+            String tip=
                     "Tips: " +
                     "Install a programmable thermostat to automatically reduce heating " +
                     "and cooling in your home when you don't need as much. ";
@@ -497,8 +488,7 @@ public class Tip {
         }
         else if( gasTipsNotRepeat[1] > 8)
         {
-            String tip="You generate: "
-                    +totalGasEmissions +"kg  of CO2 today from nutural gas use, " +
+            String tip=
                     "Tips: " +
                     "Ovens should reach their desired temperature within 15 minutes" +
                     "to save energy, avoid pre-heating ovens for more than 15 minutes.";
@@ -507,8 +497,7 @@ public class Tip {
         }
         else if(gasTipsNotRepeat[2] > 8)
         {
-            String tip="You generate: "
-                    +totalGasEmissions +"kg  of CO2 today from nutural gas use, " +
+            String tip=
                     "Tips: " +
                     "Only use hood fans while cooking; they draw in heated air " +
                     "and exhaust it to the outside.";
@@ -517,8 +506,7 @@ public class Tip {
         }
         else if(gasTipsNotRepeat[3] > 8)
         {
-            String tip="You generate: "
-                    +totalGasEmissions +"kg  of CO2 today from nutural gas use, " +
+            String tip=
                     "Tips: " +
                     "For gas fryers and gas griddles, use infrared (IR) burners that operate " +
                     "with less than 10 percent excess air, reducing combustion " +
@@ -528,8 +516,7 @@ public class Tip {
         }
         else if(gasTipsNotRepeat[4] > 8)
         {
-            String tip="You generate: "
-                    +totalGasEmissions +"kg  of CO2 today from nutural gas use, " +
+            String tip=
                     "Tips: " +
                     "Implement an effective steam trap maintenance program. " +
                     "This promotes efficient " +
@@ -540,8 +527,7 @@ public class Tip {
         }
         else if(gasTipsNotRepeat[5] > 8)
         {
-            String tip="You generate: "
-                    +totalGasEmissions +"kg  of CO2 today from nutural gas use, " +
+            String tip=
                     "Tips: " +
                     "Watch that water heater. It’s also not likely to be noticeable " +
                     "if you turn down the thermostat on your water heater to, " +
@@ -551,8 +537,7 @@ public class Tip {
         }
         else if(gasTipsNotRepeat[6] > 8)
         {
-            String tip="You generate: "
-                    +totalGasEmissions +"kg  of CO2 today from nutural gas use, " +
+            String tip=
                     "Tips: " +
                     "Reduce or eliminate openings in furnace walls " +
                     "and doors to minimize heat losses and to prevent air " +
@@ -562,8 +547,7 @@ public class Tip {
         }
         else if(gasTipsNotRepeat[7] > 8)
         {
-            String tip="You generate: "
-                    +totalGasEmissions +"kg  of CO2 today from nutural gas use, " +
+            String tip=
                     "Tips: " +
                     "If you have a fireplace, close the damper or install " +
                     "glass doors to prevent warm air escaping up the chimney.";

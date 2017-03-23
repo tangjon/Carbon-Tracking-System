@@ -13,12 +13,14 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.adapter.UtilitiesAdapter;
 import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.model.Tip;
 import cmpt276.jade.carbontracker.model.Utilities;
 import cmpt276.jade.carbontracker.utils.BillEditMode;
 import cmpt276.jade.carbontracker.utils.BillType;
@@ -44,6 +46,7 @@ public class Utilities_Activities extends AppCompatActivity {
         setupButtons();
         setupEditText();
         setupLists();
+        getElectionTips();
     }
 
     private void setupDeleteAlert(final BillType type, final int index) {
@@ -215,12 +218,11 @@ public class Utilities_Activities extends AppCompatActivity {
         return new Intent(context, Utilities_Activities.class);
     }
 
-    /*
+
     Tip tipForElection = new Tip();
-    Tip tipForGas = new Tip();
-    private void getElectionTips(double ElectionEmission) {
-        final TextView tv = (TextView) findViewById(R.id.);
-        tipForElection.setTotalElectricityEmissions(ElectionEmission);
+
+    private void getElectionTips() {
+        final TextView tv = (TextView) findViewById(R.id.utility_tips);
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -229,16 +231,5 @@ public class Utilities_Activities extends AppCompatActivity {
             }
         });
     }
-    private void getGasTips(double GasEmission) {
-        final TextView tv = (TextView) findViewById(R.id.);
-        tipForGas.setTotalGasEmissions(GasEmission);
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String tip1 = tipForGas.tipsForGasEmissions();
-                tv.setText(tip1);
-            }
-        });
-    }
-    */
+
 }
