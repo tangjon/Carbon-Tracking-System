@@ -97,7 +97,7 @@ public class Welcome_Activity extends AppCompatActivity {
         Emission.getInstance().setJourneyCollection(jC);
 
         // TODO REMOVE THIS
-//         generateDummyJourneys();
+         generateDummyJourneys();
     }
 
     private void generateDummyJourneys() {

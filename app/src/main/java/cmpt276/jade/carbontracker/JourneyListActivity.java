@@ -124,11 +124,51 @@ public class JourneyListActivity extends AppCompatActivity {
 
                     @Override
                     public void onEditClicked(int pos) {
-                        Intent intent = CarListActivity.getIntentFromActivity(JourneyListActivity.this);
-                        Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(pos));
-                        Emission.getInstance().getJourneyBuffer().setPosition(pos);
-                        Emission.getInstance().getJourneyBuffer().setMode(1);
-                        startActivity(intent);
+                        if(listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.CAR)) {
+                            Intent intent = CarListActivity
+                                .getIntentFromActivity(JourneyListActivity.this);
+
+                            Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(pos));
+                            Emission.getInstance().getJourneyBuffer().setPosition(pos);
+                            Emission.getInstance().getJourneyBuffer().setMode(1);
+                            startActivity(intent);
+                        }
+                        else if(listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.BUS)) {
+                            Intent intent = BusListActivity
+                                .getIntent(JourneyListActivity.this);
+
+                            Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(pos));
+                            Emission.getInstance().getJourneyBuffer().setPosition(pos);
+                            Emission.getInstance().getJourneyBuffer().setMode(1);
+                            startActivity(intent);
+                        }
+                        else if(listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.SKYTRAIN)) {
+                            Intent intent = SkytrainListActivity
+                                .getIntent(JourneyListActivity.this);
+
+                            Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(pos));
+                            Emission.getInstance().getJourneyBuffer().setPosition(pos);
+                            Emission.getInstance().getJourneyBuffer().setMode(1);
+                            startActivity(intent);
+                        }
+                       else if(listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.WALK)) {
+                            Intent intent = Route_List_Activity
+                                .IntentForRouteList(JourneyListActivity.this, 2);
+
+                            Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(pos));
+                            Emission.getInstance().getJourneyBuffer().setPosition(pos);
+                            Emission.getInstance().getJourneyBuffer().setMode(1);
+                            startActivity(intent);
+                        }
+                       else if(listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.BIKE)) {
+                            Intent intent = Route_List_Activity
+                                .IntentForRouteList(JourneyListActivity.this, 2);
+
+                            Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(pos));
+                            Emission.getInstance().getJourneyBuffer().setPosition(pos);
+                            Emission.getInstance().getJourneyBuffer().setMode(1);
+                            startActivity(intent);
+                        }
                     }
                 });
                 editDialog.show(getSupportFragmentManager(),"EditDialog");

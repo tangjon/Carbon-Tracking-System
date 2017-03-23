@@ -45,8 +45,7 @@
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/bar_graph"
         android:layout_width="match_parent"
-        android:layout_height="495dp"
-        android:layout_above="@+id/btn_graph_toggle"
+        android:layout_height="400dp"
         android:layout_centerHorizontal="true"
         android:visibility="invisible"
         tools:layout_editor_absoluteX="8dp"
@@ -61,5 +60,14 @@
         android:layout_marginBottom="11dp"
         android:layout_toStartOf="@+id/btn_graph_toggle"
         android:focusable="false"/>
+
+    <TextView
+        android:id="@+id/footprint_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_graph_toggle"
+        android:layout_alignParentEnd="true"
+        android:text="Tip to see next tip"
+        android:textSize="10sp" />
 
 </RelativeLayout>

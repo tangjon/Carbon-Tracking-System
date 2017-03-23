@@ -43,6 +43,10 @@ public class JourneyListAdapter extends ArrayAdapter<String> {
             } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.SKYTRAIN)) {
                 image.setImageResource(R.drawable.skytrain);
             }
+            else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.WALK)){
+                image.setImageResource(R.drawable.walksymbol);
+                //temporary image
+            }
         }
 
         return OneBucky;

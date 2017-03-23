@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import cmpt276.jade.carbontracker.enums.Transport;
+import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 
 import cmpt276.jade.carbontracker.model.Route;
@@ -73,11 +75,13 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 check_and_add_to_list(2);
+                Emission.getInstance().getJourneyBuffer().getTransType().setTransMode(Transport.BIKE);
             }});
         walk.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     check_and_add_to_list(5);
+                    Emission.getInstance().getJourneyBuffer().getTransType().setTransMode(Transport.WALK);
                 }
             });
 
