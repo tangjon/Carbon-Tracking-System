@@ -129,6 +129,16 @@ public class Welcome_Activity extends AppCompatActivity {
         // Load Recent Car Lists
         boolean bool = CarListActivity.recentCarList.setCarList(myDb.getAllCars(DBAdapter.TAG_ID.RECENT).toList());
 
+        // Load Recent Bus Lists
+        for (Bus b: myDb.getAllBus(DBAdapter.TAG_ID.RECENT).getBusList()) {
+            BusListActivity.busList.addBus(b);
+        }
+
+        // Load Recent Skytrains
+        for (Skytrain s: myDb.getAllSkytrain(DBAdapter.TAG_ID.RECENT).getTrainList()) {
+            SkytrainListActivity.trainList.addTrain(s);
+        }
+
     }
 
     private void generateDummyJourneys() {
@@ -178,7 +188,7 @@ public class Welcome_Activity extends AppCompatActivity {
 
         // Test Bus
         Bus bus = GenerateDummyData.generateBus();
-        long busRow = db.insertRow(bus);
+        long busRow = db.insertRow(bus, DBAdapter.TAG_ID.MAIN);
         bus = db.getBus(busRow);
         Log.i(TAG, "testDataBaseSaveAndLoad: " + bus.toString());
 
@@ -192,7 +202,7 @@ public class Welcome_Activity extends AppCompatActivity {
 
         // Test Skytrain
         Skytrain train = GenerateDummyData.generateSkytrain();
-        long trainRow = db.insertRow(train);
+        long trainRow = db.insertRow(train, DBAdapter.TAG_ID.MAIN);
         train = db.getSkytrain(trainRow);
         Log.i(TAG, "testDataBaseSaveAndLoad: " + train.toString());
 

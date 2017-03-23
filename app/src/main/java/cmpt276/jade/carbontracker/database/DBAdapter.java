@@ -15,6 +15,7 @@ import java.util.List;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Bus;
+import cmpt276.jade.carbontracker.model.BusCollection;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Journey;
@@ -22,6 +23,7 @@ import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.model.RouteCollection;
 import cmpt276.jade.carbontracker.model.Skytrain;
+import cmpt276.jade.carbontracker.model.SkytrainCollection;
 import cmpt276.jade.carbontracker.model.Transportation;
 import cmpt276.jade.carbontracker.utils.BillType;
 
@@ -46,7 +48,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 26;
+    public static final int DATABASE_VERSION = 27;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -348,10 +350,6 @@ public class DBAdapter {
                     + ");";
 
 
-    ///////////////////////////
-    // FOR REFERENCE
-    ///////////////////////////
-
     // Context of application who uses us.
     private final Context context;
 
@@ -449,6 +447,35 @@ public class DBAdapter {
         c.close();
     }
 
+    public void deleteAll(DB_TABLE table, TAG_ID tag_id) {
+        Cursor c = getAllRows(table);
+        long rowId = c.getColumnIndexOrThrow(KEY_ROWID);
+        if (c.moveToFirst()) {
+            do {
+                long row = c.getInt(COL_ROWID);
+                int tag = -1;
+                switch (table){
+                    case CAR:
+                        tag = c.getInt(COL_CAR_TAG_ID);
+                        break;
+                    case ROUTE:
+                        tag = c.getInt(COL_ROUTE_TAG_ID);
+                        break;
+                    case BUS:
+                        tag = c.getInt(COL_BUS_TAG_ID);
+                        break;
+                    case SKYTRAIN:
+                        tag = c.getInt(COL_SKYTRAIN_TAG_ID);
+                        break;
+                }
+                if(tag == tag_id.ordinal()){
+                    deleteRow(table,row);
+                }
+            } while (c.moveToNext());
+        }
+        c.close();
+    }
+
     /****************************************
      * INSERT FUNCTIONS
      * *** TODO: STEP XXX create a insert function
@@ -513,25 +540,32 @@ public class DBAdapter {
         return db.insert(TABLE_ROUTE, null, initialValues);
     }
 
-    public long insertRow(Bus bus) {
+    public long insertRow(Bus bus, TAG_ID tag_id) {
         // TODO: Update data in the row with new fields.
         // TODO: Also change the function's arguments to be what you need!
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_BUS_NICK_NAME, bus.getNickName());
         initialValues.put(KEY_BUS_ROUTE_NUMBER, bus.getRouteNumber());
+        initialValues.put(KEY_BUS_TAG_ID, tag_id.ordinal());
         // Insert it into the database.
-        return db.insert(TABLE_BUS, null, initialValues);
+
+        long buff = db.insert(TABLE_BUS, null, initialValues);
+        Log.i(TAG, "[" + TABLE_BUS + "]"+ ":" +"insert:"+ buff + " " + tag_id + " "+ bus.toString());
+        return buff;
     }
 
-    public long insertRow(Skytrain skytrain) {
+    public long insertRow(Skytrain skytrain, TAG_ID tag_id) {
         // TODO: Update data in the row with new fields.
         // TODO: Also change the function's arguments to be what you need!
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_SKYTRAIN_NICK_NAME, skytrain.getNickName());
         initialValues.put(KEY_SKYTRAIN_BOARDING_STATION, skytrain.getBoardingStation());
         initialValues.put(KEY_SKYTRAIN_LINE, skytrain.getSkytrainLine());
+        initialValues.put(KEY_SKYTRAIN_TAG_ID, tag_id.ordinal());
         // Insert it into the database.
-        return db.insert(TABLE_SKYTRAIN, null, initialValues);
+        long buff =  db.insert(TABLE_SKYTRAIN, null, initialValues);
+        Log.i(TAG, "[" + TABLE_SKYTRAIN + "]"+ ":" +"insert:"+ buff + " " + tag_id + " "+ skytrain.toString());
+        return buff;
     }
 
     // *** STEP 2 ATTACH TO JOURNEY TABLE
@@ -566,11 +600,11 @@ public class DBAdapter {
                 // Do nothing
                 break;
             case BUS:
-                long busID = insertRow(journey.getTransType().getBus());
+                long busID = insertRow(journey.getTransType().getBus(),TAG_ID.MAIN);
                 initialValues.put(KEY_TRANSPORT_OBJECT_ID, busID);
                 break;
             case SKYTRAIN:
-                long trainID = insertRow(journey.getTransType().getSkytrain());
+                long trainID = insertRow(journey.getTransType().getSkytrain(), TAG_ID.MAIN);
                 initialValues.put(KEY_TRANSPORT_OBJECT_ID, trainID);
                 break;
         }
@@ -905,9 +939,6 @@ public class DBAdapter {
     }
 
     public CarCollection getAllCars(TAG_ID tag_id) { // Get All Cars with a certain tag_id
-        String message = "";
-        // populate the message from the cursor
-
         CarCollection cC = new CarCollection();
         Cursor cursor = getAllRows(DB_TABLE.CAR);
 
@@ -929,46 +960,6 @@ public class DBAdapter {
         return cC;
     }
 
-    // Todo save recentCars
-    public CarCollection getAllRecentCars() {
-        String message = "";
-        // populate the message from the cursor
-
-        CarCollection cC = new CarCollection();
-        Cursor cursor = getAllRows(DB_TABLE.CAR);
-
-        // Reset cursor to start, checking to see if there's data:
-        if (cursor.moveToFirst()) {
-            do {
-                // Process the data:
-                double carbonTailPipe = cursor.getDouble(DBAdapter.COL_CAR_CARBON_TAIL_PIPE);
-                double engineDispLitres = cursor.getDouble(DBAdapter.COL_CAR_ENGINE_DISP_LITRES);
-                int cityMPG = cursor.getInt(DBAdapter.COL_CAR_CITY_MPG);
-                int fuelAnnualCost = cursor.getInt(DBAdapter.COL_CAR_FUEL_ANNUAL_COST);
-                int highwayMPG = cursor.getInt(DBAdapter.COL_CAR_HIGHWAY_MPG);
-                int year = cursor.getInt(DBAdapter.COL_CAR_YEAR);
-                String engineDescription = cursor.getString(DBAdapter.COL_CAR_ENGINE_DESCRIPTION);
-                String fuelType = cursor.getString(DBAdapter.COL_CAR_FUEL_TYPE);
-                String make = cursor.getString(DBAdapter.COL_CAR_MAKE);
-                String model = cursor.getString(DBAdapter.COL_CAR_MODEL);
-                String nickName = cursor.getString(DBAdapter.COL_CAR_NICK_NAME);
-                String transDescription = cursor.getString(DBAdapter.COL_CAR_TRANS_DESCRIPTION);
-                int isRecent = cursor.getInt(COL_CAR_TAG_ID);
-
-                if (isRecent == 1) {
-                    cC.add(new Car(nickName, make, model, year, cityMPG, highwayMPG,
-                            engineDescription, engineDispLitres, fuelType, fuelAnnualCost, carbonTailPipe, transDescription));
-                }
-
-            } while (cursor.moveToNext());
-        }
-
-        // Close the cursor to avoid a resource leak.
-        cursor.close();
-
-//        Log.i(TAG, "displayRecordSetForCar: " + message);
-        return cC;
-    }
 
     // Todo POSSIBLE REFACTOR]
     public Object getObject(DB_TABLE t, long rowId) {
@@ -1026,6 +1017,44 @@ public class DBAdapter {
         return bus;
     }
 
+    public BusCollection getAllBus(){
+        BusCollection bC = new BusCollection();
+        Cursor cursor = getAllRows(DB_TABLE.BUS);
+        // Reset cursor to start, checking to see if there's data:
+        if (cursor.moveToFirst()) {
+            do {
+                long rowId = cursor.getLong(COL_ROWID);
+                Bus bus = getBus(rowId);
+                bC.addBus(bus);
+            } while (cursor.moveToNext());
+        }
+
+        // Close the cursor to avoid a resource leak.
+        cursor.close();
+        return bC;
+    }
+
+    public BusCollection getAllBus(TAG_ID tag_id){
+        BusCollection bC = new BusCollection();
+        Cursor cursor = getAllRows(DB_TABLE.BUS);
+        // Reset cursor to start, checking to see if there's data:
+        if (cursor.moveToFirst()) {
+            do {
+                int this_tag = cursor.getInt(COL_BUS_TAG_ID);
+                if(this_tag == tag_id.ordinal()){
+                    long rowId = cursor.getLong(COL_ROWID);
+                    Bus bus = getBus(rowId);
+                    bC.addBus(bus);
+                }
+            } while (cursor.moveToNext());
+        }
+
+        // Close the cursor to avoid a resource leak.
+        cursor.close();
+        return bC;
+    }
+
+
     public Skytrain getSkytrain(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
@@ -1042,6 +1071,26 @@ public class DBAdapter {
         train.setBoardingStation(c.getString(COL_SKYTRAIN_BOARDING_STATION));
 
         return train;
+    }
+
+    public SkytrainCollection getAllSkytrain(TAG_ID tag_id){
+        SkytrainCollection sC = new SkytrainCollection();
+        Cursor cursor = getAllRows(DB_TABLE.SKYTRAIN);
+        // Reset cursor to start, checking to see if there's data:
+        if (cursor.moveToFirst()) {
+            do {
+                int this_tag = cursor.getInt(COL_SKYTRAIN_TAG_ID);
+                if(this_tag == tag_id.ordinal()){
+                    long rowId = cursor.getLong(COL_ROWID);
+                    Skytrain train = getSkytrain(rowId);
+                    sC.addTrain(train);
+                }
+            } while (cursor.moveToNext());
+        }
+
+        // Close the cursor to avoid a resource leak.
+        cursor.close();
+        return sC;
     }
 
 

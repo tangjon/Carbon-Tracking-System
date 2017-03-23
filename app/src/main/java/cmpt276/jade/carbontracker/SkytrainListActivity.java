@@ -3,20 +3,19 @@ package cmpt276.jade.carbontracker;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import cmpt276.jade.carbontracker.adapter.BusListAdapter;
 import cmpt276.jade.carbontracker.adapter.SkytrainListAdaptor;
+import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.fragment.EditDialog;
-import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.model.SkytrainCollection;
@@ -87,7 +86,7 @@ public class SkytrainListActivity extends AppCompatActivity {
                     }
                 });
                 editDialog.show(getSupportFragmentManager(),"EditDialog");
-                return false;
+                return true;
             }
         });
     }
@@ -121,11 +120,28 @@ public class SkytrainListActivity extends AppCompatActivity {
     }
 
     private void populateList(){
+        dbRefreshSkytrainCarList();
         //TODO
         //Make Adaptor
         ListAdapter adapt=new SkytrainListAdaptor(this,trainList.getSkytrainDetails());
         ListView list = (ListView) findViewById(R.id.listViewSkytrainList);
         list.setAdapter(adapt);
+    }
+
+    private void dbRefreshSkytrainCarList() {
+        DBAdapter myDB = new DBAdapter(this);
+        myDB.open();
+
+        // Complete Refresh RecentCarList DB
+        SkytrainCollection c = myDB.getAllSkytrain(DBAdapter.TAG_ID.RECENT);
+        // Delete Everything form DB with "RECENT"
+        myDB.deleteAll(DBAdapter.DB_TABLE.SKYTRAIN, DBAdapter.TAG_ID.RECENT);
+
+        // RE-ADD REMAINING RECENTS
+        for (Skytrain s: trainList.getTrainList()) {
+            myDB.insertRow(s, DBAdapter.TAG_ID.RECENT);
+        }
+        myDB.close();
     }
 
     public static Intent getIntent(Context context) {

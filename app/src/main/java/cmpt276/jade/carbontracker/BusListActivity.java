@@ -22,6 +22,8 @@ import cmpt276.jade.carbontracker.model.BusCollection;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
+import cmpt276.jade.carbontracker.model.Skytrain;
+import cmpt276.jade.carbontracker.model.SkytrainCollection;
 
 
 /**
@@ -59,6 +61,8 @@ public class BusListActivity extends AppCompatActivity {
 
 
     private void setupListview() {
+
+
 
         ListView list = (ListView) findViewById(R.id.listviewBus);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -103,14 +107,15 @@ public class BusListActivity extends AppCompatActivity {
         DBAdapter db = new DBAdapter(this);
         db.open();
         // Complete Refresh RecentCarList DB
-        JourneyCollection jC = db.getAllJourney();
-        // Delete Everything form DB with "RECENT"
-        for (Journey j: jC.getJourneyList()) {
-            db.deleteJourney(j);
-        }
+//        BusCollection bC = db.getAllBus(DBAdapter.TAG_ID.RECENT);
+//        for (Bus b: bC.getBusList()) {
+//            db.deleteRow(DBAdapter.DB_TABLE.BUS,b.get)
+//        }
+        db.deleteAll(DBAdapter.DB_TABLE.BUS, DBAdapter.TAG_ID.RECENT);
+
         // RE-ADD REMAINING RECENTS
-        for (Journey j: Emission.getInstance().getJourneyCollection().getJourneyList()) {
-            db.insertRow(j);
+        for (Bus b: busList.getBusList()) {
+            db.insertRow(b, DBAdapter.TAG_ID.RECENT);
         }
         db.close();
     }
@@ -143,6 +148,7 @@ public class BusListActivity extends AppCompatActivity {
     }
 
     private void populateList(){
+        dbRefreshBusList();
         //TODO
         //Make Adaptor
         ListAdapter adapt=new BusListAdapter(this,busList.getBusDetails());
