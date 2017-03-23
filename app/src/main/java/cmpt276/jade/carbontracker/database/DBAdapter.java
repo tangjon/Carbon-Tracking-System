@@ -599,7 +599,7 @@ public class DBAdapter {
      * *** STEP 3 Create a getter for object
      * ****************************************/
 
-    // Todo STEP XXXX
+    // Todo: STEP XXXX
     // Return all rows in the table.
     public Cursor getAllRows(DB_TABLE table) {
         String where = null;
@@ -643,6 +643,57 @@ public class DBAdapter {
                 break;
         }
 
+
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
+    // Todo: STEP XXXX
+    // Get a specific row (by rowId and Table)
+    public Cursor getRow(DB_TABLE table, long rowId) {
+        String where = KEY_ROWID + "=" + rowId;
+
+        Cursor c = null;
+        switch (table) {
+            case CAR:
+                c = db.query(true, table.toString(), ALL_CAR_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case ROUTE:
+                c = db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case JOURNEY:
+                c = db.query(true, TABLE_ROUTE, ALL_JOURNEY_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case BILL:
+                c = db.query(true, TABLE_BILL, ALL_BILL_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case BUS:
+                c = db.query(true, TABLE_BUS, ALL_BUS_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case SKYTRAIN:
+                c = db.query(true, TABLE_SKYTRAIN, ALL_SKYTRAIN_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case WALK:
+                c = db.query(true, TABLE_WALK, ALL_WALK_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case BIKE:
+                c = db.query(true, TABLE_BIKE, ALL_BIKE_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case TRANSIT:
+                c = db.query(true, TABLE_TRANSIT, ALL_TRANSIT_KEYS,
+                        where, null, null, null, null, null);
+                break;
+        }
 
         if (c != null) {
             c.moveToFirst();
@@ -699,7 +750,6 @@ public class DBAdapter {
         j.setID(ID);
         j.setDate(DATE);
         Log.i(TAG, "getJourney: " + j.toString());
-        // Todo set date
         return j;
     }
 
@@ -722,7 +772,6 @@ public class DBAdapter {
         return jC;
     }
 
-    // Todo getBill
     public Bill getBill(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
@@ -868,6 +917,7 @@ public class DBAdapter {
         return cC;
     }
 
+    // Todo save recentCars
     public CarCollection getAllRecentCars() {
         String message = "";
         // populate the message from the cursor
@@ -908,7 +958,7 @@ public class DBAdapter {
         return cC;
     }
 
-    // [POSSIBLE REFACTOR]
+    // Todo POSSIBLE REFACTOR]
     public Object getObject(DB_TABLE t, long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
@@ -947,9 +997,6 @@ public class DBAdapter {
         return null;
     }
 
-
-
-    // [DONE]
     public Bus getBus(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
@@ -967,7 +1014,6 @@ public class DBAdapter {
         return bus;
     }
 
-    // [DONE]
     public Skytrain getSkytrain(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
@@ -988,84 +1034,13 @@ public class DBAdapter {
 
 
 
-    public Transport buffTrans(String trans) {
-        switch (trans) {
-            case "Car":
-                return Transport.CAR;
-            case "Walk":
-                return Transport.WALK;
-            case "Bike":
-                return Transport.BIKE;
-            case "Bus":
-                return Transport.BUS;
-            case "SkyTrain":
-                return Transport.SKYTRAIN;
-            case "Transit":
-                return Transport.TRANSIT;
-            default:
-                assert false;
-        }
-        return null;
-    }
-
-    // [UPDATE]
-    // Get a specific row (by rowId)
-    public Cursor getRow(DB_TABLE table, long rowId) {
-        String where = KEY_ROWID + "=" + rowId;
-
-        Cursor c = null;
-        switch (table) {
-            case CAR:
-                c = db.query(true, table.toString(), ALL_CAR_KEYS,
-                        where, null, null, null, null, null);
-                break;
-            case ROUTE:
-                c = db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
-                        where, null, null, null, null, null);
-                break;
-            case JOURNEY:
-                c = db.query(true, TABLE_ROUTE, ALL_JOURNEY_KEYS,
-                        where, null, null, null, null, null);
-                break;
-            case BILL:
-                c = db.query(true, TABLE_BILL, ALL_BILL_KEYS,
-                        where, null, null, null, null, null);
-                break;
-            case BUS:
-                c = db.query(true, TABLE_BUS, ALL_BUS_KEYS,
-                        where, null, null, null, null, null);
-                break;
-            case SKYTRAIN:
-                c = db.query(true, TABLE_SKYTRAIN, ALL_SKYTRAIN_KEYS,
-                        where, null, null, null, null, null);
-                break;
-            case WALK:
-                c = db.query(true, TABLE_WALK, ALL_WALK_KEYS,
-                        where, null, null, null, null, null);
-                break;
-            case BIKE:
-                c = db.query(true, TABLE_BIKE, ALL_BIKE_KEYS,
-                        where, null, null, null, null, null);
-                break;
-            case TRANSIT:
-                c = db.query(true, TABLE_TRANSIT, ALL_TRANSIT_KEYS,
-                        where, null, null, null, null, null);
-                break;
-        }
-
-        if (c != null) {
-            c.moveToFirst();
-        }
-        return c;
-    }
-
     public boolean updateJourney(Journey j) {
         deleteJourney(j);
         insertRow(j);
         return true;
     }
 
-    // UNTOUCHED
+    // Todo: Unused and unfunctional atm
     // Change an existing row to be equal to new data.
     public boolean updateRow(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
@@ -1086,9 +1061,31 @@ public class DBAdapter {
     }
 
 
-    /////////////////////////////////////////////////////////////////////
-    //	Private Helper Classes:
-    /////////////////////////////////////////////////////////////////////
+
+    /****************************************
+     * PRIVATE HELPER STUFF
+     * ****************************************/
+
+    // Todo should pass in enum ordinal instead of string...
+    private Transport buffTrans(String trans) {
+        switch (trans) {
+            case "Car":
+                return Transport.CAR;
+            case "Walk":
+                return Transport.WALK;
+            case "Bike":
+                return Transport.BIKE;
+            case "Bus":
+                return Transport.BUS;
+            case "SkyTrain":
+                return Transport.SKYTRAIN;
+            case "Transit":
+                return Transport.TRANSIT;
+            default:
+                assert false;
+        }
+        return null;
+    }
 
     /**
      * Private class which handles database creation and upgrading.
