@@ -178,12 +178,12 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
 
     Tip tip = new Tip();
+
     private void setupTips() {
         final TextView tv = (TextView) findViewById(R.id.footprint_tips);
 
         Emission emission = Emission.getInstance();
         JourneyCollection jc = emission.getJourneyCollection();
-
 
         double CarEmissions = 0;
         double BusEmission= 0;
@@ -217,7 +217,6 @@ public class CarbonFootprintActivity extends AppCompatActivity {
             //}
         }
     }
-
         tip.setTotalCarEmissions(CarEmissions);
         tip.setTotalBusEmission(BusEmission);
         tip.setTotalSkyTrainEmission(SkyTrainEmission);

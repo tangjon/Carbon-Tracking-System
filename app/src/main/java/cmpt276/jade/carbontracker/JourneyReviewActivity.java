@@ -1,25 +1,20 @@
 package cmpt276.jade.carbontracker;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import java.util.Calendar;
-import java.util.Date;
 
 import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
+import cmpt276.jade.carbontracker.model.Tip;
 
 /**
  *Journey review lets you review the data you entered for car and route and
@@ -28,7 +23,6 @@ import cmpt276.jade.carbontracker.model.JourneyCollection;
 public class JourneyReviewActivity extends AppCompatActivity {
     private Journey journey;
     private Journey storedJourney;
-
 
 
     @Override
@@ -40,6 +34,42 @@ public class JourneyReviewActivity extends AppCompatActivity {
         getJourneyData();
         setupPage();
         setupDoneBtn();
+
+        setUpTips();
+    }
+
+    private void setUpTips() {
+        final TextView tv_tips = (TextView) findViewById(R.id.tv_tips);
+        tv_tips.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Tip tip = new Tip();
+                Journey j = Emission.getInstance().getJourneyBuffer();
+                switch (j.getTransType().getTransMode()) {
+                    case CAR:
+                        tip.setTotalCarEmissions(j.getTotalTravelledEmissions());
+                        tv_tips.setText(tip.getJourneyTip());
+                        break;
+                    case BIKE:
+                        tip.setTotalBike(j.getTotalTravelled());
+                        tv_tips.setText(tip.getJourneyTip());
+                        break;
+                    case WALK:
+                        tip.setTotalWalk(j.getTotalTravelled());
+                        tv_tips.setText(tip.getJourneyTip());
+                        break;
+                    case BUS:
+                        tip.setTotalBusEmission(j.getTotalTravelledEmissions());
+                        tv_tips.setText(tip.getJourneyTip());
+                        break;
+                    case SKYTRAIN:
+                        tip.setTotalSkyTrainEmission(j.getTotalTravelledEmissions());
+                        tv_tips.setText(tip.getJourneyTip());
+                        break;
+                }
+
+            }
+        });
     }
 
     private void setupPage() {
