@@ -121,9 +121,9 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
 
     private int setupUI() {
         TextView tv= (TextView) findViewById(R.id.Bike_info_mode);
-        if(getMode()==2) {tv.setText("Bike/Walk");}
-        if(getMode()==3) {tv.setText("Bus");}
-        if(getMode()==4) {tv.setText("Skytrain");}
+        if(getMode()==2) {tv.setText(R.string.bike_walk);}
+        if(getMode()==3) {tv.setText(R.string.bus);}
+        if(getMode()==4) {tv.setText(R.string.skytrain);}
 
 
         Route ClickedRoute = getClickedRoute();
@@ -162,8 +162,8 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
                 // user can not clicked delete button if they are in add mode
                 if (setupUI() == 1) {
                     Toast.makeText(getApplicationContext(),
-                            "You can not use delete now"
-                                    + ",since you are in add mode", Toast.LENGTH_LONG).show();
+                            getString(R.string.cant_delete_now)
+                                    + getString(R.string.you_in_add), Toast.LENGTH_LONG).show();
                 } else {
                     Intent back_route2 = new Intent();
                     back_route2.putExtra("delete is clicked", "1");
@@ -177,10 +177,10 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
 
     private void check_and_add_to_list(int mode) {
         if (Check_empty_input(R.id.Bike_Info_edit_name) == 0) {
-            Toast.makeText(getApplicationContext(), "You haven't enter the name" + " please try again", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.no_name_entered) + getString(R.string.please_try_again), Toast.LENGTH_LONG).show();
         } else {
             if (Check_empty_input(R.id.Bike_Info_edit_distance) == 0) {
-                Toast.makeText(getApplicationContext(), "You did not entered any number for Distance " + " please try again", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.no_distance) + getString(R.string.please_try_again), Toast.LENGTH_LONG).show();
             } else {
                 double distance = Double.parseDouble(getNameById(R.id.Bike_Info_edit_distance));
                 if (distance >= 0) {
@@ -188,7 +188,7 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
                     finish();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "You entered a invalid numer " + " please try again", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.invalid_number) + getString(R.string.please_try_again), Toast.LENGTH_LONG).show();
                 }}}
     }
 

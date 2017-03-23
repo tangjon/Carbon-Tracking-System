@@ -94,6 +94,16 @@
     <!--Action ToolBar-->
     <string name="action_settings">Settings</string>
 
+    <!-- BIKE/WALK -->
+    <string name="label_next_hint">Show next hint</string>
+    <string name="bike_walk">Bike/Walk</string>
+    <string name="skytrain">Skytrain</string>
+    <string name="cant_delete_now">You can not use delete now</string>
+    <string name="you_in_add">,since you are in add mode</string>
+    <string name="no_name_entered">You haven\'t enter the name</string>
+    <string name="please_try_again">please try again</string>
+    <string name="no_distance">You did not entered any number for Distance</string>
+    <string name="invalid_number">You entered a invalid number</string>
 
     <!--JOURNEY LIST ACTIVITY-->
     <string name="journey_list_confirm_delete_message">Are you sure you want to delete\n \"%1$s\"</string>
@@ -234,6 +244,8 @@
     <!-- Bus Info Activity -->
     <string name="label_busNickname">Bus Nickname</string>
     <string name="label_busRouteNumber">Route Number</string>
+    <string name="enter_a_nickname">Please Enter a Nickname</string>
+    <string name="enter_a_route_number">Please Enter a Route Number</string>
 
 
     <!-- Skytrain Info Activity -->
@@ -269,7 +281,5 @@
     <string name="label_bill_display">kg CO2 / resident / day;</string>
 
 
-
-    <string name="label_next_hint">Show next hint</string>
 
 </resources>
