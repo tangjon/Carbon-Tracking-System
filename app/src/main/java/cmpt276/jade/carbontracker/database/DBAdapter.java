@@ -41,7 +41,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 20;
+    public static final int DATABASE_VERSION = 21;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -513,7 +513,7 @@ public class DBAdapter {
         // Insert Journey Info
         initialValues.put(KEY_JOURNEY_NAME, journey.getName() );
         initialValues.put(KEY_JOURNEY_TRANS_TYPE, journey.getTransType().getTransMode().toString());
-        initialValues.put(KEY_JOURNEY_DATE, journey.getDate().toString());
+        initialValues.put(KEY_JOURNEY_DATE, journey.getDate());
 
         // Insert Route
         long routeID = insertRow(journey.getRoute());
@@ -604,6 +604,8 @@ public class DBAdapter {
                 break;
         }
         Journey j = new Journey(name, transportation,route);
+        j.setDate(DATE);
+        Log.i(TAG, "getJourney: " + j.toString());
         // Todo set date
         return j;
     }
@@ -649,7 +651,7 @@ public class DBAdapter {
                         break;
                 }
                 Journey j = new Journey(name, transportation,route);
-
+                j.setDate(DATE);
                 Log.i(TAG, "getAllJourney: " + j.toString());
                 jC.addJourney(j);
 

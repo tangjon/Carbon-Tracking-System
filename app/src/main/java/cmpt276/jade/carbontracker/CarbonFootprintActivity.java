@@ -30,11 +30,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Graph;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
+import cmpt276.jade.carbontracker.model.Tip;
 import cmpt276.jade.carbontracker.model.Utilities;
 
 /*
@@ -56,10 +58,9 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private int dateMode = 1;
 
     private Calendar calendar = Calendar.getInstance();
-    //private Date dateSelected = calendar.getTime();
-    private Date dateSelected = null;
+    private Date dateSelected = calendar.getTime();
     private Date dateStart = null;
-    private Date dateEnd = null;
+    private Date dateEnd = calendar.getTime();
 
     private String emissionDate[] = new String[NUM_ENTRIES];
     private String emissionRouteNames[] = new String[NUM_ENTRIES];
@@ -67,13 +68,15 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private double emissionDistance[] = new double[NUM_ENTRIES];
     private String emissionVehicleNames[] = new String[NUM_ENTRIES];
 
+
+    private static final String TAG = "CarbonFootPrintActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carbon_footprint);
 
+        Log.i("spinner", "dateEnd = "+dateEnd.toString());
 
-        dateSelected = currentDate();
         setupDatePicker();
         loadData();
         setupButton();
@@ -110,24 +113,26 @@ public class CarbonFootprintActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Calendar calendar = Calendar.getInstance();
                 Date date;
+
                 switch (position) {
                     case 0:
                         dateMode = 1;
                         dialog.show();
+                        setupTips();
                         break;
                     case 1:
                         dateMode = 2;
                         date = calendar.getTime();
-                        dateEnd = date;
+                        Log.i("spinner", "dateEnd = "+dateEnd.toString());
                         calendar.setTime(date);
                         calendar.add(Calendar.DAY_OF_MONTH, -28);
                         date = calendar.getTime();
                         dateStart = date;
+                        Log.i("spinner", "dateStart = "+dateStart.toString());
                         break;
                     case 2:
                         dateMode = 2;
                         date = calendar.getTime();
-                        dateEnd = date;
                         calendar.setTime(date);
                         calendar.add(Calendar.YEAR, -1);
                         date = calendar.getTime();
@@ -146,6 +151,65 @@ public class CarbonFootprintActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // do nothing
+            }
+        });
+    }
+
+
+    Tip tip = new Tip();
+    private void setupTips() {
+        final TextView tv = (TextView) findViewById(R.id.footprint_tips);
+
+        Emission emission = Emission.getInstance();
+        JourneyCollection jc = emission.getJourneyCollection();
+
+
+        double CarEmissions = 0;
+        double BusEmission= 0;
+        double SkyTrainEmission= 0;
+        double Walk= 0;
+        double Bike= 0;//
+
+        // this adds all emissions
+    for (Journey j : jc.getJourneyList()) {
+        Log.i(TAG, "setupTips: Journey:" + j.getDateObj().toString());
+        Log.i(TAG, "setupTips: Current:" + dateSelected.toString());
+        //TODO JOURNEY DATE STILL WRONG, CAN'T COMPARE THESE
+        //if(Graph.compareDates(j.getDateObj(),dateSelected) == 0) {
+            Transport mode = j.getTransType().getTransMode();
+            switch (mode) {
+                case CAR:
+                    CarEmissions += j.getTotalTravelledEmissions();
+                    break;
+                case BIKE:
+                    Bike += j.getRoute().getOtherDistance();
+                    break;
+                case WALK:
+                    Walk += j.getRoute().getOtherDistance();
+                    break;
+                case BUS:
+                    BusEmission += j.getTotalTravelledEmissions();
+                    break;
+                case SKYTRAIN:
+                    SkyTrainEmission += j.getTotalTravelledEmissions();
+                    break;
+            //}
+        }
+    }
+
+        tip.setTotalCarEmissions(CarEmissions);
+        tip.setTotalBusEmission(BusEmission);
+        tip.setTotalSkyTrainEmission(SkyTrainEmission);
+
+        tip.setTotalWalk(Walk);
+        tip.setTotalBike(Bike);
+
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tip1 = tip.getJourneyTip();
+                tv.setText(tip1);
+
             }
         });
     }
@@ -289,7 +353,8 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
         for (int i = 0; i < NUM_ENTRIES; ++i) {
             j = journeyCollection.getJourney(i);
-            emissionDate[i] = Emission.DATE_FORMAT.format(j.getDateObj());
+            if (j.getDateObj() != null) emissionDate[i] = Emission.DATE_FORMAT.format(j.getDateObj());
+            else emissionDate[i] = "its fucked";
             emissionRouteNames[i] = j.getName();
             emissionDistance[i] = j.getRoute().getCityDistance() + j.getRoute().getCityDistance();
             if (j.getTransType().getCar() != null) {

@@ -110,8 +110,23 @@ public class JourneySummaryActivity extends AppCompatActivity {
             //TODO Format the string to 2 decimal places
             emissions.setText("Carbon Emission (Kg): " +String.valueOf(journey.getSkytrainEmissions()));
         }
-        else{
+        else if(journey.getTransType().getTransMode().equals(Transport.WALK)){
             transInfoLabel.setText("Walk Info");
+            TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
+            journeyInfo.setText(getString(R.string.journey_info, journey.getName(), journey.getDate()));
+            // Display Route Info
+            TextView routeInfo = (TextView) findViewById(R.id.textRouteInfo);
+            routeInfo.setText(journey.getRoute().getName() + "\nTotal Distance: " + journey.getRoute().getOtherDistance());
+            //Display Walk Info
+            TextView trainInfo = (TextView) findViewById(R.id.textCarInfo);
+            trainInfo.setText("Congratulations on making no carbon impact!");
+            //Display Emission Info
+            TextView emissions = (TextView) findViewById(R.id.textEmissionsInfo);
+            emissions.setText("Carbon Emission (Kg): " +String.valueOf(0));
+
+        }
+        else if(journey.getTransType().getTransMode().equals(Transport.BIKE)){
+            transInfoLabel.setText("Bike Info");
             TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
             journeyInfo.setText(getString(R.string.journey_info, journey.getName(), journey.getDate()));
             // Display Route Info

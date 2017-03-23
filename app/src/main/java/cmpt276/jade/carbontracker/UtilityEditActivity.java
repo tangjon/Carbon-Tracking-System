@@ -22,6 +22,9 @@ import cmpt276.jade.carbontracker.model.Utilities;
 import cmpt276.jade.carbontracker.utils.BillEditMode;
 import cmpt276.jade.carbontracker.utils.BillType;
 
+/**
+ * Add data to the bill
+ */
 public class UtilityEditActivity extends AppCompatActivity {
     private Emission emission;
     private Bill buffer;

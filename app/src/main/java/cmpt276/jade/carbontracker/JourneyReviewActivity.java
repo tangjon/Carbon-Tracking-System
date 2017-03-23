@@ -74,6 +74,18 @@ public class JourneyReviewActivity extends AppCompatActivity {
 
             routeInfo.setText(storedJourney.getRoute().getName() + "\nTotal Distance: " + storedJourney.getRoute().getOtherDistance());
         }
+        else if(Emission.getInstance().getJourneyBuffer().getTransType().getTransMode().equals(Transport.WALK)){
+            transTag.setText("Walked");
+            transInfo.setText(" ");
+
+            routeInfo.setText(storedJourney.getRoute().getName() + "\nTotal Distance: " + storedJourney.getRoute().getOtherDistance());
+        }
+        else if(Emission.getInstance().getJourneyBuffer().getTransType().getTransMode().equals(Transport.BIKE)){
+            transTag.setText("Rode Bike");
+            transInfo.setText(" ");
+
+            routeInfo.setText(storedJourney.getRoute().getName() + "\nTotal Distance: " + storedJourney.getRoute().getOtherDistance());
+        }
         if(journey.getMode() == 1){
             EditText inputName = (EditText) findViewById(R.id.editJourneyName);
             inputName.setText(journey.getName());
@@ -115,7 +127,7 @@ public class JourneyReviewActivity extends AppCompatActivity {
                     storedJourney.setPosition(journey.getPosition());
                     storedJourney.setMode(journey.getMode());
                     storedJourney.setDate(inputDate.getText().toString().trim());
-                    storedJourney.setDateObj(new Date(month+"/"+day+"/"+year));
+                    //storedJourney.setDateObj(new Date(month+"/"+day+"/"+year));
                     storedJourney.setName(inputName.getText().toString().trim());
                     Emission.getInstance().setJourneyBuffer(storedJourney);
 
@@ -131,6 +143,9 @@ public class JourneyReviewActivity extends AppCompatActivity {
                         JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
                         listOfJourneys.editJourney(storedJourney, journey.getPosition());
                         Emission.getInstance().setJourneyCollection(listOfJourneys);
+                        Log.i("JourneyDate","****************** Stored Date = "+
+                                Emission.getInstance().getJourneyCollection()
+                                        .getJourney(journey.getPosition()).getDateObj().toString());
                     }
 
 

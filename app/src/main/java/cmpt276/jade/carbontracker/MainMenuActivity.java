@@ -17,6 +17,9 @@ import android.view.MenuItem;
 import cmpt276.jade.carbontracker.fragment.CarbonFootPrintFragment;
 import cmpt276.jade.carbontracker.fragment.JourneyListFragment;
 
+/**
+ * This is the main menu can get to utilities and graph and journey UNUSED
+ */
 public class MainMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

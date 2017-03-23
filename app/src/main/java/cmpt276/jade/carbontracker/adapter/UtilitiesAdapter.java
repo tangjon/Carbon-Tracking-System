@@ -13,6 +13,9 @@ import cmpt276.jade.carbontracker.R;
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Emission;
 
+/**
+ * Displays utilities
+ */
 
 
 public class UtilitiesAdapter extends ArrayAdapter{

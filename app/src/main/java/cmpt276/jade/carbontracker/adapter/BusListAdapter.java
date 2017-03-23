@@ -14,7 +14,7 @@ import cmpt276.jade.carbontracker.R;
  * Created by Sean on 21/03/2017.
  * Class:
  * Description:
- *
+ *Creates the bus list
  * Bugs:
  */
 

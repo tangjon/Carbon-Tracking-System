@@ -13,14 +13,18 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.adapter.UtilitiesAdapter;
 import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.model.Tip;
 import cmpt276.jade.carbontracker.model.Utilities;
 import cmpt276.jade.carbontracker.utils.BillEditMode;
 import cmpt276.jade.carbontracker.utils.BillType;
-
+/*
+      Shows list of bills
+ */
 public class Utilities_Activities extends AppCompatActivity {
     private Emission emission = Emission.getInstance();
     private Utilities utilities;
@@ -194,4 +198,31 @@ public class Utilities_Activities extends AppCompatActivity {
     public static Intent getUtilitiesIntent(Context context) {
         return new Intent(context, Utilities_Activities.class);
     }
+
+    /*
+    Tip tipForElection = new Tip();
+    Tip tipForGas = new Tip();
+    private void getElectionTips(double ElectionEmission) {
+        final TextView tv = (TextView) findViewById(R.id.);
+        tipForElection.setTotalElectricityEmissions(ElectionEmission);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tip1 = tipForElection.tipsForElectricityEmissions();
+                tv.setText(tip1);
+            }
+        });
+    }
+    private void getGasTips(double GasEmission) {
+        final TextView tv = (TextView) findViewById(R.id.);
+        tipForGas.setTotalGasEmissions(GasEmission);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tip1 = tipForGas.tipsForGasEmissions();
+                tv.setText(tip1);
+            }
+        });
+    }
+    */
 }

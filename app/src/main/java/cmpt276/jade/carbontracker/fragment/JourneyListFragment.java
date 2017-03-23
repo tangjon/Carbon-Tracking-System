@@ -26,6 +26,9 @@ import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.model.Transportation;
 
+/**
+ * unused based of journey list activity
+ */
 public class JourneyListFragment extends Fragment {
     public static JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
     private Journey intentJourney;

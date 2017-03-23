@@ -1,6 +1,9 @@
 package cmpt276.jade.carbontracker.model;
 
+import android.util.Log;
+
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import cmpt276.jade.carbontracker.enums.Transport;
@@ -156,6 +159,24 @@ public class Journey implements Serializable{
 
     public void setDate(String date) {
         Date = date;
+        String[] dateCheck = date.trim().split("/", 3);
+        int month = 0;
+        int day = 0;
+        int year = 0;
+
+        day = Integer.parseInt(dateCheck[0]);
+        month = Integer.parseInt(dateCheck[1]) - 1;
+        year = Integer.parseInt(dateCheck[2]);
+
+        Log.i("spinner", "year = "+year+" month = "+month+" day = "+day);
+
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, day);
+        setDateObj(c.getTime());
+
+        Log.i("spinner", "dateObj = "+dateObj.toString());
     }
 
     //Miles to KM
