@@ -87,9 +87,8 @@ public class JourneySummaryActivity extends AppCompatActivity {
             busInfo.setText(journey.getTransType().getBus().getNickName() + "\nRoute #: " +
             journey.getTransType().getBus().getRouteNumber());
             //Display Emission Info
-            //TODO Format the string to 2 decimal places
             TextView emissions = (TextView) findViewById(R.id.textEmissionsInfo);
-            emissions.setText("Carbon Emission (Kg): " +String.valueOf(journey.getBusEmissions()));
+            emissions.setText("Carbon Emission (Kg): " +String.format("%.2f", journey.getBusEmissions()));
 
         }
         else if (journey.getTransType().getTransMode().equals(Transport.SKYTRAIN)){
@@ -107,8 +106,7 @@ public class JourneySummaryActivity extends AppCompatActivity {
             journey.getTransType().getSkytrain().getBoardingStation());
             //Display Emission Info
             TextView emissions = (TextView) findViewById(R.id.textEmissionsInfo);
-            //TODO Format the string to 2 decimal places
-            emissions.setText("Carbon Emission (Kg): " +String.valueOf(journey.getSkytrainEmissions()));
+            emissions.setText("Carbon Emission (Kg): " +String.format("%.2f" , journey.getSkytrainEmissions()));
         }
         else if(journey.getTransType().getTransMode().equals(Transport.WALK)){
             transInfoLabel.setText("Walk Info");
