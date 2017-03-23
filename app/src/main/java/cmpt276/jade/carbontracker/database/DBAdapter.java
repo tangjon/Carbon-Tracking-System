@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Bill;
@@ -21,6 +23,7 @@ import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.model.RouteCollection;
 import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.model.Transportation;
+import cmpt276.jade.carbontracker.model.Utilities;
 import cmpt276.jade.carbontracker.utils.BillType;
 
 /*
@@ -686,6 +689,37 @@ public class DBAdapter {
         cursor.close();
 
         return jC;
+    }
+
+    public List<Bill> getAllBills(){
+        Cursor cursor =  getAllRows(DB_TABLE.BILL);
+        List<Bill> billList = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                // Fetch objects info from db
+                Date start_date = new Date(cursor.getLong(COL_BILL_START_DATE));
+                Date end_date = new Date(cursor.getInt(COL_BILL_END_DATE));
+                Double input = cursor.getDouble(COL_BILL_INPUT);
+                BillType type = null;
+
+                int billInt = cursor.getInt(COL_BILL_TYPE);
+                for (BillType t: BillType.values()) {
+                    if(billInt == t.ordinal()){
+                        type = t;
+                        break;
+                    }
+                }
+                Bill bill = new Bill(type, start_date,end_date,input);
+                billList.add(bill);
+
+            } while(cursor.moveToNext());
+
+        }
+
+        // Close the cursor to avoid a resource leak.
+        cursor.close();
+
+        return billList;
     }
 
     public RouteCollection getAllRoute(){
