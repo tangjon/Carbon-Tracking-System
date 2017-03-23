@@ -2,6 +2,7 @@ package cmpt276.jade.carbontracker.model;
 
 /**
  * Created by Sean on 20/03/2017.
+ * Skytrain object that contains some not very useful data
  */
 
 public class Skytrain {

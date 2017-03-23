@@ -22,7 +22,9 @@ import cmpt276.jade.carbontracker.model.Tip;
 import cmpt276.jade.carbontracker.model.Utilities;
 import cmpt276.jade.carbontracker.utils.BillEditMode;
 import cmpt276.jade.carbontracker.utils.BillType;
-
+/*
+      Shows list of bills
+ */
 public class Utilities_Activities extends AppCompatActivity {
     private Emission emission = Emission.getInstance();
     private Utilities utilities;

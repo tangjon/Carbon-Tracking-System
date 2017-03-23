@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Created by Sean on 20/03/2017.
+ * The list of bus objects
  */
 
 public class BusCollection {

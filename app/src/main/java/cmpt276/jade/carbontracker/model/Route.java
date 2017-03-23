@@ -5,7 +5,7 @@ import android.util.Log;
 import java.io.Serializable;
 
 //Route class   Route(Nickname,highway Distance,city Distance)
-//has getter and setter
+//Creates a route object that stores distances
 public class Route implements Serializable {
     private double CityDistance;
     private double HighWayDistance;

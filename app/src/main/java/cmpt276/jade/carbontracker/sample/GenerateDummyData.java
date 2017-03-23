@@ -148,7 +148,7 @@ public class GenerateDummyData {
 
         // Generate Date
         Journey journey = new Journey("Journey" + rn.nextInt(MAX), transportation, route);
-        journey.setDate("" + (rn.nextInt(26) + 1) + "/" + (rn.nextInt(12) + 1) + "/2016");
+        journey.setDate("" + (rn.nextInt(26) + 1) + "/" + (rn.nextInt(1) + 1) + "/2017");
         return journey;
 
     }

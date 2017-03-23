@@ -12,6 +12,8 @@ import cmpt276.jade.carbontracker.R;
 
 /**
  * Created by Sean on 21/03/2017.
+ *
+ * Displays the skytrain list
  */
 
 public class SkytrainListAdaptor extends ArrayAdapter<String> {
