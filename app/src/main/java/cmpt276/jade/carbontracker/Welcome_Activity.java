@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
+import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
@@ -98,6 +99,14 @@ public class Welcome_Activity extends AppCompatActivity {
 
         // TODO REMOVE THIS
          generateDummyJourneys();
+
+        Bill A = GenerateDummyData.generateBill();
+        Log.i(TAG, "loadRequiredApplicationResources: BEFORE" + A.toString());
+        Log.i(TAG, "loadRequiredApplicationResources: " + A.getStartDate().getTime());
+        long rowID = myDb.insertRow(A);
+        Bill B = myDb.getBill(rowID);
+        Log.i(TAG, "loadRequiredApplicationResources: AFTER" + B.toString());
+        Log.i(TAG, "loadRequiredApplicationResources: AFTER" + B.getStartDate().getTime());
     }
 
     private void generateDummyJourneys() {

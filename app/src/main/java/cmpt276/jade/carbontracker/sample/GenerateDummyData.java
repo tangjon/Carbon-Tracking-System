@@ -2,11 +2,15 @@ package cmpt276.jade.carbontracker.sample;
 
 import android.util.Log;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 import cmpt276.jade.carbontracker.CarListActivity;
 import cmpt276.jade.carbontracker.Route_List_Activity;
 import cmpt276.jade.carbontracker.enums.Transport;
+import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
@@ -16,6 +20,7 @@ import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.model.Transportation;
+import cmpt276.jade.carbontracker.utils.BillType;
 
 /**
  *  Generate Dummy Data to the entire application
@@ -108,6 +113,22 @@ public class GenerateDummyData {
         Journey journey = new Journey("Journey " + index, trans, route);
         journey.setDate("" + (rn.nextInt(26) + 1) + "/" + (rn.nextInt(12) + 1) + "/2016");
         return journey;
+    }
+
+    public static Bill generateBill(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        BillType type = null;
+
+        Random rn = new Random();
+        int ran = rn.nextInt(2);
+        for (BillType t: BillType.values()) {
+            if(ran == t.ordinal()){
+                type = t;
+            }
+        }
+
+        return new Bill(type,date,date,rn.nextDouble() + 10);
     }
 
     public static Journey generateComplexJourney() {

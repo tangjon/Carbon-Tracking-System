@@ -95,5 +95,19 @@ public class Bill implements Serializable {
         return (type == BillType.GAS);
     }
 
+    @Override
+    public String toString() {
+        return "Bill{" +
+                "type=" + type +
+                ", emissionTotal=" + emissionTotal +
+                ", emissionAvg=" + emissionAvg +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", input=" + input +
+                ", CALC_ELEC=" + CALC_ELEC +
+                ", CALC_GAS=" + CALC_GAS +
+                ", numResidents=" + numResidents +
+                '}';
+    }
 }
 

@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.Date;
+
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Bus;
@@ -19,6 +21,7 @@ import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.model.RouteCollection;
 import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.model.Transportation;
+import cmpt276.jade.carbontracker.utils.BillType;
 
 /*
 * Class: DBAdapter
@@ -41,7 +44,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 21;
+    public static final int DATABASE_VERSION = 22;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -310,6 +313,7 @@ public class DBAdapter {
 
     // ALL KEYS
     public static final String[] ALL_BILL_KEYS = new String[] {
+            KEY_ROWID,
             KEY_BILL_TYPE,
             KEY_BILL_START_DATE,
             KEY_BILL_END_DATE,
@@ -321,10 +325,10 @@ public class DBAdapter {
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
 
                     // TODO: Place your fields here!
-                    + KEY_BILL_TYPE + " text, "
-                    + KEY_BILL_START_DATE + " real, "
-                    + KEY_BILL_END_DATE + " real, "
-                    + KEY_BILL_INPUT + " text"
+                    + KEY_BILL_TYPE + " int, "
+                    + KEY_BILL_START_DATE + " int, "
+                    + KEY_BILL_END_DATE + " int, "
+                    + KEY_BILL_INPUT + " real"
 
                     // Rest  of creation:
                     + ");";
@@ -469,6 +473,25 @@ public class DBAdapter {
         // Insert it into the database.
         return db.insert(TABLE_CAR, null, initialValues);
     }
+    /* [DONE] */
+    public long insertRow(Bill bill) {
+		/*
+		 * CHANGE 3:
+		 */
+        // TODO: Update data in the row with new fields.
+        // TODO: Also change the function's arguments to be what you need!
+        // Create row's data:
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_BILL_TYPE, bill.getBillType().ordinal());
+        initialValues.put(KEY_BILL_START_DATE, bill.getStartDate().getTime());
+        initialValues.put(KEY_BILL_END_DATE, bill.getEndDate().getTime());
+        initialValues.put(KEY_BILL_INPUT, bill.getInput());
+
+        Log.i(TAG, "insertRowBill: " + bill.getStartDate().getTime());
+        // Insert it into the database.
+        return db.insert(TABLE_BILL, null, initialValues);
+    }
+
     /* [DONE] */
     public long insertRow(Route route) {
         // TODO: Update data in the row with new fields.
@@ -895,7 +918,20 @@ public class DBAdapter {
         if (c != null) {
             c.moveToFirst();
         }
-        return null;
+
+        Date start_date = new Date(c.getLong(COL_BILL_START_DATE));
+        Date end_date = new Date(c.getInt(COL_BILL_END_DATE));
+        Double input = c.getDouble(COL_BILL_INPUT);
+        BillType type = null;
+
+        int billInt = c.getInt(COL_BILL_TYPE);
+        for (BillType t: BillType.values()) {
+            if(billInt == t.ordinal()){
+                type = t;
+                break;
+            }
+        }
+        return new Bill(type, start_date,end_date,input);
     }
 
     public Transport buffTrans(String trans){
@@ -1011,6 +1047,7 @@ public class DBAdapter {
             _db.execSQL(CREATE_TABLE_JOURNEY);
             _db.execSQL(CREATE_TABLE_BUS);
             _db.execSQL(CREATE_TABLE_SKYTRAIN);
+            _db.execSQL(CREATE_TABLE_BILL);
         }
 
         @Override
@@ -1025,6 +1062,7 @@ public class DBAdapter {
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_JOURNEY);
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_BUS);
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_SKYTRAIN);
+            _db.execSQL("DROP TABLE IF EXISTS " + TABLE_BILL);
 
             // Recreate new database:
             onCreate(_db);
