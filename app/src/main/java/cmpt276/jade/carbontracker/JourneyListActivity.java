@@ -181,6 +181,15 @@ public class JourneyListActivity extends AppCompatActivity {
 
     private void populateList() {
         // Save Journey to Data Base by complete refresh
+        dbRefreshJourneyTable();
+
+        //ListAdapter bucky=new RouteListAdapter(this,listOfJourneys.getJourneyDetails(),getMode());
+        ListAdapter bucky=new JourneyListAdapter(this,listOfJourneys.getJourneyDetails(), listOfJourneys);
+        ListView list = (ListView) findViewById(R.id.listviewJourney);
+        list.setAdapter(bucky);
+    }
+
+    private void dbRefreshJourneyTable() {
         DBAdapter db = new DBAdapter(this);
         db.open();
         db.deleteAll(DBAdapter.DB_TABLE.JOURNEY);
@@ -188,12 +197,8 @@ public class JourneyListActivity extends AppCompatActivity {
             db.insertRow(j);
         }
         db.close();
-
-        //ListAdapter bucky=new RouteListAdapter(this,listOfJourneys.getJourneyDetails(),getMode());
-        ListAdapter bucky=new JourneyListAdapter(this,listOfJourneys.getJourneyDetails(), listOfJourneys);
-        ListView list = (ListView) findViewById(R.id.listviewJourney);
-        list.setAdapter(bucky);
     }
+
     // Inspired by Raz
     private void setupDeleteAlert( final int index) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

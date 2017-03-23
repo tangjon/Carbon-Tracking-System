@@ -13,12 +13,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.adapter.UtilitiesAdapter;
+import cmpt276.jade.carbontracker.database.DBAdapter;
+import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Emission;
-import cmpt276.jade.carbontracker.model.Tip;
 import cmpt276.jade.carbontracker.model.Utilities;
 import cmpt276.jade.carbontracker.utils.BillEditMode;
 import cmpt276.jade.carbontracker.utils.BillType;
@@ -72,7 +72,23 @@ public class Utilities_Activities extends AppCompatActivity {
         loadData();
     }
 
+    private void dbRefreshBillTable() {
+        DBAdapter db = new DBAdapter(this);
+        db.open();
+        db.deleteAll(DBAdapter.DB_TABLE.BILL);
+
+        for (Bill b : Emission.getInstance().getUtilities().getListBillElec()) {
+            db.insertRow(b);
+        }
+        for (Bill b : Emission.getInstance().getUtilities().getListBillGas()) {
+            db.insertRow(b);
+        }
+        db.close();
+    }
+
     private void loadData() {
+
+        dbRefreshBillTable();
 
         ListView listElec = (ListView) findViewById(R.id.list_elec);
         ListView listGas = (ListView) findViewById(R.id.list_gas);

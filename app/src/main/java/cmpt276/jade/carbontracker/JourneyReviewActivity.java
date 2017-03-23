@@ -106,14 +106,22 @@ public class JourneyReviewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText inputName = (EditText) findViewById(R.id.editJourneyName);
                 EditText inputDate = (EditText) findViewById(R.id.editDate);
-                String[] dateCheck = inputDate.getText().toString().trim().split("/", 3);
+                String date = inputDate.getText().toString();
+
+                date = date.replaceAll(".", "");
+                date= date.replaceAll("-", "");
+                String[] dateCheck = date.trim().split("/", 3);
                 int month = 0;
                 int day = 0;
                 int year = 0;
                 if (dateCheck.length == 3) {
-                    month = Integer.parseInt(dateCheck[1]);
-                    day = Integer.parseInt(dateCheck[0]);
-                    year = Integer.parseInt(dateCheck[2]);
+                    if(dateCheck[1].equals("") || dateCheck[0].equals("") || dateCheck[2].equals("") )
+                        inputDate.setError("Please Enter a valid date");
+                    else {
+                        month = Integer.parseInt(dateCheck[1]);
+                        day = Integer.parseInt(dateCheck[0]);
+                        year = Integer.parseInt(dateCheck[2]);
+                    }
                 } else {
                     inputDate.setError("Please Enter a valid date");
                 }
@@ -121,7 +129,11 @@ public class JourneyReviewActivity extends AppCompatActivity {
                     inputName.setError("Please Enter a nickname");
                 } else if (month < 1 || month > 12 || day < 1 || day > 31 || year < 1900 || year > 9999) {
                     inputDate.setError("Please Enter a valid date");
-                } else {
+                } else if((month == 2 && day > 28 && year % 4 != 0) || (month == 2 && day > 29 && year % 4 == 0)){
+                    inputDate.setError("Please Enter a valid date");
+                } else if(month == 4 || month == 6 || month == 9 || month == 11 && day > 30) {
+                    inputDate.setError("Please Enter a valid date");
+                }else{
 
 
                     storedJourney.setPosition(journey.getPosition());
