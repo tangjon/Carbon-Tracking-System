@@ -254,4 +254,8 @@
     <string name="label_unit_kWh">kWh</string>
     <string name="label_bill_display">kg CO2 / resident / day;</string>
 
+
+
+    <string name="label_next_hint">Show next hint</string>
+
 </resources>

@@ -37,7 +37,7 @@
         <activity android:name=".BusListActivity" />
         <activity android:name=".BusInfoActivity" />
         <activity android:name=".SkytrainInfoActivity" />
-        <activity android:name=".SkytrainListActivity"></activity>
+        <activity android:name=".SkytrainListActivity" />
     </application>
 
 </manifest>
