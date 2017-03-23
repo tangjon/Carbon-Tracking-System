@@ -82,27 +82,27 @@ public class Tip {
         }
         double totalJourneyEmissions=getTotalJourneyEmissions();
         if(totalWalk ==0.0 && walkTipsNotRepeat[0]>8) {
-            String tip= "You haven't walk today,"
-                    +"Walking have lots of benefits to your health. "
-                    +"Have a walk after dinner tomorrow.";
+            String tip= "You haven't walked today,"
+                    +"Walking has lots of health benefits. "
+                    +"Try walking tomorrow.";
             walkTipsNotRepeat[0]=1;
             return tip;
         }
         else if(totalWalk <2.8 && walkTipsNotRepeat[1]>8)
         {
-            String tip="The minimum standard for for young person is 4000 steps per day "
+            String tip="The minimum standard for a young person is 4000 steps per day "
                     + "which is around 2.8km. "
                     +"You have walked " + totalWalk
-                    +" km today.You can walk more by tomorrow.";
+                    +" km today.You should try taking another walk.";
             walkTipsNotRepeat[1]=1;
             return tip;
         }
         else if(totalWalk >=2.8 &&totalWalk <4.9&& walkTipsNotRepeat[2]>8)
         {
-            String tip="The minimum standard for young person is 4000 steps per day "
+            String tip="The minimum standard for a young person is 4000 steps per day "
                     + "which is around 2.8km. "
                     +"You have walked " + totalWalk
-                    +" km today.Well done!";
+                    +" km today. Well done!";
             walkTipsNotRepeat[2]=1;
             return tip;
         }
@@ -111,13 +111,13 @@ public class Tip {
             String tip="The normal standard for for young person is 7000 steps per day"
                     + "which is around 4.9 km. "
                     +"You have walked " + totalWalk
-                    +" km today.You can walk more by tomorrow.";
+                    +" km today. You should try taking another walk.";
             walkTipsNotRepeat[3]=1;
             return tip;
         }
         else if(totalWalk >=4.9 && totalWalk <7.0 && walkTipsNotRepeat[4]>8)
         {
-            String tip="The normal standard for for young person is 7000 steps per day"
+            String tip="The normal standard for a young person is 7000 steps per day"
                     + "which is around 4.9 km. "
                     +"You have walked " + totalWalk
                     +" km today. Well done!";
@@ -126,26 +126,26 @@ public class Tip {
         }
         else if(totalWalk >=4.9 && totalWalk <7.0 && walkTipsNotRepeat[5]>8)
         {
-            String tip="The healthy lifestyle for young person is 10000 steps per day"
+            String tip="The healthiest distance for a young person is 10000 steps per day"
                     + "which is around 7.0 km. "
                     +"You have walked " + totalWalk
-                    +" km today.You can walk more by tomorrow.";
+                    +" km today. You should try taking another walk.";
             walkTipsNotRepeat[5]=1;
             return tip;
         }
         else if(totalWalk >=7.0 && walkTipsNotRepeat[6]>8)
         {
-            String tip="The healthy lifestyle for young person is 10000 steps per day"
+            String tip="The healthiest distance for a young person is 10000 steps per day"
                     + "which is around 7.0 km. "
                     +"You have walked " + totalWalk
-                    +" km today.Well done!";
+                    +" km today. Well done!";
             walkTipsNotRepeat[6]=1;
             return tip;
         }
         else if(totalJourneyEmissions ==0 && totalWalk !=0 && walkTipsNotRepeat[7] >= 7)
         {
-            String tip="Emm, I see, you went outside on foot and didn't drove or took any trans. " +
-                    "The total emissions is 0. We can together make this a better world, well done.";
+            String tip="I see, you went outside and didn't drive or take any transit. " +
+                    "The total emissions is 0. We can make this a better world together, well done.";
             walkTipsNotRepeat[7] = 1;
             return tip;
         }
@@ -161,70 +161,70 @@ public class Tip {
         }
         double totalJourneyEmissions=getTotalJourneyEmissions();
         if (totalBike == 0.0 && bikeTipsNotRepeat[0] >8) {
-            String tip = "You haven't rode bike today,"
-                    + "Riding bike have lots of benefits to your health, "
-                    + "Have some ride by tomorrow.";
+            String tip = "You haven't rode your bike today,"
+                    + "Riding a bike has lots of benefits for your health, "
+                    + "Try riding it later today.";
             bikeTipsNotRepeat[0] = 1;
             return tip;
         }
         else if (totalBike > 0.0 && totalBike <= 6.0 && bikeTipsNotRepeat[1] >8) {
             String tip = "You rode " + totalBike
-                    + " km today. Ride bike around 5 km everyday,"
-                    + "could help boost estrogen and androgen levels.";
+                    + " km today. Ride your bike around 5 km everyday,"
+                    + "it can help boost estrogen and androgen levels.";
             bikeTipsNotRepeat[1] = 1;
             return tip;
         }
         else if (totalBike >= 5.0 && totalBike <= 10.0 && bikeTipsNotRepeat[2] >8) {
-            String tip = "The average daily distance recommended for most bicycle tourists per day"
+            String tip = "The average daily distance recommended for most cyclists"
                     + "is 5 km tO 10 km."
                     + "You rode " + totalBike
-                    + " km today.Well done!";
+                    + " km today. Well done!";
             bikeTipsNotRepeat[2] = 1;
             return tip;
         }
         else if (totalBike > 10.0 && totalBike < 30 && bikeTipsNotRepeat[3] >8) {
             String tip = "You rode " + totalBike
                     + " km today." +
-                    "It's not only good to your health, but also saved around 17kg carbon emission," +
-                    "which is world average carbon emission per person.";
+                    "It's not only good for your health, but you also saved around 17kg in carbon emissions," +
+                    "which is the world average carbon emission per person.";
             bikeTipsNotRepeat[3] = 1;
             return tip;
         }
         else if (totalBike >= 30.0 && totalBike < 64.37 && bikeTipsNotRepeat[4] >8) {
             String tip = "You rode " + totalBike
                     + " km today." +
-                    "It's not only good to your health, but also saved around 34 kg carbon emission," +
-                    "which is Canada average carbon emission.";
+                    "It's not only good for your health, but also saved around 34 kg in carbon emissions," +
+                    "which is a Canadian's average carbon emission.";
             bikeTipsNotRepeat[4] = 1;
             return tip;
         }
         else if (totalBike >= 64.37 && totalBike <= 96.56 && bikeTipsNotRepeat[6] >8) {
-            String tip = "The average daily distance for training recommended for most bicycle tourists per day"
-                    + "is 40 to 60 mile. Which is 64.37 km TO 96.56 km."
+            String tip = "The average daily distance for training cyclists "
+                    + "is 40 to 60 miles. Which is 64.37 km to 96.56 km."
                     + "You rode " + totalBike
-                    + " km today,and also saved around 66 kg carbon emission.";
+                    + " km today,and also saved around 66 kg in carbon emissions.";
             bikeTipsNotRepeat[6] = 1;
             return tip;
         }
         else if (totalBike >= 100 && totalBike <300 && bikeTipsNotRepeat[7] >8) {
-            String tip = "For strong physical training purpose,the recommended for most bicycle tourists per day"
+            String tip = "For professional training purposes,the recommended daily distance for most cyclists "
                     + "is over 100 km if you are beginner"
                     + "You rode " + totalBike
-                    + " km today. You are going to be the veteran!";
+                    + " km today. You are going to be a pro!";
             bikeTipsNotRepeat[7] = 1;
             return tip;
         }
         else if (totalBike >= 200 && totalBike <300 && bikeTipsNotRepeat[8] >8) {
-            String tip = "For strong physical training purpose,the recommended for most bicycle tourists per day"
+            String tip = "For rofessional training purposes, the recommended daily distance for most cyclists "
                     + "is around 200 km if you are veteran"
                     + "You rode " + totalBike
-                    + " km today.";
+                    + " km today. Wow!";
             bikeTipsNotRepeat[8] = 1;
             return tip;
         }
         else if (totalBike >= 300 && bikeTipsNotRepeat[9] >8) {
-            String tip = "For strong physical training purpose,the recommended for most bicycle tourists per day"
-                    + " is around 200 km if you are veteran. "
+            String tip = "For rofessional training purposes, the recommended daily distance for most cyclists "
+                    + "is around 200 km if you are veteran "
                     + "You rode " + totalBike
                     + " km today.You have rode too much, you may hurt yourself.";
             bikeTipsNotRepeat[9] = 1;
@@ -232,16 +232,16 @@ public class Tip {
         }
         else if(totalJourneyEmissions ==0 && totalBike !=0 && bikeTipsNotRepeat[10] >8)
         {
-            String tip="Emm, I see, you went outside by riding bike and didn't drove or took any trans. " +
-                    "The total emissions is 0. We can together make this a better world, well done.";
+            String tip="Emm, I see, you went outside by riding bike and didn't drive or took any transit. " +
+                    "The total emissions is 0. We can together to make this a better world, well done.";
             bikeTipsNotRepeat[10] = 1;
             return tip;
         }
         else if(totalCarEmission==0 && totalBike !=0 &&
                 totalJourneyEmissions !=0 && bikeTipsNotRepeat[11] >8) {
-            String tip="Emm, I see, you went outside by riding bike and public transportation. " +
-                    "The total emissions by transportation is: " +totalJourneyEmissions+
-                    ". You tried best to make this a better world, well done.";
+            String tip="Emm, I see, you went outside by riding your bike and taking public transportation. " +
+                    "The total emissions from transit is: " +totalJourneyEmissions+
+                    ". You tried your best to make this a better world, well done.";
             bikeTipsNotRepeat[11] = 1;
             return tip;
         }
@@ -264,7 +264,7 @@ public class Tip {
         if(totalJourneyEmissions ==0 && totalBike ==0 && totalWalk ==0 &&
                 journeyEmissionsTipsNotRepeat[0] >8)
         {
-            String tip="You didn't went outside today, not good to your health, "
+            String tip="You didn't go outside today, that is not good for your health, "
                     +" call yours friends, have some fun outside tomorrow.";
             journeyEmissionsTipsNotRepeat[0] = 1;
             return tip;
@@ -275,7 +275,7 @@ public class Tip {
             String tip="The maximum amount of CO2 a person should produce per year in "
                     + "order to halt climate change is 5.48 kg."
                     +"Your TotalEmissions is :"+ totalJourneyEmissions
-                    +", which is below that. We can together make this a better world, well done.";
+                    +", which is below that. We can all help make this a better world, well done.";
             journeyEmissionsTipsNotRepeat[1] = 1;
             return tip;
         }
