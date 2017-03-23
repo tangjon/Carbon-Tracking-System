@@ -46,7 +46,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 25;
+    public static final int DATABASE_VERSION = 26;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -118,7 +118,7 @@ public class DBAdapter {
     public static final String KEY_CAR_NICK_NAME = "car_nick_name";
     public static final String KEY_CAR_TRANS_DESCRIPTION = "car_descrip";
     public static final String KEY_CAR_YEAR = "car_year";
-    public static final String KEY_CAR_TAG = "car_tag";
+    public static final String KEY_CAR_TAG_ID = "car_tag";
 
 
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
@@ -134,7 +134,7 @@ public class DBAdapter {
     public static final int COL_CAR_NICK_NAME = 10;
     public static final int COL_CAR_TRANS_DESCRIPTION = 11;
     public static final int COL_CAR_YEAR = 12;
-    public static final int COL_CAR_TAG = 13;
+    public static final int COL_CAR_TAG_ID = 13;
 
     // ALL KEYS (Contains all KEYS in array of strings) (DETERMINES THE COLUMNS NUMBERS)
     public static final String[] ALL_CAR_KEYS = new String[]{
@@ -151,7 +151,7 @@ public class DBAdapter {
             KEY_CAR_NICK_NAME,
             KEY_CAR_TRANS_DESCRIPTION,
             KEY_CAR_YEAR,
-            KEY_CAR_TAG};
+            KEY_CAR_TAG_ID};
 
     // Create the Data Base (SQL)
     private static final String CREATE_TABLE_CAR =
@@ -171,7 +171,7 @@ public class DBAdapter {
                     + KEY_CAR_NICK_NAME + " text, "
                     + KEY_CAR_TRANS_DESCRIPTION + " text, "
                     + KEY_CAR_YEAR + " integer, "
-                    + KEY_CAR_TAG + " integer"
+                    + KEY_CAR_TAG_ID + " integer"
 
                     // Rest  of creation:
                     + ");";
@@ -326,7 +326,6 @@ public class DBAdapter {
             "create table " + TABLE_BILL
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
 
-                    // TODO: Place your fields here!
                     + KEY_BILL_TYPE + " int, "
                     + KEY_BILL_START_DATE + " int, "
                     + KEY_BILL_END_DATE + " int, "
@@ -447,12 +446,12 @@ public class DBAdapter {
 
     /****************************************
      * INSERT FUNCTIONS
-     * *** STEP 1 create a insert function
+     * *** TODO: STEP XXX create a insert function
      * ****************************************/
 
-    public long insertCar(Car car) {
-		/*
-		 * CHANGE 3:
+    public long insertRow(Car car, TAG_ID tag_id) {
+        /*
+         * CHANGE 3:
 		 */
         // TODO: Update data in the row with new fields.
         // TODO: Also change the function's arguments to be what you need!
@@ -470,35 +469,15 @@ public class DBAdapter {
         initialValues.put(KEY_CAR_NICK_NAME, car.getNickName());
         initialValues.put(KEY_CAR_TRANS_DESCRIPTION, car.getTransDescription());
         initialValues.put(KEY_CAR_YEAR, car.getYear());
-        initialValues.put(KEY_CAR_TAG, 0);
-
-        // Insert it into the database.
-        return db.insert(TABLE_CAR, null, initialValues);
-    }
-
-    public long insertRecentCar(Car car) {
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_CAR_CARBON_TAIL_PIPE, car.getCarbonTailPipe());
-        initialValues.put(KEY_CAR_CITY_MPG, car.getCityMPG());
-        initialValues.put(KEY_CAR_ENGINE_DESCRIPTION, car.getEngineDescription());
-        initialValues.put(KEY_CAR_ENGINE_DISP_LITRES, car.getEngineDispLitres());
-        initialValues.put(KEY_CAR_FUEL_ANNUAL_COST, car.getFuelAnnualCost());
-        initialValues.put(KEY_CAR_FUEL_TYPE, car.getFuelType());
-        initialValues.put(KEY_CAR_HIGHWAY_MPG, car.getHighwayMPG());
-        initialValues.put(KEY_CAR_MAKE, car.getMake());
-        initialValues.put(KEY_CAR_MODEL, car.getModel());
-        initialValues.put(KEY_CAR_NICK_NAME, car.getNickName());
-        initialValues.put(KEY_CAR_TRANS_DESCRIPTION, car.getTransDescription());
-        initialValues.put(KEY_CAR_YEAR, car.getYear());
-        initialValues.put(KEY_CAR_TAG, 1);
+        initialValues.put(KEY_CAR_TAG_ID, tag_id.ordinal());
 
         // Insert it into the database.
         return db.insert(TABLE_CAR, null, initialValues);
     }
 
     public long insertRow(Bill bill) {
-		/*
-		 * CHANGE 3:
+        /*
+         * CHANGE 3:
 		 */
         // TODO: Update data in the row with new fields.
         // TODO: Also change the function's arguments to be what you need!
@@ -570,7 +549,7 @@ public class DBAdapter {
         switch (mode) {
             case CAR:
                 // Insert Car
-                long carID = insertCar(journey.getTransType().getCar());
+                long carID = insertRow(journey.getTransType().getCar(), TAG_ID.MAIN);
                 initialValues.put(KEY_TRANSPORT_OBJECT_ID, carID);
                 break;
             case BIKE:
@@ -599,7 +578,7 @@ public class DBAdapter {
      * *** STEP 3 Create a getter for object
      * ****************************************/
 
-    // Todo: STEP XXXX
+    // *** Todo: STEP XXXX
     // Return all rows in the table.
     public Cursor getAllRows(DB_TABLE table) {
         String where = null;
@@ -650,7 +629,7 @@ public class DBAdapter {
         return c;
     }
 
-    // Todo: STEP XXXX
+    //*** Todo: STEP XXXX
     // Get a specific row (by rowId and Table)
     public Cursor getRow(DB_TABLE table, long rowId) {
         String where = KEY_ROWID + "=" + rowId;
@@ -815,7 +794,6 @@ public class DBAdapter {
         return billList;
     }
 
-    // [DONE]
     public Route getRoute(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
@@ -856,7 +834,6 @@ public class DBAdapter {
         return rC;
     }
 
-    // [DONE]
     public Car getCar(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
@@ -917,6 +894,31 @@ public class DBAdapter {
         return cC;
     }
 
+    public CarCollection getAllCars(TAG_ID tag_id) { // Get All Cars with a certain tag_id
+        String message = "";
+        // populate the message from the cursor
+
+        CarCollection cC = new CarCollection();
+        Cursor cursor = getAllRows(DB_TABLE.CAR);
+
+        // Reset cursor to start, checking to see if there's data:
+        if (cursor.moveToFirst()) {
+            do {
+                int this_tag_id = cursor.getInt(COL_CAR_TAG_ID);
+                if (tag_id.ordinal() == this_tag_id) {
+                    long row = cursor.getLong(COL_ROWID);
+                    Car car = getCar(row);
+                    cC.add(car);
+                    Log.i(TAG, "get " + tag_id + ": " + car.toString());
+                }
+            } while (cursor.moveToNext());
+        }
+
+        // Close the cursor to avoid a resource leak.
+        cursor.close();
+        return cC;
+    }
+
     // Todo save recentCars
     public CarCollection getAllRecentCars() {
         String message = "";
@@ -941,7 +943,7 @@ public class DBAdapter {
                 String model = cursor.getString(DBAdapter.COL_CAR_MODEL);
                 String nickName = cursor.getString(DBAdapter.COL_CAR_NICK_NAME);
                 String transDescription = cursor.getString(DBAdapter.COL_CAR_TRANS_DESCRIPTION);
-                int isRecent = cursor.getInt(COL_CAR_TAG);
+                int isRecent = cursor.getInt(COL_CAR_TAG_ID);
 
                 if (isRecent == 1) {
                     cC.add(new Car(nickName, make, model, year, cityMPG, highwayMPG,
@@ -1032,8 +1034,6 @@ public class DBAdapter {
         return train;
     }
 
-
-
     public boolean updateJourney(Journey j) {
         deleteJourney(j);
         insertRow(j);
@@ -1059,8 +1059,6 @@ public class DBAdapter {
         // Insert it into the database.
         return db.update(DATABASE_NAME, newValues, where, null) != 0;
     }
-
-
 
     /****************************************
      * PRIVATE HELPER STUFF
@@ -1173,6 +1171,17 @@ public class DBAdapter {
         @Override
         public String toString() {
             return name;
+        }
+    }
+
+    // Differential Between a Transport in Journey and Recent Transport
+    public static enum TAG_ID {
+        RECENT("Recent"), MAIN("Main");
+
+        private String name;
+
+        private TAG_ID(String name) {
+            this.name = name;
         }
     }
 }

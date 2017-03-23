@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -125,6 +126,12 @@ public class Welcome_Activity extends AppCompatActivity {
             }
         }
 
+        // Load Recent CarList
+        myDb.insertRow(GenerateDummyData.generateCar(), DBAdapter.TAG_ID.RECENT);
+        myDb.insertRow(GenerateDummyData.generateCar(), DBAdapter.TAG_ID.RECENT);
+        boolean bool = CarListActivity.recentCarList.setCarList(myDb.getAllCars(DBAdapter.TAG_ID.RECENT).toList());
+        Toast.makeText(this, "" + bool, Toast.LENGTH_SHORT).show();
+
 
     }
 
@@ -164,7 +171,7 @@ public class Welcome_Activity extends AppCompatActivity {
         db.open();
         // TEST CAR
         Car car = GenerateDummyData.generateCar();
-        long carID = db.insertCar(car);
+        long carID = db.insertRow(car, DBAdapter.TAG_ID.MAIN);
         Car recCar = db.getCar(carID);
         Log.i(TAG, "testDataBaseSaveAndLoad: " + recCar.toString());
         // TEST ROUTE

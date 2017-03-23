@@ -124,6 +124,14 @@ public class CarCollection {
         return null;
     }
 
+    public boolean setCarList(List<Car> lst){
+        if(lst != null){
+            carList = lst;
+            return true;
+        }
+        return false;
+    }
+
     public int getIndexOf(Car searchCar) {
         int i = 0;
         for (Car car : carList) {
