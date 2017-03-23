@@ -198,8 +198,8 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     for (Journey j : jc.getJourneyList()) {
         Log.i(TAG, "setupTips: Journey:" + j.getDateObj().toString());
         Log.i(TAG, "setupTips: Current:" + dateSelected.toString());
-        //TODO JOURNEY DATE STILL WRONG, CAN'T COMPARE THESE
-        //if(Graph.compareDates(j.getDateObj(),dateSelected) == 0) {
+    
+        if(Graph.compareDates(j.getDateObj(),dateSelected) == 0) {
             Transport mode = j.getTransType().getTransMode();
             switch (mode) {
                 case CAR:
@@ -217,7 +217,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                 case SKYTRAIN:
                     SkyTrainEmission += j.getTotalTravelledEmissions();
                     break;
-            //}
+            }
         }
     }
         tip.setTotalCarEmissions(CarEmissions);
