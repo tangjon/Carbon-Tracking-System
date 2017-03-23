@@ -184,12 +184,14 @@ public class DBAdapter {
     public static final String KEY_ROUTE_OTHER_DISTANCE = "other_distance";
     public static final String KEY_ROUTE_MODE = "mode";
     public static final String KEY_ROUTE_NAME = "name";
+    public static final String KEY_ROUTE_TAG_ID = "route_tag_id";
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
     public static final int COL_ROUTE_CITY_DISTANCE = 1;
     public static final int COL_ROUTE_HIGH_WAY_DISTANCE = 2;
     public static final int COL_ROUTE_OTHER_DISTANCE = 3;
     public static final int COL_ROUTE_MODE = 4;
     public static final int COL_ROUTE_NAME = 5;
+    public static final int COL_ROUTE_TAG_ID = 6;
     // ALL KEYS
     public static final String[] ALL_ROUTE_KEYS = new String[]{
             KEY_ROWID,
@@ -197,7 +199,8 @@ public class DBAdapter {
             KEY_ROUTE_HIGH_WAY_DISTANCE,
             KEY_ROUTE_OTHER_DISTANCE,
             KEY_ROUTE_MODE,
-            KEY_ROUTE_NAME
+            KEY_ROUTE_NAME,
+            KEY_ROUTE_TAG_ID
     };
 
     // Create the Data Base (SQL)
@@ -219,7 +222,8 @@ public class DBAdapter {
                     + KEY_ROUTE_HIGH_WAY_DISTANCE + " real,"
                     + KEY_ROUTE_OTHER_DISTANCE + " real,"
                     + KEY_ROUTE_MODE + " integer,"
-                    + KEY_ROUTE_NAME + " text"
+                    + KEY_ROUTE_NAME + " text,"
+                    + KEY_ROUTE_TAG_ID + " integer"
                     // Rest  of creation:
                     + ");";
 
