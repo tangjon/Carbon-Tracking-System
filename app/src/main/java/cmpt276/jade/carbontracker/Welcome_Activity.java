@@ -11,8 +11,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
+import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
@@ -92,12 +95,37 @@ public class Welcome_Activity extends AppCompatActivity {
         myDb.open();
         // Load Vehicles.csv
         Emission.getInstance().setCarCollection(new CarCollection(CarManager.readCarData(this, R.raw.vehicle_trimmed)));
-        // Load Saved JourneyList
-        JourneyCollection jC = myDb.getAllJourney();
-        Emission.getInstance().setJourneyCollection(jC);
+        // Load Read from DataBase
+        loadInformationFromDataBase();
 
         // TODO REMOVE THIS
-         generateDummyJourneys();
+        // generateDummyJourneys();
+    }
+
+    private void loadInformationFromDataBase(){
+        myDb = new DBAdapter(this);
+        myDb.open();
+        // Load Saved JourneyList
+        JourneyCollection dbJC = myDb.getAllJourney();
+        Emission.getInstance().setJourneyCollection(dbJC);
+
+        // Load Saved Bills
+        List<Bill> dbBills =  myDb.getAllBills();
+        if(!dbBills.isEmpty()){
+            for (Bill b: dbBills) {
+                Log.i(TAG, "loadInformationFromDataBase: " + b.toString());
+                switch (b.getBillType()){
+                    case GAS:
+                        Emission.getInstance().getUtilities().getListBillGas().add(b);
+                        break;
+                    case ELECTRIC:
+                        Emission.getInstance().getUtilities().getListBillElec().add(b);
+                        break;
+                }
+            }
+        }
+
+
     }
 
     private void generateDummyJourneys() {
