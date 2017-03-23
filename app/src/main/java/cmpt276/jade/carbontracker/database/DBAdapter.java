@@ -82,7 +82,7 @@ public class DBAdapter {
     public static final int COL_JOURNEY_ROUTE_ID = 4;
     public static final int COL_TRANSPORT_OBJECT_ID = 5;
     // ALL KEYS
-    public static final String[] ALL_JOURNEY_KEYS = new String[] {
+    public static final String[] ALL_JOURNEY_KEYS = new String[]{
             KEY_ROWID,
             KEY_JOURNEY_NAME,
             KEY_JOURNEY_TRANS_TYPE,
@@ -137,7 +137,7 @@ public class DBAdapter {
     public static final int COL_CAR_TAG = 13;
 
     // ALL KEYS (Contains all KEYS in array of strings) (DETERMINES THE COLUMNS NUMBERS)
-    public static final String[] ALL_CAR_KEYS = new String[] {
+    public static final String[] ALL_CAR_KEYS = new String[]{
             KEY_ROWID,
             KEY_CAR_CARBON_TAIL_PIPE,
             KEY_CAR_CITY_MPG,
@@ -177,12 +177,11 @@ public class DBAdapter {
                     + ");";
 
 
-
     // TODO: Setup Route Fields Here
 
     public static final String KEY_ROUTE_CITY_DISTANCE = "city_distance";
     public static final String KEY_ROUTE_HIGH_WAY_DISTANCE = "high_way_distance";
-    public static final String KEY_ROUTE_OTHER_DISTANCE = "other_distance" ;
+    public static final String KEY_ROUTE_OTHER_DISTANCE = "other_distance";
     public static final String KEY_ROUTE_MODE = "mode";
     public static final String KEY_ROUTE_NAME = "name";
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
@@ -192,7 +191,7 @@ public class DBAdapter {
     public static final int COL_ROUTE_MODE = 4;
     public static final int COL_ROUTE_NAME = 5;
     // ALL KEYS
-    public static final String[] ALL_ROUTE_KEYS = new String[] {
+    public static final String[] ALL_ROUTE_KEYS = new String[]{
             KEY_ROWID,
             KEY_ROUTE_CITY_DISTANCE,
             KEY_ROUTE_HIGH_WAY_DISTANCE,
@@ -207,7 +206,7 @@ public class DBAdapter {
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
 
 			/*
-			 * CHANGE 2:
+             * CHANGE 2:
 			 */
                     // TODO: Place your fields here!
                     // + KEY_{...} + " {type} not null"
@@ -216,11 +215,11 @@ public class DBAdapter {
                     //		(http://www.sqlite.org/datatype3.html)
                     //  - "not null" means it is a required field (must be given a value).
                     // NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
-                    +KEY_ROUTE_CITY_DISTANCE+" real,"
-                    +KEY_ROUTE_HIGH_WAY_DISTANCE+" real,"
-                    +KEY_ROUTE_OTHER_DISTANCE+" real,"
-                    +KEY_ROUTE_MODE+" integer,"
-                    +KEY_ROUTE_NAME+" text"
+                    + KEY_ROUTE_CITY_DISTANCE + " real,"
+                    + KEY_ROUTE_HIGH_WAY_DISTANCE + " real,"
+                    + KEY_ROUTE_OTHER_DISTANCE + " real,"
+                    + KEY_ROUTE_MODE + " integer,"
+                    + KEY_ROUTE_NAME + " text"
                     // Rest  of creation:
                     + ");";
 
@@ -233,7 +232,7 @@ public class DBAdapter {
     public static final int COL_BUS_ROUTE_NUMBER = 2;
 
     // ALL KEYS
-    public static final String[] ALL_BUS_KEYS = new String[] {
+    public static final String[] ALL_BUS_KEYS = new String[]{
             KEY_ROWID,
             KEY_BUS_NICK_NAME,
             KEY_BUS_ROUTE_NUMBER
@@ -260,11 +259,11 @@ public class DBAdapter {
     private static final int COL_SKYTRAIN_BOARDING_STATION = 2;
     private static final int COL_SKYTRAIN_LINE = 3;
     // ALL KEYS
-    public static final String[] ALL_SKYTRAIN_KEYS = new String[] {
+    public static final String[] ALL_SKYTRAIN_KEYS = new String[]{
             KEY_ROWID,
             KEY_SKYTRAIN_NICK_NAME,
             KEY_SKYTRAIN_BOARDING_STATION,
-            KEY_SKYTRAIN_LINE };
+            KEY_SKYTRAIN_LINE};
 
     // Create the Data Base (SQL)
     private static final String CREATE_TABLE_SKYTRAIN =
@@ -280,23 +279,22 @@ public class DBAdapter {
                     + ");";
 
 
-
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
     // ALL KEYS
-    public static final String[] ALL_WALK_KEYS = new String[] {
+    public static final String[] ALL_WALK_KEYS = new String[]{
     };
     // Create the Data Base (SQL)
 
     // TODO: Setup Bike Fields Here
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
     // ALL KEYS
-    public static final String[] ALL_BIKE_KEYS = new String[] {
+    public static final String[] ALL_BIKE_KEYS = new String[]{
     };
     // Create the Data Base (SQL)
     // TODO: Setup Transit Fields Here
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
     // ALL KEYS
-    public static final String[] ALL_TRANSIT_KEYS = new String[] {
+    public static final String[] ALL_TRANSIT_KEYS = new String[]{
     };
     // Create the Data Base (SQL)
 
@@ -316,7 +314,7 @@ public class DBAdapter {
     public static final int COL_BILL_INPUT = 4;
 
     // ALL KEYS
-    public static final String[] ALL_BILL_KEYS = new String[] {
+    public static final String[] ALL_BILL_KEYS = new String[]{
             KEY_ROWID,
             KEY_BILL_TYPE,
             KEY_BILL_START_DATE,
@@ -377,10 +375,10 @@ public class DBAdapter {
         return db.delete(table.toString(), where, null) != 0;
     }
 
-    public void deleteJourney(Journey j){
+    public void deleteJourney(Journey j) {
 
         Log.i(TAG, "deleteJourney: " + j.toString());
-        long rowId =j.getID();
+        long rowId = j.getID();
         String where = KEY_ROWID + "=" + rowId;
 
         Cursor c = db.query(true, TABLE_JOURNEY, ALL_JOURNEY_KEYS,
@@ -390,7 +388,7 @@ public class DBAdapter {
             c.moveToFirst();
         }
 
-        if(c.getCount() > 0 ) {
+        if (c.getCount() > 0) {
             String TRANS_TYPE = c.getString(COL_JOURNEY_TRANS_TYPE);
             long routeID = c.getInt(COL_JOURNEY_ROUTE_ID);
 
@@ -399,7 +397,7 @@ public class DBAdapter {
             transportation.setTransMode(buffTrans(TRANS_TYPE));
 
             // Delete Transport Object
-            switch (transportation.getTransMode()){
+            switch (transportation.getTransMode()) {
                 case CAR:
                     long CAR_ID = c.getInt(COL_TRANSPORT_OBJECT_ID);
                     deleteRow(DB_TABLE.CAR, CAR_ID);
@@ -436,10 +434,10 @@ public class DBAdapter {
         long rowId = c.getColumnIndexOrThrow(KEY_ROWID);
         if (c.moveToFirst()) {
             do {
-                deleteRow(table,c.getLong((int) rowId));
+                deleteRow(table, c.getLong((int) rowId));
             } while (c.moveToNext());
         }
-        if(table.equals(DB_TABLE.JOURNEY)){
+        if (table.equals(DB_TABLE.JOURNEY)) {
             deleteAll(DB_TABLE.CAR);
             deleteAll(DB_TABLE.ROUTE);
             deleteAll(DB_TABLE.SKYTRAIN);
@@ -448,57 +446,6 @@ public class DBAdapter {
         c.close();
     }
 
-
-    // [UPDATE]
-    // Return all data in the database.
-    public Cursor getAllRows(DB_TABLE table) {
-        String where = null;
-        Cursor c = null;
-        switch(table){
-            case CAR:
-                c =	db.query(true, table.toString(), ALL_CAR_KEYS,
-                        where, null, null, null, null, null);
-                break;
-            case ROUTE:
-                c =	db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
-                        where, null, null, null, null, null);
-                break;
-            case JOURNEY:
-                c =	db.query(true, TABLE_JOURNEY, ALL_JOURNEY_KEYS,
-                        where, null, null, null, null, null);
-                break;
-            case BILL:
-                c =	db.query(true, TABLE_BILL, ALL_BILL_KEYS,
-                        where, null, null, null, null, null);
-                break;
-            case BUS:
-                c =	db.query(true, TABLE_BUS, ALL_BUS_KEYS,
-                        where, null, null, null, null, null);
-                break;
-            case SKYTRAIN:
-                c =	db.query(true, TABLE_SKYTRAIN, ALL_SKYTRAIN_KEYS,
-                        where, null, null, null, null, null);
-                break;
-            case WALK:
-                c =	db.query(true, TABLE_WALK, ALL_WALK_KEYS,
-                        where, null, null, null, null, null);
-                break;
-            case BIKE:
-                c =	db.query(true, TABLE_BIKE, ALL_BIKE_KEYS,
-                        where, null, null, null, null, null);
-                break;
-            case TRANSIT:
-                c =	db.query(true, TABLE_TRANSIT, ALL_TRANSIT_KEYS,
-                        where, null, null, null, null, null);
-                break;
-        }
-
-
-        if (c != null) {
-            c.moveToFirst();
-        }
-        return c;
-    }
 
     // *********************
     // INSERT FUNCTIONS
@@ -514,43 +461,44 @@ public class DBAdapter {
         // TODO: Also change the function's arguments to be what you need!
         // Create row's data:
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_CAR_CARBON_TAIL_PIPE,car.getCarbonTailPipe());
-        initialValues.put(KEY_CAR_CITY_MPG,car.getCityMPG());
-        initialValues.put(KEY_CAR_ENGINE_DESCRIPTION,car.getEngineDescription());
-        initialValues.put(KEY_CAR_ENGINE_DISP_LITRES,car.getEngineDispLitres());
-        initialValues.put(KEY_CAR_FUEL_ANNUAL_COST,car.getFuelAnnualCost());
-        initialValues.put(KEY_CAR_FUEL_TYPE,car.getFuelType());
-        initialValues.put(KEY_CAR_HIGHWAY_MPG,car.getHighwayMPG());
-        initialValues.put(KEY_CAR_MAKE,car.getMake());
-        initialValues.put(KEY_CAR_MODEL,car.getModel());
-        initialValues.put(KEY_CAR_NICK_NAME,car.getNickName());
-        initialValues.put(KEY_CAR_TRANS_DESCRIPTION,car.getTransDescription());
-        initialValues.put(KEY_CAR_YEAR,car.getYear());
+        initialValues.put(KEY_CAR_CARBON_TAIL_PIPE, car.getCarbonTailPipe());
+        initialValues.put(KEY_CAR_CITY_MPG, car.getCityMPG());
+        initialValues.put(KEY_CAR_ENGINE_DESCRIPTION, car.getEngineDescription());
+        initialValues.put(KEY_CAR_ENGINE_DISP_LITRES, car.getEngineDispLitres());
+        initialValues.put(KEY_CAR_FUEL_ANNUAL_COST, car.getFuelAnnualCost());
+        initialValues.put(KEY_CAR_FUEL_TYPE, car.getFuelType());
+        initialValues.put(KEY_CAR_HIGHWAY_MPG, car.getHighwayMPG());
+        initialValues.put(KEY_CAR_MAKE, car.getMake());
+        initialValues.put(KEY_CAR_MODEL, car.getModel());
+        initialValues.put(KEY_CAR_NICK_NAME, car.getNickName());
+        initialValues.put(KEY_CAR_TRANS_DESCRIPTION, car.getTransDescription());
+        initialValues.put(KEY_CAR_YEAR, car.getYear());
         initialValues.put(KEY_CAR_TAG, 0);
 
         // Insert it into the database.
         return db.insert(TABLE_CAR, null, initialValues);
     }
 
-    public long insertRecentCar(Car car){
+    public long insertRecentCar(Car car) {
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_CAR_CARBON_TAIL_PIPE,car.getCarbonTailPipe());
-        initialValues.put(KEY_CAR_CITY_MPG,car.getCityMPG());
-        initialValues.put(KEY_CAR_ENGINE_DESCRIPTION,car.getEngineDescription());
-        initialValues.put(KEY_CAR_ENGINE_DISP_LITRES,car.getEngineDispLitres());
-        initialValues.put(KEY_CAR_FUEL_ANNUAL_COST,car.getFuelAnnualCost());
-        initialValues.put(KEY_CAR_FUEL_TYPE,car.getFuelType());
-        initialValues.put(KEY_CAR_HIGHWAY_MPG,car.getHighwayMPG());
-        initialValues.put(KEY_CAR_MAKE,car.getMake());
-        initialValues.put(KEY_CAR_MODEL,car.getModel());
-        initialValues.put(KEY_CAR_NICK_NAME,car.getNickName());
-        initialValues.put(KEY_CAR_TRANS_DESCRIPTION,car.getTransDescription());
-        initialValues.put(KEY_CAR_YEAR,car.getYear());
+        initialValues.put(KEY_CAR_CARBON_TAIL_PIPE, car.getCarbonTailPipe());
+        initialValues.put(KEY_CAR_CITY_MPG, car.getCityMPG());
+        initialValues.put(KEY_CAR_ENGINE_DESCRIPTION, car.getEngineDescription());
+        initialValues.put(KEY_CAR_ENGINE_DISP_LITRES, car.getEngineDispLitres());
+        initialValues.put(KEY_CAR_FUEL_ANNUAL_COST, car.getFuelAnnualCost());
+        initialValues.put(KEY_CAR_FUEL_TYPE, car.getFuelType());
+        initialValues.put(KEY_CAR_HIGHWAY_MPG, car.getHighwayMPG());
+        initialValues.put(KEY_CAR_MAKE, car.getMake());
+        initialValues.put(KEY_CAR_MODEL, car.getModel());
+        initialValues.put(KEY_CAR_NICK_NAME, car.getNickName());
+        initialValues.put(KEY_CAR_TRANS_DESCRIPTION, car.getTransDescription());
+        initialValues.put(KEY_CAR_YEAR, car.getYear());
         initialValues.put(KEY_CAR_TAG, 1);
 
         // Insert it into the database.
         return db.insert(TABLE_CAR, null, initialValues);
     }
+
     /* [DONE] */
     public long insertRow(Bill bill) {
 		/*
@@ -575,11 +523,11 @@ public class DBAdapter {
         // TODO: Update data in the row with new fields.
         // TODO: Also change the function's arguments to be what you need!
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_ROUTE_NAME, route.getName() );
-        initialValues.put(KEY_ROUTE_HIGH_WAY_DISTANCE, route.getHighWayDistance() );
-        initialValues.put(KEY_ROUTE_CITY_DISTANCE, route.getCityDistance() );
-        initialValues.put(KEY_ROUTE_OTHER_DISTANCE, route.getOtherDistance() );
-        initialValues.put(KEY_ROUTE_MODE, route.getMode() );
+        initialValues.put(KEY_ROUTE_NAME, route.getName());
+        initialValues.put(KEY_ROUTE_HIGH_WAY_DISTANCE, route.getHighWayDistance());
+        initialValues.put(KEY_ROUTE_CITY_DISTANCE, route.getCityDistance());
+        initialValues.put(KEY_ROUTE_OTHER_DISTANCE, route.getOtherDistance());
+        initialValues.put(KEY_ROUTE_MODE, route.getMode());
         // Insert it into the database.
         return db.insert(TABLE_ROUTE, null, initialValues);
     }
@@ -589,8 +537,8 @@ public class DBAdapter {
         // TODO: Update data in the row with new fields.
         // TODO: Also change the function's arguments to be what you need!
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_BUS_NICK_NAME, bus.getNickName() );
-        initialValues.put(KEY_BUS_ROUTE_NUMBER, bus.getRouteNumber() );
+        initialValues.put(KEY_BUS_NICK_NAME, bus.getNickName());
+        initialValues.put(KEY_BUS_ROUTE_NUMBER, bus.getRouteNumber());
         // Insert it into the database.
         return db.insert(TABLE_BUS, null, initialValues);
     }
@@ -599,12 +547,13 @@ public class DBAdapter {
         // TODO: Update data in the row with new fields.
         // TODO: Also change the function's arguments to be what you need!
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_SKYTRAIN_NICK_NAME, skytrain.getNickName() );
-        initialValues.put(KEY_SKYTRAIN_BOARDING_STATION, skytrain.getBoardingStation() );
-        initialValues.put(KEY_SKYTRAIN_LINE, skytrain.getSkytrainLine() );
+        initialValues.put(KEY_SKYTRAIN_NICK_NAME, skytrain.getNickName());
+        initialValues.put(KEY_SKYTRAIN_BOARDING_STATION, skytrain.getBoardingStation());
+        initialValues.put(KEY_SKYTRAIN_LINE, skytrain.getSkytrainLine());
         // Insert it into the database.
         return db.insert(TABLE_SKYTRAIN, null, initialValues);
     }
+
     // *** STEP 2 ATTACH TO JOURNEY TABLE
     public long insertRow(Journey journey) {
         // TODO: Update data in the row with new fields.
@@ -612,7 +561,7 @@ public class DBAdapter {
         ContentValues initialValues = new ContentValues();
 
         // Insert Journey Info
-        initialValues.put(KEY_JOURNEY_NAME, journey.getName() );
+        initialValues.put(KEY_JOURNEY_NAME, journey.getName());
         initialValues.put(KEY_JOURNEY_TRANS_TYPE, journey.getTransType().getTransMode().toString());
         initialValues.put(KEY_JOURNEY_DATE, journey.getDate());
 
@@ -624,7 +573,7 @@ public class DBAdapter {
         // (1) Insert Object
         // (2) Attach id to KEY_TRANSPORT_OBJECT_ID
         Transport mode = journey.getTransType().getTransMode();
-        switch (mode){
+        switch (mode) {
             case CAR:
                 // Insert Car
                 long carID = insertCar(journey.getTransType().getCar());
@@ -651,14 +600,64 @@ public class DBAdapter {
         return db.insert(TABLE_JOURNEY, null, initialValues);
     }
 
-    // ==========================
-    // GETTERS
-    // *** STEP 3 Create a getter for object
-    // ==========================
-    // ***************************************
+    /****************************************
+     * GETTERS
+     * *** STEP 3 Create a getter for object
+     * ****************************************/
+
+    // [UPDATE]
+    // Return all rows in the table.
+    public Cursor getAllRows(DB_TABLE table) {
+        String where = null;
+        Cursor c = null;
+        switch (table) {
+            case CAR:
+                c = db.query(true, table.toString(), ALL_CAR_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case ROUTE:
+                c = db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case JOURNEY:
+                c = db.query(true, TABLE_JOURNEY, ALL_JOURNEY_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case BILL:
+                c = db.query(true, TABLE_BILL, ALL_BILL_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case BUS:
+                c = db.query(true, TABLE_BUS, ALL_BUS_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case SKYTRAIN:
+                c = db.query(true, TABLE_SKYTRAIN, ALL_SKYTRAIN_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case WALK:
+                c = db.query(true, TABLE_WALK, ALL_WALK_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case BIKE:
+                c = db.query(true, TABLE_BIKE, ALL_BIKE_KEYS,
+                        where, null, null, null, null, null);
+                break;
+            case TRANSIT:
+                c = db.query(true, TABLE_TRANSIT, ALL_TRANSIT_KEYS,
+                        where, null, null, null, null, null);
+                break;
+        }
+
+
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
 
     // *** STEP 4 Attach getter Journey
-    public Journey getJourney(long rowId){
+    public Journey getJourney(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
         Cursor c = db.query(true, TABLE_JOURNEY, ALL_JOURNEY_KEYS,
@@ -682,7 +681,7 @@ public class DBAdapter {
         transportation.setTransMode(buffTrans(TRANS_TYPE));
         // (1) Get Object
         // (2) Attach id to Transportation Object
-        switch (transportation.getTransMode()){
+        switch (transportation.getTransMode()) {
             case CAR:
                 long CAR_ID = c.getInt(COL_TRANSPORT_OBJECT_ID);
                 transportation.setCar(getCar(CAR_ID));
@@ -702,7 +701,7 @@ public class DBAdapter {
                 transportation.setSkytrain(getSkytrain(trainID));
                 break;
         }
-        Journey j = new Journey(name, transportation,route);
+        Journey j = new Journey(name, transportation, route);
         j.setID(ID);
         j.setDate(DATE);
         Log.i(TAG, "getJourney: " + j.toString());
@@ -710,8 +709,8 @@ public class DBAdapter {
         return j;
     }
 
-    public JourneyCollection getAllJourney(){
-        Cursor cursor =  getAllRows(DB_TABLE.JOURNEY);
+    public JourneyCollection getAllJourney() {
+        Cursor cursor = getAllRows(DB_TABLE.JOURNEY);
         JourneyCollection jC = new JourneyCollection();
         if (cursor.moveToFirst()) {
             do {
@@ -719,7 +718,7 @@ public class DBAdapter {
                 Journey j = getJourney(ID);
                 jC.addJourney(j);
 
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
 
         }
 
@@ -729,28 +728,43 @@ public class DBAdapter {
         return jC;
     }
 
-    public List<Bill> getAllBills(){
-        Cursor cursor =  getAllRows(DB_TABLE.BILL);
+    // Todo getBill
+    public Bill getBill(long rowId) {
+        String where = KEY_ROWID + "=" + rowId;
+
+        Cursor c = db.query(true, TABLE_BILL, ALL_BILL_KEYS,
+                where, null, null, null, null, null);
+
+        if (c != null) {
+            c.moveToFirst();
+        }
+
+        Date start_date = new Date(c.getLong(COL_BILL_START_DATE));
+        Date end_date = new Date(c.getLong(COL_BILL_END_DATE));
+        Double input = c.getDouble(COL_BILL_INPUT);
+        BillType type = null;
+
+        int billInt = c.getInt(COL_BILL_TYPE);
+        for (BillType t : BillType.values()) {
+            if (billInt == t.ordinal()) {
+                type = t;
+                break;
+            }
+        }
+        return new Bill(type, start_date, end_date, input);
+    }
+
+    public List<Bill> getAllBills() {
+        Cursor cursor = getAllRows(DB_TABLE.BILL);
         List<Bill> billList = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
                 // Fetch objects info from db
-                Date start_date = new Date(cursor.getLong(COL_BILL_START_DATE));
-                Date end_date = new Date(cursor.getLong(COL_BILL_END_DATE));
-                Double input = cursor.getDouble(COL_BILL_INPUT);
-                BillType type = null;
-
-                int billInt = cursor.getInt(COL_BILL_TYPE);
-                for (BillType t: BillType.values()) {
-                    if(billInt == t.ordinal()){
-                        type = t;
-                        break;
-                    }
-                }
-                Bill bill = new Bill(type, start_date,end_date,input);
+                long row = cursor.getLong(COL_ROWID);
+                Bill bill = getBill(row);
                 billList.add(bill);
 
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         // Close the cursor to avoid a resource leak.
         cursor.close();
@@ -758,12 +772,12 @@ public class DBAdapter {
         return billList;
     }
 
-    public RouteCollection getAllRoute(){
+    public RouteCollection getAllRoute() {
         String message = "";
         // populate the message from the cursor
         // Reset cursor to start, checking to see if there's data:
         RouteCollection rC = new RouteCollection();
-        Cursor cursor =  getAllRows(DB_TABLE.ROUTE);
+        Cursor cursor = getAllRows(DB_TABLE.ROUTE);
         if (cursor.moveToFirst()) {
             do {
                 // Process the data:
@@ -776,14 +790,14 @@ public class DBAdapter {
 
                 // Append data to the message:
                 message += "name=" + name
-                        +", CityDistance=" + cityDistance
-                        +", HighWayDistance=" + highWayDistance
-                        +", OtherDistance=" + otherDistance
-                        +", mode=" + mode
-                        +"\n";
+                        + ", CityDistance=" + cityDistance
+                        + ", HighWayDistance=" + highWayDistance
+                        + ", OtherDistance=" + otherDistance
+                        + ", mode=" + mode
+                        + "\n";
 
-                rC.addRoute(new Route(name,highWayDistance,cityDistance,otherDistance,mode));
-            } while(cursor.moveToNext());
+                rC.addRoute(new Route(name, highWayDistance, cityDistance, otherDistance, mode));
+            } while (cursor.moveToNext());
         }
 
         // Close the cursor to avoid a resource leak.
@@ -794,7 +808,7 @@ public class DBAdapter {
     }
 
     // [DONE]
-    public Car getCar(long rowId){
+    public Car getCar(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
         Cursor c = db.query(true, TABLE_CAR, ALL_CAR_KEYS,
@@ -808,7 +822,7 @@ public class DBAdapter {
         double carbonTailPipe = c.getDouble(DBAdapter.COL_CAR_CARBON_TAIL_PIPE);
         double engineDispLitres = c.getDouble(DBAdapter.COL_CAR_ENGINE_DISP_LITRES);
         int cityMPG = c.getInt(DBAdapter.COL_CAR_CITY_MPG);
-        int fuelAnnualCost= c.getInt(DBAdapter.COL_CAR_FUEL_ANNUAL_COST);
+        int fuelAnnualCost = c.getInt(DBAdapter.COL_CAR_FUEL_ANNUAL_COST);
         int highwayMPG = c.getInt(DBAdapter.COL_CAR_HIGHWAY_MPG);
         int year = c.getInt(DBAdapter.COL_CAR_YEAR);
         String engineDescription = c.getString(DBAdapter.COL_CAR_ENGINE_DESCRIPTION);
@@ -816,7 +830,7 @@ public class DBAdapter {
         String make = c.getString(DBAdapter.COL_CAR_MAKE);
         String model = c.getString(DBAdapter.COL_CAR_MODEL);
         String nickName = c.getString(DBAdapter.COL_CAR_NICK_NAME);
-        String transDescription= c.getString(DBAdapter.COL_CAR_TRANS_DESCRIPTION);
+        String transDescription = c.getString(DBAdapter.COL_CAR_TRANS_DESCRIPTION);
         car.setCarbonTailPipe(carbonTailPipe);
         car.setEngineDispLitres(engineDispLitres);
         car.setCityMPG(cityMPG);
@@ -833,12 +847,12 @@ public class DBAdapter {
         return car;
     }
 
-    public CarCollection getAllCar(){
+    public CarCollection getAllCars() {
         String message = "";
         // populate the message from the cursor
 
         CarCollection cC = new CarCollection();
-        Cursor cursor =  getAllRows(DB_TABLE.CAR);
+        Cursor cursor = getAllRows(DB_TABLE.CAR);
 
         // Reset cursor to start, checking to see if there's data:
         if (cursor.moveToFirst()) {
@@ -846,7 +860,7 @@ public class DBAdapter {
                 long row = cursor.getLong(COL_ROWID);
                 Car car = getCar(row);
                 cC.add(car);
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         // Close the cursor to avoid a resource leak.
@@ -854,12 +868,12 @@ public class DBAdapter {
         return cC;
     }
 
-    public CarCollection getAllRecentCars(){
+    public CarCollection getAllRecentCars() {
         String message = "";
         // populate the message from the cursor
 
         CarCollection cC = new CarCollection();
-        Cursor cursor =  getAllRows(DB_TABLE.CAR);
+        Cursor cursor = getAllRows(DB_TABLE.CAR);
 
         // Reset cursor to start, checking to see if there's data:
         if (cursor.moveToFirst()) {
@@ -868,7 +882,7 @@ public class DBAdapter {
                 double carbonTailPipe = cursor.getDouble(DBAdapter.COL_CAR_CARBON_TAIL_PIPE);
                 double engineDispLitres = cursor.getDouble(DBAdapter.COL_CAR_ENGINE_DISP_LITRES);
                 int cityMPG = cursor.getInt(DBAdapter.COL_CAR_CITY_MPG);
-                int fuelAnnualCost= cursor.getInt(DBAdapter.COL_CAR_FUEL_ANNUAL_COST);
+                int fuelAnnualCost = cursor.getInt(DBAdapter.COL_CAR_FUEL_ANNUAL_COST);
                 int highwayMPG = cursor.getInt(DBAdapter.COL_CAR_HIGHWAY_MPG);
                 int year = cursor.getInt(DBAdapter.COL_CAR_YEAR);
                 String engineDescription = cursor.getString(DBAdapter.COL_CAR_ENGINE_DESCRIPTION);
@@ -876,15 +890,15 @@ public class DBAdapter {
                 String make = cursor.getString(DBAdapter.COL_CAR_MAKE);
                 String model = cursor.getString(DBAdapter.COL_CAR_MODEL);
                 String nickName = cursor.getString(DBAdapter.COL_CAR_NICK_NAME);
-                String transDescription= cursor.getString(DBAdapter.COL_CAR_TRANS_DESCRIPTION);
+                String transDescription = cursor.getString(DBAdapter.COL_CAR_TRANS_DESCRIPTION);
                 int isRecent = cursor.getInt(COL_CAR_TAG);
 
-                if(isRecent == 1){
-                    cC.add(new Car(nickName,make,model,year,cityMPG,highwayMPG,
-                            engineDescription,engineDispLitres,fuelType,fuelAnnualCost,carbonTailPipe,transDescription));
+                if (isRecent == 1) {
+                    cC.add(new Car(nickName, make, model, year, cityMPG, highwayMPG,
+                            engineDescription, engineDispLitres, fuelType, fuelAnnualCost, carbonTailPipe, transDescription));
                 }
 
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         // Close the cursor to avoid a resource leak.
@@ -895,11 +909,11 @@ public class DBAdapter {
     }
 
     // [POSSIBLE REFACTOR]
-    public Object getObject(DB_TABLE t, long rowId){
+    public Object getObject(DB_TABLE t, long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
         Cursor c = null;
-        switch (t){
+        switch (t) {
             case CAR:
                 break;
             case ROUTE:
@@ -932,8 +946,9 @@ public class DBAdapter {
         }
         return null;
     }
+
     // [DONE]
-    public Route getRoute(long rowId){
+    public Route getRoute(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
         Cursor c = db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
@@ -953,7 +968,7 @@ public class DBAdapter {
     }
 
     // [DONE]
-    public Bus getBus(long rowId){
+    public Bus getBus(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
         Cursor c = db.query(true, TABLE_BUS, ALL_BUS_KEYS,
@@ -969,8 +984,9 @@ public class DBAdapter {
 
         return bus;
     }
+
     // [DONE]
-    public Skytrain getSkytrain(long rowId){
+    public Skytrain getSkytrain(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
         Cursor c = db.query(true, TABLE_SKYTRAIN, ALL_SKYTRAIN_KEYS,
@@ -988,34 +1004,10 @@ public class DBAdapter {
         return train;
     }
 
-    // Todo getBill
-    public Bill getBill(long rowId){
-        String where = KEY_ROWID + "=" + rowId;
 
-        Cursor c = db.query(true, TABLE_BILL, ALL_BILL_KEYS,
-                where, null, null, null, null, null);
 
-        if (c != null) {
-            c.moveToFirst();
-        }
-
-        Date start_date = new Date(c.getLong(COL_BILL_START_DATE));
-        Date end_date = new Date(c.getInt(COL_BILL_END_DATE));
-        Double input = c.getDouble(COL_BILL_INPUT);
-        BillType type = null;
-
-        int billInt = c.getInt(COL_BILL_TYPE);
-        for (BillType t: BillType.values()) {
-            if(billInt == t.ordinal()){
-                type = t;
-                break;
-            }
-        }
-        return new Bill(type, start_date,end_date,input);
-    }
-
-    public Transport buffTrans(String trans){
-        switch (trans){
+    public Transport buffTrans(String trans) {
+        switch (trans) {
             case "Car":
                 return Transport.CAR;
             case "Walk":
@@ -1033,47 +1025,48 @@ public class DBAdapter {
         }
         return null;
     }
+
     // [UPDATE]
     // Get a specific row (by rowId)
-    public Cursor getRow(DB_TABLE table,long rowId) {
+    public Cursor getRow(DB_TABLE table, long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
         Cursor c = null;
-        switch(table){
+        switch (table) {
             case CAR:
-                c =	db.query(true, table.toString(), ALL_CAR_KEYS,
+                c = db.query(true, table.toString(), ALL_CAR_KEYS,
                         where, null, null, null, null, null);
                 break;
             case ROUTE:
-                c =	db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
+                c = db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
                         where, null, null, null, null, null);
                 break;
             case JOURNEY:
-                c =	db.query(true, TABLE_ROUTE, ALL_JOURNEY_KEYS,
+                c = db.query(true, TABLE_ROUTE, ALL_JOURNEY_KEYS,
                         where, null, null, null, null, null);
                 break;
             case BILL:
-                c =	db.query(true, TABLE_BILL, ALL_BILL_KEYS,
+                c = db.query(true, TABLE_BILL, ALL_BILL_KEYS,
                         where, null, null, null, null, null);
                 break;
             case BUS:
-                c =	db.query(true, TABLE_BUS, ALL_BUS_KEYS,
+                c = db.query(true, TABLE_BUS, ALL_BUS_KEYS,
                         where, null, null, null, null, null);
                 break;
             case SKYTRAIN:
-                c =	db.query(true, TABLE_SKYTRAIN, ALL_SKYTRAIN_KEYS,
+                c = db.query(true, TABLE_SKYTRAIN, ALL_SKYTRAIN_KEYS,
                         where, null, null, null, null, null);
                 break;
             case WALK:
-                c =	db.query(true, TABLE_WALK, ALL_WALK_KEYS,
+                c = db.query(true, TABLE_WALK, ALL_WALK_KEYS,
                         where, null, null, null, null, null);
                 break;
             case BIKE:
-                c =	db.query(true, TABLE_BIKE, ALL_BIKE_KEYS,
+                c = db.query(true, TABLE_BIKE, ALL_BIKE_KEYS,
                         where, null, null, null, null, null);
                 break;
             case TRANSIT:
-                c =	db.query(true, TABLE_TRANSIT, ALL_TRANSIT_KEYS,
+                c = db.query(true, TABLE_TRANSIT, ALL_TRANSIT_KEYS,
                         where, null, null, null, null, null);
                 break;
         }
@@ -1084,7 +1077,7 @@ public class DBAdapter {
         return c;
     }
 
-    public boolean updateJourney(Journey j){
+    public boolean updateJourney(Journey j) {
         deleteJourney(j);
         insertRow(j);
         return true;
@@ -1119,8 +1112,7 @@ public class DBAdapter {
      * Private class which handles database creation and upgrading.
      * Used to handle low-level database access.
      */
-    private static class DatabaseHelper extends SQLiteOpenHelper
-    {
+    private static class DatabaseHelper extends SQLiteOpenHelper {
         DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
@@ -1155,34 +1147,33 @@ public class DBAdapter {
         }
     }
 
-    public static void save(Context ctx, Journey journey){
+    public static void save(Context ctx, Journey journey) {
         DBAdapter db = new DBAdapter(ctx);
         db.open();
         db.insertRow(journey);
         db.close();
     }
 
-    public static void update(Context ctx, Journey journey){
+    public static void update(Context ctx, Journey journey) {
         DBAdapter db = new DBAdapter(ctx);
         db.open();
         db.updateJourney(journey);
         db.close();
     }
 
-    public static void delete(Context ctx, Journey journey){
+    public static void delete(Context ctx, Journey journey) {
         DBAdapter db = new DBAdapter(ctx);
         db.open();
         db.deleteJourney(journey);
         db.close();
     }
 
-    public static void save(Context ctx, Bill bill){
+    public static void save(Context ctx, Bill bill) {
         DBAdapter db = new DBAdapter(ctx);
         db.open();
         db.insertRow(bill);
         db.close();
     }
-
 
 
     /**
@@ -1201,7 +1192,7 @@ public class DBAdapter {
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return name;
         }
     }
