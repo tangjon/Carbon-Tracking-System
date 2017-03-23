@@ -118,6 +118,8 @@ public class DBAdapter {
     public static final String KEY_CAR_NICK_NAME = "car_nick_name";
     public static final String KEY_CAR_TRANS_DESCRIPTION = "car_descrip";
     public static final String KEY_CAR_YEAR = "car_year";
+    public static final String KEY_CAR_TAG = "car_tag";
+
 
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
     public static final int COL_CAR_CARBON_TAIL_PIPE = 1;
@@ -132,6 +134,7 @@ public class DBAdapter {
     public static final int COL_CAR_NICK_NAME = 10;
     public static final int COL_CAR_TRANS_DESCRIPTION = 11;
     public static final int COL_CAR_YEAR = 12;
+    public static final int COL_CAR_TAG = 13;
 
     // ALL KEYS (Contains all KEYS in array of strings) (DETERMINES THE COLUMNS NUMBERS)
     public static final String[] ALL_CAR_KEYS = new String[] {
@@ -147,7 +150,8 @@ public class DBAdapter {
             KEY_CAR_MODEL,
             KEY_CAR_NICK_NAME,
             KEY_CAR_TRANS_DESCRIPTION,
-            KEY_CAR_YEAR };
+            KEY_CAR_YEAR,
+            KEY_CAR_TAG};
 
     // Create the Data Base (SQL)
     private static final String CREATE_TABLE_CAR =
@@ -166,7 +170,8 @@ public class DBAdapter {
                     + KEY_CAR_MODEL + " text, "
                     + KEY_CAR_NICK_NAME + " text, "
                     + KEY_CAR_TRANS_DESCRIPTION + " text, "
-                    + KEY_CAR_YEAR + " integer"
+                    + KEY_CAR_YEAR + " integer, "
+                    + KEY_CAR_TAG + " integer"
 
                     // Rest  of creation:
                     + ");";
@@ -501,7 +506,7 @@ public class DBAdapter {
     // *********************
 
     /* [DONE] */
-    public long insertRow(Car car) {
+    public long insertCar(Car car) {
 		/*
 		 * CHANGE 3:
 		 */
@@ -521,6 +526,27 @@ public class DBAdapter {
         initialValues.put(KEY_CAR_NICK_NAME,car.getNickName());
         initialValues.put(KEY_CAR_TRANS_DESCRIPTION,car.getTransDescription());
         initialValues.put(KEY_CAR_YEAR,car.getYear());
+        initialValues.put(KEY_CAR_TAG, 0);
+
+        // Insert it into the database.
+        return db.insert(TABLE_CAR, null, initialValues);
+    }
+
+    public long insertRecentCar(Car car){
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_CAR_CARBON_TAIL_PIPE,car.getCarbonTailPipe());
+        initialValues.put(KEY_CAR_CITY_MPG,car.getCityMPG());
+        initialValues.put(KEY_CAR_ENGINE_DESCRIPTION,car.getEngineDescription());
+        initialValues.put(KEY_CAR_ENGINE_DISP_LITRES,car.getEngineDispLitres());
+        initialValues.put(KEY_CAR_FUEL_ANNUAL_COST,car.getFuelAnnualCost());
+        initialValues.put(KEY_CAR_FUEL_TYPE,car.getFuelType());
+        initialValues.put(KEY_CAR_HIGHWAY_MPG,car.getHighwayMPG());
+        initialValues.put(KEY_CAR_MAKE,car.getMake());
+        initialValues.put(KEY_CAR_MODEL,car.getModel());
+        initialValues.put(KEY_CAR_NICK_NAME,car.getNickName());
+        initialValues.put(KEY_CAR_TRANS_DESCRIPTION,car.getTransDescription());
+        initialValues.put(KEY_CAR_YEAR,car.getYear());
+        initialValues.put(KEY_CAR_TAG, 1);
 
         // Insert it into the database.
         return db.insert(TABLE_CAR, null, initialValues);
@@ -601,7 +627,7 @@ public class DBAdapter {
         switch (mode){
             case CAR:
                 // Insert Car
-                long carID = insertRow(journey.getTransType().getCar());
+                long carID = insertCar(journey.getTransType().getCar());
                 initialValues.put(KEY_TRANSPORT_OBJECT_ID, carID);
                 break;
             case BIKE:
@@ -624,9 +650,6 @@ public class DBAdapter {
         // Insert it into the database.
         return db.insert(TABLE_JOURNEY, null, initialValues);
     }
-
-
-
 
     // ==========================
     // GETTERS
@@ -839,6 +862,46 @@ public class DBAdapter {
 
                 cC.add(new Car(nickName,make,model,year,cityMPG,highwayMPG,
                         engineDescription,engineDispLitres,fuelType,fuelAnnualCost,carbonTailPipe,transDescription));
+            } while(cursor.moveToNext());
+        }
+
+        // Close the cursor to avoid a resource leak.
+        cursor.close();
+
+//        Log.i(TAG, "displayRecordSetForCar: " + message);
+        return cC;
+    }
+
+    public CarCollection getAllRecentCars(){
+        String message = "";
+        // populate the message from the cursor
+
+        CarCollection cC = new CarCollection();
+        Cursor cursor =  getAllRows(DB_TABLE.CAR);
+
+        // Reset cursor to start, checking to see if there's data:
+        if (cursor.moveToFirst()) {
+            do {
+                // Process the data:
+                double carbonTailPipe = cursor.getDouble(DBAdapter.COL_CAR_CARBON_TAIL_PIPE);
+                double engineDispLitres = cursor.getDouble(DBAdapter.COL_CAR_ENGINE_DISP_LITRES);
+                int cityMPG = cursor.getInt(DBAdapter.COL_CAR_CITY_MPG);
+                int fuelAnnualCost= cursor.getInt(DBAdapter.COL_CAR_FUEL_ANNUAL_COST);
+                int highwayMPG = cursor.getInt(DBAdapter.COL_CAR_HIGHWAY_MPG);
+                int year = cursor.getInt(DBAdapter.COL_CAR_YEAR);
+                String engineDescription = cursor.getString(DBAdapter.COL_CAR_ENGINE_DESCRIPTION);
+                String fuelType = cursor.getString(DBAdapter.COL_CAR_FUEL_TYPE);
+                String make = cursor.getString(DBAdapter.COL_CAR_MAKE);
+                String model = cursor.getString(DBAdapter.COL_CAR_MODEL);
+                String nickName = cursor.getString(DBAdapter.COL_CAR_NICK_NAME);
+                String transDescription= cursor.getString(DBAdapter.COL_CAR_TRANS_DESCRIPTION);
+                int isRecent = cursor.getInt(COL_CAR_TAG);
+
+                if(isRecent == 1){
+                    cC.add(new Car(nickName,make,model,year,cityMPG,highwayMPG,
+                            engineDescription,engineDispLitres,fuelType,fuelAnnualCost,carbonTailPipe,transDescription));
+                }
+
             } while(cursor.moveToNext());
         }
 

@@ -15,7 +15,6 @@ import java.util.List;
 
 import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
-import cmpt276.jade.carbontracker.fragment.HintDialog;
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.Car;
@@ -165,7 +164,7 @@ public class Welcome_Activity extends AppCompatActivity {
         db.open();
         // TEST CAR
         Car car = GenerateDummyData.generateCar();
-        long carID = db.insertRow(car);
+        long carID = db.insertCar(car);
         Car recCar = db.getCar(carID);
         Log.i(TAG, "testDataBaseSaveAndLoad: " + recCar.toString());
         // TEST ROUTE
