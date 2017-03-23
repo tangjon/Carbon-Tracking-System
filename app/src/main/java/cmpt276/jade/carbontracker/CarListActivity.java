@@ -13,11 +13,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.adapter.CarListAdapter;
+import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.fragment.EditDialog;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.utils.Mode;
 
 /**
@@ -34,6 +36,7 @@ public class CarListActivity extends AppCompatActivity {
     // Tag
     private String TAG = "carListActivity";
 
+    private DBAdapter myDB;
 
     public static Intent getIntentFromActivity(Context context) {
         Intent intent = new Intent(context, CarListActivity.class);
@@ -46,6 +49,11 @@ public class CarListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_car_list);
         getSupportActionBar().setTitle(getString(R.string.CarListActivityHint));
 
+        // Do DataBase Stuff
+        myDB = new DBAdapter(this);
+        myDB.open();
+
+
         // Set Up Buttons
         setUpAddButton(R.id.btn_add_car);
         // Populate the list
@@ -54,6 +62,8 @@ public class CarListActivity extends AppCompatActivity {
     }
 
     private void populateListView() {
+        // Complete Refresh
+        dbRefreshRecentCarList();
         // Link widget
         ListView lstView = (ListView) findViewById(R.id.lv_carList);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -98,6 +108,19 @@ public class CarListActivity extends AppCompatActivity {
         });
     }
 
+    private void dbRefreshRecentCarList() {
+        // Complete Refresh RecentCarList DB
+        CarCollection c = myDB.getAllCars(DBAdapter.TAG_ID.RECENT);
+        // Delete Everything form DB with "RECENT"
+        for (Car car: c.toList()) {
+            myDB.deleteRow(DBAdapter.DB_TABLE.CAR, car.getID());
+        }
+        // RE-ADD REMAINING RECENTS
+        for (Car car: recentCarList.toList()) {
+            myDB.insertRow(car, DBAdapter.TAG_ID.RECENT);
+        }
+    }
+
     private void setUpAddButton(int btnID) {
         Button button = (Button) findViewById(btnID);
         button.setOnClickListener(new View.OnClickListener() {
@@ -114,27 +137,12 @@ public class CarListActivity extends AppCompatActivity {
         populateListView();
     }
 
-    // Refresh UI upon returning to activity
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        updateUI();
-    }
-
-    /*
-    //Sean - Gets journey object passed by journey list
-    public void getJourneyData() {
-        Intent intent = getIntent();
-            journey = (Journey)intent.getSerializableExtra("Journey");
-
-    }
-    */
 
     // Inspired by Raz
     private void setupDelete( final int index) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        Car thisCar = recentCarList.getCar(index);
+        final Car thisCar = recentCarList.getCar(index);
         builder.setMessage(getString(R.string.journey_list_confirm_delete_message, thisCar.getName()));
         builder.setCancelable(true);
 
@@ -142,6 +150,8 @@ public class CarListActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 recentCarList.remove(index);
+//                boolean bool = myDB.deleteRow(DBAdapter.DB_TABLE.CAR,thisCar.getID());
+//                Toast.makeText(CarListActivity.this, "onDelete:" + bool, Toast.LENGTH_SHORT).show();
                 updateUI();
             }
         });
@@ -150,5 +160,19 @@ public class CarListActivity extends AppCompatActivity {
 
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    // Refresh UI upon returning to activity
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        updateUI();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myDB.close();
     }
 }

@@ -21,7 +21,8 @@ import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.fragment.EditDialog;
         import cmpt276.jade.carbontracker.model.Car;
-        import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.model.CarCollection;
+import cmpt276.jade.carbontracker.model.Emission;
         import cmpt276.jade.carbontracker.model.Journey;
         import cmpt276.jade.carbontracker.model.JourneyCollection;
         import cmpt276.jade.carbontracker.model.Route;
@@ -124,7 +125,6 @@ public class JourneyListActivity extends AppCompatActivity {
 
                     @Override
                     public void onEditClicked(int pos) {
-                        // For DB FIELD
                         if(listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.CAR)) {
                             Intent intent = CarListActivity
                                 .getIntentFromActivity(JourneyListActivity.this);
@@ -192,9 +192,15 @@ public class JourneyListActivity extends AppCompatActivity {
     private void dbRefreshJourneyTable() {
         DBAdapter db = new DBAdapter(this);
         db.open();
-        db.deleteAll(DBAdapter.DB_TABLE.JOURNEY);
+        // Complete Refresh RecentCarList DB
+        JourneyCollection jC = db.getAllJourney();
+        // Delete Everything form DB with "RECENT"
+        for (Journey j: jC.getJourneyList()) {
+            db.deleteJourney(j);
+        }
+        // RE-ADD REMAINING RECENTS
         for (Journey j: Emission.getInstance().getJourneyCollection().getJourneyList()) {
-            db.updateJourney(j);
+            db.insertRow(j);
         }
         db.close();
     }
@@ -209,7 +215,7 @@ public class JourneyListActivity extends AppCompatActivity {
         builder.setPositiveButton(getString(R.string.label_delete), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                DBAdapter.delete(JourneyListActivity.this,thisJourney);
+//                DBAdapter.delete(JourneyListActivity.this,thisJourney);
                 listOfJourneys.deleteJourney(index);
                 Emission.getInstance().setJourneyCollection(listOfJourneys);
                 populateList();

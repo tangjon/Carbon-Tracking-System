@@ -126,12 +126,8 @@ public class Welcome_Activity extends AppCompatActivity {
             }
         }
 
-        // Load Recent CarList
-        myDb.insertRow(GenerateDummyData.generateCar(), DBAdapter.TAG_ID.RECENT);
-        myDb.insertRow(GenerateDummyData.generateCar(), DBAdapter.TAG_ID.RECENT);
+        // Load Recent Car Lists
         boolean bool = CarListActivity.recentCarList.setCarList(myDb.getAllCars(DBAdapter.TAG_ID.RECENT).toList());
-        Toast.makeText(this, "" + bool, Toast.LENGTH_SHORT).show();
-
 
     }
 

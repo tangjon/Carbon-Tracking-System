@@ -226,16 +226,19 @@ public class DBAdapter {
     // TODO: Setup Bus Fields Here
     private static final String KEY_BUS_NICK_NAME = "bus_nick_name";
     private static final String KEY_BUS_ROUTE_NUMBER = "bus_route_number";
+    private static final String KEY_BUS_TAG_ID = "bus_tag_id";
 
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
     public static final int COL_BUS_NICK_NAME = 1;
     public static final int COL_BUS_ROUTE_NUMBER = 2;
+    public static final int COL_BUS_TAG_ID = 3;
 
     // ALL KEYS
     public static final String[] ALL_BUS_KEYS = new String[]{
             KEY_ROWID,
             KEY_BUS_NICK_NAME,
-            KEY_BUS_ROUTE_NUMBER
+            KEY_BUS_ROUTE_NUMBER,
+            KEY_BUS_TAG_ID
     };
 
     // Create the Data Base (SQL)
@@ -245,7 +248,8 @@ public class DBAdapter {
 
                     // TODO: Place your fields here!
                     + KEY_BUS_NICK_NAME + " text, "
-                    + KEY_BUS_ROUTE_NUMBER + " text"
+                    + KEY_BUS_ROUTE_NUMBER + " text, "
+                    + KEY_BUS_TAG_ID + " integer"
 
                     // Rest  of creation:
                     + ");";
@@ -254,16 +258,20 @@ public class DBAdapter {
     private static final String KEY_SKYTRAIN_NICK_NAME = "skytrain_nick_name";
     private static final String KEY_SKYTRAIN_BOARDING_STATION = "skytrain_boarding_station";
     private static final String KEY_SKYTRAIN_LINE = "key_skytrain_line";
+    private static final String KEY_SKYTRAIN_TAG_ID = "key_skytrain_tag_id";
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
     private static final int COL_SKYTRAIN_NICK_NAME = 1;
     private static final int COL_SKYTRAIN_BOARDING_STATION = 2;
     private static final int COL_SKYTRAIN_LINE = 3;
+    private static final int COL_SKYTRAIN_TAG_ID = 4;
     // ALL KEYS
     public static final String[] ALL_SKYTRAIN_KEYS = new String[]{
             KEY_ROWID,
             KEY_SKYTRAIN_NICK_NAME,
             KEY_SKYTRAIN_BOARDING_STATION,
-            KEY_SKYTRAIN_LINE};
+            KEY_SKYTRAIN_LINE,
+            KEY_SKYTRAIN_TAG_ID
+    };
 
     // Create the Data Base (SQL)
     private static final String CREATE_TABLE_SKYTRAIN =
@@ -273,7 +281,8 @@ public class DBAdapter {
                     // TODO: Place your fields here!
                     + KEY_SKYTRAIN_NICK_NAME + " text, "
                     + KEY_SKYTRAIN_BOARDING_STATION + " text, "
-                    + KEY_SKYTRAIN_LINE + " text"
+                    + KEY_SKYTRAIN_LINE + " text, "
+                    + KEY_SKYTRAIN_TAG_ID + " integer"
 
                     // Rest  of creation:
                     + ");";
@@ -370,15 +379,16 @@ public class DBAdapter {
      * ****************************************/
     //Delete a row from the database, by rowId (primary key)
     public boolean deleteRow(DB_TABLE table, long rowId) {
+        Log.i(TAG, "[" + table + "]"+ ":" +"deleteRow:"+ rowId + "");
         String where = KEY_ROWID + "=" + rowId;
         return db.delete(table.toString(), where, null) != 0;
     }
 
     public void deleteJourney(Journey j) {
-
-        Log.i(TAG, "deleteJourney: " + j.toString());
+        Log.i(TAG, "deleteJourney: ==================================");
         long rowId = j.getID();
         String where = KEY_ROWID + "=" + rowId;
+
 
         Cursor c = db.query(true, TABLE_JOURNEY, ALL_JOURNEY_KEYS,
                 where, null, null, null, null, null);
@@ -421,9 +431,6 @@ public class DBAdapter {
 
             // Delete Journey
             deleteRow(DB_TABLE.JOURNEY, rowId);
-
-            // Todo For logging
-            getAllJourney();
         }
     }
 
@@ -434,12 +441,6 @@ public class DBAdapter {
             do {
                 deleteRow(table, c.getLong((int) rowId));
             } while (c.moveToNext());
-        }
-        if (table.equals(DB_TABLE.JOURNEY)) {
-            deleteAll(DB_TABLE.CAR);
-            deleteAll(DB_TABLE.ROUTE);
-            deleteAll(DB_TABLE.SKYTRAIN);
-            deleteAll(DB_TABLE.BUS);
         }
         c.close();
     }
@@ -472,7 +473,9 @@ public class DBAdapter {
         initialValues.put(KEY_CAR_TAG_ID, tag_id.ordinal());
 
         // Insert it into the database.
-        return db.insert(TABLE_CAR, null, initialValues);
+        long buff = db.insert(TABLE_CAR, null, initialValues);
+        Log.i(TAG, "[" + TABLE_CAR + "]"+ ":" +"insert:"+ buff + " " + tag_id + " "+ car.toString());
+        return buff;
     }
 
     public long insertRow(Bill bill) {
@@ -568,9 +571,10 @@ public class DBAdapter {
                 break;
         }
 
-        Log.i(TAG, "InsertingThisJourney: " + journey.toString());
+        long buff = db.insert(TABLE_JOURNEY, null, initialValues);
+        Log.i(TAG, "[" + TABLE_JOURNEY + "]"+ ":" +"insertRow:"+ buff + " " + journey.toString());
         // Insert it into the database.
-        return db.insert(TABLE_JOURNEY, null, initialValues);
+        return buff;
     }
 
     /****************************************
@@ -728,7 +732,7 @@ public class DBAdapter {
         Journey j = new Journey(name, transportation, route);
         j.setID(ID);
         j.setDate(DATE);
-        Log.i(TAG, "getJourney: " + j.toString());
+        Log.i(TAG, "[" + TABLE_JOURNEY + "]"+ ":" +"getJourney:"+ rowId + " " + j.toString());
         return j;
     }
 
@@ -869,6 +873,7 @@ public class DBAdapter {
         car.setModel(model);
         car.setNickName(nickName);
         car.setTransDescription(transDescription);
+        car.setID(rowId);
 
         return car;
     }
@@ -885,6 +890,7 @@ public class DBAdapter {
             do {
                 long row = cursor.getLong(COL_ROWID);
                 Car car = getCar(row);
+                car.setID(row);
                 cC.add(car);
             } while (cursor.moveToNext());
         }
@@ -909,7 +915,7 @@ public class DBAdapter {
                     long row = cursor.getLong(COL_ROWID);
                     Car car = getCar(row);
                     cC.add(car);
-                    Log.i(TAG, "get " + tag_id + ": " + car.toString());
+                    Log.i(TAG, "[" + DB_TABLE.CAR + "]"+ ":" +"getCar:"+ row + " " + tag_id + ": " + car.toString());
                 }
             } while (cursor.moveToNext());
         }
@@ -1034,14 +1040,37 @@ public class DBAdapter {
         return train;
     }
 
-    public boolean updateJourney(Journey j) {
-        deleteJourney(j);
-        insertRow(j);
-        return true;
-    }
 
     // Todo: Unused and unfunctional atm
     // Change an existing row to be equal to new data.
+    public boolean updateRow(Car car) {
+        long rowId = car.getID();
+        String where = KEY_ROWID + "=" + rowId;
+
+		/*
+		 * CHANGE 4:
+		 */
+        // TODO: Update data in the row with new fields.
+        // TODO: Also change the function's arguments to be what you need!
+        // Create row's data:
+
+        ContentValues newValues = new ContentValues();
+        newValues.put(KEY_CAR_CARBON_TAIL_PIPE, car.getCarbonTailPipe());
+        newValues.put(KEY_CAR_CITY_MPG, car.getCityMPG());
+        newValues.put(KEY_CAR_ENGINE_DESCRIPTION, car.getEngineDescription());
+        newValues.put(KEY_CAR_ENGINE_DISP_LITRES, car.getEngineDispLitres());
+        newValues.put(KEY_CAR_FUEL_ANNUAL_COST, car.getFuelAnnualCost());
+        newValues.put(KEY_CAR_FUEL_TYPE, car.getFuelType());
+        newValues.put(KEY_CAR_HIGHWAY_MPG, car.getHighwayMPG());
+        newValues.put(KEY_CAR_MAKE, car.getMake());
+        newValues.put(KEY_CAR_MODEL, car.getModel());
+        newValues.put(KEY_CAR_NICK_NAME, car.getNickName());
+        newValues.put(KEY_CAR_TRANS_DESCRIPTION, car.getTransDescription());
+        newValues.put(KEY_CAR_YEAR, car.getYear());
+
+        // Insert it into the database.
+        return db.update(TABLE_CAR, newValues, where, null) != 0;
+    }
     public boolean updateRow(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
@@ -1052,6 +1081,11 @@ public class DBAdapter {
         // TODO: Also change the function's arguments to be what you need!
         // Create row's data:
         ContentValues newValues = new ContentValues();
+
+
+
+
+
 //        newValues.put(KEY_NAME, name);
 //        newValues.put(KEY_STUDENTNUM, studentNum);
 //        newValues.put(KEY_FAVCOLOUR, favColour);
@@ -1128,13 +1162,6 @@ public class DBAdapter {
         DBAdapter db = new DBAdapter(ctx);
         db.open();
         db.insertRow(journey);
-        db.close();
-    }
-
-    public static void update(Context ctx, Journey journey) {
-        DBAdapter db = new DBAdapter(ctx);
-        db.open();
-        db.updateJourney(journey);
         db.close();
     }
 

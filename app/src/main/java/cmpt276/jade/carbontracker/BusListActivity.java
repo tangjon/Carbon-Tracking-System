@@ -14,11 +14,14 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import cmpt276.jade.carbontracker.adapter.BusListAdapter;
+import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.fragment.EditDialog;
 import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.BusCollection;
 import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.model.Journey;
+import cmpt276.jade.carbontracker.model.JourneyCollection;
 
 
 /**
@@ -96,6 +99,21 @@ public class BusListActivity extends AppCompatActivity {
         });
     }
 
+    private void dbRefreshBusList() {
+        DBAdapter db = new DBAdapter(this);
+        db.open();
+        // Complete Refresh RecentCarList DB
+        JourneyCollection jC = db.getAllJourney();
+        // Delete Everything form DB with "RECENT"
+        for (Journey j: jC.getJourneyList()) {
+            db.deleteJourney(j);
+        }
+        // RE-ADD REMAINING RECENTS
+        for (Journey j: Emission.getInstance().getJourneyCollection().getJourneyList()) {
+            db.insertRow(j);
+        }
+        db.close();
+    }
 
     @Override
     protected void onRestart() {
