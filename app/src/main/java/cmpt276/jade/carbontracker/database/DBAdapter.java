@@ -366,9 +366,9 @@ public class DBAdapter {
         myDBHelper.close();
     }
 
-    // *********************
-    // GENERAL FUNCTIONS
-    // *********************
+    /****************************************
+     * GENERAL FUNCTIONS
+     * ****************************************/
     //Delete a row from the database, by rowId (primary key)
     public boolean deleteRow(DB_TABLE table, long rowId) {
         String where = KEY_ROWID + "=" + rowId;
@@ -428,7 +428,6 @@ public class DBAdapter {
         }
     }
 
-    // [DONE]
     public void deleteAll(DB_TABLE table) {
         Cursor c = getAllRows(table);
         long rowId = c.getColumnIndexOrThrow(KEY_ROWID);
@@ -446,13 +445,11 @@ public class DBAdapter {
         c.close();
     }
 
+    /****************************************
+     * INSERT FUNCTIONS
+     * *** STEP 1 create a insert function
+     * ****************************************/
 
-    // *********************
-    // INSERT FUNCTIONS
-    // *** STEP 1 create a insert function
-    // *********************
-
-    /* [DONE] */
     public long insertCar(Car car) {
 		/*
 		 * CHANGE 3:
@@ -499,7 +496,6 @@ public class DBAdapter {
         return db.insert(TABLE_CAR, null, initialValues);
     }
 
-    /* [DONE] */
     public long insertRow(Bill bill) {
 		/*
 		 * CHANGE 3:
@@ -518,7 +514,6 @@ public class DBAdapter {
         return db.insert(TABLE_BILL, null, initialValues);
     }
 
-    /* [DONE] */
     public long insertRow(Route route) {
         // TODO: Update data in the row with new fields.
         // TODO: Also change the function's arguments to be what you need!
@@ -532,7 +527,6 @@ public class DBAdapter {
         return db.insert(TABLE_ROUTE, null, initialValues);
     }
 
-    // [DONE]
     public long insertRow(Bus bus) {
         // TODO: Update data in the row with new fields.
         // TODO: Also change the function's arguments to be what you need!
@@ -605,7 +599,7 @@ public class DBAdapter {
      * *** STEP 3 Create a getter for object
      * ****************************************/
 
-    // [UPDATE]
+    // Todo STEP XXXX
     // Return all rows in the table.
     public Cursor getAllRows(DB_TABLE table) {
         String where = null;
@@ -772,6 +766,26 @@ public class DBAdapter {
         return billList;
     }
 
+    // [DONE]
+    public Route getRoute(long rowId) {
+        String where = KEY_ROWID + "=" + rowId;
+
+        Cursor c = db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
+                where, null, null, null, null, null);
+
+        if (c != null) {
+            c.moveToFirst();
+        }
+
+        double cityDistance = c.getDouble(DBAdapter.COL_ROUTE_CITY_DISTANCE);
+        double highWayDistance = c.getDouble(DBAdapter.COL_ROUTE_HIGH_WAY_DISTANCE);
+        double otherDistance = c.getDouble(DBAdapter.COL_ROUTE_OTHER_DISTANCE);//for bike,walk,bus,skytrain
+        int mode = c.getInt(DBAdapter.COL_ROUTE_MODE);//2 for bike and walk,3 for bus, 4 for skytrain
+        String name = c.getString(DBAdapter.COL_ROUTE_NAME);
+
+        return new Route(name, highWayDistance, cityDistance, otherDistance, mode);
+    }
+
     public RouteCollection getAllRoute() {
         String message = "";
         // populate the message from the cursor
@@ -781,29 +795,15 @@ public class DBAdapter {
         if (cursor.moveToFirst()) {
             do {
                 // Process the data:
-
-                double cityDistance = cursor.getDouble(DBAdapter.COL_ROUTE_CITY_DISTANCE);
-                double highWayDistance = cursor.getDouble(DBAdapter.COL_ROUTE_HIGH_WAY_DISTANCE);
-                double otherDistance = cursor.getDouble(DBAdapter.COL_ROUTE_OTHER_DISTANCE);//for bike,walk,bus,skytrain
-                int mode = cursor.getInt(DBAdapter.COL_ROUTE_MODE);//2 for bike and walk,3 for bus, 4 for skytrain
-                String name = cursor.getString(DBAdapter.COL_ROUTE_NAME);
-
-                // Append data to the message:
-                message += "name=" + name
-                        + ", CityDistance=" + cityDistance
-                        + ", HighWayDistance=" + highWayDistance
-                        + ", OtherDistance=" + otherDistance
-                        + ", mode=" + mode
-                        + "\n";
-
-                rC.addRoute(new Route(name, highWayDistance, cityDistance, otherDistance, mode));
+                long row = cursor.getLong(COL_ROWID);
+                Route route = getRoute(row);
+                rC.addRoute(route);
             } while (cursor.moveToNext());
         }
 
         // Close the cursor to avoid a resource leak.
         cursor.close();
 
-//        Log.i(TAG, "displayRecordSetForRoute: " + message);
         return rC;
     }
 
@@ -947,25 +947,7 @@ public class DBAdapter {
         return null;
     }
 
-    // [DONE]
-    public Route getRoute(long rowId) {
-        String where = KEY_ROWID + "=" + rowId;
 
-        Cursor c = db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
-                where, null, null, null, null, null);
-
-        if (c != null) {
-            c.moveToFirst();
-        }
-
-        double cityDistance = c.getDouble(DBAdapter.COL_ROUTE_CITY_DISTANCE);
-        double highWayDistance = c.getDouble(DBAdapter.COL_ROUTE_HIGH_WAY_DISTANCE);
-        double otherDistance = c.getDouble(DBAdapter.COL_ROUTE_OTHER_DISTANCE);//for bike,walk,bus,skytrain
-        int mode = c.getInt(DBAdapter.COL_ROUTE_MODE);//2 for bike and walk,3 for bus, 4 for skytrain
-        String name = c.getString(DBAdapter.COL_ROUTE_NAME);
-
-        return new Route(name, highWayDistance, cityDistance, otherDistance, mode);
-    }
 
     // [DONE]
     public Bus getBus(long rowId) {
