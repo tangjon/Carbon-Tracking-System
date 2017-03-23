@@ -282,4 +282,8 @@
 
 
 
+    <string name="label_next_hint">Show next hint</string>
+    <string name="tips">Tips</string>
+    <string name="tip_hint">Click here for tips!</string>
+
 </resources>

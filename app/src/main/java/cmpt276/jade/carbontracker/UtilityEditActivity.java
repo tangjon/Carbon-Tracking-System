@@ -19,6 +19,7 @@ import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Graph;
+import cmpt276.jade.carbontracker.model.Tip;
 import cmpt276.jade.carbontracker.model.Utilities;
 import cmpt276.jade.carbontracker.utils.BillEditMode;
 import cmpt276.jade.carbontracker.utils.BillType;
@@ -50,6 +51,7 @@ public class UtilityEditActivity extends AppCompatActivity {
         setupUI();
         setupButtons();
         setupDatePickers();
+        getGasTips();
     }
 
     private void setupDatePickers() {
@@ -198,5 +200,18 @@ public class UtilityEditActivity extends AppCompatActivity {
         if (mode == BillEditMode.EDIT) buffer = emission.getBufferBill();
         else buffer = new Bill(type, null, null, 0);
     }
+    Tip tipForGas = new Tip();
+
+    private void getGasTips() {
+        final TextView tv = (TextView) findViewById(R.id.gas_tips);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tip1 = tipForGas.tipsForGasEmissions();
+                tv.setText(tip1);
+            }
+        });
+    }
+
 
 }
