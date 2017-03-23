@@ -148,6 +148,20 @@
     <string name="car">Car:</string>
     <string name="overview_of_journey">Overview of Journey:</string>
     <string name="dd_mm_yyyy">dd/mm/yyyy</string>
+    <string name="valid_date">Please Enter a valid date</string>
+    <string name="valid_nickname">Please Enter a nickname</string>
+    <string name="make">Make:</string>
+    <string name="model">Model:</string>
+    <string name="year">Year:</string>
+    <string name="city_distance">City Distance:</string>
+    <string name="highway_distance">Highway Distance :</string>
+    <string name="route_number">Route #:</string>
+    <string name="total_distance">Total Distance:</string>
+    <string name="line_name">Line Name:</string>
+    <string name="boarding_station">Boarding Station:</string>
+    <string name="rode_bike">Rode Bike</string>
+    <string name="walked">Walked</string>
+
 
     <!--CAR LIST ACTIVITY-->
     <string name="hint_click_car_to_add_routes_long_press_to_edit_or_delete">Hint: Click car to add routes. Long press to edit or delete.</string>

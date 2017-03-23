@@ -48,43 +48,43 @@ public class JourneyReviewActivity extends AppCompatActivity {
         TextView routeInfo = (TextView) findViewById(R.id.txtRouteInfo);
         if(Emission.getInstance().getJourneyBuffer().getTransType().getTransMode().equals(Transport.CAR)) {
             transTag.setText(R.string.car);
-            transInfo.setText(storedJourney.getTransType().getCar().getNickName() + "\nMake: " +
-                    storedJourney.getTransType().getCar().getMake() + "\nModel: " +
-                    storedJourney.getTransType().getCar().getModel() + "\nYear: " +
+            transInfo.setText(storedJourney.getTransType().getCar().getNickName() + "\n" + getString(R.string.make) +
+                    storedJourney.getTransType().getCar().getMake() + "\n" +getString(R.string.model) +
+                    storedJourney.getTransType().getCar().getModel() + "\n" + getString(R.string.year) +
                     storedJourney.getTransType().getCar().getYear());
 
 
-            routeInfo.setText(storedJourney.getRoute().getName() + "\nCity Distance: " +
-                    storedJourney.getRoute().getCityDistance() + "\nHighway Distance : "
+            routeInfo.setText(storedJourney.getRoute().getName() + "\n" + getString(R.string.city_distance) +
+                    storedJourney.getRoute().getCityDistance() + "\n" + getString(R.string.highway_distance)
                     + storedJourney.getRoute().getHighWayDistance());
         }
         else if(Emission.getInstance().getJourneyBuffer().getTransType().getTransMode().equals(Transport.BUS)){
             transTag.setText(R.string.bus);
-            transInfo.setText(storedJourney.getTransType().getBus().getNickName() + "\nRoute #: " +
+            transInfo.setText(storedJourney.getTransType().getBus().getNickName() + "\n" + getString(R.string.route_number) +
             storedJourney.getTransType().getBus().getRouteNumber());
 
-            routeInfo.setText(storedJourney.getRoute().getName() + "\nTotal Distance: " + storedJourney.getRoute().getOtherDistance());
+            routeInfo.setText(storedJourney.getRoute().getName() + "\n" + getString(R.string.total_distance) + storedJourney.getRoute().getOtherDistance());
 
         }
         else if(Emission.getInstance().getJourneyBuffer().getTransType().getTransMode().equals(Transport.SKYTRAIN)){
             transTag.setText(R.string.Skytrain);
-            transInfo.setText(storedJourney.getTransType().getSkytrain().getNickName() + "\nLine Name: " +
-            storedJourney.getTransType().getSkytrain().getSkytrainLine() + "\nBoarding Station: " +
+            transInfo.setText(storedJourney.getTransType().getSkytrain().getNickName() + "\n" + getString(R.string.line_name) +
+            storedJourney.getTransType().getSkytrain().getSkytrainLine() + "\n" + getString(R.string.boarding_station) +
             storedJourney.getTransType().getSkytrain().getBoardingStation());
 
-            routeInfo.setText(storedJourney.getRoute().getName() + "\nTotal Distance: " + storedJourney.getRoute().getOtherDistance());
+            routeInfo.setText(storedJourney.getRoute().getName() + "\n" + getString(R.string.total_distance) + storedJourney.getRoute().getOtherDistance());
         }
         else if(Emission.getInstance().getJourneyBuffer().getTransType().getTransMode().equals(Transport.WALK)){
-            transTag.setText("Walked");
+            transTag.setText(R.string.walked);
             transInfo.setText(" ");
 
-            routeInfo.setText(storedJourney.getRoute().getName() + "\nTotal Distance: " + storedJourney.getRoute().getOtherDistance());
+            routeInfo.setText(storedJourney.getRoute().getName() + "\n" + getString(R.string.total_distance) + storedJourney.getRoute().getOtherDistance());
         }
         else if(Emission.getInstance().getJourneyBuffer().getTransType().getTransMode().equals(Transport.BIKE)){
-            transTag.setText("Rode Bike");
+            transTag.setText(R.string.rode_bike);
             transInfo.setText(" ");
 
-            routeInfo.setText(storedJourney.getRoute().getName() + "\nTotal Distance: " + storedJourney.getRoute().getOtherDistance());
+            routeInfo.setText(storedJourney.getRoute().getName() + "\n" + getString(R.string.total_distance) + storedJourney.getRoute().getOtherDistance());
         }
         if(journey.getMode() == 1){
             EditText inputName = (EditText) findViewById(R.id.editJourneyName);
@@ -106,33 +106,36 @@ public class JourneyReviewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText inputName = (EditText) findViewById(R.id.editJourneyName);
                 EditText inputDate = (EditText) findViewById(R.id.editDate);
-                String date = inputDate.getText().toString();
+               // String date = inputDate.getText().toString();
 
-                date = date.replaceAll(".", "");
-                date= date.replaceAll("-", "");
-                String[] dateCheck = date.trim().split("/", 3);
+
+                String[] dateCheck =inputDate.getText().toString().split("/", 3);
+
                 int month = 0;
                 int day = 0;
                 int year = 0;
                 if (dateCheck.length == 3) {
-                    if(dateCheck[1].equals("") || dateCheck[0].equals("") || dateCheck[2].equals("") )
-                        inputDate.setError("Please Enter a valid date");
+                    if(dateCheck[1].equals("") || dateCheck[0].equals("") || dateCheck[2].equals("")
+                            || dateCheck[1].contains(".") || dateCheck[0].contains(".") || dateCheck[2].contains(".")
+                            || dateCheck[1].contains("-") || dateCheck[0].contains("-") || dateCheck[2].contains("-")) {
+                        inputDate.setError(getString(R.string.valid_date));
+                    }
                     else {
                         month = Integer.parseInt(dateCheck[1]);
                         day = Integer.parseInt(dateCheck[0]);
                         year = Integer.parseInt(dateCheck[2]);
                     }
                 } else {
-                    inputDate.setError("Please Enter a valid date");
+                    inputDate.setError(getString(R.string.valid_date));
                 }
                 if (inputName.getText().toString().trim().length() == 0) {
-                    inputName.setError("Please Enter a nickname");
+                    inputName.setError(getString(R.string.valid_nickname));
                 } else if (month < 1 || month > 12 || day < 1 || day > 31 || year < 1900 || year > 9999) {
-                    inputDate.setError("Please Enter a valid date");
+                    inputDate.setError(getString(R.string.valid_date));
                 } else if((month == 2 && day > 28 && year % 4 != 0) || (month == 2 && day > 29 && year % 4 == 0)){
-                    inputDate.setError("Please Enter a valid date");
+                    inputDate.setError(getString(R.string.valid_date));
                 } else if(month == 4 || month == 6 || month == 9 || month == 11 && day > 30) {
-                    inputDate.setError("Please Enter a valid date");
+                    inputDate.setError(getString(R.string.valid_date));
                 }else{
 
 
@@ -143,7 +146,6 @@ public class JourneyReviewActivity extends AppCompatActivity {
                     storedJourney.setName(inputName.getText().toString().trim());
                     Emission.getInstance().setJourneyBuffer(storedJourney);
 
-                    Log.i("JourneyDate","****************** Date = "+storedJourney.getDateObj().toString());
 
                     if (journey.getMode() == 0) {
 //                        JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
@@ -155,9 +157,6 @@ public class JourneyReviewActivity extends AppCompatActivity {
                         JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
                         listOfJourneys.editJourney(storedJourney, journey.getPosition());
                         Emission.getInstance().setJourneyCollection(listOfJourneys);
-                        Log.i("JourneyDate","****************** Stored Date = "+
-                                Emission.getInstance().getJourneyCollection()
-                                        .getJourney(journey.getPosition()).getDateObj().toString());
                     }
 
 
