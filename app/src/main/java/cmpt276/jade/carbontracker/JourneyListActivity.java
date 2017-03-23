@@ -108,9 +108,9 @@ public class JourneyListActivity extends AppCompatActivity {
         //edit - long click
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                Journey journey = listOfJourneys.getJourney(position);
+                final Journey journey = listOfJourneys.getJourney(position);
 
                 // Set Up Edit Dialog Includes Edit and Delete Features
                 EditDialog editDialog = EditDialog.newInstance(journey);
@@ -124,6 +124,7 @@ public class JourneyListActivity extends AppCompatActivity {
 
                     @Override
                     public void onEditClicked(int pos) {
+                        // For DB FIELD
                         if(listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.CAR)) {
                             Intent intent = CarListActivity
                                 .getIntentFromActivity(JourneyListActivity.this);
@@ -193,7 +194,7 @@ public class JourneyListActivity extends AppCompatActivity {
         db.open();
         db.deleteAll(DBAdapter.DB_TABLE.JOURNEY);
         for (Journey j: Emission.getInstance().getJourneyCollection().getJourneyList()) {
-            db.insertRow(j);
+            db.updateJourney(j);
         }
         db.close();
     }
@@ -201,13 +202,14 @@ public class JourneyListActivity extends AppCompatActivity {
     // Inspired by Raz
     private void setupDeleteAlert( final int index) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        Journey thisJourney = listOfJourneys.getJourney(index);
+        final Journey thisJourney = listOfJourneys.getJourney(index);
         builder.setMessage(getString(R.string.journey_list_confirm_delete_message, thisJourney.getName()));
         builder.setCancelable(true);
 
         builder.setPositiveButton(getString(R.string.label_delete), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                DBAdapter.delete(JourneyListActivity.this,thisJourney);
                 listOfJourneys.deleteJourney(index);
                 Emission.getInstance().setJourneyCollection(listOfJourneys);
                 populateList();

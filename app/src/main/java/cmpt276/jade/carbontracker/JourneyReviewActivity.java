@@ -179,17 +179,16 @@ public class JourneyReviewActivity extends AppCompatActivity {
 
 
                     if (journey.getMode() == 0) {
-//                        JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
-//                        listOfJourneys.addJourney(storedJourney);
-//                        Emission.getInstance().setJourneyCollection(listOfJourneys);
                       Emission.getInstance().getJourneyCollection().addJourney(storedJourney);
                       DBAdapter.save(JourneyReviewActivity.this, storedJourney);
                     } else if (journey.getMode() == 1) {
                         Toast.makeText(JourneyReviewActivity.this, "" + storedJourney.getPosition(), Toast.LENGTH_SHORT).show();
                         JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
+                        DBAdapter.update(JourneyReviewActivity.this,Emission.getInstance().getJourneyBuffer());
                         listOfJourneys.editJourney(storedJourney, journey.getPosition());
                         Emission.getInstance().setJourneyCollection(listOfJourneys);
                     }
+
 
 
                     Intent intent = JourneyListActivity.getJourneyListIntent(JourneyReviewActivity.this);

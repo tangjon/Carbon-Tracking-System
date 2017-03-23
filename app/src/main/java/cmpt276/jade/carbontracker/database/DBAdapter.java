@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +23,6 @@ import cmpt276.jade.carbontracker.model.Route;
 import cmpt276.jade.carbontracker.model.RouteCollection;
 import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.model.Transportation;
-import cmpt276.jade.carbontracker.model.Utilities;
 import cmpt276.jade.carbontracker.utils.BillType;
 
 /*
@@ -48,7 +46,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 23;
+    public static final int DATABASE_VERSION = 24;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -374,6 +372,59 @@ public class DBAdapter {
         return db.delete(table.toString(), where, null) != 0;
     }
 
+    public void deleteJourney(Journey j){
+
+        Log.i(TAG, "deleteJourney: " + j.toString());
+        long rowId =j.getID();
+        String where = KEY_ROWID + "=" + rowId;
+
+        Cursor c = db.query(true, TABLE_JOURNEY, ALL_JOURNEY_KEYS,
+                where, null, null, null, null, null);
+
+        if (c != null) {
+            c.moveToFirst();
+        }
+
+        if(c.getCount() > 0 ) {
+            String TRANS_TYPE = c.getString(COL_JOURNEY_TRANS_TYPE);
+            long routeID = c.getInt(COL_JOURNEY_ROUTE_ID);
+
+            // Get and set Transport Type
+            Transportation transportation = new Transportation();
+            transportation.setTransMode(buffTrans(TRANS_TYPE));
+
+            // Delete Transport Object
+            switch (transportation.getTransMode()){
+                case CAR:
+                    long CAR_ID = c.getInt(COL_TRANSPORT_OBJECT_ID);
+                    deleteRow(DB_TABLE.CAR, CAR_ID);
+                    break;
+                case BIKE:
+                    // Do nothing
+                    break;
+                case WALK:
+                    // Do nothing
+                    break;
+                case BUS:
+                    long busID = c.getInt(COL_TRANSPORT_OBJECT_ID);
+                    deleteRow(DB_TABLE.BUS, busID);
+                    break;
+                case SKYTRAIN:
+                    long trainID = c.getInt(COL_TRANSPORT_OBJECT_ID);
+                    deleteRow(DB_TABLE.SKYTRAIN, trainID);
+                    break;
+            }
+            // Delete Route
+            deleteRow(DB_TABLE.ROUTE, routeID);
+
+            // Delete Journey
+            deleteRow(DB_TABLE.JOURNEY, rowId);
+
+            // Todo For logging
+            getAllJourney();
+        }
+    }
+
     // [DONE]
     public void deleteAll(DB_TABLE table) {
         Cursor c = getAllRows(table);
@@ -569,7 +620,7 @@ public class DBAdapter {
                 break;
         }
 
-        Log.i(TAG, "insertRow: " + journey.toString());
+        Log.i(TAG, "InsertingThisJourney: " + journey.toString());
         // Insert it into the database.
         return db.insert(TABLE_JOURNEY, null, initialValues);
     }
@@ -647,8 +698,6 @@ public class DBAdapter {
                 String DATE = cursor.getString(COL_JOURNEY_DATE);
                 long ROUTE_ID = cursor.getInt(COL_JOURNEY_ROUTE_ID);
 
-                Log.i(TAG, "getAllJourney: " + name);
-
                 // Get and set Route
                 Route route = getRoute(ROUTE_ID);
 
@@ -680,7 +729,7 @@ public class DBAdapter {
                 Journey j = new Journey(name, transportation,route);
                 j.setID(ID);
                 j.setDate(DATE);
-                Log.i(TAG, "getAllJourney: " + j.toString());
+                Log.i(TAG, "CurrentJourneyInDB: " + j.toString());
                 jC.addJourney(j);
 
             } while(cursor.moveToNext());
@@ -1039,9 +1088,8 @@ public class DBAdapter {
     }
 
     public boolean updateJourney(Journey j){
-
-
-
+        deleteJourney(j);
+        insertRow(j);
         return true;
     }
 
@@ -1114,6 +1162,20 @@ public class DBAdapter {
         DBAdapter db = new DBAdapter(ctx);
         db.open();
         db.insertRow(journey);
+        db.close();
+    }
+
+    public static void update(Context ctx, Journey journey){
+        DBAdapter db = new DBAdapter(ctx);
+        db.open();
+        db.updateJourney(journey);
+        db.close();
+    }
+
+    public static void delete(Context ctx, Journey journey){
+        DBAdapter db = new DBAdapter(ctx);
+        db.open();
+        db.deleteJourney(journey);
         db.close();
     }
 

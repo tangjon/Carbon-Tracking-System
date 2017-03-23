@@ -69,7 +69,7 @@ public class Journey implements Serializable{
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(long ID) {
         this.ID = ID;
     }
 
@@ -235,20 +235,12 @@ public class Journey implements Serializable{
     }
 
 
-
     @Override
     public String toString() {
         return "Journey{" +
-                "name='" + name + '\'' +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
                 ", transType=" + transType +
-                ", route=" + route +
-                ", Date='" + Date + '\'' +
-                ", totalDriven=" + totalDriven +
-                ", totalEmissionsCity=" + totalEmissionsCity +
-                ", totalEmissionsHighway=" + totalEmissionsHighway +
-                ", totalTravelledEmissions=" + totalTravelledEmissions +
-                ", mode=" + mode +
-                ", position=" + position +
                 '}';
     }
 
