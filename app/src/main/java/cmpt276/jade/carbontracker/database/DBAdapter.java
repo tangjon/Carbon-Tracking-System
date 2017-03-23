@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,9 +52,6 @@ public class DBAdapter {
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
-
-    // DB Tables
-    public static final String DATABASE_TABLE = "mainTable";
 
     public static final String TABLE_ROUTE = "routes";
 
@@ -596,6 +594,7 @@ public class DBAdapter {
             c.moveToFirst();
         }
 
+        long ID = c.getLong(COL_ROWID);
         String name = c.getString(COL_JOURNEY_NAME);
         String TRANS_TYPE = c.getString(COL_JOURNEY_TRANS_TYPE);
         String DATE = c.getString(COL_JOURNEY_DATE);
@@ -630,6 +629,7 @@ public class DBAdapter {
                 break;
         }
         Journey j = new Journey(name, transportation,route);
+        j.setID(ID);
         j.setDate(DATE);
         Log.i(TAG, "getJourney: " + j.toString());
         // Todo set date
@@ -641,6 +641,7 @@ public class DBAdapter {
         JourneyCollection jC = new JourneyCollection();
         if (cursor.moveToFirst()) {
             do {
+                long ID = cursor.getLong(COL_ROWID);
                 String name = cursor.getString(COL_JOURNEY_NAME);
                 String TRANS_TYPE = cursor.getString(COL_JOURNEY_TRANS_TYPE);
                 String DATE = cursor.getString(COL_JOURNEY_DATE);
@@ -677,6 +678,7 @@ public class DBAdapter {
                         break;
                 }
                 Journey j = new Journey(name, transportation,route);
+                j.setID(ID);
                 j.setDate(DATE);
                 Log.i(TAG, "getAllJourney: " + j.toString());
                 jC.addJourney(j);
@@ -1036,25 +1038,32 @@ public class DBAdapter {
         return c;
     }
 
+    public boolean updateJourney(Journey j){
+
+
+
+        return true;
+    }
+
     // UNTOUCHED
     // Change an existing row to be equal to new data.
-//    public boolean updateRow(long rowId, String name, int studentNum, String favColour) {
-//        String where = KEY_ROWID + "=" + rowId;
-//
-//		/*
-//		 * CHANGE 4:
-//		 */
-//        // TODO: Update data in the row with new fields.
-//        // TODO: Also change the function's arguments to be what you need!
-//        // Create row's data:
-//        ContentValues newValues = new ContentValues();
+    public boolean updateRow(long rowId) {
+        String where = KEY_ROWID + "=" + rowId;
+
+		/*
+		 * CHANGE 4:
+		 */
+        // TODO: Update data in the row with new fields.
+        // TODO: Also change the function's arguments to be what you need!
+        // Create row's data:
+        ContentValues newValues = new ContentValues();
 //        newValues.put(KEY_NAME, name);
 //        newValues.put(KEY_STUDENTNUM, studentNum);
 //        newValues.put(KEY_FAVCOLOUR, favColour);
-//
-//        // Insert it into the database.
-//        return db.update(DATABASE_TABLE, newValues, where, null) != 0;
-//    }
+
+        // Insert it into the database.
+        return db.update(DATABASE_NAME, newValues, where, null) != 0;
+    }
 
 
     /////////////////////////////////////////////////////////////////////

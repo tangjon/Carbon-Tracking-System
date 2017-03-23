@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
@@ -184,6 +185,7 @@ public class JourneyReviewActivity extends AppCompatActivity {
                       Emission.getInstance().getJourneyCollection().addJourney(storedJourney);
                       DBAdapter.save(JourneyReviewActivity.this, storedJourney);
                     } else if (journey.getMode() == 1) {
+                        Toast.makeText(JourneyReviewActivity.this, "" + storedJourney.getPosition(), Toast.LENGTH_SHORT).show();
                         JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
                         listOfJourneys.editJourney(storedJourney, journey.getPosition());
                         Emission.getInstance().setJourneyCollection(listOfJourneys);

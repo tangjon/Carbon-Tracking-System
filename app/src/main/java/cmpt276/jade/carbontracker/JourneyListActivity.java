@@ -127,7 +127,6 @@ public class JourneyListActivity extends AppCompatActivity {
                         if(listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.CAR)) {
                             Intent intent = CarListActivity
                                 .getIntentFromActivity(JourneyListActivity.this);
-
                             Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(pos));
                             Emission.getInstance().getJourneyBuffer().setPosition(pos);
                             Emission.getInstance().getJourneyBuffer().setMode(1);

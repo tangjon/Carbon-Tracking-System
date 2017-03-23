@@ -6,8 +6,6 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-import cmpt276.jade.carbontracker.enums.Transport;
-
 /**
  * Created by Sean on 02/03/2017.
  * Journey object stores both the car and route objects used
@@ -26,6 +24,8 @@ public class Journey implements Serializable{
     public static String KEY = "JOURNEY";
 
 
+    // For database tracking
+    private long ID;
     private String name;
     private Transportation transType;
     private Route route;
@@ -63,6 +63,14 @@ public class Journey implements Serializable{
             this.totalDriven = route.getOtherDistance();
             this.totalTravelledEmissions = 0;
         }
+    }
+
+    public long getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getName() {
