@@ -9,25 +9,48 @@ package cmpt276.jade.carbontracker.model;
 // won't repeat in 7 times peroid
 public class Tip {
 
-    double totalCityEmissions;
-    double totalHighwayEmissions;
-    double totalCarEmissions=totalCityEmissions+totalHighwayEmissions;
+    double totalBusEmission;
+    double totalSkyTrainEmission;
+    double totalCarEmission;
 
     double totalWalk;
     double totalBike;
-    double totalBusEmission;
-    double totalSkyTrainEmission;
 
-    double totalJourneyEmissions=totalCarEmissions+ totalBusEmission + totalSkyTrainEmission;
     double totalElectricityEmissions;
     double totalGasEmissions;
 
-    int walkTipsNotRepeat[]= {8,8,8,8,8, 8,8,8,8,8};                        //8
-    int bikeTipsNotRepeat[]= {8,8,8,8,8, 8,8,8,8,8, 8,8};                   //11
-    int journeyEmissionsTipsNotRepeat[]= {8,8,8,8,8, 8,8,8,8,8, 8,8,8,8};  //13
-    int electricityTipsNotRepeat[]=  {8,8,8,8,8, 8,8,8,8,8};                //8
-    int gasTipsNotRepeat[]=  {8,8,8,8,8, 8,8,8,8,8};                        //8
+    static int walkTipsNotRepeat[]= {8,8,8,8,8, 8,8,8,8,8};                        //8
+    static int bikeTipsNotRepeat[]= {8,8,8,8,8, 8,8,8,8,8, 8,8};                   //11
+    static int journeyEmissionsTipsNotRepeat[]= {8,8,8,8,8, 8,8,8,8,8, 8,8,8,8};  //13
+    static int electricityTipsNotRepeat[]=  {8,8,8,8,8, 8,8,8,8,8};                //8
+    static int gasTipsNotRepeat[]=  {8,8,8,8,8, 8,8,8,8,8};                        //8
 
+    public void setTotalCarEmissions(double totalCarEmission) {
+        this.totalCarEmission = totalCarEmission;
+    }
+
+    public void setTotalBusEmission(double totalBusEmission) {
+        this.totalBusEmission = totalBusEmission;
+    }
+    public void setTotalSkyTrainEmission(double totalSkyTrainEmission) {
+        this.totalSkyTrainEmission = totalSkyTrainEmission;
+    }
+    public void setTotalWalk(double totalWalk) {
+        this.totalWalk = totalWalk;
+    }
+    public void setTotalBike(double totalBike) {
+        this.totalBike = totalBike;
+    }
+    public void setTotalElectricityEmissions(double totalElectricityEmissions) {
+        this.totalElectricityEmissions = totalElectricityEmissions;
+    }
+    public void setTotalGasEmissions(double totalGasEmissions) {
+        this.totalGasEmissions = totalGasEmissions;
+    }
+
+    public double getTotalJourneyEmissions() {
+        return totalCarEmission+totalBusEmission+totalSkyTrainEmission;
+    }
 
     // total 32 tips for journey(include, walk,bike,bus,skytrain)
     public String getJourneyTip() {
@@ -57,6 +80,7 @@ public class Tip {
         for (int x = 0; x < walkTipsNotRepeat.length; x++) {
             walkTipsNotRepeat[x] ++;
         }
+        double totalJourneyEmissions=getTotalJourneyEmissions();
         if(totalWalk ==0.0 && walkTipsNotRepeat[0]>8) {
             String tip= "You haven't walk today,"
                     +"Walking have lots of benefits to your health. "
@@ -129,15 +153,13 @@ public class Tip {
         return "";
     }
 
-
-
-
     //there are 11 tips for biking
     //Will have 1~2 tips for one period
     public String tipsForBike() {
         for (int x = 0; x < bikeTipsNotRepeat.length; x++) {
             bikeTipsNotRepeat[x] ++;
         }
+        double totalJourneyEmissions=getTotalJourneyEmissions();
         if (totalBike == 0.0 && bikeTipsNotRepeat[0] >8) {
             String tip = "You haven't rode bike today,"
                     + "Riding bike have lots of benefits to your health, "
@@ -215,8 +237,8 @@ public class Tip {
             bikeTipsNotRepeat[10] = 1;
             return tip;
         }
-        else if(totalCityEmissions==0 && totalHighwayEmissions==0 &&
-                totalBike !=0 && totalJourneyEmissions !=0 && bikeTipsNotRepeat[11] >8) {
+        else if(totalCarEmission==0 && totalBike !=0 &&
+                totalJourneyEmissions !=0 && bikeTipsNotRepeat[11] >8) {
             String tip="Emm, I see, you went outside by riding bike and public transportation. " +
                     "The total emissions by transportation is: " +totalJourneyEmissions+
                     ". You tried best to make this a better world, well done.";
@@ -238,6 +260,7 @@ public class Tip {
         for (int x = 0; x < journeyEmissionsTipsNotRepeat.length; x++) {
             journeyEmissionsTipsNotRepeat[x] ++;
         }
+        double totalJourneyEmissions=getTotalJourneyEmissions();
         if(totalJourneyEmissions ==0 && totalBike ==0 && totalWalk ==0 &&
                 journeyEmissionsTipsNotRepeat[0] >8)
         {
@@ -549,26 +572,6 @@ public class Tip {
         }
         return "";
     }
-
-
-    /*
-    function that call tips
-
-    Tip tip = new Tip();
-    private void setupNextTipBtn() {
-        Button btn = (Button) findViewById(R.id.);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TextView tv = (TextView) findViewById(R.id.);
-                String s = tip.getJourneyTip();
-                tv.setText(s);
-            }
-        });
-    }
-     */
-
-
 
 }
 
