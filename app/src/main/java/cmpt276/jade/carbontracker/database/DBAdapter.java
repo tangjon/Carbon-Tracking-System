@@ -297,19 +297,37 @@ public class DBAdapter {
     // TODO: Setup Utilities Fields Here
 
     // ----- TODO: Setup Bills
-    public static final String KEY_BILL_TYPE = "BILL_TYPE";
-    public static final String KEY_BILL_START_DATE = "START_DATE";
-    public static final String KEY_BILL_END_DATE = "END_DATE";
-    public static final String KEY_BILL_INPUT = "INPUT";
+    public static final String KEY_BILL_TYPE = "bill_type";
+    public static final String KEY_BILL_START_DATE = "bill_start_date";
+    public static final String KEY_BILL_END_DATE = "bill_end_date";
+    public static final String KEY_BILL_INPUT = "bill_input";
 
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
+    public static final int COL_BILL_TYPE = 1;
+    public static final int COL_BILL_START_DATE = 2;
+    public static final int COL_BILL_END_DATE = 3;
+    public static final int COL_BILL_INPUT = 4;
 
     // ALL KEYS
     public static final String[] ALL_BILL_KEYS = new String[] {
-
-    };
+            KEY_BILL_TYPE,
+            KEY_BILL_START_DATE,
+            KEY_BILL_END_DATE,
+            KEY_BILL_INPUT};
 
     // Create the Data Base (SQL)
+    private static final String CREATE_TABLE_BILL =
+            "create table " + TABLE_BILL
+                    + " (" + KEY_ROWID + " integer primary key autoincrement, "
+
+                    // TODO: Place your fields here!
+                    + KEY_BILL_TYPE + " text, "
+                    + KEY_BILL_START_DATE + " real, "
+                    + KEY_BILL_END_DATE + " real, "
+                    + KEY_BILL_INPUT + " text"
+
+                    // Rest  of creation:
+                    + ");";
 
 
     ///////////////////////////
