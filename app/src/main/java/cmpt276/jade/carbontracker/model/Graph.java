@@ -139,14 +139,14 @@ public class Graph {
 
         Log.i("getJourneys","mode = "+mode);
 
-        // TODO: 21/03/17 fix date comparison
         if (mode == 0) buffer = journeyCollection;
         else if (mode == 1) {
             for (int i = 0; i < journeyCollection.countJourneys(); ++i){
                 j = journeyCollection.getJourney(i);
 
                 Log.i("getJourneys","compareDates returned "+compareDates(j.getDateObj(), dateSelected)+", needed 0");
-                if (compareDates(j.getDateObj(), dateSelected) == 0) {
+                if (j.getTotalTravelledEmissions() > 0.0 &&
+                        compareDates(j.getDateObj(), dateSelected) == 0) {
                     Log.i("GetJourneys","added journey "+journeyCollection.getJourney(i).toString());
                     buffer.addJourney(journeyCollection.getJourney(i));
                 }
@@ -156,7 +156,8 @@ public class Graph {
                 j = journeyCollection.getJourney(i);
                 Date d = j.getDateObj();
 
-                if (compareDates(d, dateRangeStart) > -1 && compareDates(d, dateRangeEnd) < 1) {
+                if (j.getTotalTravelledEmissions() > 0.0 &&
+                        compareDates(d, dateRangeStart) > -1 && compareDates(d, dateRangeEnd) < 1) {
                     buffer.addJourney(j);
                     Log.i("GetJourneys","added journey "+j.toString());
                 }
@@ -176,33 +177,23 @@ public class Graph {
         // maybe need better way of handling null dates in carbon footprint activity
         if (date1 == null || date2 == null) return 0;
 
-        Log.i("compareDates", "Comparing "+date1.toString()+" with "+date2.toString());
-        if (date1.getYear() < date2.getYear()) {
-            Log.i("compareDates", ""+date1.getYear()+" < "+date2.getYear());
-            return -1;
-        } else if (date1.getYear() > date2.getYear()) {
-            Log.i("compareDates", ""+date1.getYear()+" > "+date2.getYear());
-            return 1;
-        } else {
-            if (date1.getMonth() < date2.getMonth()) {
-                Log.i("compareDates", ""+date1.getMonth()+" < "+date2.getMonth());
-                return -1;
-            } else if (date1.getMonth() > date2.getMonth()) {
-                Log.i("compareDates", ""+date1.getMonth()+" > "+date2.getMonth());
-                return 1;
-            } else {
-                if (date1.getDate() < date2.getDate()) {
-                    Log.i("compareDates", ""+date1.getDate()+" < "+date2.getDate());
-                    return -1;
-                } else if (date1.getDate() > date2.getDate()) {
-                    Log.i("compareDates", ""+date1.getDate()+" > "+date2.getDate());
-                    return 1;
-                } else {
-                    Log.i("compareDates", ""+date1.getDate()+" = "+date2.getDate());
-                    return 0;
-                }
-            }
-        }
+        date1 = makeTimeMidnight(date1);
+        date2 = makeTimeMidnight(date2);
+
+        Log.i("compareDates", ""+date1.toString()+" ? "+date2.toString());
+
+        return date1.compareTo(date2);
+    }
+
+    public static Date makeTimeMidnight(Date d) {
+        Calendar c = Calendar.getInstance();
+
+        c.setTime(d);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+
+        return c.getTime();
     }
 
     private static class JourneyData {
@@ -233,7 +224,8 @@ public class Graph {
                 } else {
                     nameVehicle[i] = "n/a";
                 }
-                date[i] = Emission.DATE_FORMAT.format(j.getDateObj());
+                if (j.getDateObj() != null) date[i] = Emission.DATE_FORMAT.format(j.getDateObj());
+                else date[i] = "its fucked here too";
                 values[i] = (float) j.getTotalTravelledEmissions();
                 distance[i] = j.getTotalDriven();
             }
