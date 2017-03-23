@@ -37,6 +37,7 @@ import cmpt276.jade.carbontracker.model.Graph;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Tip;
+import cmpt276.jade.carbontracker.model.Transportation;
 import cmpt276.jade.carbontracker.model.Utilities;
 
 /*
@@ -93,8 +94,10 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
     private void setupDatePicker() {
         dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        //dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateChangedListener() {
+
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar c = Calendar.getInstance();
                 c.clear();
                 c.set(year, month, dayOfMonth);
@@ -375,17 +378,24 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private void loadData() {
         emissionRouteNames = journeyCollection.getJourneyDetails();
         Journey j;
+        Transportation t;
 
         for (int i = 0; i < NUM_ENTRIES; ++i) {
             j = journeyCollection.getJourney(i);
+            t = j.getTransType();
+
             if (j.getDateObj() != null) emissionDate[i] = Emission.DATE_FORMAT.format(j.getDateObj());
             else emissionDate[i] = "its fucked";
             emissionRouteNames[i] = j.getName();
             emissionDistance[i] = j.getRoute().getCityDistance() + j.getRoute().getCityDistance();
-            if (j.getTransType().getCar() != null) {
-                emissionVehicleNames[i] = j.getTransType().getCar().getName();
+            if (t.getCar() != null) {
+                emissionVehicleNames[i] = t.getCar().getNickName();
+            } else if (t.getSkytrain() != null) {
+                emissionVehicleNames[i] = t.getSkytrain().getNickName();
+            } else if (t.getBus() != null) {
+                emissionVehicleNames[i] = t.getBus().getNickName();
             } else {
-                emissionVehicleNames[i] = " n/a ";
+                emissionVehicleNames[i] = "n/a";
             }
             emissionValues[i] = (float) Math.round(j.getTotalTravelled());
         }
