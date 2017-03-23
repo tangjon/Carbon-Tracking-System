@@ -67,9 +67,9 @@ public class SkytrainInfoActivity extends AppCompatActivity {
                     outgoingTrain.setBoardingStation(inputStation.getText().toString().trim());
 
                     if (incomingTrain == null || incomingTrain.getMode() == 0) {
-                        SkytrainListActivity.trainList.addTrain(outgoingTrain);
+                        SkytrainListActivity.recentSkyTrainList.addTrain(outgoingTrain);
                     } else if (incomingTrain != null && incomingTrain.getMode() == 1) {
-                        SkytrainListActivity.trainList.editTrain(outgoingTrain, incomingTrain.getPosition());
+                        SkytrainListActivity.recentSkyTrainList.editTrain(outgoingTrain, incomingTrain.getPosition());
                     }
                     Emission.getInstance().getJourneyBuffer().getTransType().setSkytrain(outgoingTrain);
                     Intent intent = SkytrainListActivity.getIntent(SkytrainInfoActivity.this);

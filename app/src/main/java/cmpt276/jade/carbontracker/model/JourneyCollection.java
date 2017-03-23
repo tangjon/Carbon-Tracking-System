@@ -49,4 +49,11 @@ public class JourneyCollection {
         }
         return names;
     }
+
+    @Override
+    public String toString() {
+        return "JourneyCollection{" +
+                "journeyList=" + journeyList +
+                '}' + "\n";
+    }
 }

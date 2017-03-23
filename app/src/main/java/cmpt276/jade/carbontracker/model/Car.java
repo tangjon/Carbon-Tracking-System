@@ -10,6 +10,7 @@ import java.util.UUID;
 
 public class Car implements Serializable{
 
+    private long ID;
     private double carbonTailPipe;
     private double engineDispLitres;
     private int cityMPG;
@@ -182,8 +183,10 @@ public class Car implements Serializable{
     }
 
     public Car copy(){
-        return new Car(nickName,  make,  model,  year,  cityMPG,  highwayMPG,  engineDescription,
-         engineDispLitres,  fuelType,  fuelAnnualCost,  carbonTailPipe,  transDescription);
+        Car car = new Car(nickName,  make,  model,  year,  cityMPG,  highwayMPG,  engineDescription,
+                engineDispLitres,  fuelType,  fuelAnnualCost,  carbonTailPipe,  transDescription);
+        car.setID(ID);
+        return car;
     }
 
     public String toStringNoKey() {
@@ -221,5 +224,13 @@ public class Car implements Serializable{
                 ", carbonTailPipe=" + carbonTailPipe +
                 ", KEY=" + KEY +
                 '}';
+    }
+
+    public long getID() {
+        return ID;
+    }
+
+    public void setID(long ID){
+        this.ID = ID;
     }
 }

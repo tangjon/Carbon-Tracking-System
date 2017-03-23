@@ -15,7 +15,6 @@ import java.util.List;
 
 import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
-import cmpt276.jade.carbontracker.fragment.HintDialog;
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.Car;
@@ -126,6 +125,23 @@ public class Welcome_Activity extends AppCompatActivity {
             }
         }
 
+        // Load Recent Car Lists
+        for (Car c : myDb.getAllCars(DBAdapter.TAG_ID.RECENT).toList()){
+            CarListActivity.recentCarList.add(c);
+            Log.i(TAG, "DBAdapterLoadRecetn:(CAR)" + c.toString());
+        }
+
+        // Load Recent Bus Lists
+        for (Bus b: myDb.getAllBus(DBAdapter.TAG_ID.RECENT).getBusList()) {
+            BusListActivity.recentBusList.addBus(b);
+            Log.i(TAG, "DBAdapterLoadRecetn:(BUS)" + b.toString());
+        }
+
+        // Load Recent Skytrains
+        for (Skytrain s: myDb.getAllSkytrain(DBAdapter.TAG_ID.RECENT).getTrainList()) {
+            SkytrainListActivity.recentSkyTrainList.addTrain(s);
+            Log.i(TAG, "DBAdapterLoadRecetn:(SKYTRAIN)" + s.toString());
+        }
 
     }
 
@@ -165,7 +181,7 @@ public class Welcome_Activity extends AppCompatActivity {
         db.open();
         // TEST CAR
         Car car = GenerateDummyData.generateCar();
-        long carID = db.insertRow(car);
+        long carID = db.insertRow(car, DBAdapter.TAG_ID.MAIN);
         Car recCar = db.getCar(carID);
         Log.i(TAG, "testDataBaseSaveAndLoad: " + recCar.toString());
         // TEST ROUTE
@@ -176,7 +192,7 @@ public class Welcome_Activity extends AppCompatActivity {
 
         // Test Bus
         Bus bus = GenerateDummyData.generateBus();
-        long busRow = db.insertRow(bus);
+        long busRow = db.insertRow(bus, DBAdapter.TAG_ID.MAIN);
         bus = db.getBus(busRow);
         Log.i(TAG, "testDataBaseSaveAndLoad: " + bus.toString());
 
@@ -190,7 +206,7 @@ public class Welcome_Activity extends AppCompatActivity {
 
         // Test Skytrain
         Skytrain train = GenerateDummyData.generateSkytrain();
-        long trainRow = db.insertRow(train);
+        long trainRow = db.insertRow(train, DBAdapter.TAG_ID.MAIN);
         train = db.getSkytrain(trainRow);
         Log.i(TAG, "testDataBaseSaveAndLoad: " + train.toString());
 
