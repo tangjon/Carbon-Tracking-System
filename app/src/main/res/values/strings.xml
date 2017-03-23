@@ -193,9 +193,9 @@
     <string-array name="label_table">
         <item>Date</item>
         <item>Trip Name</item>
-        <item>Distance</item>
+        <item>Distance (km)</item>
         <item>Vehicle Name</item>
-        <item>Carbon Emitted</item>
+        <item>Carbon Emitted\n(kg CO2)</item>
     </string-array>
 
     <!-- Utilities Activity -->

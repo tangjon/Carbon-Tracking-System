@@ -171,6 +171,7 @@ public class Journey implements Serializable{
         Log.i("spinner", "year = "+year+" month = "+month+" day = "+day);
 
         Calendar c = Calendar.getInstance();
+        c.clear();
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, day);

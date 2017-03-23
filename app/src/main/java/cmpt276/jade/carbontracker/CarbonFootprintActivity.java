@@ -75,6 +75,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carbon_footprint);
 
+        setupDates();
         Log.i("spinner", "dateEnd = "+dateEnd.toString());
 
         setupDatePicker();
@@ -83,12 +84,21 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         setupSpinner();
     }
 
+    private void setupDates() {
+        dateSelected = new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dateEnd = new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
     private void setupDatePicker() {
         dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar c = Calendar.getInstance();
+                c.clear();
                 c.set(year, month, dayOfMonth);
+                c.set(Calendar.HOUR_OF_DAY, 0);
                 dateSelected = c.getTime();
                 Log.i("datePicker","year = "+year);
                 Log.i("datePicker","dateSelected = "+dateSelected.toString());
@@ -107,12 +117,18 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                 this, R.array.label_date_spinner, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setSelected(false);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Calendar calendar = Calendar.getInstance();
                 Date date;
+
+                calendar.set(Calendar.HOUR_OF_DAY, 0);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
 
                 switch (position) {
                     case 0:
@@ -143,6 +159,11 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                 setupPieChart();
                 setupBarChart();
                 setupTable();
+
+                barChart.setVisibility(View.INVISIBLE);
+                table.setVisibility(View.INVISIBLE);
+                pieChart.setVisibility(View.VISIBLE);
+                mode = 0;
                 pieChart.invalidate();
                 barChart.invalidate();
                 table.invalidate();
@@ -241,6 +262,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                 switch (col) {
                     case 0:
                         tv.setText(emissionDate[row]);
+                        tv.setTextSize(10f);
                         break;
                     case 1:
                         tv.setText(emissionRouteNames[row]);
@@ -285,9 +307,11 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                 switch (col) {
                     case 0:
                         tv.setText(Emission.DATE_FORMAT.format(b.getStartDate()));
+                        tv.setTextSize(10f);
                         break;
                     case 1:
                         tv.setText(Emission.DATE_FORMAT.format(b.getEndDate()));
+                        tv.setTextSize(10f);
                         break;
                     case 2:
                         tv.setText(String.valueOf(Emission.round(b.getInput())));
@@ -325,9 +349,11 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                 switch (col) {
                     case 0:
                         tv.setText(Emission.DATE_FORMAT.format(b.getStartDate()));
+                        tv.setTextSize(11f);
                         break;
                     case 1:
                         tv.setText(Emission.DATE_FORMAT.format(b.getEndDate()));
+                        tv.setTextSize(11f);
                         break;
                     case 2:
                         tv.setText(String.valueOf(Emission.round(b.getInput())));
