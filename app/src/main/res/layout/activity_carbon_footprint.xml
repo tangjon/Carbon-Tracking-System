@@ -58,7 +58,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="11dp"
-        android:layout_toStartOf="@+id/btn_graph_toggle" />
+        android:layout_toStartOf="@+id/btn_graph_toggle"
+        android:focusable="false"/>
 
     <TextView
         android:id="@+id/footprint_tips"

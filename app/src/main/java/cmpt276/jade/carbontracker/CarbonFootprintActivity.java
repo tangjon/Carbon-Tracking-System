@@ -58,10 +58,9 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private int dateMode = 1;
 
     private Calendar calendar = Calendar.getInstance();
-    //private Date dateSelected = calendar.getTime();
-    private Date dateSelected = null;
+    private Date dateSelected = calendar.getTime();
     private Date dateStart = null;
-    private Date dateEnd = null;
+    private Date dateEnd = calendar.getTime();
 
     private String emissionDate[] = new String[NUM_ENTRIES];
     private String emissionRouteNames[] = new String[NUM_ENTRIES];
@@ -76,8 +75,8 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carbon_footprint);
 
+        Log.i("spinner", "dateEnd = "+dateEnd.toString());
 
-        dateSelected = currentDate();
         setupDatePicker();
         loadData();
         setupButton();
@@ -114,6 +113,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Calendar calendar = Calendar.getInstance();
                 Date date;
+
                 switch (position) {
                     case 0:
                         dateMode = 1;
@@ -123,16 +123,16 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                     case 1:
                         dateMode = 2;
                         date = calendar.getTime();
-                        dateEnd = date;
+                        Log.i("spinner", "dateEnd = "+dateEnd.toString());
                         calendar.setTime(date);
                         calendar.add(Calendar.DAY_OF_MONTH, -28);
                         date = calendar.getTime();
                         dateStart = date;
+                        Log.i("spinner", "dateStart = "+dateStart.toString());
                         break;
                     case 2:
                         dateMode = 2;
                         date = calendar.getTime();
-                        dateEnd = date;
                         calendar.setTime(date);
                         calendar.add(Calendar.YEAR, -1);
                         date = calendar.getTime();
@@ -353,7 +353,8 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
         for (int i = 0; i < NUM_ENTRIES; ++i) {
             j = journeyCollection.getJourney(i);
-            emissionDate[i] = Emission.DATE_FORMAT.format(j.getDateObj());
+            if (j.getDateObj() != null) emissionDate[i] = Emission.DATE_FORMAT.format(j.getDateObj());
+            else emissionDate[i] = "its fucked";
             emissionRouteNames[i] = j.getName();
             emissionDistance[i] = j.getRoute().getCityDistance() + j.getRoute().getCityDistance();
             if (j.getTransType().getCar() != null) {
