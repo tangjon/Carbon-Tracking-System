@@ -1,4 +1,4 @@
-package cmpt276.jade.carbontracker.utils;
+package cmpt276.jade.carbontracker.enums;
 
 /**
  * Use to distinguish Add/Edit mode to decide which interface is shown

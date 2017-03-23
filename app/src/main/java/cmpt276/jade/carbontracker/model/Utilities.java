@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import cmpt276.jade.carbontracker.utils.BillType;
+import cmpt276.jade.carbontracker.enums.BillType;
 
 /**
  * Stores either a gas bill list or electricity bill list

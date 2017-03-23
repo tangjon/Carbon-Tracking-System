@@ -13,16 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Emission;
-import cmpt276.jade.carbontracker.model.Graph;
 import cmpt276.jade.carbontracker.model.Tip;
 import cmpt276.jade.carbontracker.model.Utilities;
-import cmpt276.jade.carbontracker.utils.BillEditMode;
-import cmpt276.jade.carbontracker.utils.BillType;
+import cmpt276.jade.carbontracker.enums.BillEditMode;
+import cmpt276.jade.carbontracker.enums.BillType;
 
 /**
  * Add data to the bill

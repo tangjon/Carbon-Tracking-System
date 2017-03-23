@@ -22,8 +22,8 @@ import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Tip;
 import cmpt276.jade.carbontracker.model.Utilities;
-import cmpt276.jade.carbontracker.utils.BillEditMode;
-import cmpt276.jade.carbontracker.utils.BillType;
+import cmpt276.jade.carbontracker.enums.BillEditMode;
+import cmpt276.jade.carbontracker.enums.BillType;
 /*
       Shows list of bills
  */

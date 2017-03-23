@@ -22,7 +22,7 @@ import cmpt276.jade.carbontracker.adapter.CarDetailSpinnerAdapter;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
-import cmpt276.jade.carbontracker.utils.Mode;
+import cmpt276.jade.carbontracker.enums.Mode;
 
 /**
  * CarInfoActivity allows the users to select there specified car from drop downs.

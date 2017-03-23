@@ -11,23 +11,16 @@ import android.content.Context;
         import android.widget.Button;
         import android.widget.ListAdapter;
         import android.widget.ListView;
-        import android.widget.Toast;
-
-        import java.nio.Buffer;
 
 import cmpt276.jade.carbontracker.adapter.JourneyListAdapter;
-import cmpt276.jade.carbontracker.adapter.RouteListAdapter;
 import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.fragment.EditDialog;
-        import cmpt276.jade.carbontracker.model.Car;
-import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
         import cmpt276.jade.carbontracker.model.Journey;
         import cmpt276.jade.carbontracker.model.JourneyCollection;
         import cmpt276.jade.carbontracker.model.Route;
         import cmpt276.jade.carbontracker.model.Transportation;
-        import cmpt276.jade.carbontracker.utils.BillType;
 
 /**
  *Journey List is your list of journeys and can either add a new journey going to car list or to the emissions overview

@@ -25,7 +25,7 @@ import cmpt276.jade.carbontracker.model.RouteCollection;
 import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.model.SkytrainCollection;
 import cmpt276.jade.carbontracker.model.Transportation;
-import cmpt276.jade.carbontracker.utils.BillType;
+import cmpt276.jade.carbontracker.enums.BillType;
 
 /*
 * Class: DBAdapter

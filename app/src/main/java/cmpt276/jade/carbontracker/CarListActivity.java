@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.adapter.CarListAdapter;
 import cmpt276.jade.carbontracker.database.DBAdapter;
@@ -19,8 +18,7 @@ import cmpt276.jade.carbontracker.fragment.EditDialog;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
-import cmpt276.jade.carbontracker.model.JourneyCollection;
-import cmpt276.jade.carbontracker.utils.Mode;
+import cmpt276.jade.carbontracker.enums.Mode;
 
 /**
  * Display a list of recently added Cars to user
