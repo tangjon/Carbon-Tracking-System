@@ -793,6 +793,46 @@ public class DBAdapter {
         return rC;
     }
 
+    // [DONE]
+    public Car getCar(long rowId){
+        String where = KEY_ROWID + "=" + rowId;
+
+        Cursor c = db.query(true, TABLE_CAR, ALL_CAR_KEYS,
+                where, null, null, null, null, null);
+
+        if (c != null) {
+            c.moveToFirst();
+        }
+        Car car = new Car();
+        // Process the data:
+        double carbonTailPipe = c.getDouble(DBAdapter.COL_CAR_CARBON_TAIL_PIPE);
+        double engineDispLitres = c.getDouble(DBAdapter.COL_CAR_ENGINE_DISP_LITRES);
+        int cityMPG = c.getInt(DBAdapter.COL_CAR_CITY_MPG);
+        int fuelAnnualCost= c.getInt(DBAdapter.COL_CAR_FUEL_ANNUAL_COST);
+        int highwayMPG = c.getInt(DBAdapter.COL_CAR_HIGHWAY_MPG);
+        int year = c.getInt(DBAdapter.COL_CAR_YEAR);
+        String engineDescription = c.getString(DBAdapter.COL_CAR_ENGINE_DESCRIPTION);
+        String fuelType = c.getString(DBAdapter.COL_CAR_FUEL_TYPE);
+        String make = c.getString(DBAdapter.COL_CAR_MAKE);
+        String model = c.getString(DBAdapter.COL_CAR_MODEL);
+        String nickName = c.getString(DBAdapter.COL_CAR_NICK_NAME);
+        String transDescription= c.getString(DBAdapter.COL_CAR_TRANS_DESCRIPTION);
+        car.setCarbonTailPipe(carbonTailPipe);
+        car.setEngineDispLitres(engineDispLitres);
+        car.setCityMPG(cityMPG);
+        car.setFuelAnnualCost(fuelAnnualCost);
+        car.setHighwayMPG(highwayMPG);
+        car.setYear(year);
+        car.setEngineDescription(engineDescription);
+        car.setFuelType(fuelType);
+        car.setMake(make);
+        car.setModel(model);
+        car.setNickName(nickName);
+        car.setTransDescription(transDescription);
+
+        return car;
+    }
+
     public CarCollection getAllCar(){
         String message = "";
         // populate the message from the cursor
@@ -803,36 +843,14 @@ public class DBAdapter {
         // Reset cursor to start, checking to see if there's data:
         if (cursor.moveToFirst()) {
             do {
-                // Process the data:
-                double carbonTailPipe = cursor.getDouble(DBAdapter.COL_CAR_CARBON_TAIL_PIPE);
-                double engineDispLitres = cursor.getDouble(DBAdapter.COL_CAR_ENGINE_DISP_LITRES);
-                int cityMPG = cursor.getInt(DBAdapter.COL_CAR_CITY_MPG);
-                int fuelAnnualCost= cursor.getInt(DBAdapter.COL_CAR_FUEL_ANNUAL_COST);
-                int highwayMPG = cursor.getInt(DBAdapter.COL_CAR_HIGHWAY_MPG);
-                int year = cursor.getInt(DBAdapter.COL_CAR_YEAR);
-                String engineDescription = cursor.getString(DBAdapter.COL_CAR_ENGINE_DESCRIPTION);
-                String fuelType = cursor.getString(DBAdapter.COL_CAR_FUEL_TYPE);
-                String make = cursor.getString(DBAdapter.COL_CAR_MAKE);
-                String model = cursor.getString(DBAdapter.COL_CAR_MODEL);
-                String nickName = cursor.getString(DBAdapter.COL_CAR_NICK_NAME);
-                String transDescription= cursor.getString(DBAdapter.COL_CAR_TRANS_DESCRIPTION);
-
-                // Append data to the message:
-                message += "make=" + make
-                        +", model=" + model
-                        +", cityMPG=" + cityMPG
-                        +", fuelType=" + fuelType
-                        +"\n";
-
-                cC.add(new Car(nickName,make,model,year,cityMPG,highwayMPG,
-                        engineDescription,engineDispLitres,fuelType,fuelAnnualCost,carbonTailPipe,transDescription));
+                long row = cursor.getLong(COL_ROWID);
+                Car car = getCar(row);
+                cC.add(car);
             } while(cursor.moveToNext());
         }
 
         // Close the cursor to avoid a resource leak.
         cursor.close();
-
-//        Log.i(TAG, "displayRecordSetForCar: " + message);
         return cC;
     }
 
@@ -933,55 +951,7 @@ public class DBAdapter {
 
         return new Route(name, highWayDistance, cityDistance, otherDistance, mode);
     }
-    // [DONE]
-    public Car getCar(long rowId){
-        String where = KEY_ROWID + "=" + rowId;
 
-        Cursor c = db.query(true, TABLE_CAR, ALL_CAR_KEYS,
-                        where, null, null, null, null, null);
-
-        if (c != null) {
-            c.moveToFirst();
-        }
-        Car car = new Car();
-        // Process the data:
-        double carbonTailPipe = c.getDouble(DBAdapter.COL_CAR_CARBON_TAIL_PIPE);
-        double engineDispLitres = c.getDouble(DBAdapter.COL_CAR_ENGINE_DISP_LITRES);
-        int cityMPG = c.getInt(DBAdapter.COL_CAR_CITY_MPG);
-        int fuelAnnualCost= c.getInt(DBAdapter.COL_CAR_FUEL_ANNUAL_COST);
-        int highwayMPG = c.getInt(DBAdapter.COL_CAR_HIGHWAY_MPG);
-        int year = c.getInt(DBAdapter.COL_CAR_YEAR);
-        String engineDescription = c.getString(DBAdapter.COL_CAR_ENGINE_DESCRIPTION);
-        String fuelType = c.getString(DBAdapter.COL_CAR_FUEL_TYPE);
-        String make = c.getString(DBAdapter.COL_CAR_MAKE);
-        String model = c.getString(DBAdapter.COL_CAR_MODEL);
-        String nickName = c.getString(DBAdapter.COL_CAR_NICK_NAME);
-        String transDescription= c.getString(DBAdapter.COL_CAR_TRANS_DESCRIPTION);
-        car.setCarbonTailPipe(carbonTailPipe);
-        car.setEngineDispLitres(engineDispLitres);
-        car.setCityMPG(cityMPG);
-        car.setFuelAnnualCost(fuelAnnualCost);
-        car.setHighwayMPG(highwayMPG);
-        car.setYear(year);
-        car.setEngineDescription(engineDescription);
-        car.setFuelType(fuelType);
-        car.setMake(make);
-        car.setModel(model);
-        car.setNickName(nickName);
-        car.setTransDescription(transDescription);
-
-//        String message = "";
-        // populate the message from the cursor
-//        // Append data to the message:
-//        message += "make=" + make
-//                +", model=" + model
-//                +", cityMPG=" + cityMPG
-//                +", fuelType=" + fuelType
-//                +"\n";
-
-
-        return car;
-    }
     // [DONE]
     public Bus getBus(long rowId){
         String where = KEY_ROWID + "=" + rowId;
