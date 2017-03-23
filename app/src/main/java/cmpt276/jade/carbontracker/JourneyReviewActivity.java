@@ -164,7 +164,7 @@ public class JourneyReviewActivity extends AppCompatActivity {
                     inputDate.setError(getString(R.string.valid_date));
                 } else if((month == 2 && day > 28 && year % 4 != 0) || (month == 2 && day > 29 && year % 4 == 0)){
                     inputDate.setError(getString(R.string.valid_date));
-                } else if(month == 4 || month == 6 || month == 9 || month == 11 && day > 30) {
+                } else if((month == 4 || month == 6 || month == 9 || month == 11) && day > 30) {
                     inputDate.setError(getString(R.string.valid_date));
                 }else{
 

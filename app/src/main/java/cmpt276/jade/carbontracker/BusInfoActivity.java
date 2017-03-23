@@ -53,10 +53,10 @@ public class BusInfoActivity extends AppCompatActivity {
                 EditText inputName = (EditText) findViewById(R.id.editTextBusNickname);
                 EditText inputRouteNumber = (EditText) findViewById(R.id.editTextRouteNumber);
                 if (inputName.getText().toString().trim().length() == 0) {
-                    inputName.setError("Please Enter a Nickname");
+                    inputName.setError(getString(R.string.enter_a_nickname));
                 }
                 else if(inputRouteNumber.getText().toString().trim().length() == 0){
-                    inputRouteNumber.setError("Please Enter a Route Number");
+                    inputRouteNumber.setError(getString(R.string.enter_a_route_number));
                 }
                 else {
                     outgoingBus.setNickName(inputName.getText().toString().trim());
