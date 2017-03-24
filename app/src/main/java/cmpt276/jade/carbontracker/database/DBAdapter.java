@@ -381,7 +381,7 @@ public class DBAdapter {
      * ****************************************/
     //Delete a row from the database, by rowId (primary key)
     public boolean deleteRow(DB_TABLE table, long rowId) {
-        Log.i(TAG, "[" + table + "]"+ ":" +"deleteRow:"+ rowId + "");
+        Log.i(TAG, "[" + table + "]" + ":" + "deleteRow:" + rowId + "");
         String where = KEY_ROWID + "=" + rowId;
         return db.delete(table.toString(), where, null) != 0;
     }
@@ -454,7 +454,7 @@ public class DBAdapter {
             do {
                 long row = c.getInt(COL_ROWID);
                 int tag = -1;
-                switch (table){
+                switch (table) {
                     case CAR:
                         tag = c.getInt(COL_CAR_TAG_ID);
                         break;
@@ -468,8 +468,8 @@ public class DBAdapter {
                         tag = c.getInt(COL_SKYTRAIN_TAG_ID);
                         break;
                 }
-                if(tag == tag_id.ordinal()){
-                    deleteRow(table,row);
+                if (tag == tag_id.ordinal()) {
+                    deleteRow(table, row);
                 }
             } while (c.moveToNext());
         }
@@ -505,7 +505,7 @@ public class DBAdapter {
 
         // Insert it into the database.
         long buff = db.insert(TABLE_CAR, null, initialValues);
-        Log.i(TAG, "[" + TABLE_CAR + "]"+ ":" +"insert:"+ buff + " " + tag_id + " "+ car.toString());
+        Log.i(TAG, "[" + TABLE_CAR + "]" + ":" + "insert:" + buff + " " + tag_id + " " + car.toString());
         return buff;
     }
 
@@ -550,7 +550,7 @@ public class DBAdapter {
         // Insert it into the database.
 
         long buff = db.insert(TABLE_BUS, null, initialValues);
-        Log.i(TAG, "[" + TABLE_BUS + "]"+ ":" +"insert:"+ buff + " " + tag_id + " "+ bus.toString());
+        Log.i(TAG, "[" + TABLE_BUS + "]" + ":" + "insert:" + buff + " " + tag_id + " " + bus.toString());
         return buff;
     }
 
@@ -563,8 +563,8 @@ public class DBAdapter {
         initialValues.put(KEY_SKYTRAIN_LINE, skytrain.getSkytrainLine());
         initialValues.put(KEY_SKYTRAIN_TAG_ID, tag_id.ordinal());
         // Insert it into the database.
-        long buff =  db.insert(TABLE_SKYTRAIN, null, initialValues);
-        Log.i(TAG, "[" + TABLE_SKYTRAIN + "]"+ ":" +"insert:"+ buff + " " + tag_id + " "+ skytrain.toString());
+        long buff = db.insert(TABLE_SKYTRAIN, null, initialValues);
+        Log.i(TAG, "[" + TABLE_SKYTRAIN + "]" + ":" + "insert:" + buff + " " + tag_id + " " + skytrain.toString());
         return buff;
     }
 
@@ -600,7 +600,7 @@ public class DBAdapter {
                 // Do nothing
                 break;
             case BUS:
-                long busID = insertRow(journey.getTransType().getBus(),TAG_ID.MAIN);
+                long busID = insertRow(journey.getTransType().getBus(), TAG_ID.MAIN);
                 initialValues.put(KEY_TRANSPORT_OBJECT_ID, busID);
                 break;
             case SKYTRAIN:
@@ -610,7 +610,7 @@ public class DBAdapter {
         }
 
         long buff = db.insert(TABLE_JOURNEY, null, initialValues);
-        Log.i(TAG, "[" + TABLE_JOURNEY + "]"+ ":" +"insertRow:"+ buff + " " + journey.toString());
+        Log.i(TAG, "[" + TABLE_JOURNEY + "]" + ":" + "insertRow:" + buff + " " + journey.toString());
         // Insert it into the database.
         return buff;
     }
@@ -770,7 +770,7 @@ public class DBAdapter {
         Journey j = new Journey(name, transportation, route);
         j.setID(ID);
         j.setDate(DATE);
-        Log.i(TAG, "[" + TABLE_JOURNEY + "]"+ ":" +"getJourney:"+ rowId + " " + j.toString());
+        Log.i(TAG, "[" + TABLE_JOURNEY + "]" + ":" + "getJourney:" + rowId + " " + j.toString());
         return j;
     }
 
@@ -950,7 +950,7 @@ public class DBAdapter {
                     long row = cursor.getLong(COL_ROWID);
                     Car car = getCar(row);
                     cC.add(car);
-                    Log.i(TAG, "[" + DB_TABLE.CAR + "]"+ ":" +"getCar:"+ row + " " + tag_id + ": " + car.toString());
+                    Log.i(TAG, "[" + DB_TABLE.CAR + "]" + ":" + "getCar:" + row + " " + tag_id + ": " + car.toString());
                 }
             } while (cursor.moveToNext());
         }
@@ -1017,7 +1017,7 @@ public class DBAdapter {
         return bus;
     }
 
-    public BusCollection getAllBus(){
+    public BusCollection getAllBus() {
         BusCollection bC = new BusCollection();
         Cursor cursor = getAllRows(DB_TABLE.BUS);
         // Reset cursor to start, checking to see if there's data:
@@ -1034,14 +1034,14 @@ public class DBAdapter {
         return bC;
     }
 
-    public BusCollection getAllBus(TAG_ID tag_id){
+    public BusCollection getAllBus(TAG_ID tag_id) {
         BusCollection bC = new BusCollection();
         Cursor cursor = getAllRows(DB_TABLE.BUS);
         // Reset cursor to start, checking to see if there's data:
         if (cursor.moveToFirst()) {
             do {
                 int this_tag = cursor.getInt(COL_BUS_TAG_ID);
-                if(this_tag == tag_id.ordinal()){
+                if (this_tag == tag_id.ordinal()) {
                     long rowId = cursor.getLong(COL_ROWID);
                     Bus bus = getBus(rowId);
                     bC.addBus(bus);
@@ -1073,14 +1073,14 @@ public class DBAdapter {
         return train;
     }
 
-    public SkytrainCollection getAllSkytrain(TAG_ID tag_id){
+    public SkytrainCollection getAllSkytrain(TAG_ID tag_id) {
         SkytrainCollection sC = new SkytrainCollection();
         Cursor cursor = getAllRows(DB_TABLE.SKYTRAIN);
         // Reset cursor to start, checking to see if there's data:
         if (cursor.moveToFirst()) {
             do {
                 int this_tag = cursor.getInt(COL_SKYTRAIN_TAG_ID);
-                if(this_tag == tag_id.ordinal()){
+                if (this_tag == tag_id.ordinal()) {
                     long rowId = cursor.getLong(COL_ROWID);
                     Skytrain train = getSkytrain(rowId);
                     sC.addTrain(train);
@@ -1101,7 +1101,7 @@ public class DBAdapter {
         String where = KEY_ROWID + "=" + rowId;
 
 		/*
-		 * CHANGE 4:
+         * CHANGE 4:
 		 */
         // TODO: Update data in the row with new fields.
         // TODO: Also change the function's arguments to be what you need!
@@ -1124,6 +1124,7 @@ public class DBAdapter {
         // Insert it into the database.
         return db.update(TABLE_CAR, newValues, where, null) != 0;
     }
+
     public boolean updateRow(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
@@ -1134,9 +1135,6 @@ public class DBAdapter {
         // TODO: Also change the function's arguments to be what you need!
         // Create row's data:
         ContentValues newValues = new ContentValues();
-
-
-
 
 
 //        newValues.put(KEY_NAME, name);

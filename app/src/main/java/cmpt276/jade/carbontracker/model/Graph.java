@@ -29,7 +29,7 @@ public class Graph {
         updateData();
     }
 
-    private static void updateData(){
+    private static void updateData() {
         emission = Emission.getInstance();
         utilities = emission.getUtilities();
         journeyCollection = emission.getJourneyCollection();
@@ -40,7 +40,7 @@ public class Graph {
     // Specific date arguments can be null if not used (see 'mode')
     // TODO: adapt to other emission-producing things
     public static PieData getPieData(String label, int mode,
-                              Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
+                                     Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
 
         updateData();
         List<PieEntry> pieEntries = new ArrayList<>();
@@ -57,7 +57,8 @@ public class Graph {
         // Electric Bills
         bills = getBills(BillType.ELECTRIC, mode, dateSelected, dateRangeStart, dateRangeEnd);
         for (Bill b : bills) if (b != null) billSum += b.getEmissionAvg();
-        if (bills.size() > 0 && bills.get(0) != null) pieEntries.add(new PieEntry(billSum, "Electricity"));
+        if (bills.size() > 0 && bills.get(0) != null)
+            pieEntries.add(new PieEntry(billSum, "Electricity"));
 
         // Gas Bills
         billSum = 0f;
@@ -92,7 +93,7 @@ public class Graph {
         bills = getBills(BillType.ELECTRIC, mode, dateSelected, dateRangeStart, dateRangeEnd);
         for (Bill b : bills) if (b != null) billSum += b.getEmissionAvg();
         if (bills.size() > 0) {
-            barEntries.add(new BarEntry(1, new float[] {billSum}, "Electricity"));
+            barEntries.add(new BarEntry(1, new float[]{billSum}, "Electricity"));
         }
 
         // Gas Bills
@@ -100,7 +101,7 @@ public class Graph {
         bills = getBills(BillType.GAS, mode, dateSelected, dateRangeStart, dateRangeEnd);
         for (Bill b : bills) if (b != null) billSum += b.getEmissionAvg();
         if (bills.size() > 0) {
-            barEntries.add(new BarEntry(2, new float[] {billSum}, "Gas"));
+            barEntries.add(new BarEntry(2, new float[]{billSum}, "Gas"));
         }
 
         BarDataSet dataSet = new BarDataSet(barEntries, label);
@@ -134,17 +135,17 @@ public class Graph {
         JourneyCollection buffer = new JourneyCollection();
         Journey j;
 
-        Log.i("getJourneys","mode = "+mode);
+        Log.i("getJourneys", "mode = " + mode);
 
         if (mode == 0) buffer = journeyCollection;
         else if (mode == 1) {
-            for (int i = 0; i < journeyCollection.countJourneys(); ++i){
+            for (int i = 0; i < journeyCollection.countJourneys(); ++i) {
                 j = journeyCollection.getJourney(i);
 
-                Log.i("getJourneys","compareDates returned "+compareDates(j.getDateObj(), dateSelected)+", needed 0");
+                Log.i("getJourneys", "compareDates returned " + compareDates(j.getDateObj(), dateSelected) + ", needed 0");
                 if (j.getTotalTravelledEmissions() > 0.0 &&
                         compareDates(j.getDateObj(), dateSelected) == 0) {
-                    Log.i("GetJourneys","added journey "+journeyCollection.getJourney(i).toString());
+                    Log.i("GetJourneys", "added journey " + journeyCollection.getJourney(i).toString());
                     buffer.addJourney(journeyCollection.getJourney(i));
                 }
             }
@@ -156,7 +157,7 @@ public class Graph {
                 if (j.getTotalTravelledEmissions() > 0.0 &&
                         compareDates(d, dateRangeStart) > -1 && compareDates(d, dateRangeEnd) < 1) {
                     buffer.addJourney(j);
-                    Log.i("GetJourneys","added journey "+j.toString());
+                    Log.i("GetJourneys", "added journey " + j.toString());
                 }
             }
         }
@@ -167,8 +168,8 @@ public class Graph {
     /**
      * compares two dates while ignoring time portion
      * returns  -1  :   date1 < date2
-     *          0   :   date1 = date2
-     *          1   :   date1 > date2
+     * 0   :   date1 = date2
+     * 1   :   date1 > date2
      */
     public static int compareDates(Date date1, Date date2) {
         // maybe need better way of handling null dates in carbon footprint activity
@@ -177,7 +178,7 @@ public class Graph {
         date1 = makeTimeMidnight(date1);
         date2 = makeTimeMidnight(date2);
 
-        Log.i("compareDates", ""+date1.toString()+" ? "+date2.toString());
+        Log.i("compareDates", "" + date1.toString() + " ? " + date2.toString());
 
         return date1.compareTo(date2);
     }

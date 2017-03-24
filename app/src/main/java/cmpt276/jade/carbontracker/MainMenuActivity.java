@@ -27,13 +27,14 @@ public class MainMenuActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Default Fragment on first sight
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.main_fragment_content,new CarbonFootPrintFragment())
+                .replace(R.id.main_fragment_content, new CarbonFootPrintFragment())
                 .commit();
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -99,12 +100,12 @@ public class MainMenuActivity extends AppCompatActivity
             case R.id.nav_overview:
                 // Handle the camera action
                 fragmentManager.beginTransaction()
-                        .replace(R.id.main_fragment_content,new CarbonFootPrintFragment())
+                        .replace(R.id.main_fragment_content, new CarbonFootPrintFragment())
                         .commit();
                 break;
             case R.id.nav_journeys:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.main_fragment_content,new JourneyListFragment())
+                        .replace(R.id.main_fragment_content, new JourneyListFragment())
                         .commit();
                 break;
             case R.id.nav_utilities:
@@ -118,4 +119,6 @@ public class MainMenuActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,8 +14,9 @@ import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.Route;
+
 /**
- *Journey summary displays all the important info stored in the journey object
+ * Journey summary displays all the important info stored in the journey object
  */
 public class JourneySummaryActivity extends AppCompatActivity {
 
@@ -31,6 +33,7 @@ public class JourneySummaryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().setTitle(getString(R.string.JourneySummaryHint));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey_summary);
         getData();
@@ -47,7 +50,7 @@ public class JourneySummaryActivity extends AppCompatActivity {
 
     private void setData() {
         TextView transInfoLabel = (TextView) findViewById(R.id.textViewJourneySummaryTranportationInfo);
-        if(journey.getTransType().getTransMode().equals(Transport.CAR)) {
+        if (journey.getTransType().getTransMode().equals(Transport.CAR)) {
             transInfoLabel.setText("Car Info");
             // Display Journey Info
             TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
@@ -73,8 +76,7 @@ public class JourneySummaryActivity extends AppCompatActivity {
                     journey.getTotalCity(),
                     journey.getTotalTravelledEmissions()
             ));
-        }
-        else if (journey.getTransType().getTransMode().equals(Transport.BUS)){
+        } else if (journey.getTransType().getTransMode().equals(Transport.BUS)) {
             transInfoLabel.setText("Bus Info");
             // Display Journey Info
             TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
@@ -85,13 +87,12 @@ public class JourneySummaryActivity extends AppCompatActivity {
             //Display Bus Info
             TextView busInfo = (TextView) findViewById(R.id.textCarInfo);
             busInfo.setText(journey.getTransType().getBus().getNickName() + "\nRoute #: " +
-            journey.getTransType().getBus().getRouteNumber());
+                    journey.getTransType().getBus().getRouteNumber());
             //Display Emission Info
             TextView emissions = (TextView) findViewById(R.id.textEmissionsInfo);
-            emissions.setText("Carbon Emission (Kg): " +String.format("%.2f", journey.getBusEmissions()));
+            emissions.setText("Carbon Emission (Kg): " + String.format("%.2f", journey.getBusEmissions()));
 
-        }
-        else if (journey.getTransType().getTransMode().equals(Transport.SKYTRAIN)){
+        } else if (journey.getTransType().getTransMode().equals(Transport.SKYTRAIN)) {
             transInfoLabel.setText("Skytrain Info");
             // Display Journey Info
             TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
@@ -103,12 +104,11 @@ public class JourneySummaryActivity extends AppCompatActivity {
             TextView trainInfo = (TextView) findViewById(R.id.textCarInfo);
             trainInfo.setText(journey.getTransType().getSkytrain().getNickName() + "\nLine Name: " +
                     journey.getTransType().getSkytrain().getSkytrainLine() + "\nBoarding Station: " +
-            journey.getTransType().getSkytrain().getBoardingStation());
+                    journey.getTransType().getSkytrain().getBoardingStation());
             //Display Emission Info
             TextView emissions = (TextView) findViewById(R.id.textEmissionsInfo);
-            emissions.setText("Carbon Emission (Kg): " +String.format("%.2f" , journey.getSkytrainEmissions()));
-        }
-        else if(journey.getTransType().getTransMode().equals(Transport.WALK)){
+            emissions.setText("Carbon Emission (Kg): " + String.format("%.2f", journey.getSkytrainEmissions()));
+        } else if (journey.getTransType().getTransMode().equals(Transport.WALK)) {
             transInfoLabel.setText("Walk Info");
             TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
             journeyInfo.setText(getString(R.string.journey_info, journey.getName(), journey.getDate()));
@@ -120,10 +120,9 @@ public class JourneySummaryActivity extends AppCompatActivity {
             trainInfo.setText("Congratulations on making no carbon impact!");
             //Display Emission Info
             TextView emissions = (TextView) findViewById(R.id.textEmissionsInfo);
-            emissions.setText("Carbon Emission (Kg): " +String.valueOf(0));
+            emissions.setText("Carbon Emission (Kg): " + String.valueOf(0));
 
-        }
-        else if(journey.getTransType().getTransMode().equals(Transport.BIKE)){
+        } else if (journey.getTransType().getTransMode().equals(Transport.BIKE)) {
             transInfoLabel.setText("Bike Info");
             TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
             journeyInfo.setText(getString(R.string.journey_info, journey.getName(), journey.getDate()));
@@ -135,7 +134,7 @@ public class JourneySummaryActivity extends AppCompatActivity {
             trainInfo.setText("Congratulations on making no carbon impact!");
             //Display Emission Info
             TextView emissions = (TextView) findViewById(R.id.textEmissionsInfo);
-            emissions.setText("Carbon Emission (Kg): " +String.valueOf(0));
+            emissions.setText("Carbon Emission (Kg): " + String.valueOf(0));
 
         }
     }
@@ -148,6 +147,14 @@ public class JourneySummaryActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

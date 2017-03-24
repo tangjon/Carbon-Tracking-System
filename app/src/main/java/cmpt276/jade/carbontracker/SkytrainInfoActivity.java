@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ public class SkytrainInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_skytrain_info);
 
         setupNextBtn();
@@ -32,6 +34,7 @@ public class SkytrainInfoActivity extends AppCompatActivity {
     public static Intent getIntent(Context context) {
         return new Intent(context, SkytrainInfoActivity.class);
     }
+
     private void setupPage() {
         if (incomingTrain != null && incomingTrain.getMode() == 1) {
             EditText inputName = (EditText) findViewById(R.id.editTextSkytrainName);
@@ -43,7 +46,7 @@ public class SkytrainInfoActivity extends AppCompatActivity {
         }
     }
 
-    private void setupNextBtn(){
+    private void setupNextBtn() {
         Button btn = (Button) findViewById(R.id.btnSkytrainInfoNext);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,14 +57,11 @@ public class SkytrainInfoActivity extends AppCompatActivity {
                 EditText inputStation = (EditText) findViewById(R.id.editTextSkytrainBoardingStation);
                 if (inputName.getText().toString().trim().length() == 0) {
                     inputName.setError("Please Enter a Nickname");
-                }
-                else if(inputLine.getText().toString().trim().length() == 0){
+                } else if (inputLine.getText().toString().trim().length() == 0) {
                     inputLine.setError("Please Enter the Line You Used");
-                }
-                else  if(inputStation.getText().toString().trim().length() == 0){
+                } else if (inputStation.getText().toString().trim().length() == 0) {
                     inputStation.setError("Please Enter a Boarding Station");
-                }
-                else {
+                } else {
                     outgoingTrain.setNickName(inputName.getText().toString().trim());
                     outgoingTrain.setSkytrainLine(inputLine.getText().toString().trim());
                     outgoingTrain.setBoardingStation(inputStation.getText().toString().trim());
@@ -81,10 +81,19 @@ public class SkytrainInfoActivity extends AppCompatActivity {
         });
     }
 
-    private void getTrainData(){
+    private void getTrainData() {
 
-            this.incomingTrain = Emission.getInstance().getJourneyBuffer().getTransType().getSkytrain();
-            this.outgoingTrain = new Skytrain();
+        this.incomingTrain = Emission.getInstance().getJourneyBuffer().getTransType().getSkytrain();
+        this.outgoingTrain = new Skytrain();
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

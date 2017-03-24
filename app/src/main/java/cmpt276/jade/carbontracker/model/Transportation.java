@@ -17,7 +17,7 @@ public class Transportation implements Serializable {
     private Transport transMode;
 
 
-    public Transportation(){
+    public Transportation() {
 
     }
 

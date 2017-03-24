@@ -1,29 +1,30 @@
 package cmpt276.jade.carbontracker;
 
 import android.content.Context;
-        import android.content.DialogInterface;
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.support.v7.app.AlertDialog;
-        import android.support.v7.app.AppCompatActivity;
-        import android.view.View;
-        import android.widget.AdapterView;
-        import android.widget.Button;
-        import android.widget.ListAdapter;
-        import android.widget.ListView;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import cmpt276.jade.carbontracker.adapter.JourneyListAdapter;
 import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.fragment.EditDialog;
 import cmpt276.jade.carbontracker.model.Emission;
-        import cmpt276.jade.carbontracker.model.Journey;
-        import cmpt276.jade.carbontracker.model.JourneyCollection;
-        import cmpt276.jade.carbontracker.model.Route;
-        import cmpt276.jade.carbontracker.model.Transportation;
+import cmpt276.jade.carbontracker.model.Journey;
+import cmpt276.jade.carbontracker.model.JourneyCollection;
+import cmpt276.jade.carbontracker.model.Route;
+import cmpt276.jade.carbontracker.model.Transportation;
 
 /**
- *Journey List is your list of journeys and can either add a new journey going to car list or to the emissions overview
+ * Journey List is your list of journeys and can either add a new journey going to car list or to the emissions overview
  * Can also edit journey entries or delete journey entries
  */
 public class JourneyListActivity extends AppCompatActivity {
@@ -42,6 +43,7 @@ public class JourneyListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle(getString(R.string.JourneyListActivityHint));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_journey_list);
 
 
@@ -118,44 +120,40 @@ public class JourneyListActivity extends AppCompatActivity {
 
                     @Override
                     public void onEditClicked(int pos) {
-                        if(listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.CAR)) {
+                        if (listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.CAR)) {
                             Intent intent = CarListActivity
-                                .getIntentFromActivity(JourneyListActivity.this);
+                                    .getIntentFromActivity(JourneyListActivity.this);
                             Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(pos));
                             Emission.getInstance().getJourneyBuffer().setPosition(pos);
                             Emission.getInstance().getJourneyBuffer().setMode(1);
                             startActivity(intent);
-                        }
-                        else if(listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.BUS)) {
+                        } else if (listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.BUS)) {
                             Intent intent = BusListActivity
-                                .getIntent(JourneyListActivity.this);
+                                    .getIntent(JourneyListActivity.this);
 
                             Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(pos));
                             Emission.getInstance().getJourneyBuffer().setPosition(pos);
                             Emission.getInstance().getJourneyBuffer().setMode(1);
                             startActivity(intent);
-                        }
-                        else if(listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.SKYTRAIN)) {
+                        } else if (listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.SKYTRAIN)) {
                             Intent intent = SkytrainListActivity
-                                .getIntent(JourneyListActivity.this);
+                                    .getIntent(JourneyListActivity.this);
 
                             Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(pos));
                             Emission.getInstance().getJourneyBuffer().setPosition(pos);
                             Emission.getInstance().getJourneyBuffer().setMode(1);
                             startActivity(intent);
-                        }
-                       else if(listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.WALK)) {
+                        } else if (listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.WALK)) {
                             Intent intent = Route_List_Activity
-                                .IntentForRouteList(JourneyListActivity.this, 2);
+                                    .IntentForRouteList(JourneyListActivity.this, 2);
 
                             Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(pos));
                             Emission.getInstance().getJourneyBuffer().setPosition(pos);
                             Emission.getInstance().getJourneyBuffer().setMode(1);
                             startActivity(intent);
-                        }
-                       else if(listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.BIKE)) {
+                        } else if (listOfJourneys.getJourney(pos).getTransType().getTransMode().equals(Transport.BIKE)) {
                             Intent intent = Route_List_Activity
-                                .IntentForRouteList(JourneyListActivity.this, 2);
+                                    .IntentForRouteList(JourneyListActivity.this, 2);
 
                             Emission.getInstance().setJourneyBuffer(listOfJourneys.getJourney(pos));
                             Emission.getInstance().getJourneyBuffer().setPosition(pos);
@@ -164,7 +162,7 @@ public class JourneyListActivity extends AppCompatActivity {
                         }
                     }
                 });
-                editDialog.show(getSupportFragmentManager(),"EditDialog");
+                editDialog.show(getSupportFragmentManager(), "EditDialog");
 
 
                 return true;
@@ -177,7 +175,7 @@ public class JourneyListActivity extends AppCompatActivity {
         dbRefreshJourneyTable();
 
         //ListAdapter bucky=new RouteListAdapter(this,listOfJourneys.getJourneyDetails(),getMode());
-        ListAdapter bucky=new JourneyListAdapter(this,listOfJourneys.getJourneyDetails(), listOfJourneys);
+        ListAdapter bucky = new JourneyListAdapter(this, listOfJourneys.getJourneyDetails(), listOfJourneys);
         ListView list = (ListView) findViewById(R.id.listviewJourney);
         list.setAdapter(bucky);
     }
@@ -188,18 +186,18 @@ public class JourneyListActivity extends AppCompatActivity {
         // Complete Refresh RecentCarList DB
         JourneyCollection jC = db.getAllJourney();
         // Delete Everything form DB with "RECENT"
-        for (Journey j: jC.getJourneyList()) {
+        for (Journey j : jC.getJourneyList()) {
             db.deleteJourney(j);
         }
         // RE-ADD REMAINING RECENTS
-        for (Journey j: Emission.getInstance().getJourneyCollection().getJourneyList()) {
+        for (Journey j : Emission.getInstance().getJourneyCollection().getJourneyList()) {
             db.insertRow(j);
         }
         db.close();
     }
 
     // Inspired by Raz
-    private void setupDeleteAlert( final int index) {
+    private void setupDeleteAlert(final int index) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final Journey thisJourney = listOfJourneys.getJourney(index);
         builder.setMessage(getString(R.string.journey_list_confirm_delete_message, thisJourney.getName()));
@@ -218,5 +216,13 @@ public class JourneyListActivity extends AppCompatActivity {
         builder.setNegativeButton(getString(R.string.label_cancel), null);
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

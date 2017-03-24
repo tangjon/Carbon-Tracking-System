@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,17 +26,23 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.bike_trans_acitvity_tool_bar_hint);
         setContentView(R.layout.layout_bike_info);
         getMode();
         setupUI();
         setupCanselBtn();
         setupDeleteBtn();
-        if(getMode()==2){setupTwoBtn();}//add bike btn and add walk btn
-        else if (getMode()!=2){setupOKbtn();}//otherwise, just have a ok btn
+        if (getMode() == 2) {
+            setupTwoBtn();
+        }//add bike btn and add walk btn
+        else if (getMode() != 2) {
+            setupOKbtn();
+        }//otherwise, just have a ok btn
     }
 
 
-    public static Intent IntentForAddingRoute(Context context,int mode) {
+    public static Intent IntentForAddingRoute(Context context, int mode) {
         Intent intent = new Intent(context, Bike_and_Trans_Info_Activity.class);
         intent.putExtra("Mode", mode);
         return intent;
@@ -43,10 +50,9 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
 
     private int getMode() {
         Intent intent = getIntent();
-        int mode = intent.getIntExtra("Mode",0);
+        int mode = intent.getIntExtra("Mode", 0);
         return mode;
     }
-
 
 
     private void setupOKbtn() {
@@ -79,14 +85,15 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 check_and_add_to_list(2);
                 Emission.getInstance().getJourneyBuffer().getTransType().setTransMode(Transport.BIKE);
-            }});
+            }
+        });
         walk.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    check_and_add_to_list(5);
-                    Emission.getInstance().getJourneyBuffer().getTransType().setTransMode(Transport.WALK);
-                }
-            });
+            @Override
+            public void onClick(View v) {
+                check_and_add_to_list(5);
+                Emission.getInstance().getJourneyBuffer().getTransType().setTransMode(Transport.WALK);
+            }
+        });
 
     }
 
@@ -100,6 +107,7 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
             return 1;
         }
     }
+
     private String getNameById(int ID) {
         EditText EditRouteName = (EditText) findViewById(ID);
         return EditRouteName.getText().toString();
@@ -120,10 +128,16 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
 
 
     private int setupUI() {
-        TextView tv= (TextView) findViewById(R.id.Bike_info_mode);
-        if(getMode()==2) {tv.setText(R.string.bike_walk);}
-        if(getMode()==3) {tv.setText(R.string.bus);}
-        if(getMode()==4) {tv.setText(R.string.skytrain);}
+        TextView tv = (TextView) findViewById(R.id.Bike_info_mode);
+        if (getMode() == 2) {
+            tv.setText(R.string.bike_walk);
+        }
+        if (getMode() == 3) {
+            tv.setText(R.string.bus);
+        }
+        if (getMode() == 4) {
+            tv.setText(R.string.skytrain);
+        }
 
 
         Route ClickedRoute = getClickedRoute();
@@ -186,10 +200,11 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
                 if (distance >= 0) {
                     pass_back_route(mode);
                     finish();
-                }
-                else {
+                } else {
                     Toast.makeText(getApplicationContext(), getString(R.string.invalid_number) + getString(R.string.please_try_again), Toast.LENGTH_LONG).show();
-                }}}
+                }
+            }
+        }
     }
 
 
@@ -201,21 +216,29 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
         intent.putExtra("ModeForEdit", ClickedRoute.getMode());
         return intent;
     }
+
     private String getClickedRoutePosition() {
         Intent intent = getIntent();
         String routePos = intent.getStringExtra("Passing Position");
         return routePos;
     }
+
     private Route getClickedRoute() {
         Intent intent = getIntent();
         String name = intent.getStringExtra("Passing Route name");
         double distance = intent.getDoubleExtra("Passing Distance", 0);
-        int mode=intent.getIntExtra("ModeForEdit",0);
-        Route clicked= new Route(name, 0,0);
+        int mode = intent.getIntExtra("ModeForEdit", 0);
+        Route clicked = new Route(name, 0, 0);
         clicked.setOtherDistance(distance);
         clicked.setMode(mode);
         return clicked;
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

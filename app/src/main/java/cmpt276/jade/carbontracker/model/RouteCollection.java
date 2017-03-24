@@ -6,7 +6,6 @@ import java.util.List;
 /**
  * RouteCollection has a list that contain routes,
  * Can add or remove routes by index
- *
  */
 public class RouteCollection {
     private String nickname;
@@ -36,8 +35,9 @@ public class RouteCollection {
     }
 
     public void SetJourneyName(String name) {
-        this.nickname=name;
+        this.nickname = name;
     }
+
     public String getJourneyName() {
         return this.nickname;
     }
@@ -71,30 +71,25 @@ public class RouteCollection {
         String[] detail = new String[countRoutes()];
         for (int i = 0; i < countRoutes(); i++) {
             Route route = getRouteByIndex(i);
-            int mode=route.getMode();
-            if(mode==2)//bike
+            int mode = route.getMode();
+            if (mode == 2)//bike
             {
                 detail[i] = "Bike: " + route.getName()
                         + ", Distance:"
                         + route.getOtherDistance() + "km.";
-            }
-            else if(mode==3)//bus mode
+            } else if (mode == 3)//bus mode
             {
                 detail[i] = "Bus: " + route.getName() + ", Distance:"
                         + route.getOtherDistance() + "km.";
-            }
-            else if(mode==4)//skytrain mode
+            } else if (mode == 4)//skytrain mode
             {
                 detail[i] = "Sktrain: " + route.getName() + ", Distance:"
                         + route.getOtherDistance() + "km.";
-            }
-            else if(mode==5)//walk mode
+            } else if (mode == 5)//walk mode
             {
                 detail[i] = "Walk: " + route.getName() + ", Distance:"
                         + route.getOtherDistance() + "km.";
-            }
-            else
-            {
+            } else {
                 detail[i] = "Route: " + route.getName() + ", HighWay:"
                         + route.getHighWayDistance() + "km, " +
                         " City:" + route.getCityDistance() + "km.";

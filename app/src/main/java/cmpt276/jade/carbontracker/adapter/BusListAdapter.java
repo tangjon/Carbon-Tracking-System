@@ -14,7 +14,7 @@ import cmpt276.jade.carbontracker.R;
  * Created by Sean on 21/03/2017.
  * Class:
  * Description:
- *Creates the bus list
+ * Creates the bus list
  * Bugs:
  */
 
@@ -29,11 +29,11 @@ public class BusListAdapter extends ArrayAdapter<String> {
         LayoutInflater inf = LayoutInflater.from(getContext());
         View v = inf.inflate(R.layout.item_bus, parent, false);
 
-        String route=getItem(position);
-        TextView tv=(TextView) v.findViewById(R.id.busListItem);
+        String route = getItem(position);
+        TextView tv = (TextView) v.findViewById(R.id.busListItem);
 
 
-        ImageView image=(ImageView)  v.findViewById(R.id.busImage);
+        ImageView image = (ImageView) v.findViewById(R.id.busImage);
         image.setImageResource(R.drawable.bus);
         tv.setText(route);
 

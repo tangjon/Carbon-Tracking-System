@@ -9,10 +9,9 @@ import java.util.Date;
 /**
  * Created by Sean on 02/03/2017.
  * Journey object stores both the car and route objects used
- *
  */
 
-public class Journey implements Serializable{
+public class Journey implements Serializable {
 
 
     public static final double GASOLINECO2FACTOR = 8.89;
@@ -40,26 +39,23 @@ public class Journey implements Serializable{
     private double busEmissions;
     private double skytrainEmissions;
 
-    public Journey(String inputName,Transportation inputTransType , Route inputRoute){
+    public Journey(String inputName, Transportation inputTransType, Route inputRoute) {
         this.name = inputName;
         this.transType = inputTransType;
         this.route = inputRoute;
-        if(transType.getCar() != null) {
+        if (transType.getCar() != null) {
             this.totalEmissionsCity = calcTotal(mtoKM(transType.getCar().getCityMPG()), route.getCityDistance());
             this.totalEmissionsHighway = calcTotal(mtoKM(transType.getCar().getHighwayMPG()), route.getHighWayDistance());
             this.totalTravelledEmissions = totalEmissionsCity + totalEmissionsHighway;
             this.totalDriven = route.getCityDistance() + route.getHighWayDistance();
-        }
-        else if(transType.getBus() != null) {
+        } else if (transType.getBus() != null) {
             this.totalDriven = route.getOtherDistance();
-            this.busEmissions = totalDriven* TRANSLINKBUSEMISSIONSTAT;
+            this.busEmissions = totalDriven * TRANSLINKBUSEMISSIONSTAT;
 
-        }
-        else if(transType.getSkytrain()!= null){
+        } else if (transType.getSkytrain() != null) {
             this.totalDriven = route.getOtherDistance();
-            this.skytrainEmissions= (totalDriven * BOMBARDIERMARK2EMISSIONSTAT) * CALC_ELEC ;
-        }
-        else{
+            this.skytrainEmissions = (totalDriven * BOMBARDIERMARK2EMISSIONSTAT) * CALC_ELEC;
+        } else {
             this.totalDriven = route.getOtherDistance();
             this.totalTravelledEmissions = 0;
         }
@@ -93,7 +89,7 @@ public class Journey implements Serializable{
         return route;
     }
 
-    public void setRoute(Route input){
+    public void setRoute(Route input) {
         this.route = input;
     }
 
@@ -176,7 +172,7 @@ public class Journey implements Serializable{
         month = Integer.parseInt(dateCheck[1]) - 1;
         year = Integer.parseInt(dateCheck[2]);
 
-        Log.i("spinner", "year = "+year+" month = "+month+" day = "+day);
+        Log.i("spinner", "year = " + year + " month = " + month + " day = " + day);
 
         Calendar c = Calendar.getInstance();
         c.clear();
@@ -185,18 +181,18 @@ public class Journey implements Serializable{
         c.set(Calendar.DAY_OF_MONTH, day);
         setDateObj(c.getTime());
 
-        Log.i("spinner", "dateObj = "+dateObj.toString());
+        Log.i("spinner", "dateObj = " + dateObj.toString());
     }
 
     //Miles to KM
-    public double mtoKM(double input){
+    public double mtoKM(double input) {
         return input * KILOMETERSINAMILE;
     }
 
     //Calculates total emissions
-    public double calcTotal(double carKMPG, double routeDistance){
+    public double calcTotal(double carKMPG, double routeDistance) {
         double total = 0;
-        if(transType.getCar().getFuelType() != null) {
+        if (transType.getCar().getFuelType() != null) {
             if (transType.getCar().getFuelType().equals("Regular Gasoline") || transType.getCar().getFuelType().equals("Premium Gasoline") || transType.getCar().getFuelType().equals("Midgrade")) {
                 total = GASOLINECO2FACTOR * (routeDistance / carKMPG);
             }

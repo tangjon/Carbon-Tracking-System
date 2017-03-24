@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -24,6 +25,7 @@ import cmpt276.jade.carbontracker.model.Tip;
 import cmpt276.jade.carbontracker.model.Utilities;
 import cmpt276.jade.carbontracker.enums.BillEditMode;
 import cmpt276.jade.carbontracker.enums.BillType;
+
 /*
       Shows list of bills
  */
@@ -38,8 +40,9 @@ public class Utilities_Activities extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle(R.string.utilitiesactivitytoolbarhint);
         setContentView(R.layout.activity_utilities__activities);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         utilities = emission.getUtilities();
 
         loadData();
@@ -55,7 +58,7 @@ public class Utilities_Activities extends AppCompatActivity {
         builder.setMessage(getString(R.string.label_delete_confirm));
         builder.setCancelable(true);
 
-        builder.setPositiveButton(getString(R.string.label_delete), new DialogInterface.OnClickListener(){
+        builder.setPositiveButton(getString(R.string.label_delete), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 utilities.deleteBill(type, index);
@@ -231,5 +234,14 @@ public class Utilities_Activities extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }

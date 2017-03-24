@@ -35,7 +35,8 @@ public class CarCollection {
         }
         return false;
     }
-    public void remove(int index){
+
+    public void remove(int index) {
         carList.remove(index);
     }
 
@@ -124,8 +125,8 @@ public class CarCollection {
         return null;
     }
 
-    public boolean setCarList(List<Car> lst){
-        if(lst != null){
+    public boolean setCarList(List<Car> lst) {
+        if (lst != null) {
             carList = lst;
             return true;
         }
@@ -153,7 +154,7 @@ public class CarCollection {
         return false;
     }
 
-    public Car getCar(int index){
+    public Car getCar(int index) {
         return carList.get(index);
     }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ public class TransportSelectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().setTitle(getString(R.string.TransportSelectActivityHint));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transport_select);
 
@@ -49,7 +51,7 @@ public class TransportSelectActivity extends AppCompatActivity {
         btnCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = Route_List_Activity.IntentForRouteList(TransportSelectActivity.this,2);
+                Intent intent = Route_List_Activity.IntentForRouteList(TransportSelectActivity.this, 2);
                 Emission.getInstance().getJourneyBuffer().getTransType().setTransMode(Transport.WALK);
                 startActivity(intent);
             }
@@ -86,5 +88,14 @@ public class TransportSelectActivity extends AppCompatActivity {
     public static Intent getTransportIntent(Context context) {
         return new Intent(context, TransportSelectActivity.class);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }

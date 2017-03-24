@@ -12,7 +12,7 @@ public class Bus {
     private int mode;
     private int position;
 
-    public Bus(){
+    public Bus() {
 
     }
 
@@ -37,11 +37,11 @@ public class Bus {
         this.routeNumber = routeNumber;
     }
 
-    public void setMode(int mode){
+    public void setMode(int mode) {
         this.mode = mode;
     }
 
-    public int getMode(){
+    public int getMode() {
         return mode;
     }
 

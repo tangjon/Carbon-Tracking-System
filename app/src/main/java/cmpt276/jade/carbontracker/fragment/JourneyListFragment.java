@@ -72,13 +72,12 @@ public class JourneyListFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Mode == 1){
+                if (Mode == 1) {
                     Mode = 0;
                     setupClickJourneyList();
                     button.setText(getString(R.string.label_edit));
                     Toast.makeText(getContext(), "Edit mode enabled.", Toast.LENGTH_SHORT).show();
-                }
-                else if(Mode == 0){
+                } else if (Mode == 0) {
                     Mode = 1;
                     toggleDeleteMode();
                     button.setText(getString(R.string.label_delete));
@@ -150,15 +149,15 @@ public class JourneyListFragment extends Fragment {
     private void populateList() {
         //the adapter have one more mode type
         //ListAdapter bucky=new RouteListAdapter(getContext(),listOfJourneys.getJourneyDetails(),getmode());
-        ListAdapter bucky=new RouteListAdapter(getContext(),listOfJourneys.getJourneyDetails(),1);
+        ListAdapter bucky = new RouteListAdapter(getContext(), listOfJourneys.getJourneyDetails(), 1);
         ListView list = (ListView) v.findViewById(R.id.listviewJourney);
         list.setAdapter(bucky);
     }
 
     public void getIntentData() {
         Intent intent = getActivity().getIntent();
-        Journey journey = (Journey)intent.getSerializableExtra("Journey");
-        if(journey != null) {
+        Journey journey = (Journey) intent.getSerializableExtra("Journey");
+        if (journey != null) {
             if (journey.getMode() == 0) {
                 this.intentJourney = journey;
                 listOfJourneys.addJourney(journey);

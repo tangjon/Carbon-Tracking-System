@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -60,11 +61,12 @@ public class CarInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_info);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Set Toolbar Name
         getSupportActionBar().setTitle(getString(R.string.CarInfoActivityHint));
         // get mode from intent
         APP_MODE = (Mode) getIntent().getExtras().getSerializable(KEY_APP_MODE);
-        if(APP_MODE == null){
+        if (APP_MODE == null) {
             APP_MODE = Mode.ADD;
         }
 
@@ -115,9 +117,9 @@ public class CarInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText et = (EditText) findViewById(R.id.et_nickname);
                 String nickName = et.getText().toString().trim();
-                if(et.getText().toString().trim().length() == 0){
+                if (et.getText().toString().trim().length() == 0) {
                     et.setError(getString(R.string.car_info_warning));
-                }else{
+                } else {
                     userSelectedCar.setNickName(nickName);
                     // Assign new key
                     userSelectedCar.setKEY(UUID.randomUUID());
@@ -279,6 +281,14 @@ public class CarInfoActivity extends AppCompatActivity {
                 makeDisplayList.add(make);
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

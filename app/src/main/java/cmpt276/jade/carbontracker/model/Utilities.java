@@ -73,7 +73,8 @@ public class Utilities implements Serializable {
         else bills = listBillGas;
 
         long dateDiffStart, dateDiffEnd, dateDiffStartLast, dateDiffEndLast;
-        dateDiffStartLast = 0; dateDiffEndLast = 0;
+        dateDiffStartLast = 0;
+        dateDiffEndLast = 0;
         Bill billSelected = null;
 
         for (Bill b : bills) {
