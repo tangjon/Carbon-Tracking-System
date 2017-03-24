@@ -19,13 +19,13 @@ import cmpt276.jade.carbontracker.R;
 public class SkytrainListAdaptor extends ArrayAdapter<String> {
 
     public SkytrainListAdaptor(Context context, String[] item) {
-        super(context, R.layout.skytrain_list, item);
+        super(context, R.layout.item_skytrain, item);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inf = LayoutInflater.from(getContext());
-        View v = inf.inflate(R.layout.skytrain_list, parent, false);
+        View v = inf.inflate(R.layout.item_skytrain, parent, false);
 
         String route=getItem(position);
         TextView tv=(TextView) v.findViewById(R.id.skytrainListItem);

@@ -21,13 +21,13 @@ import cmpt276.jade.carbontracker.R;
 public class BusListAdapter extends ArrayAdapter<String> {
 
     public BusListAdapter(Context context, String[] item) {
-        super(context, R.layout.bus_list, item);
+        super(context, R.layout.item_bus, item);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inf = LayoutInflater.from(getContext());
-        View v = inf.inflate(R.layout.bus_list, parent, false);
+        View v = inf.inflate(R.layout.item_bus, parent, false);
 
         String route=getItem(position);
         TextView tv=(TextView) v.findViewById(R.id.busListItem);
