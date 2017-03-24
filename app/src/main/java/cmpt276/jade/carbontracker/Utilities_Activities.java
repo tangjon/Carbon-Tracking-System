@@ -40,6 +40,7 @@ public class Utilities_Activities extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle(R.string.utilitiesactivitytoolbarhint);
         setContentView(R.layout.activity_utilities__activities);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         utilities = emission.getUtilities();
