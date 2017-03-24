@@ -62,13 +62,12 @@
         android:focusable="false"
         android:focusableInTouchMode="false" />
 
-    <TextView
-        android:id="@+id/footprint_tips"
+    <Button
+        android:id="@+id/btn_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_graph_toggle"
         android:layout_alignParentEnd="true"
-        android:text="Tip to see next tip"
-        android:textSize="10sp" />
+        android:layout_alignParentTop="true"
+        android:text="@string/tips" />
 
 </RelativeLayout>

@@ -13,7 +13,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:padding="@dimen/activity_horizontal_margin"
-        android:text="Click to Display Tips!" />
+        android:text="Click next to display a tips!" />
 
     <TableRow
         android:layout_width="match_parent"
