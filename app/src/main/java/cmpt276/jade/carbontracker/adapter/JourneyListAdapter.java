@@ -19,14 +19,14 @@ import cmpt276.jade.carbontracker.model.JourneyCollection;
 public class JourneyListAdapter extends ArrayAdapter<String> {
     JourneyCollection list;
     public JourneyListAdapter(Context context, String[] item, JourneyCollection list) {
-        super(context, R.layout.journey_list, item);
+        super(context, R.layout.item_journey, item);
         this.list = list;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater buckys = LayoutInflater.from(getContext());
-        View OneBucky = buckys.inflate(R.layout.journey_list, parent, false);
+        View OneBucky = buckys.inflate(R.layout.item_journey, parent, false);
 
         String route=getItem(position);
         TextView tv=(TextView) OneBucky.findViewById(R.id.new_journey_list);

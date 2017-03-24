@@ -8,25 +8,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import cmpt276.jade.carbontracker.R;
-import cmpt276.jade.carbontracker.model.Car;
-import cmpt276.jade.carbontracker.model.Route;
 
 public class RouteListAdapter extends ArrayAdapter<String> {
 
     private int RouteMode;
 
     public RouteListAdapter(Context context, String[] item, int mode) {
-        super(context, R.layout.route_list, item);
+        super(context, R.layout.item_route, item);
         RouteMode=mode;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater buckys = LayoutInflater.from(getContext());
-        View OneBucky = buckys.inflate(R.layout.route_list, parent, false);
+        View OneBucky = buckys.inflate(R.layout.item_route, parent, false);
 
         String route=getItem(position);
         TextView tv=(TextView) OneBucky.findViewById(R.id.new_routes_list);
