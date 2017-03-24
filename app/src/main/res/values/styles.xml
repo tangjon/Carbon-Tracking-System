@@ -17,4 +17,16 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="ColoredButton.Green" parent="Base.Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@color/btn_green</item>
+        <item name="android:textColor">#ffffff</item>
+
+    </style>
+    <style name="ColoredButton.Blue" parent="Base.Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@color/btn_blue</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+
+
 </resources>
