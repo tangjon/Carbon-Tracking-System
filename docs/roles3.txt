@@ -1,0 +1,4 @@
+Sean:Repo Manger
+Jonathan:Product Owner
+Raz:Scrum Master
+Alex:Team
