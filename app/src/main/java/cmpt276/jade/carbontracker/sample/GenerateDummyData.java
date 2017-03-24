@@ -23,8 +23,8 @@ import cmpt276.jade.carbontracker.model.Transportation;
 import cmpt276.jade.carbontracker.enums.BillType;
 
 /**
- *  Generate Dummy Data to the entire application
- *  FOR TESTING PURPOSES ONLY
+ * Generate Dummy Data to the entire application
+ * FOR TESTING PURPOSES ONLY
  */
 
 public class GenerateDummyData {
@@ -115,21 +115,21 @@ public class GenerateDummyData {
         return journey;
     }
 
-    public static Bill generateBill(){
+    public static Bill generateBill() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         BillType type = null;
 
         Random rn = new Random();
         int ran = rn.nextInt(2);
-        for (BillType t: BillType.values()) {
-            if(ran == t.ordinal()){
+        for (BillType t : BillType.values()) {
+            if (ran == t.ordinal()) {
                 type = t;
             }
         }
 
 
-        return new Bill(type,date,date, rn.nextDouble() + rn.nextInt(10000));
+        return new Bill(type, date, date, rn.nextDouble() + rn.nextInt(10000));
     }
 
     public static Journey generateComplexJourney() {

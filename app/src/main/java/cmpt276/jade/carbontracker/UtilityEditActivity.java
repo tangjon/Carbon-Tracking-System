@@ -118,8 +118,7 @@ public class UtilityEditActivity extends AppCompatActivity {
                         db.open();
                         db.insertRow(buffer);
                         db.close();
-                    }
-                    else{
+                    } else {
                         utils.editBill(type, buffer, index);
                     }
                     finish();
@@ -198,6 +197,7 @@ public class UtilityEditActivity extends AppCompatActivity {
         if (mode == BillEditMode.EDIT) buffer = emission.getBufferBill();
         else buffer = new Bill(type, null, null, 0);
     }
+
     Tip tipForGas = new Tip();
 
     private void getGasTips() {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ public class BusInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_bus_info);
         getSupportActionBar().setTitle(R.string.businfoactivitytoolbarhint);
 
@@ -35,8 +37,8 @@ public class BusInfoActivity extends AppCompatActivity {
         return new Intent(context, BusInfoActivity.class);
     }
 
-    private void setupPage(){
-        if(incomingBus != null && incomingBus.getMode() == 1){
+    private void setupPage() {
+        if (incomingBus != null && incomingBus.getMode() == 1) {
             EditText inputName = (EditText) findViewById(R.id.editTextBusNickname);
             inputName.setText(incomingBus.getNickName());
             EditText inputRouteNumber = (EditText) findViewById(R.id.editTextRouteNumber);
@@ -44,7 +46,7 @@ public class BusInfoActivity extends AppCompatActivity {
         }
     }
 
-    private void setupNextBtn(){
+    private void setupNextBtn() {
         Button btn = (Button) findViewById(R.id.btnBusInfoNext);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,11 +57,9 @@ public class BusInfoActivity extends AppCompatActivity {
                 EditText inputRouteNumber = (EditText) findViewById(R.id.editTextRouteNumber);
                 if (inputName.getText().toString().trim().length() == 0) {
                     inputName.setError(getString(R.string.enter_a_nickname));
-                }
-                else if(inputRouteNumber.getText().toString().trim().length() == 0){
+                } else if (inputRouteNumber.getText().toString().trim().length() == 0) {
                     inputRouteNumber.setError(getString(R.string.enter_a_route_number));
-                }
-                else {
+                } else {
                     outgoingBus.setNickName(inputName.getText().toString().trim());
                     outgoingBus.setRouteNumber(inputRouteNumber.getText().toString().trim());
 
@@ -77,8 +77,16 @@ public class BusInfoActivity extends AppCompatActivity {
 
     public void getBusData() {
 
-            this.incomingBus = Emission.getInstance().getJourneyBuffer().getTransType().getBus();
-            this.outgoingBus = new Bus();
+        this.incomingBus = Emission.getInstance().getJourneyBuffer().getTransType().getBus();
+        this.outgoingBus = new Bus();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

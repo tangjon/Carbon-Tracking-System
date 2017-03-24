@@ -13,7 +13,7 @@ public class Skytrain {
     private int mode;
     private int position;
 
-    public Skytrain(){
+    public Skytrain() {
 
     }
 

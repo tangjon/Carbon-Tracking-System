@@ -12,11 +12,12 @@ import java.util.List;
 
 import cmpt276.jade.carbontracker.R;
 import cmpt276.jade.carbontracker.model.Car;
+
 /**
  * Class: CarDetailSpinnerAdapter
  * Description: Adapter that helps parse a list of Cars and display them
- *              in spinners
- *
+ * in spinners
+ * <p>
  * Bugs:
  */
 
@@ -49,9 +50,6 @@ public class CarDetailSpinnerAdapter extends ArrayAdapter<Car> {
         setUpTextView(itemView, R.id.tv_engine, currentCar.getEngineDescription());
         setUpTextView(itemView, R.id.tv_fuel_cost, Integer.toString(currentCar.getFuelAnnualCost()));
         setUpTextView(itemView, R.id.tv_transmission, currentCar.getTransDescription());
-
-
-
 
 
         return itemView;

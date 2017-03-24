@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -34,6 +35,7 @@ public class BusListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_list);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.BustListActivityToolBarHint);
 
         setupAddBtn();
@@ -42,7 +44,7 @@ public class BusListActivity extends AppCompatActivity {
     }
 
 
-    private void setupAddBtn(){
+    private void setupAddBtn() {
         Button btn = (Button) findViewById(R.id.btnBusAdd);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,9 +57,7 @@ public class BusListActivity extends AppCompatActivity {
     }
 
 
-
     private void setupListview() {
-
 
 
         ListView list = (ListView) findViewById(R.id.listviewBus);
@@ -65,7 +65,7 @@ public class BusListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Emission.getInstance().getJourneyBuffer().getTransType().setBus(recentBusList.getBus(position));
-                Intent intent = Route_List_Activity.IntentForRouteList(BusListActivity.this,3);
+                Intent intent = Route_List_Activity.IntentForRouteList(BusListActivity.this, 3);
                 startActivity(intent);
             }
         });
@@ -93,7 +93,7 @@ public class BusListActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                editDialog.show(getSupportFragmentManager(),"EditDialog");
+                editDialog.show(getSupportFragmentManager(), "EditDialog");
                 return true;
             }
         });
@@ -110,7 +110,7 @@ public class BusListActivity extends AppCompatActivity {
         db.deleteAll(DBAdapter.DB_TABLE.BUS, DBAdapter.TAG_ID.RECENT);
 
         // RE-ADD REMAINING RECENTS
-        for (Bus b: recentBusList.getBusList()) {
+        for (Bus b : recentBusList.getBusList()) {
             db.insertRow(b, DBAdapter.TAG_ID.RECENT);
         }
         db.close();
@@ -123,7 +123,7 @@ public class BusListActivity extends AppCompatActivity {
     }
 
     // Inspired by Raz
-    private void setupDeleteAlert( final int index) {
+    private void setupDeleteAlert(final int index) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         Bus thisBus = recentBusList.getBus(index);
         builder.setMessage(getString(R.string.journey_list_confirm_delete_message, thisBus.getNickName()));
@@ -143,11 +143,11 @@ public class BusListActivity extends AppCompatActivity {
         alert.show();
     }
 
-    private void populateList(){
+    private void populateList() {
         dbRefreshBusList();
         //TODO
         //Make Adaptor
-        ListAdapter adapt=new BusListAdapter(this, recentBusList.getBusDetails());
+        ListAdapter adapt = new BusListAdapter(this, recentBusList.getBusDetails());
         ListView list = (ListView) findViewById(R.id.listviewBus);
         list.setAdapter(adapt);
     }
@@ -155,4 +155,13 @@ public class BusListActivity extends AppCompatActivity {
     public static Intent getIntent(Context context) {
         return new Intent(context, BusListActivity.class);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

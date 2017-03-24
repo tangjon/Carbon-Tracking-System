@@ -12,7 +12,7 @@ import cmpt276.jade.carbontracker.R;
 
 /**
  * Created by Sean on 21/03/2017.
- *
+ * <p>
  * Displays the skytrain list
  */
 
@@ -27,11 +27,11 @@ public class SkytrainListAdaptor extends ArrayAdapter<String> {
         LayoutInflater inf = LayoutInflater.from(getContext());
         View v = inf.inflate(R.layout.item_skytrain, parent, false);
 
-        String route=getItem(position);
-        TextView tv=(TextView) v.findViewById(R.id.skytrainListItem);
+        String route = getItem(position);
+        TextView tv = (TextView) v.findViewById(R.id.skytrainListItem);
 
 
-        ImageView image=(ImageView)  v.findViewById(R.id.skytrainImage);
+        ImageView image = (ImageView) v.findViewById(R.id.skytrainImage);
         image.setImageResource(R.drawable.skytrain);
         tv.setText(route);
 

@@ -30,13 +30,13 @@ import cmpt276.jade.carbontracker.utils.CarManager;
 /**
  * Display a animated welcome screen to user
  * Also loads csv at startup
- *      loads information from DataBase to Emissions
+ * loads information from DataBase to Emissions
  */
 
 public class Welcome_Activity extends AppCompatActivity {
 
 
-    private static final String TAG = "welcome_activity" ;
+    private static final String TAG = "welcome_activity";
     DBAdapter myDb;
 
 
@@ -85,10 +85,12 @@ public class Welcome_Activity extends AppCompatActivity {
             }
         });
     }
+
     private void setupMoving(int id, int distance, int speed) {
         ImageView imageBTN = (ImageView) findViewById(id);
         imageBTN.animate().translationX(imageBTN.getTranslationX() + distance).setDuration(speed);
     }
+
     private void loadRequiredApplicationResources() {
 
         myDb = new DBAdapter(this);
@@ -102,7 +104,7 @@ public class Welcome_Activity extends AppCompatActivity {
         // generateDummyJourneys();
     }
 
-    private void loadInformationFromDataBase(){
+    private void loadInformationFromDataBase() {
         myDb = new DBAdapter(this);
         myDb.open();
         // Load Saved JourneyList
@@ -110,11 +112,11 @@ public class Welcome_Activity extends AppCompatActivity {
         Emission.getInstance().setJourneyCollection(dbJC);
 
         // Load Saved Bills
-        List<Bill> dbBills =  myDb.getAllBills();
-        if(!dbBills.isEmpty()){
-            for (Bill b: dbBills) {
+        List<Bill> dbBills = myDb.getAllBills();
+        if (!dbBills.isEmpty()) {
+            for (Bill b : dbBills) {
                 Log.i(TAG, "loadInformationFromDataBase: " + b.toString());
-                switch (b.getBillType()){
+                switch (b.getBillType()) {
                     case GAS:
                         Emission.getInstance().getUtilities().getListBillGas().add(b);
                         break;
@@ -126,19 +128,19 @@ public class Welcome_Activity extends AppCompatActivity {
         }
 
         // Load Recent Car Lists
-        for (Car c : myDb.getAllCars(DBAdapter.TAG_ID.RECENT).toList()){
+        for (Car c : myDb.getAllCars(DBAdapter.TAG_ID.RECENT).toList()) {
             CarListActivity.recentCarList.add(c);
             Log.i(TAG, "DBAdapterLoadRecetn:(CAR)" + c.toString());
         }
 
         // Load Recent Bus Lists
-        for (Bus b: myDb.getAllBus(DBAdapter.TAG_ID.RECENT).getBusList()) {
+        for (Bus b : myDb.getAllBus(DBAdapter.TAG_ID.RECENT).getBusList()) {
             BusListActivity.recentBusList.addBus(b);
             Log.i(TAG, "DBAdapterLoadRecetn:(BUS)" + b.toString());
         }
 
         // Load Recent Skytrains
-        for (Skytrain s: myDb.getAllSkytrain(DBAdapter.TAG_ID.RECENT).getTrainList()) {
+        for (Skytrain s : myDb.getAllSkytrain(DBAdapter.TAG_ID.RECENT).getTrainList()) {
             SkytrainListActivity.recentSkyTrainList.addTrain(s);
             Log.i(TAG, "DBAdapterLoadRecetn:(SKYTRAIN)" + s.toString());
         }
@@ -146,7 +148,7 @@ public class Welcome_Activity extends AppCompatActivity {
     }
 
     private void generateDummyJourneys() {
-        if(Emission.getInstance().getJourneyCollection().getJourneyList().isEmpty()){
+        if (Emission.getInstance().getJourneyCollection().getJourneyList().isEmpty()) {
             // Load some journeys
             Emission.getInstance().getJourneyCollection().addJourney(GenerateDummyData.generateComplexJourney());
             Emission.getInstance().getJourneyCollection().addJourney(GenerateDummyData.generateComplexJourney());
@@ -176,7 +178,7 @@ public class Welcome_Activity extends AppCompatActivity {
     }
 
     // IGNORE
-    private void testDataBaseSaveAndLoad(){
+    private void testDataBaseSaveAndLoad() {
         DBAdapter db = new DBAdapter(this);
         db.open();
         // TEST CAR

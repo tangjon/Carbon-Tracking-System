@@ -8,7 +8,7 @@ import java.util.UUID;
  * Each car model has a unique key
  */
 
-public class Car implements Serializable{
+public class Car implements Serializable {
 
     private long ID;
     private double carbonTailPipe;
@@ -26,7 +26,7 @@ public class Car implements Serializable{
 
     private UUID KEY;
 
-    public Car(){
+    public Car() {
         this.KEY = UUID.randomUUID();
     }
 
@@ -65,7 +65,7 @@ public class Car implements Serializable{
         this.transDescription = transDescription;
     }
 
-    public String getName(){
+    public String getName() {
         return "" + getMake() + " : " + getModel() + " : " + getYear();
     }
 
@@ -182,9 +182,9 @@ public class Car implements Serializable{
         this.carbonTailPipe = carbonTailPipe;
     }
 
-    public Car copy(){
-        Car car = new Car(nickName,  make,  model,  year,  cityMPG,  highwayMPG,  engineDescription,
-                engineDispLitres,  fuelType,  fuelAnnualCost,  carbonTailPipe,  transDescription);
+    public Car copy() {
+        Car car = new Car(nickName, make, model, year, cityMPG, highwayMPG, engineDescription,
+                engineDispLitres, fuelType, fuelAnnualCost, carbonTailPipe, transDescription);
         car.setID(ID);
         return car;
     }
@@ -230,7 +230,7 @@ public class Car implements Serializable{
         return ID;
     }
 
-    public void setID(long ID){
+    public void setID(long ID) {
         this.ID = ID;
     }
 }

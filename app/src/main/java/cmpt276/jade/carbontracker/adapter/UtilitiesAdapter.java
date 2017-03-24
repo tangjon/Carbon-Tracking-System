@@ -18,7 +18,7 @@ import cmpt276.jade.carbontracker.model.Emission;
  */
 
 
-public class UtilitiesAdapter extends ArrayAdapter{
+public class UtilitiesAdapter extends ArrayAdapter {
 
     public UtilitiesAdapter(Context context, List list) {
         super(context, 0, list);

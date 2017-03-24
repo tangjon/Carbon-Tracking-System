@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -46,6 +47,7 @@ public class CarListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_list);
         getSupportActionBar().setTitle(getString(R.string.CarListActivityHint));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Do DataBase Stuff
         myDB = new DBAdapter(this);
@@ -100,7 +102,7 @@ public class CarListActivity extends AppCompatActivity {
                 //Sean- adding my journey object to your intent
                 Car car = (Car) parent.getAdapter().getItem(position);
                 Emission.getInstance().getJourneyBuffer().getTransType().setCar(car);
-                Intent intent = Route_List_Activity.IntentForRouteList(CarListActivity.this,1);
+                Intent intent = Route_List_Activity.IntentForRouteList(CarListActivity.this, 1);
                 startActivity(intent);
             }
         });
@@ -110,11 +112,11 @@ public class CarListActivity extends AppCompatActivity {
         // Complete Refresh RecentCarList DB
         CarCollection c = myDB.getAllCars(DBAdapter.TAG_ID.RECENT);
         // Delete Everything form DB with "RECENT"
-        for (Car car: c.toList()) {
+        for (Car car : c.toList()) {
             myDB.deleteRow(DBAdapter.DB_TABLE.CAR, car.getID());
         }
         // RE-ADD REMAINING RECENTS
-        for (Car car: recentCarList.toList()) {
+        for (Car car : recentCarList.toList()) {
             myDB.insertRow(car, DBAdapter.TAG_ID.RECENT);
         }
     }
@@ -131,20 +133,19 @@ public class CarListActivity extends AppCompatActivity {
         });
     }
 
-    private void updateUI(){
+    private void updateUI() {
         populateListView();
     }
 
 
-
     // Inspired by Raz
-    private void setupDelete( final int index) {
+    private void setupDelete(final int index) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final Car thisCar = recentCarList.getCar(index);
         builder.setMessage(getString(R.string.journey_list_confirm_delete_message, thisCar.getName()));
         builder.setCancelable(true);
 
-        builder.setPositiveButton(getString(R.string.label_delete), new DialogInterface.OnClickListener(){
+        builder.setPositiveButton(getString(R.string.label_delete), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 recentCarList.remove(index);
@@ -172,5 +173,13 @@ public class CarListActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         myDB.close();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -7,8 +7,8 @@ import java.util.concurrent.TimeUnit;
 import cmpt276.jade.carbontracker.enums.BillType;
 
 /**
- *  Individual billing class for gas/electricity
- *  input validation expected to be done by calling class
+ * Individual billing class for gas/electricity
+ * input validation expected to be done by calling class
  */
 public class Bill implements Serializable {
     private BillType type;
@@ -91,6 +91,7 @@ public class Bill implements Serializable {
     public void setNumResidents(int numResidents) {
         this.numResidents = numResidents;
     }
+
     public Boolean isGas() {
         return (type == BillType.GAS);
     }

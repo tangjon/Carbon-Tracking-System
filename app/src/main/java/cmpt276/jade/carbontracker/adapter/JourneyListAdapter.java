@@ -18,6 +18,7 @@ import cmpt276.jade.carbontracker.model.JourneyCollection;
  */
 public class JourneyListAdapter extends ArrayAdapter<String> {
     JourneyCollection list;
+
     public JourneyListAdapter(Context context, String[] item, JourneyCollection list) {
         super(context, R.layout.item_journey, item);
         this.list = list;
@@ -28,14 +29,14 @@ public class JourneyListAdapter extends ArrayAdapter<String> {
         LayoutInflater buckys = LayoutInflater.from(getContext());
         View OneBucky = buckys.inflate(R.layout.item_journey, parent, false);
 
-        String route=getItem(position);
-        TextView tv=(TextView) OneBucky.findViewById(R.id.new_journey_list);
+        String route = getItem(position);
+        TextView tv = (TextView) OneBucky.findViewById(R.id.new_journey_list);
 
-        ImageView image=(ImageView)  OneBucky.findViewById(R.id.journeyListImage);
+        ImageView image = (ImageView) OneBucky.findViewById(R.id.journeyListImage);
 
         tv.setText(route);
 
-        if(list.countJourneys() != 0) {
+        if (list.countJourneys() != 0) {
             if (list.getJourney(position).getTransType().getTransMode().equals(Transport.CAR)) {
                 image.setImageResource(R.drawable.car);
             } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.BIKE)) {
@@ -44,8 +45,7 @@ public class JourneyListAdapter extends ArrayAdapter<String> {
                 image.setImageResource(R.drawable.bus);
             } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.SKYTRAIN)) {
                 image.setImageResource(R.drawable.skytrain);
-            }
-            else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.WALK)){
+            } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.WALK)) {
                 image.setImageResource(R.drawable.walksymbol);
                 //temporary image
             }

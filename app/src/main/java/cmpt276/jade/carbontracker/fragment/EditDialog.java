@@ -19,7 +19,7 @@ import cmpt276.jade.carbontracker.model.Journey;
 
 /**
  * Created by tangj on 3/16/2017.
- *
+ * <p>
  * For a nice uniform edit and delete function for lists dialog
  */
 
@@ -48,7 +48,7 @@ public class EditDialog extends DialogFragment {
 
     public static EditDialog newInstance(String title, int thisMode) {
         Transport mode = null;
-        switch (thisMode){
+        switch (thisMode) {
             case 1:
                 mode = Transport.CAR;
                 break;
@@ -94,14 +94,14 @@ public class EditDialog extends DialogFragment {
     }
 
     public static EditDialog newInstance() {
-        
+
         Bundle args = new Bundle();
-        
+
         EditDialog fragment = new EditDialog();
         fragment.setArguments(args);
         return fragment;
     }
-    
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //Read Arguments
@@ -112,13 +112,13 @@ public class EditDialog extends DialogFragment {
 
         // Inflate Layout
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View v = inflater.inflate(R.layout.dialog_fragment_edit,null);
+        View v = inflater.inflate(R.layout.dialog_fragment_edit, null);
         // Display Custom Contents
 
-        if(objectName != null){
+        if (objectName != null) {
             setUpTextView(v);
         }
-        if(objectMode != null){
+        if (objectMode != null) {
             setUpImageView(v);
         }
 
@@ -144,18 +144,18 @@ public class EditDialog extends DialogFragment {
 
     }
 
-    private void setUpTextView(View v){
+    private void setUpTextView(View v) {
         TextView tv_name = (TextView) v.findViewById(R.id.tv_item);
-        if(!(objectName == null)){
+        if (!(objectName == null)) {
             TableRow r = (TableRow) v.findViewById(R.id.extra_info);
             r.setVisibility(View.VISIBLE);
             tv_name.setText(objectName);
         }
     }
 
-    private void setUpImageView(View v){
+    private void setUpImageView(View v) {
         ImageView iv = (ImageView) v.findViewById(R.id.dialog_image);
-        switch (objectMode){
+        switch (objectMode) {
             case CAR:
                 iv.setImageResource(R.drawable.car);
                 break;
@@ -178,24 +178,25 @@ public class EditDialog extends DialogFragment {
     }
 
 
-    private void readArguments(){
-        objectName = getArguments().getString(KEY_NAME,null);
+    private void readArguments() {
+        objectName = getArguments().getString(KEY_NAME, null);
         objectMode = (Transport) getArguments().getSerializable(KEY_MODE);
     }
 
 
-    public void setPosition(int pos){
+    public void setPosition(int pos) {
         position = pos;
     }
-    
 
-    public void setEditDialogListener(EditDialogListener e){
+
+    public void setEditDialogListener(EditDialogListener e) {
         mHost = e;
     }
 
 
-    public interface EditDialogListener{
+    public interface EditDialogListener {
         public void onDeleteClicked(int pos);
+
         public void onEditClicked(int pos);
     }
 }

@@ -19,8 +19,9 @@ import cmpt276.jade.carbontracker.fragment.EditDialog;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.model.SkytrainCollection;
+
 /**
-* Displays all the skytrain objects and can add new ones
+ * Displays all the skytrain objects and can add new ones
  */
 public class SkytrainListActivity extends AppCompatActivity {
 
@@ -37,7 +38,7 @@ public class SkytrainListActivity extends AppCompatActivity {
         populateList();
     }
 
-    private void setupAddBtn(){
+    private void setupAddBtn() {
         Button btn = (Button) findViewById(R.id.btnSkytrainListAdd);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +51,6 @@ public class SkytrainListActivity extends AppCompatActivity {
     }
 
 
-
     private void setupListview() {
 
         ListView list = (ListView) findViewById(R.id.listViewSkytrainList);
@@ -58,7 +58,7 @@ public class SkytrainListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Emission.getInstance().getJourneyBuffer().getTransType().setSkytrain(recentSkyTrainList.getTrain(position));
-                Intent intent = Route_List_Activity.IntentForRouteList(SkytrainListActivity.this,4);
+                Intent intent = Route_List_Activity.IntentForRouteList(SkytrainListActivity.this, 4);
                 startActivity(intent);
             }
         });
@@ -86,7 +86,7 @@ public class SkytrainListActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                editDialog.show(getSupportFragmentManager(),"EditDialog");
+                editDialog.show(getSupportFragmentManager(), "EditDialog");
                 return true;
             }
         });
@@ -100,7 +100,7 @@ public class SkytrainListActivity extends AppCompatActivity {
 
 
     // Inspired by Raz
-    private void setupDeleteAlert( final int index) {
+    private void setupDeleteAlert(final int index) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         Skytrain thisTrain = recentSkyTrainList.getTrain(index);
         builder.setMessage(getString(R.string.journey_list_confirm_delete_message, thisTrain.getNickName()));
@@ -120,11 +120,11 @@ public class SkytrainListActivity extends AppCompatActivity {
         alert.show();
     }
 
-    private void populateList(){
+    private void populateList() {
         dbRefreshSkytrainCarList();
         //TODO
         //Make Adaptor
-        ListAdapter adapt=new SkytrainListAdaptor(this, recentSkyTrainList.getSkytrainDetails());
+        ListAdapter adapt = new SkytrainListAdaptor(this, recentSkyTrainList.getSkytrainDetails());
         ListView list = (ListView) findViewById(R.id.listViewSkytrainList);
         list.setAdapter(adapt);
     }
@@ -139,7 +139,7 @@ public class SkytrainListActivity extends AppCompatActivity {
         myDB.deleteAll(DBAdapter.DB_TABLE.SKYTRAIN, DBAdapter.TAG_ID.RECENT);
 
         // RE-ADD REMAINING RECENTS
-        for (Skytrain s: recentSkyTrainList.getTrainList()) {
+        for (Skytrain s : recentSkyTrainList.getTrainList()) {
             myDB.insertRow(s, DBAdapter.TAG_ID.RECENT);
         }
         myDB.close();

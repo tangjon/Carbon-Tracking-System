@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +23,7 @@ import cmpt276.jade.carbontracker.model.Route;
 public class Route_Info_Activity extends AppCompatActivity {
 
     private Route RouteFromList;
-  //  private Journey journey;
+    //  private Journey journey;
 
     public static Intent IntentForAddingRoute(Context context) {
         Intent intent = new Intent(context, Route_Info_Activity.class);
@@ -41,6 +42,7 @@ public class Route_Info_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.route_info_hint));
         //getJourneyData();
         setContentView(R.layout.layout_route_infor);
@@ -78,9 +80,13 @@ public class Route_Info_Activity extends AppCompatActivity {
                             //highway or city numer are <0
                             else {
                                 Toast.makeText(getApplicationContext(), "You entered a invalid numer " + " please try again", Toast.LENGTH_LONG).show();
-                            }}}}}});
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
-
 
 
     private void setupUSEbtn() {
@@ -88,30 +94,33 @@ public class Route_Info_Activity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    if (Check_empty_input(R.id.Route_Info_edite_highway) == 0) {
-                        Toast.makeText(getApplicationContext(), "You did not entered any number for HighWay " + " please try again", Toast.LENGTH_LONG).show();
-                    }
-                    else {
-                        if (Check_empty_input(R.id.Route_Info_edite_city) == 0) {
-                            Toast.makeText(getApplicationContext(), "You did not entered any number for City " + " please try again", Toast.LENGTH_LONG).show();
-                        }
-                        else {
-                            double highway = Double.parseDouble(getNameById(R.id.Route_Info_edite_highway));
-                            double city = Double.parseDouble(getNameById(R.id.Route_Info_edite_city));
-                            if (highway >= 0 && city >= 0) {
-                                String nickname=getNameById(R.id.editJourneyName);
-                                //****//
-                                //No nickname, so set name " "
-                                if(nickname.length()==0){nickname=" ";}
-                                Route route = new Route(nickname,highway,city);
-                                Emission.getInstance().getJourneyBuffer().setRoute(route);
-                                Intent intent = JourneyReviewActivity.getJourneyReviewIntent(Route_Info_Activity.this);
-                                startActivity(intent);
-                                finish();
+                if (Check_empty_input(R.id.Route_Info_edite_highway) == 0) {
+                    Toast.makeText(getApplicationContext(), "You did not entered any number for HighWay " + " please try again", Toast.LENGTH_LONG).show();
+                } else {
+                    if (Check_empty_input(R.id.Route_Info_edite_city) == 0) {
+                        Toast.makeText(getApplicationContext(), "You did not entered any number for City " + " please try again", Toast.LENGTH_LONG).show();
+                    } else {
+                        double highway = Double.parseDouble(getNameById(R.id.Route_Info_edite_highway));
+                        double city = Double.parseDouble(getNameById(R.id.Route_Info_edite_city));
+                        if (highway >= 0 && city >= 0) {
+                            String nickname = getNameById(R.id.editJourneyName);
+                            //****//
+                            //No nickname, so set name " "
+                            if (nickname.length() == 0) {
+                                nickname = " ";
                             }
-                            else {
-                                Toast.makeText(getApplicationContext(), "You entered a invalid numer " + " please try again", Toast.LENGTH_LONG).show();
-                            }}}}});
+                            Route route = new Route(nickname, highway, city);
+                            Emission.getInstance().getJourneyBuffer().setRoute(route);
+                            Intent intent = JourneyReviewActivity.getJourneyReviewIntent(Route_Info_Activity.this);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "You entered a invalid numer " + " please try again", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+            }
+        });
     }
 
     private void pass_back_route() {
@@ -222,6 +231,15 @@ public class Route_Info_Activity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 /*
     public void getJourneyData() {
         Intent intent = getIntent();
