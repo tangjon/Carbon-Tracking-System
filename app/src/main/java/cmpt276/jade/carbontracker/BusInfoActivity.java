@@ -23,6 +23,7 @@ public class BusInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_info);
+        getSupportActionBar().setTitle(R.string.businfoactivitytoolbarhint);
 
         getBusData();
         setupPage();

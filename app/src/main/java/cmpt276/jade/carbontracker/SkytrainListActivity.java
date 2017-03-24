@@ -30,6 +30,7 @@ public class SkytrainListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skytrain_list);
+        getSupportActionBar().setTitle(R.string.SkytrainListActivityToolbarHint);
 
         setupAddBtn();
         setupListview();

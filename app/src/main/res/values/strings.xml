@@ -285,5 +285,9 @@
     <string name="tips">Tips</string>
     <string name="tip_hint">Click here for tips!</string>
     <string name="skytrain_list_hint_click_list_item_to_continue_nlong_press_to_edit_or_delete">Hint: Click list item to continue. Long press to edit or delete.</string>
+    <string name="BustListActivityToolBarHint">Select a Bus</string>
+    <string name="SkytrainListActivityToolbarHint">Select a Skytrain</string>
+    <string name="businfoactivitytoolbarhint">Fill in your Bus Info</string>
+    <string name="bike_trans_acitvity_tool_bar_hint">Fill in your Route Info</string>
 
 </resources>

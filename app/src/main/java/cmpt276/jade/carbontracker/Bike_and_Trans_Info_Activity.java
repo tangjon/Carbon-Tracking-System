@@ -25,6 +25,7 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle(R.string.bike_trans_acitvity_tool_bar_hint);
         setContentView(R.layout.layout_bike_info);
         getMode();
         setupUI();

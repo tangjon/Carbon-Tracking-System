@@ -34,6 +34,7 @@ public class BusListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_list);
+        getSupportActionBar().setTitle(R.string.BustListActivityToolBarHint);
 
         setupAddBtn();
         setupListview();
