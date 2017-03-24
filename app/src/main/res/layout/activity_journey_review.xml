@@ -1,146 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="@drawable/mainbackground"
     tools:context="cmpt276.jade.carbontracker.JourneyReviewActivity">
 
-    <RelativeLayout
-        android:layout_width="368dp"
-        android:layout_height="495dp"
-        tools:layout_editor_absoluteY="8dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent">
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editJourneyName"
+        android:text="@string/date_of_journey"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="83dp" />
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/editJourneyName"
-            android:text="@string/date_of_journey"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="83dp" />
+    <EditText
+        android:id="@+id/editJourneyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView8"
+        android:ems="10"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="38dp" />
 
-        <EditText
-            android:id="@+id/editJourneyName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView8"
-            android:ems="10"
-            android:hint="@string/name"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="38dp" />
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/journey_name"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/journey_name"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="16dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/route"
+        android:textColor="@android:color/black"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="219dp"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/textView11" />
 
-        <TextView
-            android:id="@+id/textView23"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/route"
-            android:textColor="@android:color/black"
-            tools:layout_editor_absoluteX="162dp"
-            tools:layout_editor_absoluteY="219dp"
-            android:layout_centerVertical="true"
-            android:layout_alignEnd="@+id/textView11" />
+    <TextView
+        android:id="@+id/textViewJourneyReviewTransportTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/car"
+        android:textColor="@android:color/background_dark"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="219dp"
+        android:layout_centerVertical="true"
+        />
 
-        <TextView
-            android:id="@+id/textViewJourneyReviewTransportTag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/car"
-            android:textColor="@android:color/background_dark"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="219dp"
-            android:layout_centerVertical="true"
-             />
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/overview_of_journey"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="157dp"
+        android:layout_above="@+id/textView23"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="14dp" />
 
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/overview_of_journey"
-            android:textColor="@android:color/background_dark"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="157dp"
-            android:layout_above="@+id/textView23"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="14dp" />
+    <TextView
+        android:id="@+id/txtTransInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textViewJourneyReviewTransportTag"
+        android:text="@string/DEFAULT_TXT" />
 
-        <TextView
-            android:id="@+id/txtTransInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textViewJourneyReviewTransportTag"
-            android:text="@string/DEFAULT_TXT" />
+    <TextView
+        android:id="@+id/txtRouteInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView23"
+        android:layout_below="@+id/textView23"
+        android:text="@string/DEFAULT_TXT" />
 
-        <TextView
-            android:id="@+id/txtRouteInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/textView23"
-            android:layout_below="@+id/textView23"
-            android:text="@string/DEFAULT_TXT" />
+    <Button
+        android:id="@+id/btnFinish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_done"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 
-        <Button
-            android:id="@+id/btnFinish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_done"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true" />
+    <EditText
+        android:id="@+id/editDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView10"
+        android:ems="10"
+        android:hint="@string/dd_mm_yyyy"
+        android:inputType="date" />
 
-        <EditText
-            android:id="@+id/editDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView10"
-            android:ems="10"
-            android:hint="@string/dd_mm_yyyy"
-            android:inputType="date" />
-
-        <TextView
-            android:id="@+id/tv_tips"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
+    <TextView
+        android:id="@+id/tv_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnFinish"
 
 
-            android:layout_below="@+id/textView28"
-            android:text="@string/tip_hint"
-            android:textSize="18sp" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView28"
+        android:text="@string/tip_hint"
+        android:textSize="14sp" />
 
-        <TextView
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:id="@+id/textView28"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tips"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_below="@+id/txtTransInfo"
-            android:layout_alignParentStart="true" />
-
-    </RelativeLayout>
-
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tips"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/txtTransInfo"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>
