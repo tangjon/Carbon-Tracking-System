@@ -34,15 +34,6 @@ public class RouteListAdapter extends ArrayAdapter<String> {
 
         tv.setText(route);
 
-        Log.i(TAG, "getView: " + RouteMode + route);
-
-        // Temp fix for walks and bikes
-        if(route.contains("Walk")){
-            RouteMode = 5;
-        } else if (route.contains("Bike")){
-            RouteMode = 2;
-        }
-
         switch (RouteMode) {
             case 5:
                 image.setImageResource(R.drawable.walksymbol);
@@ -51,7 +42,12 @@ public class RouteListAdapter extends ArrayAdapter<String> {
                 image.setImageResource(R.drawable.car);
                 break;
             case 2:
-                image.setImageResource(R.drawable.bike);
+                // Temp fix for walks and bikes
+                if(route.contains("Walk")){
+                    image.setImageResource(R.drawable.walksymbol);
+                } else {
+                    image.setImageResource(R.drawable.bike);
+                }
                 break;
             case 3:
                 image.setImageResource(R.drawable.bus);
