@@ -43,7 +43,9 @@ public class RouteListAdapter extends ArrayAdapter<String> {
                 break;
             case 2:
                 // Temp fix for walks and bikes
-                if(route.contains("Walk")){
+                String[] buff = route.split(" ");
+                boolean bool = buff[0].contains("Walk");
+                if(bool){
                     image.setImageResource(R.drawable.walksymbol);
                 } else {
                     image.setImageResource(R.drawable.bike);
