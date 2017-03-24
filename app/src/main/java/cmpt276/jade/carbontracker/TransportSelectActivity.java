@@ -6,13 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Emission;
-import cmpt276.jade.carbontracker.model.Journey;
-import cmpt276.jade.carbontracker.model.Skytrain;
 
 /*
  *  Allows user to select type of transportation (only car currently supported)
@@ -27,7 +24,7 @@ public class TransportSelectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transport_select);
 
         setupCarBtn();
-        setupWalkBtn();
+        setupBikeWalkBtn();
         setupBusBtn();
         setupSkytrainBtn();
     }
@@ -46,7 +43,7 @@ public class TransportSelectActivity extends AppCompatActivity {
     }
 
     //mode 2
-    private void setupWalkBtn() {
+    private void setupBikeWalkBtn() {
         TextView btnCar = (TextView) findViewById(R.id.Transport_select_bike);
         btnCar.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -84,14 +84,14 @@ public class Bike_and_Trans_Info_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 check_and_add_to_list(2);
-                Emission.getInstance().getJourneyBuffer().getTransType().setTransMode(Transport.BIKE);
+//                Emission.getInstance().getJourneyBuffer().getTransType().setTransMode(Transport.BIKE);
             }
         });
         walk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 check_and_add_to_list(5);
-                Emission.getInstance().getJourneyBuffer().getTransType().setTransMode(Transport.WALK);
+//                Emission.getInstance().getJourneyBuffer().getTransType().setTransMode(Transport.WALK);
             }
         });
 

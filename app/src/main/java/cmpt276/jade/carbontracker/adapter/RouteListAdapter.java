@@ -1,6 +1,7 @@
 package cmpt276.jade.carbontracker.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import cmpt276.jade.carbontracker.R;
+
+import static android.content.ContentValues.TAG;
 
 public class RouteListAdapter extends ArrayAdapter<String> {
 
@@ -31,14 +34,31 @@ public class RouteListAdapter extends ArrayAdapter<String> {
 
         tv.setText(route);
 
-        if (RouteMode == 1) {
-            image.setImageResource(R.drawable.car);
-        } else if (RouteMode == 2) {
-            image.setImageResource(R.drawable.bike);
-        } else if (RouteMode == 3) {
-            image.setImageResource(R.drawable.bus);
-        } else if (RouteMode == 4) {
-            image.setImageResource(R.drawable.skytrain);
+        Log.i(TAG, "getView: " + RouteMode + route);
+
+        // Temp fix for walks and bikes
+        if(route.contains("Walk")){
+            RouteMode = 5;
+        } else if (route.contains("Bike")){
+            RouteMode = 2;
+        }
+
+        switch (RouteMode) {
+            case 5:
+                image.setImageResource(R.drawable.walksymbol);
+                break;
+            case 1:
+                image.setImageResource(R.drawable.car);
+                break;
+            case 2:
+                image.setImageResource(R.drawable.bike);
+                break;
+            case 3:
+                image.setImageResource(R.drawable.bus);
+                break;
+            case 4:
+                image.setImageResource(R.drawable.skytrain);
+                break;
         }
         return OneBucky;
     }

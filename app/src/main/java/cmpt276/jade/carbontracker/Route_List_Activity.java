@@ -144,6 +144,13 @@ public class Route_List_Activity extends AppCompatActivity {
                                             //for walk          (nickname,0,0)           getOtherDistance=distance,getMode=5
                                             //for bus           (nickname,0,0)           getOtherDistance=distance,getMode=3
                                             //for skytrain      (nickname,0,0)           getOtherDistance=distance,getMode=4
+
+                                            // TEMP FIX DIFFERENTIATE BIKE AND WALK
+                                            if(route.getMode() == 2){
+                                                Emission.getInstance().getJourneyBuffer().getTransType().setTransMode(Transport.BIKE);
+                                            } else if( route.getMode() == 5){
+                                                Emission.getInstance().getJourneyBuffer().getTransType().setTransMode(Transport.WALK);
+                                            }
                                             Emission.getInstance().getJourneyBuffer().setRoute(route);
                                             Intent intent = JourneyReviewActivity.getJourneyReviewIntent(Route_List_Activity.this);
                                             startActivity(intent);
