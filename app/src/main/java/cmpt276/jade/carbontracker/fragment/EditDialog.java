@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -25,17 +24,15 @@ import cmpt276.jade.carbontracker.model.Journey;
 
 public class EditDialog extends DialogFragment {
 
-    private EditDialogListener mHost;
-    private int position;
-
+    // KEY
+    private static String KEY_NAME = "name";
+    private static String KEY_MODE = "mode";
     // Members
     String objectName;
     Transport objectMode;
     String thisMode;
-
-    // KEY
-    private static String KEY_NAME = "name";
-    private static String KEY_MODE = "mode";
+    private EditDialogListener mHost;
+    private int position;
 
     public static EditDialog newInstance(String title, Transport mode) {
         Bundle args = new Bundle();

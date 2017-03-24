@@ -42,4 +42,12 @@
         android:visibility="visible"
         android:layout_above="@+id/btn_graph_toggle" />
 
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="Button" />
+
 </RelativeLayout>

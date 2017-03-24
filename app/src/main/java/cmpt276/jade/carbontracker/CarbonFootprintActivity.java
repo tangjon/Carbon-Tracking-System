@@ -32,6 +32,8 @@ import java.util.Date;
 import java.util.List;
 
 import cmpt276.jade.carbontracker.enums.Transport;
+import cmpt276.jade.carbontracker.fragment.EditDialog;
+import cmpt276.jade.carbontracker.fragment.TipDialog;
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Graph;
@@ -187,8 +189,6 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     Tip tip = new Tip();
 
     private void setupTips() {
-        final TextView tv = (TextView) findViewById(R.id.footprint_tips);
-
         Emission emission = Emission.getInstance();
         JourneyCollection jc = emission.getJourneyCollection();
 
@@ -231,12 +231,27 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         tip.setTotalWalk(Walk);
         tip.setTotalBike(Bike);
 
-        tv.setOnClickListener(new View.OnClickListener() {
+        final TipDialog d = new TipDialog();
+        d.setTipDialogListener(new TipDialog.TipDialogListener() {
             @Override
-            public void onClick(View v) {
+            public void onNextClicked(TextView tv) {
                 String tip1 = tip.getJourneyTip();
                 tv.setText(tip1);
+            }
 
+            @Override
+            public void onCloseClicked(TextView tv) {
+
+            }
+        });
+
+
+
+        Button btnTips = (Button) findViewById(R.id.btn_tip);
+        btnTips.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.show(getSupportFragmentManager(),"Dialog");
             }
         });
     }
