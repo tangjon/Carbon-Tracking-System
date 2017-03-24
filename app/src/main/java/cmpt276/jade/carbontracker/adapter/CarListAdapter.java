@@ -39,7 +39,7 @@ public class CarListAdapter extends ArrayAdapter<Car> {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View itemView = convertView;
         if (itemView == null) {
-            itemView = inflater.inflate(R.layout.car_item_list, parent, false);
+            itemView = inflater.inflate(R.layout.item_car, parent, false);
         }
         Car currentCar = mItems.get(position);
         String string = currentCar.getNickName() + " - " + currentCar.getName();
