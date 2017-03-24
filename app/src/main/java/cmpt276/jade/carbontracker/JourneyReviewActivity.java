@@ -1,18 +1,21 @@
 package cmpt276.jade.carbontracker;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Transport;
+import cmpt276.jade.carbontracker.fragment.TipDialog;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
@@ -26,6 +29,10 @@ public class JourneyReviewActivity extends AppCompatActivity {
     private Journey journey;
     private Journey storedJourney;
 
+    public static Intent getJourneyReviewIntent(Context context) {
+        return new Intent(context, JourneyReviewActivity.class);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,37 +49,76 @@ public class JourneyReviewActivity extends AppCompatActivity {
     }
 
     private void setUpTips() {
-        final TextView tv_tips = (TextView) findViewById(R.id.tv_tips);
-        tv_tips.setOnClickListener(new View.OnClickListener() {
+//        final TextView tv_tips = (TextView) findViewById(R.id.tv_tips);
+//        tv_tips.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Tip tip = new Tip();
+//                Journey j = Emission.getInstance().getJourneyBuffer();
+//                switch (j.getTransType().getTransMode()) {
+//                    case CAR:
+//                        tip.setTotalCarEmissions(j.getTotalTravelledEmissions());
+//                        tv_tips.setText(tip.getJourneyTip());
+//                        break;
+//                    case BIKE:
+//                        tip.setTotalBike(j.getTotalTravelled());
+//                        tv_tips.setText(tip.getJourneyTip());
+//                        break;
+//                    case WALK:
+//                        tip.setTotalWalk(j.getTotalTravelled());
+//                        tv_tips.setText(tip.getJourneyTip());
+//                        break;
+//                    case BUS:
+//                        tip.setTotalBusEmission(j.getTotalTravelledEmissions());
+//                        tv_tips.setText(tip.getJourneyTip());
+//                        break;
+//                    case SKYTRAIN:
+//                        tip.setTotalSkyTrainEmission(j.getTotalTravelledEmissions());
+//                        tv_tips.setText(tip.getJourneyTip());
+//                        break;
+//                }
+//
+//            }
+//        });
+
+        TipDialog tips = new TipDialog();
+        tips.setTipDialogListener(new TipDialog.TipDialogListener() {
             @Override
-            public void onClick(View v) {
+            public void onNextClicked(TextView tv) {
                 Tip tip = new Tip();
                 Journey j = Emission.getInstance().getJourneyBuffer();
                 switch (j.getTransType().getTransMode()) {
                     case CAR:
                         tip.setTotalCarEmissions(j.getTotalTravelledEmissions());
-                        tv_tips.setText(tip.getJourneyTip());
+                        tv.setText(tip.getJourneyTip());
                         break;
                     case BIKE:
                         tip.setTotalBike(j.getTotalTravelled());
-                        tv_tips.setText(tip.getJourneyTip());
+                        tv.setText(tip.getJourneyTip());
                         break;
                     case WALK:
                         tip.setTotalWalk(j.getTotalTravelled());
-                        tv_tips.setText(tip.getJourneyTip());
+                        tv.setText(tip.getJourneyTip());
                         break;
                     case BUS:
                         tip.setTotalBusEmission(j.getTotalTravelledEmissions());
-                        tv_tips.setText(tip.getJourneyTip());
+                        tv.setText(tip.getJourneyTip());
                         break;
                     case SKYTRAIN:
                         tip.setTotalSkyTrainEmission(j.getTotalTravelledEmissions());
-                        tv_tips.setText(tip.getJourneyTip());
+                        tv.setText(tip.getJourneyTip());
                         break;
                 }
+            }
+
+            @Override
+            public void onCloseClicked(TextView tv) {
 
             }
         });
+        tips.show(getSupportFragmentManager(),"Tip Dialog");
+
+
     }
 
     private void setupPage() {
@@ -121,11 +167,6 @@ public class JourneyReviewActivity extends AppCompatActivity {
             EditText inputDate = (EditText) findViewById(R.id.editDate);
             inputDate.setText(journey.getDate());
         }
-    }
-
-    public static Intent getJourneyReviewIntent(Context context) {
-        return new Intent(context, JourneyReviewActivity.class);
-
     }
 
     //Should go back to finish after checking name and date

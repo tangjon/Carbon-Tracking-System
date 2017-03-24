@@ -1,6 +1,7 @@
 package cmpt276.jade.carbontracker.fragment;
 
 import android.app.Dialog;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -9,6 +10,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -33,22 +36,29 @@ public class TipDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        // retrieve display dimensions
+        Rect displayRectangle = new Rect();
+//        Window window = getActivity().getWindow();
+//        window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);
+
         // Build new builder
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         // Inflate Layout
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.dialog_tips, null);
+//        v.setMinimumWidth((int)(displayRectangle.width() * 0.9f));
+//        v.setMinimumHeight((int)(displayRectangle.height() * 0.9f));
         // Confirm
         builder.setView(v);
 
-        TextView tv = (TextView) v.findViewById(R.id.tv_tip_display);
+        final TextView tv = (TextView) v.findViewById(R.id.tv_tip_display);
 
-        Button btn_next = (Button) v.findViewById(R.id.btn_close);
+        Button btn_next = (Button) v.findViewById(R.id.btn_next);
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHost.onNextClicked();
+                mHost.onNextClicked(tv);
             }
         });
 
@@ -56,7 +66,7 @@ public class TipDialog extends DialogFragment {
         btn_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHost.onCloseClicked();
+                mHost.onCloseClicked(tv);
                 dismiss();
             }
         });
@@ -64,9 +74,13 @@ public class TipDialog extends DialogFragment {
         return builder.create();
     }
 
-    public interface TipDialogListener{
-        public void onNextClicked();
+    public void setTipDialogListener(TipDialogListener e) {
+        mHost = e;
+    }
 
-        public void onCloseClicked();
+    public interface TipDialogListener{
+        public void onNextClicked(TextView tv);
+
+        public void onCloseClicked(TextView tv);
     }
 }
