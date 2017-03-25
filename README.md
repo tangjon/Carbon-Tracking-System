@@ -1,5 +1,4 @@
 Carbon Tracker Marking Guide: Iteration 3
- 
 A [20] Human-Relatable CO2 Unit
 	o Option to select human-relatable units ie. Other measurements
 		§ Cows, Trees, Farts
@@ -36,7 +35,7 @@ C [15] UI Improvements [
 	o UI Polish
 	o Hide navigation bar(bottom)
 	o Icons with optional text in replacement of standard button
- 
+	
 D [15] UI-Related Features
 	o Vehicle icons: select from 5+ built-in icons; used in vehicle list, and Journey list
 	o Route distances default to 0; not able to have both 0.
