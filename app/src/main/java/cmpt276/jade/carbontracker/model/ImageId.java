@@ -8,7 +8,7 @@ package cmpt276.jade.carbontracker.model;
  * Bugs:
  */
 public class ImageId {
-    private int imageId;
+    private int imageId = 0;
 
     public int getImageId() {
         return imageId;

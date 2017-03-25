@@ -48,7 +48,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 28;
+    public static final int DATABASE_VERSION = 29;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -791,6 +791,7 @@ public class DBAdapter {
         Journey j = new Journey(name, transportation, route);
         j.setID(ID);
         j.setDate(DATE);
+        j.setImageId(c.getInt(COL_IMG_ID));
         Log.i(TAG, "[" + TABLE_JOURNEY + "]" + ":" + "getJourney:" + rowId + " " + j.toString());
         return j;
     }
@@ -872,8 +873,10 @@ public class DBAdapter {
         double otherDistance = c.getDouble(DBAdapter.COL_ROUTE_OTHER_DISTANCE);//for bike,walk,bus,skytrain
         int mode = c.getInt(DBAdapter.COL_ROUTE_MODE);//2 for bike and walk,3 for bus, 4 for skytrain
         String name = c.getString(DBAdapter.COL_ROUTE_NAME);
+        Route route = new Route(name, highWayDistance, cityDistance, otherDistance, mode);
+        route.setImageId(c.getInt(COL_IMG_ID));
 
-        return new Route(name, highWayDistance, cityDistance, otherDistance, mode);
+        return route;
     }
 
     public RouteCollection getAllRoute() {
@@ -933,6 +936,7 @@ public class DBAdapter {
         car.setNickName(nickName);
         car.setTransDescription(transDescription);
         car.setID(rowId);
+        car.setImageId(c.getInt(COL_IMG_ID));
 
         return car;
     }
@@ -981,46 +985,6 @@ public class DBAdapter {
         return cC;
     }
 
-
-    // Todo POSSIBLE REFACTOR]
-    public Object getObject(DB_TABLE t, long rowId) {
-        String where = KEY_ROWID + "=" + rowId;
-
-        Cursor c = null;
-        switch (t) {
-            case CAR:
-                break;
-            case ROUTE:
-                c = db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
-                        where, null, null, null, null, null);
-                if (c != null) {
-                    c.moveToFirst();
-                }
-                double cityDistance = c.getDouble(DBAdapter.COL_ROUTE_CITY_DISTANCE);
-                double highWayDistance = c.getDouble(DBAdapter.COL_ROUTE_HIGH_WAY_DISTANCE);
-                double otherDistance = c.getDouble(DBAdapter.COL_ROUTE_OTHER_DISTANCE);//for bike,walk,bus,skytrain
-                int mode = c.getInt(DBAdapter.COL_ROUTE_MODE);//2 for bike and walk,3 for bus, 4 for skytrain
-                String name = c.getString(DBAdapter.COL_ROUTE_NAME);
-
-                return new Route(name, highWayDistance, cityDistance, otherDistance, mode);
-            case JOURNEY:
-                break;
-            case BILL:
-                break;
-            case BUS:
-                break;
-            case SKYTRAIN:
-                break;
-            case WALK:
-                break;
-            case BIKE:
-                break;
-            case TRANSIT:
-                break;
-        }
-        return null;
-    }
-
     public Bus getBus(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
@@ -1034,6 +998,7 @@ public class DBAdapter {
 
         bus.setNickName(c.getString(COL_BUS_NICK_NAME));
         bus.setRouteNumber(c.getString(COL_BUS_ROUTE_NUMBER));
+        bus.setImageId(c.getInt(COL_IMG_ID));
 
         return bus;
     }
@@ -1090,6 +1055,7 @@ public class DBAdapter {
         train.setNickName(c.getString(COL_SKYTRAIN_NICK_NAME));
         train.setSkytrainLine(c.getString(COL_SKYTRAIN_LINE));
         train.setBoardingStation(c.getString(COL_SKYTRAIN_BOARDING_STATION));
+        train.setImageId(c.getInt(COL_IMG_ID));
 
         return train;
     }
