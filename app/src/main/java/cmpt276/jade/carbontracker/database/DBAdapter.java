@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,7 +49,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 29;
+    public static final int DATABASE_VERSION = 30;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -59,7 +60,7 @@ public class DBAdapter {
     public static final String TABLE_CAR = "cars";
     public static final String TABLE_JOURNEY = "journeys";
     public static final String TABLE_BUS = "buss";
-    public static final String TABLE_SKYTRAIN = "sktrains";
+    public static final String TABLE_SKYTRAIN = "skytrains";
     public static final String TABLE_WALK = "walks";
     public static final String TABLE_BIKE = "bikes";
     public static final String TABLE_TRANSIT = "transits";
@@ -280,10 +281,10 @@ public class DBAdapter {
     private static final String KEY_SKYTRAIN_LINE = "key_skytrain_line";
     private static final String KEY_SKYTRAIN_TAG_ID = "key_skytrain_tag_id";
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
-    private static final int COL_SKYTRAIN_NICK_NAME = 1;
-    private static final int COL_SKYTRAIN_BOARDING_STATION = 2;
-    private static final int COL_SKYTRAIN_LINE = 3;
-    private static final int COL_SKYTRAIN_TAG_ID = 4;
+    private static final int COL_SKYTRAIN_NICK_NAME = 2;
+    private static final int COL_SKYTRAIN_BOARDING_STATION = 3;
+    private static final int COL_SKYTRAIN_LINE = 4;
+    private static final int COL_SKYTRAIN_TAG_ID = 5;
     // ALL KEYS
     public static final String[] ALL_SKYTRAIN_KEYS = new String[]{
             KEY_ROWID,
@@ -485,6 +486,7 @@ public class DBAdapter {
                         break;
                 }
                 if (tag == tag_id.ordinal()) {
+                    Toast.makeText(context, "" + "Hello" ,Toast.LENGTH_SHORT).show();
                     deleteRow(table, row);
                 }
             } while (c.moveToNext());
@@ -581,7 +583,7 @@ public class DBAdapter {
         initialValues.put(KEY_SKYTRAIN_BOARDING_STATION, skytrain.getBoardingStation());
         initialValues.put(KEY_SKYTRAIN_LINE, skytrain.getSkytrainLine());
         initialValues.put(KEY_SKYTRAIN_TAG_ID, tag_id.ordinal());
-            initialValues.put(KEY_IMG_ID, skytrain.getImageId());
+        initialValues.put(KEY_IMG_ID, skytrain.getImageId());
         // Insert it into the database.
         long buff = db.insert(TABLE_SKYTRAIN, null, initialValues);
         Log.i(TAG, "[" + TABLE_SKYTRAIN + "]" + ":" + "insert:" + buff + " " + tag_id + " " + skytrain.toString());
