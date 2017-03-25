@@ -83,6 +83,7 @@ Requirements
 
 
 [10] Correct use of Git and GitLab
+==============================
    - Using GitLab issues to track features to work on.
    - Each team member must have 2 feature branches merged via GitLab
    - Almost all commits are done on feature branches.
@@ -90,6 +91,7 @@ Requirements
  
 
 [0] Good quality code (worth 0, but up to a 20 mark penalty may be applied).
+==============================
    - Good class, method, variable names.
    - Perfectly formatted code.
    - Comments on all classes (not needed *inside* classes, just on the class level)
