@@ -518,6 +518,7 @@ public class DBAdapter {
         initialValues.put(KEY_CAR_TRANS_DESCRIPTION, car.getTransDescription());
         initialValues.put(KEY_CAR_YEAR, car.getYear());
         initialValues.put(KEY_CAR_TAG_ID, tag_id.ordinal());
+        initialValues.put(KEY_IMG_ID, car.getImageId());
 
         // Insert it into the database.
         long buff = db.insert(TABLE_CAR, null, initialValues);
@@ -552,6 +553,7 @@ public class DBAdapter {
         initialValues.put(KEY_ROUTE_CITY_DISTANCE, route.getCityDistance());
         initialValues.put(KEY_ROUTE_OTHER_DISTANCE, route.getOtherDistance());
         initialValues.put(KEY_ROUTE_MODE, route.getMode());
+        initialValues.put(KEY_IMG_ID, route.getImageId());
         // Insert it into the database.
         return db.insert(TABLE_ROUTE, null, initialValues);
     }
@@ -563,6 +565,7 @@ public class DBAdapter {
         initialValues.put(KEY_BUS_NICK_NAME, bus.getNickName());
         initialValues.put(KEY_BUS_ROUTE_NUMBER, bus.getRouteNumber());
         initialValues.put(KEY_BUS_TAG_ID, tag_id.ordinal());
+        initialValues.put(KEY_IMG_ID, bus.getImageId());
         // Insert it into the database.
 
         long buff = db.insert(TABLE_BUS, null, initialValues);
@@ -578,6 +581,7 @@ public class DBAdapter {
         initialValues.put(KEY_SKYTRAIN_BOARDING_STATION, skytrain.getBoardingStation());
         initialValues.put(KEY_SKYTRAIN_LINE, skytrain.getSkytrainLine());
         initialValues.put(KEY_SKYTRAIN_TAG_ID, tag_id.ordinal());
+            initialValues.put(KEY_IMG_ID, skytrain.getImageId());
         // Insert it into the database.
         long buff = db.insert(TABLE_SKYTRAIN, null, initialValues);
         Log.i(TAG, "[" + TABLE_SKYTRAIN + "]" + ":" + "insert:" + buff + " " + tag_id + " " + skytrain.toString());
@@ -594,6 +598,7 @@ public class DBAdapter {
         initialValues.put(KEY_JOURNEY_NAME, journey.getName());
         initialValues.put(KEY_JOURNEY_TRANS_TYPE, journey.getTransType().getTransMode().toString());
         initialValues.put(KEY_JOURNEY_DATE, journey.getDate());
+        initialValues.put(KEY_IMG_ID, journey.getImageId());
 
         // Insert Route
         long routeID = insertRow(journey.getRoute());

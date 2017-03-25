@@ -5,7 +5,7 @@ package cmpt276.jade.carbontracker.model;
  * Bus object that stores some not so useful data
  */
 
-public class Bus {
+public class Bus extends ImageId{
 
     private String nickName;
     private String routeNumber;

@@ -214,7 +214,6 @@ public class Welcome_Activity extends AppCompatActivity {
         long trainRow = db.insertRow(train, DBAdapter.TAG_ID.RECENT);
         train = db.getSkytrain(trainRow);
         Log.i(TAG, "testDataBaseSaveAndLoad: " + train.toString());
-
     }
 
 
