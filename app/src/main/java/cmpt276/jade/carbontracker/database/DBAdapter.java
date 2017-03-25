@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,7 +49,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 27;
+    public static final int DATABASE_VERSION = 30;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -59,7 +60,7 @@ public class DBAdapter {
     public static final String TABLE_CAR = "cars";
     public static final String TABLE_JOURNEY = "journeys";
     public static final String TABLE_BUS = "buss";
-    public static final String TABLE_SKYTRAIN = "sktrains";
+    public static final String TABLE_SKYTRAIN = "skytrains";
     public static final String TABLE_WALK = "walks";
     public static final String TABLE_BIKE = "bikes";
     public static final String TABLE_TRANSIT = "transits";
@@ -67,9 +68,13 @@ public class DBAdapter {
     // UTILITY TABLES
     public static final String TABLE_BILL = "bills";
 
-    // General DB Fields
+    // General KEYS
     public static final String KEY_ROWID = "_id";
+    public static final String KEY_IMG_ID = "_image_id";
+
+    // General COL IDs
     public static final int COL_ROWID = 0;
+    public static final int COL_IMG_ID = 1;
 
     // TODO: Setup Journey Fields Here
     public static final String KEY_JOURNEY_NAME = "journey_name";
@@ -77,15 +82,17 @@ public class DBAdapter {
     public static final String KEY_JOURNEY_DATE = "journey_date";
     public static final String KEY_JOURNEY_ROUTE_ID = "journey_route";
     public static final String KEY_TRANSPORT_OBJECT_ID = "journey_car";
-    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
-    public static final int COL_JOURNEY_NAME = 1;
-    public static final int COL_JOURNEY_TRANS_TYPE = 2;
-    public static final int COL_JOURNEY_DATE = 3;
-    public static final int COL_JOURNEY_ROUTE_ID = 4;
-    public static final int COL_TRANSPORT_OBJECT_ID = 5;
+
+    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1= COL_IMG_ID...)
+    public static final int COL_JOURNEY_NAME = 2;
+    public static final int COL_JOURNEY_TRANS_TYPE = 3;
+    public static final int COL_JOURNEY_DATE = 4;
+    public static final int COL_JOURNEY_ROUTE_ID = 5;
+    public static final int COL_TRANSPORT_OBJECT_ID = 6;
     // ALL KEYS
     public static final String[] ALL_JOURNEY_KEYS = new String[]{
             KEY_ROWID,
+            KEY_IMG_ID,
             KEY_JOURNEY_NAME,
             KEY_JOURNEY_TRANS_TYPE,
             KEY_JOURNEY_DATE,
@@ -97,6 +104,8 @@ public class DBAdapter {
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
 
                     // TODO: Place your fields here!
+
+                    + KEY_IMG_ID + " integer, "
                     + KEY_JOURNEY_NAME + " text, "
                     + KEY_JOURNEY_TRANS_TYPE + " text, "
                     + KEY_JOURNEY_DATE + " text, "
@@ -123,24 +132,25 @@ public class DBAdapter {
     public static final String KEY_CAR_TAG_ID = "car_tag";
 
 
-    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
-    public static final int COL_CAR_CARBON_TAIL_PIPE = 1;
-    public static final int COL_CAR_CITY_MPG = 2;
-    public static final int COL_CAR_ENGINE_DESCRIPTION = 3;
-    public static final int COL_CAR_ENGINE_DISP_LITRES = 4;
-    public static final int COL_CAR_FUEL_ANNUAL_COST = 5;
-    public static final int COL_CAR_FUEL_TYPE = 6;
-    public static final int COL_CAR_HIGHWAY_MPG = 7;
-    public static final int COL_CAR_MAKE = 8;
-    public static final int COL_CAR_MODEL = 9;
-    public static final int COL_CAR_NICK_NAME = 10;
-    public static final int COL_CAR_TRANS_DESCRIPTION = 11;
-    public static final int COL_CAR_YEAR = 12;
-    public static final int COL_CAR_TAG_ID = 13;
+    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1= COL_IMG_ID...)
+    public static final int COL_CAR_CARBON_TAIL_PIPE = 2;
+    public static final int COL_CAR_CITY_MPG = 3;
+    public static final int COL_CAR_ENGINE_DESCRIPTION = 4;
+    public static final int COL_CAR_ENGINE_DISP_LITRES = 5;
+    public static final int COL_CAR_FUEL_ANNUAL_COST = 6;
+    public static final int COL_CAR_FUEL_TYPE = 7;
+    public static final int COL_CAR_HIGHWAY_MPG = 8;
+    public static final int COL_CAR_MAKE = 9;
+    public static final int COL_CAR_MODEL = 10;
+    public static final int COL_CAR_NICK_NAME =  11;
+    public static final int COL_CAR_TRANS_DESCRIPTION =  12;
+    public static final int COL_CAR_YEAR =  13;
+    public static final int COL_CAR_TAG_ID =  14;
 
     // ALL KEYS (Contains all KEYS in array of strings) (DETERMINES THE COLUMNS NUMBERS)
     public static final String[] ALL_CAR_KEYS = new String[]{
             KEY_ROWID,
+            KEY_IMG_ID,
             KEY_CAR_CARBON_TAIL_PIPE,
             KEY_CAR_CITY_MPG,
             KEY_CAR_ENGINE_DESCRIPTION,
@@ -161,6 +171,7 @@ public class DBAdapter {
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
 
                     // TODO: Place your fields here!
+                    + KEY_IMG_ID + " integer, "
                     + KEY_CAR_CARBON_TAIL_PIPE + " real, "
                     + KEY_CAR_CITY_MPG + " real, "
                     + KEY_CAR_ENGINE_DESCRIPTION + " integer, "
@@ -187,16 +198,17 @@ public class DBAdapter {
     public static final String KEY_ROUTE_MODE = "mode";
     public static final String KEY_ROUTE_NAME = "name";
     public static final String KEY_ROUTE_TAG_ID = "route_tag_id";
-    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
-    public static final int COL_ROUTE_CITY_DISTANCE = 1;
-    public static final int COL_ROUTE_HIGH_WAY_DISTANCE = 2;
-    public static final int COL_ROUTE_OTHER_DISTANCE = 3;
-    public static final int COL_ROUTE_MODE = 4;
-    public static final int COL_ROUTE_NAME = 5;
-    public static final int COL_ROUTE_TAG_ID = 6;
+    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1= COL_IMG_ID...)
+    public static final int COL_ROUTE_CITY_DISTANCE = 2;
+    public static final int COL_ROUTE_HIGH_WAY_DISTANCE = 3;
+    public static final int COL_ROUTE_OTHER_DISTANCE = 4;
+    public static final int COL_ROUTE_MODE = 5;
+    public static final int COL_ROUTE_NAME = 6;
+    public static final int COL_ROUTE_TAG_ID = 7;
     // ALL KEYS
     public static final String[] ALL_ROUTE_KEYS = new String[]{
             KEY_ROWID,
+            KEY_IMG_ID,
             KEY_ROUTE_CITY_DISTANCE,
             KEY_ROUTE_HIGH_WAY_DISTANCE,
             KEY_ROUTE_OTHER_DISTANCE,
@@ -220,6 +232,7 @@ public class DBAdapter {
                     //		(http://www.sqlite.org/datatype3.html)
                     //  - "not null" means it is a required field (must be given a value).
                     // NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
+                    + KEY_IMG_ID + " integer, "
                     + KEY_ROUTE_CITY_DISTANCE + " real,"
                     + KEY_ROUTE_HIGH_WAY_DISTANCE + " real,"
                     + KEY_ROUTE_OTHER_DISTANCE + " real,"
@@ -234,14 +247,15 @@ public class DBAdapter {
     private static final String KEY_BUS_ROUTE_NUMBER = "bus_route_number";
     private static final String KEY_BUS_TAG_ID = "bus_tag_id";
 
-    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
-    public static final int COL_BUS_NICK_NAME = 1;
-    public static final int COL_BUS_ROUTE_NUMBER = 2;
-    public static final int COL_BUS_TAG_ID = 3;
+    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1= COL_IMG_ID...)
+    public static final int COL_BUS_NICK_NAME = 2;
+    public static final int COL_BUS_ROUTE_NUMBER = 3;
+    public static final int COL_BUS_TAG_ID = 4;
 
     // ALL KEYS
     public static final String[] ALL_BUS_KEYS = new String[]{
             KEY_ROWID,
+            KEY_IMG_ID,
             KEY_BUS_NICK_NAME,
             KEY_BUS_ROUTE_NUMBER,
             KEY_BUS_TAG_ID
@@ -253,6 +267,7 @@ public class DBAdapter {
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
 
                     // TODO: Place your fields here!
+                    + KEY_IMG_ID + " integer, "
                     + KEY_BUS_NICK_NAME + " text, "
                     + KEY_BUS_ROUTE_NUMBER + " text, "
                     + KEY_BUS_TAG_ID + " integer"
@@ -266,13 +281,14 @@ public class DBAdapter {
     private static final String KEY_SKYTRAIN_LINE = "key_skytrain_line";
     private static final String KEY_SKYTRAIN_TAG_ID = "key_skytrain_tag_id";
     // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
-    private static final int COL_SKYTRAIN_NICK_NAME = 1;
-    private static final int COL_SKYTRAIN_BOARDING_STATION = 2;
-    private static final int COL_SKYTRAIN_LINE = 3;
-    private static final int COL_SKYTRAIN_TAG_ID = 4;
+    private static final int COL_SKYTRAIN_NICK_NAME = 2;
+    private static final int COL_SKYTRAIN_BOARDING_STATION = 3;
+    private static final int COL_SKYTRAIN_LINE = 4;
+    private static final int COL_SKYTRAIN_TAG_ID = 5;
     // ALL KEYS
     public static final String[] ALL_SKYTRAIN_KEYS = new String[]{
             KEY_ROWID,
+            KEY_IMG_ID,
             KEY_SKYTRAIN_NICK_NAME,
             KEY_SKYTRAIN_BOARDING_STATION,
             KEY_SKYTRAIN_LINE,
@@ -285,6 +301,7 @@ public class DBAdapter {
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
 
                     // TODO: Place your fields here!
+                    + KEY_IMG_ID + " integer, "
                     + KEY_SKYTRAIN_NICK_NAME + " text, "
                     + KEY_SKYTRAIN_BOARDING_STATION + " text, "
                     + KEY_SKYTRAIN_LINE + " text, "
@@ -469,6 +486,7 @@ public class DBAdapter {
                         break;
                 }
                 if (tag == tag_id.ordinal()) {
+                    Toast.makeText(context, "" + "Hello" ,Toast.LENGTH_SHORT).show();
                     deleteRow(table, row);
                 }
             } while (c.moveToNext());
@@ -502,6 +520,7 @@ public class DBAdapter {
         initialValues.put(KEY_CAR_TRANS_DESCRIPTION, car.getTransDescription());
         initialValues.put(KEY_CAR_YEAR, car.getYear());
         initialValues.put(KEY_CAR_TAG_ID, tag_id.ordinal());
+        initialValues.put(KEY_IMG_ID, car.getImageId());
 
         // Insert it into the database.
         long buff = db.insert(TABLE_CAR, null, initialValues);
@@ -536,6 +555,7 @@ public class DBAdapter {
         initialValues.put(KEY_ROUTE_CITY_DISTANCE, route.getCityDistance());
         initialValues.put(KEY_ROUTE_OTHER_DISTANCE, route.getOtherDistance());
         initialValues.put(KEY_ROUTE_MODE, route.getMode());
+        initialValues.put(KEY_IMG_ID, route.getImageId());
         // Insert it into the database.
         return db.insert(TABLE_ROUTE, null, initialValues);
     }
@@ -547,6 +567,7 @@ public class DBAdapter {
         initialValues.put(KEY_BUS_NICK_NAME, bus.getNickName());
         initialValues.put(KEY_BUS_ROUTE_NUMBER, bus.getRouteNumber());
         initialValues.put(KEY_BUS_TAG_ID, tag_id.ordinal());
+        initialValues.put(KEY_IMG_ID, bus.getImageId());
         // Insert it into the database.
 
         long buff = db.insert(TABLE_BUS, null, initialValues);
@@ -562,6 +583,7 @@ public class DBAdapter {
         initialValues.put(KEY_SKYTRAIN_BOARDING_STATION, skytrain.getBoardingStation());
         initialValues.put(KEY_SKYTRAIN_LINE, skytrain.getSkytrainLine());
         initialValues.put(KEY_SKYTRAIN_TAG_ID, tag_id.ordinal());
+        initialValues.put(KEY_IMG_ID, skytrain.getImageId());
         // Insert it into the database.
         long buff = db.insert(TABLE_SKYTRAIN, null, initialValues);
         Log.i(TAG, "[" + TABLE_SKYTRAIN + "]" + ":" + "insert:" + buff + " " + tag_id + " " + skytrain.toString());
@@ -578,6 +600,7 @@ public class DBAdapter {
         initialValues.put(KEY_JOURNEY_NAME, journey.getName());
         initialValues.put(KEY_JOURNEY_TRANS_TYPE, journey.getTransType().getTransMode().toString());
         initialValues.put(KEY_JOURNEY_DATE, journey.getDate());
+        initialValues.put(KEY_IMG_ID, journey.getImageId());
 
         // Insert Route
         long routeID = insertRow(journey.getRoute());
@@ -770,6 +793,7 @@ public class DBAdapter {
         Journey j = new Journey(name, transportation, route);
         j.setID(ID);
         j.setDate(DATE);
+        j.setImageId(c.getInt(COL_IMG_ID));
         Log.i(TAG, "[" + TABLE_JOURNEY + "]" + ":" + "getJourney:" + rowId + " " + j.toString());
         return j;
     }
@@ -851,8 +875,10 @@ public class DBAdapter {
         double otherDistance = c.getDouble(DBAdapter.COL_ROUTE_OTHER_DISTANCE);//for bike,walk,bus,skytrain
         int mode = c.getInt(DBAdapter.COL_ROUTE_MODE);//2 for bike and walk,3 for bus, 4 for skytrain
         String name = c.getString(DBAdapter.COL_ROUTE_NAME);
+        Route route = new Route(name, highWayDistance, cityDistance, otherDistance, mode);
+        route.setImageId(c.getInt(COL_IMG_ID));
 
-        return new Route(name, highWayDistance, cityDistance, otherDistance, mode);
+        return route;
     }
 
     public RouteCollection getAllRoute() {
@@ -912,6 +938,7 @@ public class DBAdapter {
         car.setNickName(nickName);
         car.setTransDescription(transDescription);
         car.setID(rowId);
+        car.setImageId(c.getInt(COL_IMG_ID));
 
         return car;
     }
@@ -960,46 +987,6 @@ public class DBAdapter {
         return cC;
     }
 
-
-    // Todo POSSIBLE REFACTOR]
-    public Object getObject(DB_TABLE t, long rowId) {
-        String where = KEY_ROWID + "=" + rowId;
-
-        Cursor c = null;
-        switch (t) {
-            case CAR:
-                break;
-            case ROUTE:
-                c = db.query(true, TABLE_ROUTE, ALL_ROUTE_KEYS,
-                        where, null, null, null, null, null);
-                if (c != null) {
-                    c.moveToFirst();
-                }
-                double cityDistance = c.getDouble(DBAdapter.COL_ROUTE_CITY_DISTANCE);
-                double highWayDistance = c.getDouble(DBAdapter.COL_ROUTE_HIGH_WAY_DISTANCE);
-                double otherDistance = c.getDouble(DBAdapter.COL_ROUTE_OTHER_DISTANCE);//for bike,walk,bus,skytrain
-                int mode = c.getInt(DBAdapter.COL_ROUTE_MODE);//2 for bike and walk,3 for bus, 4 for skytrain
-                String name = c.getString(DBAdapter.COL_ROUTE_NAME);
-
-                return new Route(name, highWayDistance, cityDistance, otherDistance, mode);
-            case JOURNEY:
-                break;
-            case BILL:
-                break;
-            case BUS:
-                break;
-            case SKYTRAIN:
-                break;
-            case WALK:
-                break;
-            case BIKE:
-                break;
-            case TRANSIT:
-                break;
-        }
-        return null;
-    }
-
     public Bus getBus(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
 
@@ -1013,6 +1000,7 @@ public class DBAdapter {
 
         bus.setNickName(c.getString(COL_BUS_NICK_NAME));
         bus.setRouteNumber(c.getString(COL_BUS_ROUTE_NUMBER));
+        bus.setImageId(c.getInt(COL_IMG_ID));
 
         return bus;
     }
@@ -1069,6 +1057,7 @@ public class DBAdapter {
         train.setNickName(c.getString(COL_SKYTRAIN_NICK_NAME));
         train.setSkytrainLine(c.getString(COL_SKYTRAIN_LINE));
         train.setBoardingStation(c.getString(COL_SKYTRAIN_BOARDING_STATION));
+        train.setImageId(c.getInt(COL_IMG_ID));
 
         return train;
     }

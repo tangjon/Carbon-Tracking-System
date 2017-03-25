@@ -11,7 +11,7 @@ import java.util.Date;
  * Journey object stores both the car and route objects used
  */
 
-public class Journey implements Serializable {
+public class Journey extends ImageId implements Serializable {
 
 
     public static final double GASOLINECO2FACTOR = 8.89;

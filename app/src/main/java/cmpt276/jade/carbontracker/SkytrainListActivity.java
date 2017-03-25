@@ -135,8 +135,6 @@ public class SkytrainListActivity extends AppCompatActivity {
         DBAdapter myDB = new DBAdapter(this);
         myDB.open();
 
-        // Complete Refresh RecentCarList DB
-        SkytrainCollection c = myDB.getAllSkytrain(DBAdapter.TAG_ID.RECENT);
         // Delete Everything form DB with "RECENT"
         myDB.deleteAll(DBAdapter.DB_TABLE.SKYTRAIN, DBAdapter.TAG_ID.RECENT);
 

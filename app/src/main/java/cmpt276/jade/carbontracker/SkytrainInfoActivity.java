@@ -72,8 +72,6 @@ public class SkytrainInfoActivity extends AppCompatActivity {
                         SkytrainListActivity.recentSkyTrainList.editTrain(outgoingTrain, incomingTrain.getPosition());
                     }
                     Emission.getInstance().getJourneyBuffer().getTransType().setSkytrain(outgoingTrain);
-                    Intent intent = SkytrainListActivity.getIntent(SkytrainInfoActivity.this);
-                    startActivity(intent);
                     finish();
                 }
 

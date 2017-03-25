@@ -5,7 +5,7 @@ package cmpt276.jade.carbontracker.model;
  * Skytrain object that contains some not very useful data
  */
 
-public class Skytrain {
+public class Skytrain  extends ImageId{
 
     private String nickName;
     private String boardingStation;

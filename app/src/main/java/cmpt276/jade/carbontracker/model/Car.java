@@ -8,7 +8,7 @@ import java.util.UUID;
  * Each car model has a unique key
  */
 
-public class Car implements Serializable {
+public class Car extends ImageId implements Serializable {
 
     private long ID;
     private double carbonTailPipe;

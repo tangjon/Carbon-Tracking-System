@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 //Route class   Route(Nickname,highway Distance,city Distance)
 //Creates a route object that stores distances
-public class Route implements Serializable {
+public class Route extends ImageId implements Serializable {
     private double CityDistance;
     private double HighWayDistance;
     private double OtherDistance;//for bike,walk,bus,skytrain

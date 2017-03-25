@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -97,11 +98,13 @@ public class Welcome_Activity extends AppCompatActivity {
         myDb.open();
         // Load Vehicles.csv
         Emission.getInstance().setCarCollection(new CarCollection(CarManager.readCarData(this, R.raw.vehicle_trimmed)));
+
         // Load Read from DataBase
         loadInformationFromDataBase();
 
         // TODO REMOVE THIS
         // generateDummyJourneys();
+
     }
 
     private void loadInformationFromDataBase() {
@@ -130,19 +133,19 @@ public class Welcome_Activity extends AppCompatActivity {
         // Load Recent Car Lists
         for (Car c : myDb.getAllCars(DBAdapter.TAG_ID.RECENT).toList()) {
             CarListActivity.recentCarList.add(c);
-            Log.i(TAG, "DBAdapterLoadRecetn:(CAR)" + c.toString());
+            Log.i(TAG, "DBAdapterLoadRecent:(CAR)" + c.toString());
         }
 
         // Load Recent Bus Lists
         for (Bus b : myDb.getAllBus(DBAdapter.TAG_ID.RECENT).getBusList()) {
             BusListActivity.recentBusList.addBus(b);
-            Log.i(TAG, "DBAdapterLoadRecetn:(BUS)" + b.toString());
+            Log.i(TAG, "DBAdapterLoadRecent:(BUS)" + b.toString());
         }
 
         // Load Recent Skytrains
         for (Skytrain s : myDb.getAllSkytrain(DBAdapter.TAG_ID.RECENT).getTrainList()) {
             SkytrainListActivity.recentSkyTrainList.addTrain(s);
-            Log.i(TAG, "DBAdapterLoadRecetn:(SKYTRAIN)" + s.toString());
+            Log.i(TAG, "DBAdapterLoadRecent:(SKYTRAIN)" + s.toString());
         }
 
     }
@@ -183,7 +186,7 @@ public class Welcome_Activity extends AppCompatActivity {
         db.open();
         // TEST CAR
         Car car = GenerateDummyData.generateCar();
-        long carID = db.insertRow(car, DBAdapter.TAG_ID.MAIN);
+        long carID = db.insertRow(car, DBAdapter.TAG_ID.RECENT);
         Car recCar = db.getCar(carID);
         Log.i(TAG, "testDataBaseSaveAndLoad: " + recCar.toString());
         // TEST ROUTE
@@ -194,7 +197,7 @@ public class Welcome_Activity extends AppCompatActivity {
 
         // Test Bus
         Bus bus = GenerateDummyData.generateBus();
-        long busRow = db.insertRow(bus, DBAdapter.TAG_ID.MAIN);
+        long busRow = db.insertRow(bus, DBAdapter.TAG_ID.RECENT);
         bus = db.getBus(busRow);
         Log.i(TAG, "testDataBaseSaveAndLoad: " + bus.toString());
 
@@ -208,10 +211,9 @@ public class Welcome_Activity extends AppCompatActivity {
 
         // Test Skytrain
         Skytrain train = GenerateDummyData.generateSkytrain();
-        long trainRow = db.insertRow(train, DBAdapter.TAG_ID.MAIN);
+        long trainRow = db.insertRow(train, DBAdapter.TAG_ID.RECENT);
         train = db.getSkytrain(trainRow);
         Log.i(TAG, "testDataBaseSaveAndLoad: " + train.toString());
-
     }
 
 
