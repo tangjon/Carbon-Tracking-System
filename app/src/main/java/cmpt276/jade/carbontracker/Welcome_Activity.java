@@ -98,7 +98,6 @@ public class Welcome_Activity extends AppCompatActivity {
         // Load Vehicles.csv
         Emission.getInstance().setCarCollection(new CarCollection(CarManager.readCarData(this, R.raw.vehicle_trimmed)));
 
-        testDataBaseSaveAndLoad();
         // Load Read from DataBase
         loadInformationFromDataBase();
 
