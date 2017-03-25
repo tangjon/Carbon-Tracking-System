@@ -48,7 +48,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 27;
+    public static final int DATABASE_VERSION = 28;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -67,9 +67,13 @@ public class DBAdapter {
     // UTILITY TABLES
     public static final String TABLE_BILL = "bills";
 
-    // General DB Fields
+    // General KEYS
     public static final String KEY_ROWID = "_id";
+    public static final String KEY_IMG_ID = "_image_id";
+
+    // General COL IDs
     public static final int COL_ROWID = 0;
+    public static final int COL_IMG_ID = 1;
 
     // TODO: Setup Journey Fields Here
     public static final String KEY_JOURNEY_NAME = "journey_name";
@@ -77,15 +81,17 @@ public class DBAdapter {
     public static final String KEY_JOURNEY_DATE = "journey_date";
     public static final String KEY_JOURNEY_ROUTE_ID = "journey_route";
     public static final String KEY_TRANSPORT_OBJECT_ID = "journey_car";
-    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
-    public static final int COL_JOURNEY_NAME = 1;
-    public static final int COL_JOURNEY_TRANS_TYPE = 2;
-    public static final int COL_JOURNEY_DATE = 3;
-    public static final int COL_JOURNEY_ROUTE_ID = 4;
-    public static final int COL_TRANSPORT_OBJECT_ID = 5;
+
+    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1= COL_IMG_ID...)
+    public static final int COL_JOURNEY_NAME = 2;
+    public static final int COL_JOURNEY_TRANS_TYPE = 3;
+    public static final int COL_JOURNEY_DATE = 4;
+    public static final int COL_JOURNEY_ROUTE_ID = 5;
+    public static final int COL_TRANSPORT_OBJECT_ID = 6;
     // ALL KEYS
     public static final String[] ALL_JOURNEY_KEYS = new String[]{
             KEY_ROWID,
+            KEY_IMG_ID,
             KEY_JOURNEY_NAME,
             KEY_JOURNEY_TRANS_TYPE,
             KEY_JOURNEY_DATE,
@@ -97,6 +103,8 @@ public class DBAdapter {
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
 
                     // TODO: Place your fields here!
+
+                    + KEY_IMG_ID + " integer, "
                     + KEY_JOURNEY_NAME + " text, "
                     + KEY_JOURNEY_TRANS_TYPE + " text, "
                     + KEY_JOURNEY_DATE + " text, "
@@ -123,24 +131,25 @@ public class DBAdapter {
     public static final String KEY_CAR_TAG_ID = "car_tag";
 
 
-    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
-    public static final int COL_CAR_CARBON_TAIL_PIPE = 1;
-    public static final int COL_CAR_CITY_MPG = 2;
-    public static final int COL_CAR_ENGINE_DESCRIPTION = 3;
-    public static final int COL_CAR_ENGINE_DISP_LITRES = 4;
-    public static final int COL_CAR_FUEL_ANNUAL_COST = 5;
-    public static final int COL_CAR_FUEL_TYPE = 6;
-    public static final int COL_CAR_HIGHWAY_MPG = 7;
-    public static final int COL_CAR_MAKE = 8;
-    public static final int COL_CAR_MODEL = 9;
-    public static final int COL_CAR_NICK_NAME = 10;
-    public static final int COL_CAR_TRANS_DESCRIPTION = 11;
-    public static final int COL_CAR_YEAR = 12;
-    public static final int COL_CAR_TAG_ID = 13;
+    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1= COL_IMG_ID...)
+    public static final int COL_CAR_CARBON_TAIL_PIPE = 2;
+    public static final int COL_CAR_CITY_MPG = 3;
+    public static final int COL_CAR_ENGINE_DESCRIPTION = 4;
+    public static final int COL_CAR_ENGINE_DISP_LITRES = 5;
+    public static final int COL_CAR_FUEL_ANNUAL_COST = 6;
+    public static final int COL_CAR_FUEL_TYPE = 7;
+    public static final int COL_CAR_HIGHWAY_MPG = 8;
+    public static final int COL_CAR_MAKE = 9;
+    public static final int COL_CAR_MODEL = 10;
+    public static final int COL_CAR_NICK_NAME =  11;
+    public static final int COL_CAR_TRANS_DESCRIPTION =  12;
+    public static final int COL_CAR_YEAR =  13;
+    public static final int COL_CAR_TAG_ID =  14;
 
     // ALL KEYS (Contains all KEYS in array of strings) (DETERMINES THE COLUMNS NUMBERS)
     public static final String[] ALL_CAR_KEYS = new String[]{
             KEY_ROWID,
+            KEY_IMG_ID,
             KEY_CAR_CARBON_TAIL_PIPE,
             KEY_CAR_CITY_MPG,
             KEY_CAR_ENGINE_DESCRIPTION,
@@ -161,6 +170,7 @@ public class DBAdapter {
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
 
                     // TODO: Place your fields here!
+                    + KEY_IMG_ID + " integer, "
                     + KEY_CAR_CARBON_TAIL_PIPE + " real, "
                     + KEY_CAR_CITY_MPG + " real, "
                     + KEY_CAR_ENGINE_DESCRIPTION + " integer, "
@@ -187,16 +197,17 @@ public class DBAdapter {
     public static final String KEY_ROUTE_MODE = "mode";
     public static final String KEY_ROUTE_NAME = "name";
     public static final String KEY_ROUTE_TAG_ID = "route_tag_id";
-    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
-    public static final int COL_ROUTE_CITY_DISTANCE = 1;
-    public static final int COL_ROUTE_HIGH_WAY_DISTANCE = 2;
-    public static final int COL_ROUTE_OTHER_DISTANCE = 3;
-    public static final int COL_ROUTE_MODE = 4;
-    public static final int COL_ROUTE_NAME = 5;
-    public static final int COL_ROUTE_TAG_ID = 6;
+    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1= COL_IMG_ID...)
+    public static final int COL_ROUTE_CITY_DISTANCE = 2;
+    public static final int COL_ROUTE_HIGH_WAY_DISTANCE = 3;
+    public static final int COL_ROUTE_OTHER_DISTANCE = 4;
+    public static final int COL_ROUTE_MODE = 5;
+    public static final int COL_ROUTE_NAME = 6;
+    public static final int COL_ROUTE_TAG_ID = 7;
     // ALL KEYS
     public static final String[] ALL_ROUTE_KEYS = new String[]{
             KEY_ROWID,
+            KEY_IMG_ID,
             KEY_ROUTE_CITY_DISTANCE,
             KEY_ROUTE_HIGH_WAY_DISTANCE,
             KEY_ROUTE_OTHER_DISTANCE,
@@ -220,6 +231,7 @@ public class DBAdapter {
                     //		(http://www.sqlite.org/datatype3.html)
                     //  - "not null" means it is a required field (must be given a value).
                     // NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
+                    + KEY_IMG_ID + " integer, "
                     + KEY_ROUTE_CITY_DISTANCE + " real,"
                     + KEY_ROUTE_HIGH_WAY_DISTANCE + " real,"
                     + KEY_ROUTE_OTHER_DISTANCE + " real,"
@@ -234,14 +246,15 @@ public class DBAdapter {
     private static final String KEY_BUS_ROUTE_NUMBER = "bus_route_number";
     private static final String KEY_BUS_TAG_ID = "bus_tag_id";
 
-    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1=...)
-    public static final int COL_BUS_NICK_NAME = 1;
-    public static final int COL_BUS_ROUTE_NUMBER = 2;
-    public static final int COL_BUS_TAG_ID = 3;
+    // COLUMN FIELD NUMBERS (0 = KEY_ROWID, 1= COL_IMG_ID...)
+    public static final int COL_BUS_NICK_NAME = 2;
+    public static final int COL_BUS_ROUTE_NUMBER = 3;
+    public static final int COL_BUS_TAG_ID = 4;
 
     // ALL KEYS
     public static final String[] ALL_BUS_KEYS = new String[]{
             KEY_ROWID,
+            KEY_IMG_ID,
             KEY_BUS_NICK_NAME,
             KEY_BUS_ROUTE_NUMBER,
             KEY_BUS_TAG_ID
@@ -253,6 +266,7 @@ public class DBAdapter {
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
 
                     // TODO: Place your fields here!
+                    + KEY_IMG_ID + " integer, "
                     + KEY_BUS_NICK_NAME + " text, "
                     + KEY_BUS_ROUTE_NUMBER + " text, "
                     + KEY_BUS_TAG_ID + " integer"
@@ -273,6 +287,7 @@ public class DBAdapter {
     // ALL KEYS
     public static final String[] ALL_SKYTRAIN_KEYS = new String[]{
             KEY_ROWID,
+            KEY_IMG_ID,
             KEY_SKYTRAIN_NICK_NAME,
             KEY_SKYTRAIN_BOARDING_STATION,
             KEY_SKYTRAIN_LINE,
@@ -285,6 +300,7 @@ public class DBAdapter {
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
 
                     // TODO: Place your fields here!
+                    + KEY_IMG_ID + " integer, "
                     + KEY_SKYTRAIN_NICK_NAME + " text, "
                     + KEY_SKYTRAIN_BOARDING_STATION + " text, "
                     + KEY_SKYTRAIN_LINE + " text, "
