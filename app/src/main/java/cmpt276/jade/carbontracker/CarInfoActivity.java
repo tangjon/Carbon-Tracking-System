@@ -3,6 +3,8 @@ package cmpt276.jade.carbontracker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,8 +14,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +55,8 @@ public class CarInfoActivity extends AppCompatActivity {
     private List<String> modelDisplayList = new ArrayList<>();
     // Field to store the user selected car <----------- THIS IS OF INTEREST
     private Car userSelectedCar;
+    // Field to keep track of image select
+    private int imageIdSelect = -1;
 
     private Mode APP_MODE;
 
@@ -89,6 +99,40 @@ public class CarInfoActivity extends AppCompatActivity {
                 break;
 //
         }
+
+        setUpIconSelect();
+    }
+
+    void setUpIconSelect(){
+        final int[] imageId = {
+                R.drawable.walksymbol,
+                R.drawable.bike,
+                R.drawable.car,
+                R.drawable.skytrain,
+                R.drawable.bus
+        };
+        TableLayout tableLayout = (TableLayout) findViewById(R.id.layout_table);
+        TableRow row = new TableRow(this);
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+        row.setLayoutParams(lp);
+
+        for (final int id :
+                imageId) {
+            ImageButton imageView = new ImageButton(this);
+            imageView.setPadding(0,0,0,0);
+            Bitmap bMap = BitmapFactory.decodeResource(getResources(), id);
+            Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 150, 150, true);
+            imageView.setImageBitmap(bMapScaled);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    imageIdSelect = id;
+                    Toast.makeText(CarInfoActivity.this, "" + id, Toast.LENGTH_SHORT).show();
+                }
+            });
+            row.addView(imageView);
+        }
+        tableLayout.addView(row);
     }
 
     // REFACTOR
@@ -97,6 +141,7 @@ public class CarInfoActivity extends AppCompatActivity {
         String key = getIntent().getExtras().getString(CarListActivity.CAR_KEY);
         userSelectedCar = CarListActivity.recentCarList.getCarByKey(key);
         Log.i(TAG, "onEditClicked: " + userSelectedCar);
+        imageIdSelect = userSelectedCar.getImageId();
         UUID thisKey = userSelectedCar.getKEY();
         selectMake = userSelectedCar.getMake();
         selectModel = userSelectedCar.getModel();
@@ -117,13 +162,20 @@ public class CarInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText et = (EditText) findViewById(R.id.et_nickname);
                 String nickName = et.getText().toString().trim();
-                if (et.getText().toString().trim().length() == 0) {
+
+                if( imageIdSelect == -1){
+                    TextView tv = (TextView) findViewById(R.id.tv_pick_icon_label);
+                    tv.setError("YOUR MOM");
+                }
+                 else if (et.getText().toString().trim().length() == 0) {
                     et.setError(getString(R.string.car_info_warning));
-                } else {
+                }
+                else {
                     userSelectedCar.setNickName(nickName);
                     // Assign new key
                     userSelectedCar.setKEY(UUID.randomUUID());
                     Car newCar = userSelectedCar.copy();
+                    newCar.setImageId(imageIdSelect);
                     CarListActivity.recentCarList.add(newCar);
                     Log.i(TAG, "onAdd: " + userSelectedCar.toString());
                     finish();
