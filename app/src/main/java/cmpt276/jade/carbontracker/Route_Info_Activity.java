@@ -60,28 +60,46 @@ public class Route_Info_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 //check empty for route name
                 if (Check_empty_input(R.id.editJourneyName) == 0) {
-                    Toast.makeText(getApplicationContext(), "You haven't enter the route name " + " please try again", Toast.LENGTH_LONG).show();
-                } else {
+                    Toast.makeText(getApplicationContext(),
+                            "You haven't enter the route name " + " please try again", Toast.LENGTH_LONG).show();
+                }
+                else {
                     //check empty input for highway
-                    if (Check_empty_input(R.id.Route_Info_edite_highway) == 0) {
-                        Toast.makeText(getApplicationContext(), "You did not entered any number for HighWay " + " please try again", Toast.LENGTH_LONG).show();
-                    } else {
-                        //check empty input for city
-                        if (Check_empty_input(R.id.Route_Info_edite_city) == 0) {
-                            Toast.makeText(getApplicationContext(), "You did not entered any number for City " + " please try again", Toast.LENGTH_LONG).show();
-                        } else {
-                            double highway = Double.parseDouble(getNameById(R.id.Route_Info_edite_highway));
-                            double city = Double.parseDouble(getNameById(R.id.Route_Info_edite_city));
-                            if (highway >= 0 && city >= 0) {
-                                //PASS name and weight BACK
-                                pass_back_route();
-                                finish();
-                            }
-                            //highway or city numer are <0
-                            else {
-                                Toast.makeText(getApplicationContext(), "You entered a invalid numer " + " please try again", Toast.LENGTH_LONG).show();
-                            }
+                    if (Check_empty_input(R.id.Route_Info_edite_highway) == 0 && Check_empty_input(R.id.Route_Info_edite_city) == 0) {
+                        Toast.makeText(getApplicationContext(),
+                                "You did not entered any number for either HighWay or City" +
+                                        " please try again", Toast.LENGTH_LONG).show();
+                    }
+                    else if (Check_empty_input(R.id.Route_Info_edite_highway) == 0 )
+                    {
+                        String highway = "0";
+                        String city = getNameById(R.id.Route_Info_edite_city);
+                        if (Double.parseDouble(city) > 0 &&
+                                Check_empty_input(R.id.Route_Info_edite_highway) == 0 ) {
+                            //PASS name and weight BACK
+                            pass_back_route(city,highway);
+                            finish();
                         }
+                        else {
+                            Toast.makeText(getApplicationContext(),
+                                    "Your highway and city are both 0 km, " +
+                                            " please enter some valid number", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else
+                    {
+                        String highway = getNameById(R.id.Route_Info_edite_highway);
+                        String city = "0";
+                        if (Double.parseDouble(highway) > 0 &&
+                                Check_empty_input(R.id.Route_Info_edite_city) == 0) {
+                            //PASS name and weight BACK
+                            pass_back_route(city,highway);
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(),
+                                    "Your highway and city are both 0 km, " +
+                                            " please enter some valid number", Toast.LENGTH_LONG).show();}
                     }
                 }
             }
@@ -123,11 +141,11 @@ public class Route_Info_Activity extends AppCompatActivity {
         });
     }
 
-    private void pass_back_route() {
+    private void pass_back_route(String city, String highway) {
         Intent back_Route = new Intent();
         back_Route.putExtra("pass back the route name", getNameById(R.id.editJourneyName));
-        back_Route.putExtra("pass back the highway", getNameById(R.id.Route_Info_edite_highway));
-        back_Route.putExtra("pass back the city", getNameById(R.id.Route_Info_edite_city));
+        back_Route.putExtra("pass back the highway", highway);
+        back_Route.putExtra("pass back the city", city);
         if (getClickedRoutePosition() != null) {
             back_Route.putExtra("delete is clicked", "0");
             back_Route.putExtra("pass back the route position", getClickedRoutePosition());
