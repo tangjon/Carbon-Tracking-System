@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -44,6 +45,8 @@ public class CarListAdapter extends ArrayAdapter<Car> {
         Car currentCar = mItems.get(position);
         String string = currentCar.getNickName() + " - " + currentCar.getName();
         setUpTextView(itemView, R.id.tv_car_item, string);
+        ImageView img = (ImageView) itemView.findViewById(R.id.img_car_list);
+        img.setImageResource(currentCar.getImageId());
 
         return itemView;
     }

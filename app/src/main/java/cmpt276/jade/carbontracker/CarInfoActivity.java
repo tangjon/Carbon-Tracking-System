@@ -3,8 +3,6 @@ package cmpt276.jade.carbontracker;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,20 +12,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import cmpt276.jade.carbontracker.adapter.CarDetailSpinnerAdapter;
+import cmpt276.jade.carbontracker.adapter.ImageRowAdapter;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
@@ -56,9 +50,11 @@ public class CarInfoActivity extends AppCompatActivity {
     // Field to store the user selected car <----------- THIS IS OF INTEREST
     private Car userSelectedCar;
     // Field to keep track of image select
-    private int imageIdSelect = -1;
+    private int selectImageId = -1;
 
     private Mode APP_MODE;
+
+    ImageRowAdapter rowAdapter;
 
     // Get Intent with Mode Attached
     public static Intent getIntentFromActivity(Context context, Mode mode) {
@@ -112,27 +108,29 @@ public class CarInfoActivity extends AppCompatActivity {
                 R.drawable.bus
         };
         TableLayout tableLayout = (TableLayout) findViewById(R.id.layout_table);
-        TableRow row = new TableRow(this);
-        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
-        row.setLayoutParams(lp);
+//        TableRow row = new TableRow(this);
+//        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+//        row.setLayoutParams(lp);
+//
+//        for (final int id :
+//                imageId) {
+//            ImageButton imageView = new ImageButton(this);
+//            imageView.setPadding(0,0,0,0);
+//            Bitmap bMap = BitmapFactory.decodeResource(getResources(), id);
+//            Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 150, 150, true);
+//            imageView.setImageBitmap(bMapScaled);
+//            imageView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    selectImageId = id;
+//                }
+//            });
+//            row.addView(imageView);
+//        }
+//        tableLayout.addView(row);
+        rowAdapter = new ImageRowAdapter(this);
+        tableLayout.addView(rowAdapter.getImageRow());
 
-        for (final int id :
-                imageId) {
-            ImageButton imageView = new ImageButton(this);
-            imageView.setPadding(0,0,0,0);
-            Bitmap bMap = BitmapFactory.decodeResource(getResources(), id);
-            Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 150, 150, true);
-            imageView.setImageBitmap(bMapScaled);
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    imageIdSelect = id;
-                    Toast.makeText(CarInfoActivity.this, "" + id, Toast.LENGTH_SHORT).show();
-                }
-            });
-            row.addView(imageView);
-        }
-        tableLayout.addView(row);
     }
 
     // REFACTOR
@@ -141,7 +139,7 @@ public class CarInfoActivity extends AppCompatActivity {
         String key = getIntent().getExtras().getString(CarListActivity.CAR_KEY);
         userSelectedCar = CarListActivity.recentCarList.getCarByKey(key);
         Log.i(TAG, "onEditClicked: " + userSelectedCar);
-        imageIdSelect = userSelectedCar.getImageId();
+        selectImageId = userSelectedCar.getImageId();
         UUID thisKey = userSelectedCar.getKEY();
         selectMake = userSelectedCar.getMake();
         selectModel = userSelectedCar.getModel();
@@ -163,9 +161,9 @@ public class CarInfoActivity extends AppCompatActivity {
                 EditText et = (EditText) findViewById(R.id.et_nickname);
                 String nickName = et.getText().toString().trim();
 
-                if( imageIdSelect == -1){
+                if( rowAdapter.isImageSelected()){
                     TextView tv = (TextView) findViewById(R.id.tv_pick_icon_label);
-                    tv.setError("YOUR MOM");
+                    tv.setError("");
                 }
                  else if (et.getText().toString().trim().length() == 0) {
                     et.setError(getString(R.string.car_info_warning));
@@ -175,7 +173,7 @@ public class CarInfoActivity extends AppCompatActivity {
                     // Assign new key
                     userSelectedCar.setKEY(UUID.randomUUID());
                     Car newCar = userSelectedCar.copy();
-                    newCar.setImageId(imageIdSelect);
+                    newCar.setImageId(selectImageId);
                     CarListActivity.recentCarList.add(newCar);
                     Log.i(TAG, "onAdd: " + userSelectedCar.toString());
                     finish();
@@ -217,6 +215,7 @@ public class CarInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 userSelectedCar.setNickName(et.getText().toString().trim());
                 userSelectedCar.setKEY(key);
+                userSelectedCar.setImageId(selectImageId);
                 boolean bool = CarListActivity.recentCarList.updateCarInfo(userSelectedCar);
                 Log.i(TAG, "onEditedConfirm: " + bool + ":" + userSelectedCar.toString());
                 finish();
