@@ -2,6 +2,7 @@ package cmpt276.jade.carbontracker.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import java.util.List;
 
 import cmpt276.jade.carbontracker.R;
 import cmpt276.jade.carbontracker.model.Car;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Custom Display of Car Objects

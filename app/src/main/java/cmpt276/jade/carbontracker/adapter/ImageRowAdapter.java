@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.R;
 
@@ -35,7 +36,7 @@ public class ImageRowAdapter {
         mContext = ctx;
     }
 
-    public TableRow getImageRow(){
+    public TableRow getRow(){
         LayoutInflater inflater = LayoutInflater.from(mContext);
 
         TableRow row = new TableRow(mContext);
@@ -61,13 +62,18 @@ public class ImageRowAdapter {
     }
 
     public boolean isImageSelected(){
-        if (selectedImage != -1){
-            return true;
-        } else
+        if(selectedImage == -1){
             return false;
+        } else{
+            return true;
+        }
     }
 
     public int getSelectedImage() {
         return selectedImage;
+    }
+
+    public void setImage(int imageId) {
+        this.selectedImage = imageId;
     }
 }

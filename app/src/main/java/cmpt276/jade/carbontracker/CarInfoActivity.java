@@ -68,6 +68,9 @@ public class CarInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_info);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // set up icons
+        setUpIconSelect();
+
         // Set Toolbar Name
         getSupportActionBar().setTitle(getString(R.string.CarInfoActivityHint));
         // get mode from intent
@@ -96,40 +99,13 @@ public class CarInfoActivity extends AppCompatActivity {
 //
         }
 
-        setUpIconSelect();
+
     }
 
     void setUpIconSelect(){
-        final int[] imageId = {
-                R.drawable.walksymbol,
-                R.drawable.bike,
-                R.drawable.car,
-                R.drawable.skytrain,
-                R.drawable.bus
-        };
         TableLayout tableLayout = (TableLayout) findViewById(R.id.layout_table);
-//        TableRow row = new TableRow(this);
-//        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
-//        row.setLayoutParams(lp);
-//
-//        for (final int id :
-//                imageId) {
-//            ImageButton imageView = new ImageButton(this);
-//            imageView.setPadding(0,0,0,0);
-//            Bitmap bMap = BitmapFactory.decodeResource(getResources(), id);
-//            Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 150, 150, true);
-//            imageView.setImageBitmap(bMapScaled);
-//            imageView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    selectImageId = id;
-//                }
-//            });
-//            row.addView(imageView);
-//        }
-//        tableLayout.addView(row);
         rowAdapter = new ImageRowAdapter(this);
-        tableLayout.addView(rowAdapter.getImageRow());
+        tableLayout.addView(rowAdapter.getRow());
 
     }
 
@@ -139,7 +115,7 @@ public class CarInfoActivity extends AppCompatActivity {
         String key = getIntent().getExtras().getString(CarListActivity.CAR_KEY);
         userSelectedCar = CarListActivity.recentCarList.getCarByKey(key);
         Log.i(TAG, "onEditClicked: " + userSelectedCar);
-        selectImageId = userSelectedCar.getImageId();
+        rowAdapter.setImage(userSelectedCar.getImageId());
         UUID thisKey = userSelectedCar.getKEY();
         selectMake = userSelectedCar.getMake();
         selectModel = userSelectedCar.getModel();
@@ -161,7 +137,7 @@ public class CarInfoActivity extends AppCompatActivity {
                 EditText et = (EditText) findViewById(R.id.et_nickname);
                 String nickName = et.getText().toString().trim();
 
-                if( rowAdapter.isImageSelected()){
+                if( !rowAdapter.isImageSelected() ){
                     TextView tv = (TextView) findViewById(R.id.tv_pick_icon_label);
                     tv.setError("");
                 }
@@ -173,7 +149,7 @@ public class CarInfoActivity extends AppCompatActivity {
                     // Assign new key
                     userSelectedCar.setKEY(UUID.randomUUID());
                     Car newCar = userSelectedCar.copy();
-                    newCar.setImageId(selectImageId);
+                    newCar.setImageId(rowAdapter.getSelectedImage());
                     CarListActivity.recentCarList.add(newCar);
                     Log.i(TAG, "onAdd: " + userSelectedCar.toString());
                     finish();
@@ -215,7 +191,7 @@ public class CarInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 userSelectedCar.setNickName(et.getText().toString().trim());
                 userSelectedCar.setKEY(key);
-                userSelectedCar.setImageId(selectImageId);
+                userSelectedCar.setImageId(rowAdapter.getSelectedImage());
                 boolean bool = CarListActivity.recentCarList.updateCarInfo(userSelectedCar);
                 Log.i(TAG, "onEditedConfirm: " + bool + ":" + userSelectedCar.toString());
                 finish();
