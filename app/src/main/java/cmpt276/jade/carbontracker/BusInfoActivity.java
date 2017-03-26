@@ -8,7 +8,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
+import cmpt276.jade.carbontracker.adapter.ImageRowAdapter;
 import cmpt276.jade.carbontracker.model.Bus;
 import cmpt276.jade.carbontracker.model.Emission;
 
@@ -20,6 +24,8 @@ public class BusInfoActivity extends AppCompatActivity {
     private Bus incomingBus;
     private Bus outgoingBus;
 
+    private ImageRowAdapter imgRowAdapter = new ImageRowAdapter(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +33,15 @@ public class BusInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bus_info);
         getSupportActionBar().setTitle(R.string.businfoactivitytoolbarhint);
 
+        setUpImageSelectionRow();
         getBusData();
         setupPage();
         setupNextBtn();
+    }
+
+    private void setUpImageSelectionRow() {
+        TableLayout tableLayout = (TableLayout) findViewById(R.id.layout_table_img_select);
+        tableLayout.addView(imgRowAdapter.getRow());
     }
 
 
@@ -55,14 +67,18 @@ public class BusInfoActivity extends AppCompatActivity {
 
                 EditText inputName = (EditText) findViewById(R.id.editTextBusNickname);
                 EditText inputRouteNumber = (EditText) findViewById(R.id.editTextRouteNumber);
-                if (inputName.getText().toString().trim().length() == 0) {
+                if(!imgRowAdapter.isImageSelected()){
+                    TextView tv = (TextView) findViewById(R.id.tv_pick_icon_label);
+                    tv.setError("");
+                }
+                else if (inputName.getText().toString().trim().length() == 0) {
                     inputName.setError(getString(R.string.enter_a_nickname));
                 } else if (inputRouteNumber.getText().toString().trim().length() == 0) {
                     inputRouteNumber.setError(getString(R.string.enter_a_route_number));
                 } else {
                     outgoingBus.setNickName(inputName.getText().toString().trim());
                     outgoingBus.setRouteNumber(inputRouteNumber.getText().toString().trim());
-
+                    outgoingBus.setImageId(imgRowAdapter.getSelectedImage());
                     if (incomingBus == null || incomingBus.getMode() == 0) {
                         BusListActivity.recentBusList.addBus(outgoingBus);
                     } else if (incomingBus != null && incomingBus.getMode() == 1) {
@@ -76,8 +92,8 @@ public class BusInfoActivity extends AppCompatActivity {
     }
 
     public void getBusData() {
-
         this.incomingBus = Emission.getInstance().getJourneyBuffer().getTransType().getBus();
+//        imgRowAdapter.setImage(this.incomingBus.getImageId());
         this.outgoingBus = new Bus();
 
     }

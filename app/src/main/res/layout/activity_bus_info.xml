@@ -12,51 +12,68 @@
     tools:context="cmpt276.jade.carbontracker.BusInfoActivity">
 
     <TextView
+        android:paddingBottom="5dp"
+        android:textColor="@android:color/black"
+        android:textStyle="normal|bold"
+        android:id="@+id/tv_pick_icon_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/car_info_pick_an_icon"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TableLayout
+        android:layout_below="@+id/tv_pick_icon_label"
+        android:id="@+id/layout_table_img_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp" />
+
+    <TextView
         android:id="@+id/textBus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:text="@string/label_busNickname"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="0dp"
+        android:layout_below="@+id/layout_table_img_select"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/editTextBusNickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="22dp"
         android:ems="10"
         android:hint="@string/name"
         android:inputType="text"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="38dp" />
+        tools:layout_editor_absoluteY="38dp"
+        android:layout_below="@+id/textBus"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/editTextRouteNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView24"
         android:ems="10"
         android:hint="@string/label_busRouteNumber"
         android:inputType="text"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="38dp" />
+        tools:layout_editor_absoluteY="38dp"
+        android:layout_below="@+id/textView24"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/textView24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/editTextBusNickname"
         android:text="@string/label_busRouteNumber"
         android:textColor="@color/primary_text"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:layout_below="@+id/editTextBusNickname"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/btnBusInfoNext"

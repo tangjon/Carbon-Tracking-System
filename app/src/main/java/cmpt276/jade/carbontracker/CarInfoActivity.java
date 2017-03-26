@@ -54,7 +54,7 @@ public class CarInfoActivity extends AppCompatActivity {
 
     private Mode APP_MODE;
 
-    ImageRowAdapter rowAdapter;
+    private ImageRowAdapter rowAdapter;
 
     // Get Intent with Mode Attached
     public static Intent getIntentFromActivity(Context context, Mode mode) {

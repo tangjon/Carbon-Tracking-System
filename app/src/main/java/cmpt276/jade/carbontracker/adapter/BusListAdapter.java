@@ -39,7 +39,7 @@ public class BusListAdapter extends ArrayAdapter<Bus> {
         Bus bus = getItem(position);
         TextView tv = (TextView) v.findViewById(R.id.busListItem);
         ImageView image = (ImageView) v.findViewById(R.id.busImage);
-        image.setImageResource(R.drawable.bus);
+        image.setImageResource(bus.getImageId());
         tv.setText(bus.getDetail());
 
 
