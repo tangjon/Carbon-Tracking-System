@@ -8,7 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import cmpt276.jade.carbontracker.R;
+import cmpt276.jade.carbontracker.model.Bus;
 
 /**
  * Created by Sean on 21/03/2017.
@@ -18,10 +21,14 @@ import cmpt276.jade.carbontracker.R;
  * Bugs:
  */
 
-public class BusListAdapter extends ArrayAdapter<String> {
+public class BusListAdapter extends ArrayAdapter<Bus> {
 
-    public BusListAdapter(Context context, String[] item) {
-        super(context, R.layout.item_bus, item);
+    private Context mContext;
+
+    public BusListAdapter(Context context, List<Bus> bus) {
+        super(context, R.layout.item_bus, bus);
+        this.mContext = context;
+
     }
 
     @Override
@@ -29,13 +36,11 @@ public class BusListAdapter extends ArrayAdapter<String> {
         LayoutInflater inf = LayoutInflater.from(getContext());
         View v = inf.inflate(R.layout.item_bus, parent, false);
 
-        String route = getItem(position);
+        Bus bus = getItem(position);
         TextView tv = (TextView) v.findViewById(R.id.busListItem);
-
-
         ImageView image = (ImageView) v.findViewById(R.id.busImage);
         image.setImageResource(R.drawable.bus);
-        tv.setText(route);
+        tv.setText(bus.getDetail());
 
 
         return v;

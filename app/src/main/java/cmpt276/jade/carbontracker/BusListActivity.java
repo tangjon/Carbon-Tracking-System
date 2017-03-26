@@ -147,7 +147,7 @@ public class BusListActivity extends AppCompatActivity {
         dbRefreshBusList();
         //TODO
         //Make Adaptor
-        ListAdapter adapt = new BusListAdapter(this, recentBusList.getBusDetails());
+        ListAdapter adapt = new BusListAdapter(this, recentBusList.getBusList());
         ListView list = (ListView) findViewById(R.id.listviewBus);
         list.setAdapter(adapt);
     }
