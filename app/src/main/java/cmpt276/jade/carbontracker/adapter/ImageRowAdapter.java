@@ -20,7 +20,7 @@ import cmpt276.jade.carbontracker.R;
  */
 public class ImageRowAdapter {
 
-    private int selectedImage = -1;
+    private int selectedImage = 0;
 
 
     Context mContext;
@@ -62,7 +62,7 @@ public class ImageRowAdapter {
     }
 
     public boolean isImageSelected(){
-        if(selectedImage == -1){
+        if(selectedImage == 0){
             return false;
         } else{
             return true;

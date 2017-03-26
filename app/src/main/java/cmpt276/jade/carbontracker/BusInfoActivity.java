@@ -63,7 +63,10 @@ public class BusInfoActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // Quick fix
+                if (incomingBus != null && incomingBus.getMode() == 1){
+                    imgRowAdapter.setImage(incomingBus.getImageId());
+                }
 
                 EditText inputName = (EditText) findViewById(R.id.editTextBusNickname);
                 EditText inputRouteNumber = (EditText) findViewById(R.id.editTextRouteNumber);
