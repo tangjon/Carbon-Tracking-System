@@ -33,7 +33,7 @@
                 android:text="@string/car_info_pick_an_icon" />
 
             <TableLayout
-                android:id="@+id/layout_table"
+                android:id="@+id/layout_table_img_select"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingBottom="5dp"></TableLayout>
