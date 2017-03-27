@@ -126,7 +126,7 @@ public class SkytrainListActivity extends AppCompatActivity {
         dbRefreshSkytrainCarList();
         //TODO
         //Make Adaptor
-        ListAdapter adapt = new SkytrainListAdaptor(this, recentSkyTrainList.getSkytrainDetails());
+        ListAdapter adapt = new SkytrainListAdaptor(this, recentSkyTrainList.getTrainList());
         ListView list = (ListView) findViewById(R.id.listViewSkytrainList);
         list.setAdapter(adapt);
     }

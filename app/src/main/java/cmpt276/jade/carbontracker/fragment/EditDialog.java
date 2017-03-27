@@ -34,6 +34,7 @@ public class EditDialog extends DialogFragment {
     private EditDialogListener mHost;
     private int position;
 
+    // Todo pass image id instead of transport
     public static EditDialog newInstance(String title, Transport mode) {
         Bundle args = new Bundle();
         EditDialog fragment = new EditDialog();
@@ -43,6 +44,7 @@ public class EditDialog extends DialogFragment {
         return fragment;
     }
 
+    // Todo pass image id instead of transport
     public static EditDialog newInstance(String title, int thisMode) {
         Transport mode = null;
         switch (thisMode) {
@@ -72,29 +74,12 @@ public class EditDialog extends DialogFragment {
         return fragment;
     }
 
-    public static EditDialog newInstance(Car car) {
-        Bundle args = new Bundle();
-        EditDialog fragment = new EditDialog();
-        args.putString(KEY_NAME, car.getName());
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     public static EditDialog newInstance(Journey journey) {
         Transport mode = journey.getTransType().getTransMode();
         Bundle args = new Bundle();
         EditDialog fragment = new EditDialog();
         args.putString(KEY_NAME, journey.getName());
         args.putSerializable(KEY_MODE, mode);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public static EditDialog newInstance() {
-
-        Bundle args = new Bundle();
-
-        EditDialog fragment = new EditDialog();
         fragment.setArguments(args);
         return fragment;
     }

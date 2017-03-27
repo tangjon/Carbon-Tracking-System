@@ -53,6 +53,10 @@ public class Bus extends ImageId{
         this.position = position;
     }
 
+    public String getDetail(){
+        return getNickName() + " - " + getRouteNumber();
+    }
+
     @Override
     public String toString() {
         return "Bus{" +

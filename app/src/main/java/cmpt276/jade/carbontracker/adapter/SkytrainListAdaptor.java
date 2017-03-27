@@ -8,7 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import cmpt276.jade.carbontracker.R;
+import cmpt276.jade.carbontracker.model.Skytrain;
 
 /**
  * Created by Sean on 21/03/2017.
@@ -16,10 +19,13 @@ import cmpt276.jade.carbontracker.R;
  * Displays the skytrain list
  */
 
-public class SkytrainListAdaptor extends ArrayAdapter<String> {
+public class SkytrainListAdaptor extends ArrayAdapter<Skytrain> {
 
-    public SkytrainListAdaptor(Context context, String[] item) {
+    Context mContext;
+
+    public SkytrainListAdaptor(Context context, List<Skytrain> item) {
         super(context, R.layout.item_skytrain, item);
+        mContext = context;
     }
 
     @Override
@@ -27,13 +33,11 @@ public class SkytrainListAdaptor extends ArrayAdapter<String> {
         LayoutInflater inf = LayoutInflater.from(getContext());
         View v = inf.inflate(R.layout.item_skytrain, parent, false);
 
-        String route = getItem(position);
-        TextView tv = (TextView) v.findViewById(R.id.skytrainListItem);
-
-
+        Skytrain train = getItem(position);
         ImageView image = (ImageView) v.findViewById(R.id.skytrainImage);
-        image.setImageResource(R.drawable.skytrain);
-        tv.setText(route);
+        image.setImageResource(train.getImageId());
+        TextView tv = (TextView) v.findViewById(R.id.skytrainListItem);
+        tv.setText(train.getDetails());
 
 
         return v;
