@@ -103,10 +103,9 @@ public class CarInfoActivity extends AppCompatActivity {
     }
 
     void setUpIconSelect(){
-        TableLayout tableLayout = (TableLayout) findViewById(R.id.layout_table);
+        TableLayout tableLayout = (TableLayout) findViewById(R.id.layout_table_img_select);
         rowAdapter = new ImageRowAdapter(this);
         tableLayout.addView(rowAdapter.getRow());
-
     }
 
     // REFACTOR

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import cmpt276.jade.carbontracker.R;
 import cmpt276.jade.carbontracker.enums.Transport;
+import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 
 
@@ -36,20 +37,45 @@ public class JourneyListAdapter extends ArrayAdapter<String> {
 
         tv.setText(route);
 
-        if (list.countJourneys() != 0) {
-            if (list.getJourney(position).getTransType().getTransMode().equals(Transport.CAR)) {
-                image.setImageResource(R.drawable.car);
-            } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.BIKE)) {
-                image.setImageResource(R.drawable.bike);
-            } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.BUS)) {
-                image.setImageResource(R.drawable.bus);
-            } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.SKYTRAIN)) {
-                image.setImageResource(R.drawable.skytrain);
-            } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.WALK)) {
-                image.setImageResource(R.drawable.walksymbol);
-                //temporary image
+//        if (list.countJourneys() != 0) {
+//            if (list.getJourney(position).getTransType().getTransMode().equals(Transport.CAR)) {
+//                image.setImageResource(R.drawable.car);
+//            } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.BIKE)) {
+//                image.setImageResource(R.drawable.bike);
+//            } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.BUS)) {
+//                image.setImageResource(R.drawable.bus);
+//            } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.SKYTRAIN)) {
+//                image.setImageResource(R.drawable.skytrain);
+//            } else if (list.getJourney(position).getTransType().getTransMode().equals(Transport.WALK)) {
+//                image.setImageResource(R.drawable.walksymbol);
+//                //temporary image
+//            }
+//        }
+        if(list.countJourneys() != 0){
+            Journey j = list.getJourney(position);
+            int img = 0;
+            switch (j.getTransType().getTransMode()){
+                case CAR:
+                    img = j.getTransType().getCar().getImageId();
+                    image.setImageResource(img);
+                    break;
+                case BIKE:
+                    image.setImageResource(R.drawable.bike);
+                    break;
+                case WALK:
+                    image.setImageResource(R.drawable.walksymbol);
+                    break;
+                case BUS:
+                    img = j.getTransType().getBus().getImageId();
+                    image.setImageResource(img);
+                    break;
+                case SKYTRAIN:
+                    img = j.getTransType().getSkytrain().getImageId();
+                    image.setImageResource(img);
+                    break;
             }
         }
+
 
         return OneBucky;
     }
