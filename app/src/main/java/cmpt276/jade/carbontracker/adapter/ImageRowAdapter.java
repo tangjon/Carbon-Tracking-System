@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cmpt276.jade.carbontracker.R;
 
 /**
@@ -25,6 +28,8 @@ public class ImageRowAdapter {
 
 
     Context mContext;
+
+    // TWO ARRAYS MUST MATCH
     private int[] imageId = {
             R.drawable.walksymbol,
             R.drawable.bike,
@@ -33,8 +38,15 @@ public class ImageRowAdapter {
             R.drawable.bus
     };
 
+    private int[] imageIdSelected = {
+
+    };
+
+    private List<ImageView> table;
+
     public ImageRowAdapter(Context ctx) {
         mContext = ctx;
+        table = new ArrayList<>();
     }
 
     public TableRow getRow(){
@@ -55,11 +67,25 @@ public class ImageRowAdapter {
                 @Override
                 public void onClick(View v) {
                     selectedImage = id;
+                    updateSelectedScreen();
                 }
             });
+            table.add(imageView);
             row.addView(imageView);
         }
         return row;
+    }
+
+    private void updateSelectedScreen(){
+        int i =0;
+        for (ImageView v: table) {
+            v.setImageResource(imageId[i]);
+            if(imageId[i] == selectedImage){
+                v.setImageResource(0);
+            }
+            i++;
+        }
+
     }
 
     public boolean isImageSelected(){
