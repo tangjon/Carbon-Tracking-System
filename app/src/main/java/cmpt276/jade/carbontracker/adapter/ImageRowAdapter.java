@@ -39,7 +39,11 @@ public class ImageRowAdapter {
     };
 
     private int[] imageIdSelected = {
-
+            R.drawable.walk_clicked,
+            R.drawable.bike_clicked,
+            R.drawable.car_clicked,
+            R.drawable.skytrain_clicked,
+            R.drawable.bus_clicked
     };
 
     private List<ImageView> table;
@@ -76,12 +80,18 @@ public class ImageRowAdapter {
         return row;
     }
 
+    private Bitmap formatImage(int id){
+        Bitmap bMap = BitmapFactory.decodeResource(mContext.getResources(), id);
+        Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 150, 150, true);
+        return bMapScaled;
+    }
+
     private void updateSelectedScreen(){
         int i =0;
         for (ImageView v: table) {
-            v.setImageResource(imageId[i]);
+            v.setImageBitmap(formatImage(imageId[i]));
             if(imageId[i] == selectedImage){
-                v.setImageResource(0);
+                v.setImageBitmap(formatImage(imageIdSelected[i]));
             }
             i++;
         }
