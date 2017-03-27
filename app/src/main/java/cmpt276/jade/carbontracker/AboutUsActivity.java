@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 public class AboutUsActivity extends AppCompatActivity {
 
@@ -17,5 +18,18 @@ public class AboutUsActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     getSupportActionBar().setTitle(R.string.label_about_us);
     setContentView(R.layout.activity_about_us);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
   }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == android.R.id.home) {
+      finish(); // close this activity and return to preview activity (if there is any)
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
 }
+
