@@ -35,7 +35,7 @@ public class JourneyListAdapter extends ArrayAdapter<String> {
 
         ImageView image = (ImageView) OneBucky.findViewById(R.id.journeyListImage);
 
-        tv.setText(route);
+
 
 //        if (list.countJourneys() != 0) {
 //            if (list.getJourney(position).getTransType().getTransMode().equals(Transport.CAR)) {
@@ -53,6 +53,7 @@ public class JourneyListAdapter extends ArrayAdapter<String> {
 //        }
         if(list.countJourneys() != 0){
             Journey j = list.getJourney(position);
+            tv.setText(route + " (" + j.getTransType().getTransMode()  + ")");
             int img = 0;
             switch (j.getTransType().getTransMode()){
                 case CAR:

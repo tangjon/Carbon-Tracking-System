@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.Toast;
 
@@ -45,8 +46,8 @@ public class ImageRowAdapter {
 
         for (final int id :
                 imageId) {
-            ImageButton imageView = new ImageButton(mContext);
-            imageView.setPadding(0,0,0,0);
+            ImageView imageView = new ImageView(mContext);
+            imageView.setPadding(10,0,10,0);
             Bitmap bMap = BitmapFactory.decodeResource(mContext.getResources(), id);
             Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 150, 150, true);
             imageView.setImageBitmap(bMapScaled);
