@@ -50,7 +50,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 30;
+    public static final int DATABASE_VERSION = 31;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -356,7 +356,7 @@ public class DBAdapter {
             KEY_BILL_INPUT};
 
     // Create the Data Base (SQL)
-    private static final String CREATE_TABLE_OPTION =
+    private static final String CREATE_TABLE_BILL =
             "create table " + TABLE_BILL
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
 
@@ -388,7 +388,7 @@ public class DBAdapter {
 
 
     // CREATE SQL TABLE
-    private static final String CREATE_TABLE_BILL =
+    private static final String CREATE_TABLE_OPTION =
             "create table " + TABLE_OPTION
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
 
