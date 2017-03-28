@@ -7,12 +7,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import cmpt276.jade.carbontracker.enums.Language;
+import cmpt276.jade.carbontracker.enums.MeasurementUnit;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Bus;
@@ -49,7 +50,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 30;
+    public static final int DATABASE_VERSION = 31;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -64,6 +65,7 @@ public class DBAdapter {
     public static final String TABLE_WALK = "walks";
     public static final String TABLE_BIKE = "bikes";
     public static final String TABLE_TRANSIT = "transits";
+    public static final String TABLE_OPTION = "options";
 
     // UTILITY TABLES
     public static final String TABLE_BILL = "bills";
@@ -366,6 +368,36 @@ public class DBAdapter {
                     // Rest  of creation:
                     + ");";
 
+    /****************************************
+     * SAVING OPTION MEMBERS
+     * ****************************************/
+    // SET UP KEYS
+    public static final String KEY_OP_LANG = "lang";
+    public static final String KEY_OP_MEASUREMENT_UNIT = "measurement_unit";
+
+    // SETUP COLS
+    public static final int COL_OP_LANG = 1;
+    public static final int COL_OP_MEASUREMENT_UNIT = 2;
+
+    // MASTER KEY
+    public static final String[] ALL_OP_KEYS = new String[]{
+            KEY_ROWID,
+            KEY_OP_LANG,
+            KEY_OP_MEASUREMENT_UNIT
+    };
+
+    // CREATE SQL TABLE
+    private static final String CREATE_TABLE_OPTION =
+            "create table " + TABLE_OPTION
+                    + " (" + KEY_ROWID + " integer primary key autoincrement, "
+
+                    + KEY_OP_LANG + " int, "
+                    + KEY_OP_MEASUREMENT_UNIT + " int"
+
+                    // Rest  of creation:
+                    + ");";
+
+
 
     // Context of application who uses us.
     private final Context context;
@@ -636,6 +668,19 @@ public class DBAdapter {
         // Insert it into the database.
         return buff;
     }
+
+    public long insert(Language l, MeasurementUnit m){
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_OP_LANG, l.ordinal());
+        initialValues.put(KEY_OP_MEASUREMENT_UNIT, m.ordinal());
+        long buff = db.insert(TABLE_OPTION, null, initialValues);
+        return buff;
+    }
+
+    // Return options
+
+
+
 
     /****************************************
      * GETTERS
@@ -1176,6 +1221,7 @@ public class DBAdapter {
             _db.execSQL(CREATE_TABLE_BUS);
             _db.execSQL(CREATE_TABLE_SKYTRAIN);
             _db.execSQL(CREATE_TABLE_BILL);
+            _db.execSQL(CREATE_TABLE_OPTION);
         }
 
         @Override
@@ -1191,6 +1237,7 @@ public class DBAdapter {
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_BUS);
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_SKYTRAIN);
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_BILL);
+            _db.execSQL("DROP TABLE IF EXISTS " + TABLE_OPTION);
 
             // Recreate new database:
             onCreate(_db);
