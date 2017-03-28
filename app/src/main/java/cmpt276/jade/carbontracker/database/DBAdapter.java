@@ -64,6 +64,7 @@ public class DBAdapter {
     public static final String TABLE_WALK = "walks";
     public static final String TABLE_BIKE = "bikes";
     public static final String TABLE_TRANSIT = "transits";
+    public static final String TABLE_OPTION = "options";
 
     // UTILITY TABLES
     public static final String TABLE_BILL = "bills";
@@ -365,6 +366,37 @@ public class DBAdapter {
 
                     // Rest  of creation:
                     + ");";
+
+    /****************************************
+     * SAVING OPTION MEMBERS
+     * ****************************************/
+    // SET UP KEYS
+    public static final String KEY_OP_LANG = "lang";
+    public static final String KEY_OP_MEASUREMENT_UNIT = "measurement_unit";
+
+    // SETUP COLS
+    public static final int COL_OP_LANG = 1;
+    public static final int COL_OP_MEASUREMENT_UNIT = 2;
+
+    // MASTER KEY
+    public static final String[] ALL_OP_KEYS = new String[]{
+            KEY_ROWID,
+            KEY_OP_LANG,
+            KEY_OP_MEASUREMENT_UNIT
+    };
+
+
+    // CREATE SQL TABLE
+    private static final String CREATE_TABLE_BILL =
+            "create table " + TABLE_OPTION
+                    + " (" + KEY_ROWID + " integer primary key autoincrement, "
+
+                    + KEY_OP_LANG + " int, "
+                    + KEY_OP_MEASUREMENT_UNIT + " int"
+
+                    // Rest  of creation:
+                    + ");";
+
 
 
     // Context of application who uses us.
