@@ -172,7 +172,6 @@ public class Graph {
      * 1   :   date1 > date2
      */
     public static int compareDates(Date date1, Date date2) {
-        // maybe need better way of handling null dates in carbon footprint activity
         if (date1 == null || date2 == null) return 0;
 
         date1 = makeTimeMidnight(date1);
@@ -227,7 +226,7 @@ public class Graph {
                     nameVehicle[i] = "n/a";
                 }
                 if (j.getDateObj() != null) date[i] = Emission.DATE_FORMAT.format(j.getDateObj());
-                else date[i] = "its fucked here too";
+                else date[i] = "n/a";
                 values[i] = (float) j.getTotalTravelledEmissions();
                 distance[i] = j.getTotalDriven();
             }

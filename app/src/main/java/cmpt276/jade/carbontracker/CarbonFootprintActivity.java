@@ -19,14 +19,21 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.CombinedData;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -51,7 +58,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private JourneyCollection journeyCollection = Emission.getInstance().getJourneyCollection();
     private Utilities utilities = Emission.getInstance().getUtilities();
     private PieChart pieChart;
-    private BarChart barChart;
+    private CombinedChart barChart;
     private TableLayout table;
     private List<Bill> billsElec;
     private List<Bill> billsGas;
@@ -473,10 +480,21 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private void setupBarChart() {
         BarData data = Graph.getBarData(getString(R.string.label_graph_title), dateMode,
                 dateSelected, dateStart, dateEnd);
+        CombinedData cData = new CombinedData();
+        cData.setData(data);
         data.setValueTextSize(12f);
 
-        barChart = (BarChart) findViewById(R.id.bar_graph);
-        barChart.setData(data);
+        ArrayList<Entry> lineEntries = new ArrayList<>();
+        for (int i = 0; i < data.getEntryCount(); ++i) {
+            lineEntries.add(new Entry(i, 50));
+        }
+        LineDataSet line = new LineDataSet(lineEntries, "test");
+        cData.setData(new LineData(line));
+
+        //barChart = (BarChart) findViewById(R.id.bar_graph);
+        barChart = (CombinedChart) findViewById(R.id.bar_graph);
+        //barChart.setData(data);
+        barChart.setData(cData);
         barChart.getLegend().setEnabled(false);
 
         String[] labels = getResources().getStringArray(R.array.label_bar_graph);
@@ -491,7 +509,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
         barChart.setDescription(desc);
         barChart.animateY(600);
-        barChart.setFitBars(true);
+        //barChart.setFitBars(true);
         barChart.invalidate();
         barChart.setVisibility(View.INVISIBLE);
     }
