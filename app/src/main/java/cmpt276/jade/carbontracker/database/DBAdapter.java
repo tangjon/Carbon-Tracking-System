@@ -386,7 +386,6 @@ public class DBAdapter {
             KEY_OP_MEASUREMENT_UNIT
     };
 
-
     // CREATE SQL TABLE
     private static final String CREATE_TABLE_OPTION =
             "create table " + TABLE_OPTION
