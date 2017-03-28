@@ -7,12 +7,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import cmpt276.jade.carbontracker.enums.Language;
+import cmpt276.jade.carbontracker.enums.MeasurementUnit;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Bus;
@@ -355,7 +356,7 @@ public class DBAdapter {
             KEY_BILL_INPUT};
 
     // Create the Data Base (SQL)
-    private static final String CREATE_TABLE_BILL =
+    private static final String CREATE_TABLE_OPTION =
             "create table " + TABLE_BILL
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
 
@@ -668,6 +669,19 @@ public class DBAdapter {
         // Insert it into the database.
         return buff;
     }
+
+    public long insert(Language l, MeasurementUnit m){
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_OP_LANG, l.ordinal());
+        initialValues.put(KEY_OP_MEASUREMENT_UNIT, m.ordinal());
+        long buff = db.insert(TABLE_OPTION, null, initialValues);
+        return buff;
+    }
+
+    // Return options
+
+
+
 
     /****************************************
      * GETTERS
@@ -1208,6 +1222,7 @@ public class DBAdapter {
             _db.execSQL(CREATE_TABLE_BUS);
             _db.execSQL(CREATE_TABLE_SKYTRAIN);
             _db.execSQL(CREATE_TABLE_BILL);
+            _db.execSQL(CREATE_TABLE_OPTION);
         }
 
         @Override
@@ -1223,6 +1238,7 @@ public class DBAdapter {
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_BUS);
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_SKYTRAIN);
             _db.execSQL("DROP TABLE IF EXISTS " + TABLE_BILL);
+            _db.execSQL("DROP TABLE IF EXISTS " + TABLE_OPTION);
 
             // Recreate new database:
             onCreate(_db);

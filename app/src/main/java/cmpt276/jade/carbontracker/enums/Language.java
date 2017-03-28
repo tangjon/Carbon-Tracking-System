@@ -6,6 +6,6 @@ package cmpt276.jade.carbontracker.enums;
  * Description:
  * Bugs:
  */
-public enum Langauge {
+public enum Language {
     SPANISH,ENGLISH
 }
