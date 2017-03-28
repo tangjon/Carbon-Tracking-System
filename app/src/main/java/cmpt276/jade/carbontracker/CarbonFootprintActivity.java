@@ -32,6 +32,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -78,6 +79,10 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private float emissionValues[] = new float[NUM_ENTRIES];
     private double emissionDistance[] = new double[NUM_ENTRIES];
     private String emissionVehicleNames[] = new String[NUM_ENTRIES];
+
+    // 20.6 T CO2 / household (~2.5 people) -> Kg CO2 / day / person
+    private final int CAN_AVG_EMISSIONS = (int) (20600000 / 360 / 2.5);
+    private final int CAN_TARGET_EMISSIONS = (int) (CAN_AVG_EMISSIONS * 0.7);   // 30% reduction
 
 
     private static final String TAG = "CarbonFootPrintActivity";
@@ -412,7 +417,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
             if (j.getDateObj() != null)
                 emissionDate[i] = Emission.DATE_FORMAT.format(j.getDateObj());
-            else emissionDate[i] = "its fucked";
+            else emissionDate[i] = "n/a";
             emissionRouteNames[i] = j.getName();
             emissionDistance[i] = j.getRoute().getCityDistance() + j.getRoute().getCityDistance();
             if (t.getCar() != null) {
@@ -484,12 +489,23 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         cData.setData(data);
         data.setValueTextSize(12f);
 
+        ArrayList<ILineDataSet> lines = new ArrayList<>();
         ArrayList<Entry> lineEntries = new ArrayList<>();
         for (int i = 0; i < data.getEntryCount(); ++i) {
-            lineEntries.add(new Entry(i, 50));
+            lineEntries.add(new Entry(i, CAN_AVG_EMISSIONS));
         }
         LineDataSet line = new LineDataSet(lineEntries, "test");
-        cData.setData(new LineData(line));
+        line.setDrawCircles(false);
+        lines.add(line);
+
+        ArrayList<Entry> lineEntriesTgt = new ArrayList<>();
+        for (int i = 0; i < data.getEntryCount(); ++i) {
+            lineEntriesTgt.add(new Entry(i, CAN_TARGET_EMISSIONS));
+        }
+        LineDataSet lineTgt = new LineDataSet(lineEntriesTgt, "test2");
+        lineTgt.setDrawCircles(false);
+        lines.add(lineTgt);
+        cData.setData(new LineData(lines));
 
         //barChart = (BarChart) findViewById(R.id.bar_graph);
         barChart = (CombinedChart) findViewById(R.id.bar_graph);
