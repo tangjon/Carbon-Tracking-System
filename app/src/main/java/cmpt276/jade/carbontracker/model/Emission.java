@@ -21,6 +21,9 @@ public class Emission {
     private JourneyCollection journeyCollection = new JourneyCollection();
     private Utilities utilities = new Utilities();
 
+
+    private Settings settings= new Settings();
+
     /**
      * useful for keeping temporary journey to work with throughout journey creation process
      * without using SharedPreferences/Intents
@@ -106,6 +109,15 @@ public class Emission {
 
     public void setBufferBill(Bill bufferBill) {
         this.bufferBill = bufferBill;
+    }
+
+
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
     }
 
 }

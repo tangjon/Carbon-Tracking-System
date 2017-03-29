@@ -8,4 +8,5 @@ package cmpt276.jade.carbontracker.enums;
  */
 public enum Language {
     SPANISH,ENGLISH
+
 }
