@@ -3,6 +3,7 @@ package cmpt276.jade.carbontracker;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +19,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -31,7 +31,6 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
@@ -40,7 +39,6 @@ import java.util.Date;
 import java.util.List;
 
 import cmpt276.jade.carbontracker.enums.Transport;
-import cmpt276.jade.carbontracker.fragment.EditDialog;
 import cmpt276.jade.carbontracker.fragment.TipDialog;
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Emission;
@@ -67,7 +65,6 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private DatePickerDialog dialog;
     private Spinner spinner;
 
-    private int mode = 0;
     private int dateMode = 1;
 
     private Calendar calendar = Calendar.getInstance();
@@ -207,19 +204,6 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
                         break;
                 }
-
-                /*setupPieChart();
-                setupBarChart();
-                setupTable();
-
-                barChart.setVisibility(View.INVISIBLE);
-                table.setVisibility(View.INVISIBLE);
-                pieChart.setVisibility(View.VISIBLE);
-                mode = 0;
-                pieChart.invalidate();
-                barChart.invalidate();
-                table.invalidate();
-                */
 
             }
 
@@ -474,27 +458,6 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*switch (mode % 3) {
-                    case 0:
-                        pieChart.setVisibility(View.INVISIBLE);
-                        table.setVisibility(View.INVISIBLE);
-                        barChart.setVisibility(View.VISIBLE);
-
-                        barChart.invalidate();
-                        break;
-                    case 1:
-                        pieChart.setVisibility(View.INVISIBLE);
-                        table.setVisibility(View.VISIBLE);
-                        barChart.setVisibility(View.INVISIBLE);
-                        break;
-                    case 2:
-                        pieChart.setVisibility(View.VISIBLE);
-                        table.setVisibility(View.INVISIBLE);
-                        barChart.setVisibility(View.INVISIBLE);
-                        pieChart.invalidate();
-                        break;
-                }
-                ++mode;*/
                 if (table.getVisibility() == View.INVISIBLE) {
                     table.setVisibility(View.VISIBLE);
                     table.invalidate();
@@ -549,6 +512,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         }
         LineDataSet line = new LineDataSet(lineEntries, "test");
         line.setDrawCircles(false);
+        line.setColor(Color.RED);
         lines.add(line);
 
         ArrayList<Entry> lineEntriesTgt = new ArrayList<>();
@@ -557,12 +521,11 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         }
         LineDataSet lineTgt = new LineDataSet(lineEntriesTgt, "test2");
         lineTgt.setDrawCircles(false);
+        lineTgt.setColor(Color.YELLOW);
         lines.add(lineTgt);
         cData.setData(new LineData(lines));
 
-        //barChart = (BarChart) findViewById(R.id.bar_graph);
         barChart = (CombinedChart) findViewById(R.id.bar_graph);
-        //barChart.setData(data);
         barChart.setData(cData);
         barChart.getLegend().setEnabled(false);
 
@@ -578,7 +541,6 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
         barChart.setDescription(desc);
         barChart.animateY(600);
-        //barChart.setFitBars(true);
         barChart.invalidate();
         barChart.setVisibility(View.INVISIBLE);
     }
