@@ -17,8 +17,12 @@ public class Settings {
 
     }
 
+  public Settings(MeasurementUnit sillyMode, Language languageMode) {
+    this.sillyMode = sillyMode;
+    this.languageMode = languageMode;
+  }
 
-    public MeasurementUnit getSillyMode() {
+  public MeasurementUnit getSillyMode() {
         return sillyMode;
     }
 

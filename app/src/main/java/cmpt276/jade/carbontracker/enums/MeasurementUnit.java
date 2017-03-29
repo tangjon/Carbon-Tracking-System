@@ -8,4 +8,14 @@ package cmpt276.jade.carbontracker.enums;
  */
 public enum MeasurementUnit {
     REGULAR, COWS;
+
+  public static MeasurementUnit toEnum(int measurementOrdinal) {
+    for (MeasurementUnit m :
+        MeasurementUnit.values()) {
+      if(measurementOrdinal == m.ordinal()){
+        return m;
+      }
+    }
+    return null;
+  }
 }

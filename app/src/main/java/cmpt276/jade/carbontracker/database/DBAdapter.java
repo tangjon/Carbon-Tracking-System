@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import cmpt276.jade.carbontracker.model.Settings;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -669,15 +670,31 @@ public class DBAdapter {
         return buff;
     }
 
-    public long insert(Language l, MeasurementUnit m){
+    public long insert(Settings s){
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_OP_LANG, l.ordinal());
-        initialValues.put(KEY_OP_MEASUREMENT_UNIT, m.ordinal());
+        initialValues.put(KEY_OP_LANG, s.getLanguageMode().ordinal());
+        initialValues.put(KEY_OP_MEASUREMENT_UNIT, s.getSillyMode().ordinal());
         long buff = db.insert(TABLE_OPTION, null, initialValues);
         return buff;
     }
 
     // Return options
+    public Settings getSettings(){
+        String where = KEY_ROWID + "=" + COL_ROWID;
+
+        Cursor c = db.query(true, TABLE_OPTION, ALL_OP_KEYS,
+            where, null, null, null, null, null);
+
+        if (c != null) {
+            c.moveToFirst();
+        }
+        int l = c.getInt(COL_OP_LANG);
+        int m = c.getInt(COL_OP_MEASUREMENT_UNIT);
+
+        return new Settings(MeasurementUnit.toEnum(m),Language.toEnum(l));
+    }
+
+
 
 
 
