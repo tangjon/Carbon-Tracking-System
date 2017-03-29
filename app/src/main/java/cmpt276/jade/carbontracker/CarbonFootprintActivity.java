@@ -65,6 +65,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private List<Bill> billsGas;
     private final int NUM_ENTRIES = journeyCollection.countJourneys();
     private DatePickerDialog dialog;
+    private Spinner spinner;
 
     private int mode = 0;
     private int dateMode = 1;
@@ -133,7 +134,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     }
 
     private void setupSpinner() {
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_date);
+        spinner = (Spinner) findViewById(R.id.spinner_date);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.label_date_spinner, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -156,6 +157,16 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                         dateMode = 1;
                         dialog.show();
                         setupTips();
+
+                        setupPieChart();
+                        setupBarChart();
+                        setupTable();
+
+                        table.setVisibility(View.INVISIBLE);
+                        barChart.setVisibility(View.INVISIBLE);
+                        pieChart.setVisibility(View.VISIBLE);
+                        pieChart.invalidate();
+
                         break;
                     case 1:
                         dateMode = 2;
@@ -166,6 +177,16 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                         date = calendar.getTime();
                         dateStart = date;
                         Log.i("spinner", "dateStart = " + dateStart.toString());
+
+                        setupPieChart();
+                        setupBarChart();
+                        setupTable();
+
+                        table.setVisibility(View.INVISIBLE);
+                        barChart.setVisibility(View.VISIBLE);
+                        pieChart.setVisibility(View.INVISIBLE);
+                        barChart.invalidate();
+
                         break;
                     case 2:
                         dateMode = 2;
@@ -174,10 +195,20 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                         calendar.add(Calendar.YEAR, -1);
                         date = calendar.getTime();
                         dateStart = date;
+
+                        setupPieChart();
+                        setupBarChart();
+                        setupTable();
+
+                        table.setVisibility(View.INVISIBLE);
+                        barChart.setVisibility(View.VISIBLE);
+                        pieChart.setVisibility(View.INVISIBLE);
+                        barChart.invalidate();
+
                         break;
                 }
 
-                setupPieChart();
+                /*setupPieChart();
                 setupBarChart();
                 setupTable();
 
@@ -188,6 +219,8 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                 pieChart.invalidate();
                 barChart.invalidate();
                 table.invalidate();
+                */
+
             }
 
             @Override
@@ -441,7 +474,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (mode % 3) {
+                /*switch (mode % 3) {
                     case 0:
                         pieChart.setVisibility(View.INVISIBLE);
                         table.setVisibility(View.INVISIBLE);
@@ -461,7 +494,27 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                         pieChart.invalidate();
                         break;
                 }
-                ++mode;
+                ++mode;*/
+                if (table.getVisibility() == View.INVISIBLE) {
+                    table.setVisibility(View.VISIBLE);
+                    table.invalidate();
+                } else table.setVisibility(View.INVISIBLE);
+
+                int selected = spinner.getSelectedItemPosition();
+                switch (selected) {
+                    case 0:
+                        if (pieChart.getVisibility() == View.INVISIBLE) {
+                            pieChart.setVisibility(View.VISIBLE);
+                            pieChart.invalidate();
+                        } else pieChart.setVisibility(View.INVISIBLE);
+                        break;
+                    default:
+                        if (barChart.getVisibility() == View.INVISIBLE) {
+                            barChart.setVisibility(View.VISIBLE);
+                            barChart.invalidate();
+                        } else barChart.setVisibility(View.INVISIBLE);
+                        break;
+                }
             }
         });
     }
