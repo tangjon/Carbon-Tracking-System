@@ -670,7 +670,7 @@ public class DBAdapter {
         return buff;
     }
 
-    public long insert(Settings s){
+    public long insertRow(Settings s){
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_OP_LANG, s.getLanguageMode().ordinal());
         initialValues.put(KEY_OP_MEASUREMENT_UNIT, s.getSillyMode().ordinal());
@@ -682,34 +682,42 @@ public class DBAdapter {
     public Settings getSettings(){
         String where = KEY_ROWID + "=" + COL_ROWID;
 
-        Cursor c = db.query(true, TABLE_OPTION, ALL_OP_KEYS,
+        Cursor c = null;
+
+        try {
+            c = db.query(true, TABLE_OPTION, ALL_OP_KEYS,
             where, null, null, null, null, null);
-
-        if (c != null) {
-            c.moveToFirst();
+            if (c != null) {
+                c.moveToFirst();
+            }
+            int l = c.getInt(COL_OP_LANG);
+            int m = c.getInt(COL_OP_MEASUREMENT_UNIT);
+            return new Settings(MeasurementUnit.toEnum(m),Language.toEnum(l));
+        } finally { // default settings
+            return new Settings();
         }
-        int l = c.getInt(COL_OP_LANG);
-        int m = c.getInt(COL_OP_MEASUREMENT_UNIT);
 
-        return new Settings(MeasurementUnit.toEnum(m),Language.toEnum(l));
+
     }
 
-    public boolean updateSettings(Settings s){
+    public boolean updateRow(Settings s){
         String where = KEY_ROWID + "=" + COL_ROWID;
 
-		/*
-		 * CHANGE 4:
-		 */
-        // TODO: Update data in the row with new fields.
-        // TODO: Also change the function's arguments to be what you need!
-        // Create row's data:
-        ContentValues newValues = new ContentValues();
-        newValues.put(KEY_OP_LANG, s.getLanguageMode().ordinal());
-        newValues.put(KEY_OP_MEASUREMENT_UNIT, s.getSillyMode().ordinal());
+        boolean bool = false;
 
+        try{
+            // Create row's data:
+            ContentValues newValues = new ContentValues();
+            newValues.put(KEY_OP_LANG, s.getLanguageMode().ordinal());
+            newValues.put(KEY_OP_MEASUREMENT_UNIT, s.getSillyMode().ordinal());
+            bool = db.update(TABLE_OPTION, newValues, where, null) != 0;
+        } finally {
+            insertRow(s);
+            bool = true;
+        }
 
         // Insert it into the database.
-        return db.update(TABLE_OPTION, newValues, where, null) != 0;
+        return bool;
     }
 
 

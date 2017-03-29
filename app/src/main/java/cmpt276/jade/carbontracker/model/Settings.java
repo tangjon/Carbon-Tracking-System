@@ -12,9 +12,10 @@ public class Settings {
     private MeasurementUnit sillyMode;
     private Language languageMode;
 
-
+    // DEFAULT SETTINGS CONSTRUCTOR
     public Settings(){
-
+        this.sillyMode = MeasurementUnit.REGULAR;
+        this.languageMode = Language.ENGLISH;
     }
 
   public Settings(MeasurementUnit sillyMode, Language languageMode) {
