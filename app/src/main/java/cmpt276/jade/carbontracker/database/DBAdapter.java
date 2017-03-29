@@ -694,6 +694,24 @@ public class DBAdapter {
         return new Settings(MeasurementUnit.toEnum(m),Language.toEnum(l));
     }
 
+    public boolean updateSettings(Settings s){
+        String where = KEY_ROWID + "=" + COL_ROWID;
+
+		/*
+		 * CHANGE 4:
+		 */
+        // TODO: Update data in the row with new fields.
+        // TODO: Also change the function's arguments to be what you need!
+        // Create row's data:
+        ContentValues newValues = new ContentValues();
+        newValues.put(KEY_OP_LANG, s.getLanguageMode().ordinal());
+        newValues.put(KEY_OP_MEASUREMENT_UNIT, s.getSillyMode().ordinal());
+
+
+        // Insert it into the database.
+        return db.update(TABLE_OPTION, newValues, where, null) != 0;
+    }
+
 
 
 
