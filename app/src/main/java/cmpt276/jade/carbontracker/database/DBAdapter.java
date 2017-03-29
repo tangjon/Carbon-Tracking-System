@@ -670,7 +670,7 @@ public class DBAdapter {
         return buff;
     }
 
-    public long insert(Settings s){
+    public long insertRow(Settings s){
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_OP_LANG, s.getLanguageMode().ordinal());
         initialValues.put(KEY_OP_MEASUREMENT_UNIT, s.getSillyMode().ordinal());
@@ -694,7 +694,7 @@ public class DBAdapter {
         return new Settings(MeasurementUnit.toEnum(m),Language.toEnum(l));
     }
 
-    public boolean updateSettings(Settings s){
+    public boolean updateRow(Settings s){
         String where = KEY_ROWID + "=" + COL_ROWID;
 
 		/*
@@ -706,10 +706,17 @@ public class DBAdapter {
         ContentValues newValues = new ContentValues();
         newValues.put(KEY_OP_LANG, s.getLanguageMode().ordinal());
         newValues.put(KEY_OP_MEASUREMENT_UNIT, s.getSillyMode().ordinal());
+        boolean bool = false;
 
+        try{
+            bool = db.update(TABLE_OPTION, newValues, where, null) != 0;
+        } finally {
+            insertRow(s);
+            bool = true;
+        }
 
         // Insert it into the database.
-        return db.update(TABLE_OPTION, newValues, where, null) != 0;
+        return bool;
     }
 
 
