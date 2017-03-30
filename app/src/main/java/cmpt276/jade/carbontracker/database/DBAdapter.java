@@ -44,6 +44,7 @@ import cmpt276.jade.carbontracker.enums.BillType;
 // Search for "TODO", and make the appropriate changes.
 public class DBAdapter {
 
+    private static int ROW_SETTINGS = 1;
     /////////////////////////////////////////////////////////////////////
     //	Constants & Data
     /////////////////////////////////////////////////////////////////////
@@ -51,7 +52,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 31;
+    public static final int DATABASE_VERSION = 35;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
@@ -670,39 +671,42 @@ public class DBAdapter {
         return buff;
     }
 
-    public long insertRow(Settings s){
+    private long insertRow(Settings s){
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_OP_LANG, s.getLanguageMode().ordinal());
         initialValues.put(KEY_OP_MEASUREMENT_UNIT, s.getSillyMode().ordinal());
         long buff = db.insert(TABLE_OPTION, null, initialValues);
+        Log.i(TAG, "insertRow: @ " + buff);
         return buff;
     }
 
-    // Return options
     public Settings getSettings(){
-        String where = KEY_ROWID + "=" + COL_ROWID;
-
+        String where = KEY_ROWID + "=" + ROW_SETTINGS;
         Cursor c = null;
-
         try {
             c = db.query(true, TABLE_OPTION, ALL_OP_KEYS,
-            where, null, null, null, null, null);
+                    where, null, null, null, null, null);
             if (c != null) {
                 c.moveToFirst();
             }
             int l = c.getInt(COL_OP_LANG);
             int m = c.getInt(COL_OP_MEASUREMENT_UNIT);
+            Log.i(TAG, "getSettings: send saved");
             return new Settings(MeasurementUnit.toEnum(m),Language.toEnum(l));
-        } finally { // default settings
+        } catch (Exception e){
+            Log.i(TAG, "getSettings: send default");
+            insertRow(new Settings());
             return new Settings();
         }
-
-
     }
 
-    public boolean updateRow(Settings s){
-        String where = KEY_ROWID + "=" + COL_ROWID;
-
+    /*
+    * FIXED TO SUPPORT ACCESS TO ONLY ONE TABLE ROW
+    *
+    * */
+    // Updates & Saves
+    public boolean saveSettings(Settings s){
+        String where = KEY_ROWID + "=" + ROW_SETTINGS;
         boolean bool = false;
 
         try{
@@ -711,11 +715,10 @@ public class DBAdapter {
             newValues.put(KEY_OP_LANG, s.getLanguageMode().ordinal());
             newValues.put(KEY_OP_MEASUREMENT_UNIT, s.getSillyMode().ordinal());
             bool = db.update(TABLE_OPTION, newValues, where, null) != 0;
-        } finally {
+        } catch (Exception e){
             insertRow(s);
             bool = true;
         }
-
         // Insert it into the database.
         return bool;
     }

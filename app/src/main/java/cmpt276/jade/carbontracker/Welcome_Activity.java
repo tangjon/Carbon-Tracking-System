@@ -10,7 +10,6 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -24,6 +23,7 @@ import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
+import cmpt276.jade.carbontracker.model.Settings;
 import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.sample.GenerateDummyData;
 import cmpt276.jade.carbontracker.utils.CarManager;
@@ -110,6 +110,11 @@ public class Welcome_Activity extends AppCompatActivity {
     private void loadInformationFromDataBase() {
         myDb = new DBAdapter(this);
         myDb.open();
+
+        /*
+        * LISTS
+        * */
+
         // Load Saved JourneyList
         JourneyCollection dbJC = myDb.getAllJourney();
         Emission.getInstance().setJourneyCollection(dbJC);
@@ -148,6 +153,23 @@ public class Welcome_Activity extends AppCompatActivity {
             Log.i(TAG, "DBAdapterLoadRecent:(SKYTRAIN)" + s.toString());
         }
 
+        /*
+        * SETTINGS LOAD*/
+        Settings settings = myDb.getSettings();
+        Emission.getInstance().setSettings(settings);
+
+    }
+
+    private void foo(){
+        DBAdapter db = new DBAdapter(this);
+        db.open();
+
+        /*
+        * (1) db.getSettings(); // get settings
+        * (2) db.saveSettings(Setting s); // update/save settings
+        * */
+
+        db.close();
     }
 
     private void generateDummyJourneys() {
