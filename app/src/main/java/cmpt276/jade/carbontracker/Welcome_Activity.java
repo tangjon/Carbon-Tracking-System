@@ -2,6 +2,7 @@ package cmpt276.jade.carbontracker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.BoolRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import java.util.List;
 
 import cmpt276.jade.carbontracker.database.DBAdapter;
+import cmpt276.jade.carbontracker.enums.Language;
+import cmpt276.jade.carbontracker.enums.MeasurementUnit;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Bus;
@@ -24,6 +27,7 @@ import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
 import cmpt276.jade.carbontracker.model.Route;
+import cmpt276.jade.carbontracker.model.Settings;
 import cmpt276.jade.carbontracker.model.Skytrain;
 import cmpt276.jade.carbontracker.sample.GenerateDummyData;
 import cmpt276.jade.carbontracker.utils.CarManager;
@@ -110,6 +114,11 @@ public class Welcome_Activity extends AppCompatActivity {
     private void loadInformationFromDataBase() {
         myDb = new DBAdapter(this);
         myDb.open();
+
+        /*
+        * LISTS
+        * */
+
         // Load Saved JourneyList
         JourneyCollection dbJC = myDb.getAllJourney();
         Emission.getInstance().setJourneyCollection(dbJC);
@@ -147,6 +156,11 @@ public class Welcome_Activity extends AppCompatActivity {
             SkytrainListActivity.recentSkyTrainList.addTrain(s);
             Log.i(TAG, "DBAdapterLoadRecent:(SKYTRAIN)" + s.toString());
         }
+
+        /*
+        * SETTINGS LOAD*/
+        Settings settings = myDb.getSetting();
+        Emission.getInstance().setSettings(settings);
 
     }
 

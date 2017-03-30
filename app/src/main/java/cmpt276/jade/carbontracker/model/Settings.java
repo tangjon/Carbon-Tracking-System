@@ -39,4 +39,11 @@ public class Settings {
         this.languageMode = languageMode;
     }
 
+    @Override
+    public String toString() {
+        return "Settings{" +
+                "sillyMode=" + sillyMode +
+                ", languageMode=" + languageMode +
+                '}';
+    }
 }
