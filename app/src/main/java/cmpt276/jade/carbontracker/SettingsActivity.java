@@ -11,20 +11,23 @@ import android.widget.TextView;
 import cmpt276.jade.carbontracker.R;
 import cmpt276.jade.carbontracker.enums.Language;
 import cmpt276.jade.carbontracker.enums.MeasurementUnit;
+import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.model.Journey;
+import cmpt276.jade.carbontracker.model.Settings;
+import cmpt276.jade.carbontracker.model.Transportation;
 
 public class SettingsActivity extends AppCompatActivity {
 
+        private double testEmission = 20;
 
-    private Button sillyMode = (Button) findViewById(R.id.btnSettingSillyMode);
-    private Button languageMode = (Button) findViewById(R.id.btnSettingsLanguage);
-    private Button toAbout = (Button) findViewById(R.id.btnSettingsToAbout);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        testSettings();
         setupPage();
         setupButtons();
 
@@ -35,11 +38,20 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void setupPage() {
-        if(Emission.getInstance().getSettings().getSillyMode() == MeasurementUnit.TREES)
+        Button sillyMode = (Button) findViewById(R.id.btnSettingSillyMode);
+        Button languageMode = (Button) findViewById(R.id.btnSettingsLanguage);
+        Button toAbout = (Button) findViewById(R.id.btnSettingsToAbout);
+        if(Emission.getInstance().getSettings().getSillyMode() == MeasurementUnit.TREES){
             sillyMode.setText("Disable Silly Mode");
-        else
-            sillyMode.setText("Enable Silly Mode");
+            TextView test = (TextView) findViewById(R.id.textViewMoreLikeTestViewAmirite);
+            test.setText("" + Emission.getInstance().getSettings().calcTreeAbsorbtion(testEmission) + " Tree Hours");
+        }
 
+        else {
+            sillyMode.setText("Enable Silly Mode");
+            TextView test = (TextView) findViewById(R.id.textViewMoreLikeTestViewAmirite);
+            test.setText("" + testEmission + " Kg");
+        }
 
         //This is probably just temporary until we get everything working
         if(Emission.getInstance().getSettings().getLanguageMode() == Language.ENGLISH)
@@ -49,10 +61,13 @@ public class SettingsActivity extends AppCompatActivity {
         else if(Emission.getInstance().getSettings().getLanguageMode() == Language.FRENCH)
             languageMode.setText("Français");
 
+        toAbout.setText("About");
     }
 
     private void setupButtons(){
-
+        Button sillyMode = (Button) findViewById(R.id.btnSettingSillyMode);
+        Button languageMode = (Button) findViewById(R.id.btnSettingsLanguage);
+        Button toAbout = (Button) findViewById(R.id.btnSettingsToAbout);
         //Set up Silly Mode to enable or disable
         sillyMode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,5 +111,11 @@ public class SettingsActivity extends AppCompatActivity {
              //   startActivity(intent);
             }
         });
+    }
+
+
+    //DELETE THIS it is for testing only
+    public void testSettings(){
+        Emission.getInstance().setSettings(new Settings());
     }
 }

@@ -72,21 +72,21 @@ public class JourneySummaryActivity extends AppCompatActivity {
                     car.getFuelType()));
             // Display Emission Info
             TextView hWayDrive = (TextView) findViewById(R.id.textEmissionsInfo);
-            if(Emission.getInstance().getSettings().getSillyMode() == MeasurementUnit.REGULAR) {
+      //      if(Emission.getInstance().getSettings().getSillyMode() == MeasurementUnit.REGULAR) {
                 hWayDrive.setText(getString(R.string.emission_info,
                         journey.getTotalHighway(),
                         journey.getTotalCity(),
                         journey.getTotalTravelledEmissions()
 
                 ));
-            }
-            else {
-                hWayDrive.setText(getString(R.string.emission_info,
-                        journey.getTotalHighway(),
-                        journey.getTotalCity(),
-                        Emission.getInstance().getSettings().calcTreeAbsorbtion(journey.getTotalTravelledEmissions())
-                ));
-            }
+     //       }
+     //       else {
+     //           hWayDrive.setText(getString(R.string.emission_info,
+     //                   journey.getTotalHighway(),
+    //                    journey.getTotalCity(),
+      //                  Emission.getInstance().getSettings().calcTreeAbsorbtion(journey.getTotalTravelledEmissions())
+      //          ));
+       //     }
         } else if (journey.getTransType().getTransMode().equals(Transport.BUS)) {
             transInfoLabel.setText("Bus Info");
             // Display Journey Info

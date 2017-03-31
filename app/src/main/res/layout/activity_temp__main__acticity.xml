@@ -39,4 +39,13 @@
         android:layout_centerVertical="true"
         android:layout_alignStart="@+id/Main_Utilities_BTN" />
 
+    <Button
+        android:id="@+id/btnMainActivityToSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/Main_Journey_BTN"
+        android:layout_below="@+id/Main_Journey_BTN"
+        android:layout_marginTop="14dp"
+        android:text="Settings" />
+
 </RelativeLayout>
