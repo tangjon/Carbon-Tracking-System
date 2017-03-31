@@ -83,7 +83,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private String emissionVehicleNames[] = new String[NUM_ENTRIES];
 
     // 20.6 T CO2 / household (~2.5 people) -> Kg CO2 / day / person
-    private final int CAN_AVG_EMISSIONS = (int) (20600000 / 360 / 2.5);
+    private final int CAN_AVG_EMISSIONS = (int) (20.6 * 1000000 / 360 / 2.5);
     private final int CAN_TARGET_EMISSIONS = (int) (CAN_AVG_EMISSIONS * 0.7);   // 30% reduction
 
 
@@ -115,8 +115,6 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
     private void setupDatePicker() {
         dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            //dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateChangedListener() {
-
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar c = Calendar.getInstance();
@@ -168,6 +166,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                         barChart.setVisibility(View.INVISIBLE);
                         pieChart.setVisibility(View.VISIBLE);
                         pieChart.invalidate();
+                        graphMode = GraphMode.PIE;
 
                         break;
                     case 1:
@@ -188,6 +187,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                         barChart.setVisibility(View.VISIBLE);
                         pieChart.setVisibility(View.INVISIBLE);
                         barChart.invalidate();
+                        graphMode = GraphMode.BAR;
 
                         break;
                     case 2:
@@ -206,10 +206,10 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                         barChart.setVisibility(View.VISIBLE);
                         pieChart.setVisibility(View.INVISIBLE);
                         barChart.invalidate();
+                        graphMode = GraphMode.BAR;
 
                         break;
                 }
-
             }
 
             @Override
@@ -484,26 +484,6 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*if (table.getVisibility() == View.INVISIBLE) {
-                    table.setVisibility(View.VISIBLE);
-                    table.invalidate();
-                } else table.setVisibility(View.INVISIBLE);
-
-                int selected = spinnerDate.getSelectedItemPosition();
-                switch (selected) {
-                    case 0:
-                        if (pieChart.getVisibility() == View.INVISIBLE) {
-                            pieChart.setVisibility(View.VISIBLE);
-                            pieChart.invalidate();
-                        } else pieChart.setVisibility(View.INVISIBLE);
-                        break;
-                    default:
-                        if (barChart.getVisibility() == View.INVISIBLE) {
-                            barChart.setVisibility(View.VISIBLE);
-                            barChart.invalidate();
-                        } else barChart.setVisibility(View.INVISIBLE);
-                        break;
-                }*/
                 switch (graphMode) {
                     case PIE:
                         pieChart.setVisibility(View.INVISIBLE);

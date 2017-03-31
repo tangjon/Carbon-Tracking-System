@@ -38,7 +38,6 @@ public class Graph {
     // Returns PieData used for generating pie graph in UI
     // mode : set to 0 if using all data, 1 if using specific date, 2 if within date range
     // Specific date arguments can be null if not used (see 'mode')
-    // TODO: adapt to other emission-producing things
     public static PieData getPieData(String label, int mode,
                                      Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
 
@@ -75,7 +74,6 @@ public class Graph {
     // Returns BarData used for generating bar graph in UI
     // mode : set to 0 if using all data, 1 if using specific date, 2 if within date range
     // Specific date arguments can be null if not used (see 'mode')
-    // TODO: adapt to other emission-producing things
     public static BarData getBarData(String label, int mode,
                                      Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
         updateData();

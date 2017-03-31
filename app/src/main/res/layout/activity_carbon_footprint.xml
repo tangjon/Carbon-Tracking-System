@@ -43,17 +43,6 @@
         android:layout_alignBottom="@+id/bar_graph"
         android:layout_alignParentTop="true" />
 
-    <!--
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/bar_graph"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_centerHorizontal="true"
-        android:visibility="invisible"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp" />
-    -->
-
     <com.github.mikephil.charting.charts.CombinedChart
         android:id="@+id/bar_graph"
         android:layout_width="match_parent"
