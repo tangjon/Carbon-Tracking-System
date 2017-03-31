@@ -29,18 +29,19 @@
         android:text="@string/label_toggle_graph"
         tools:layout_editor_absoluteX="204dp"
         tools:layout_editor_absoluteY="447dp"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/btn_tip"
         android:layout_alignParentEnd="true" />
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pie_graph"
         android:layout_width="match_parent"
         android:layout_height="495dp"
-        android:layout_above="@+id/btn_graph_toggle"
         android:layout_centerHorizontal="true"
         android:visibility="visible"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp" />
+        tools:layout_editor_absoluteY="8dp"
+        android:layout_alignBottom="@+id/bar_graph"
+        android:layout_alignParentTop="true" />
 
     <!--
     <com.github.mikephil.charting.charts.BarChart
@@ -60,25 +61,38 @@
         android:layout_centerHorizontal="true"
         android:visibility="invisible"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp" />
+        tools:layout_editor_absoluteY="8dp"
+        android:layout_above="@+id/btn_graph_toggle"
+        android:layout_alignParentTop="true" />
 
     <Spinner
         android:id="@+id/spinner_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="11dp"
-        android:layout_toStartOf="@+id/btn_graph_toggle"
-        android:focusable="false"
-        android:focusableInTouchMode="false" />
+        android:layout_alignEnd="@+id/spinner_sort" />
 
     <Button
         android:id="@+id/btn_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/tips"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/tips" />
+        android:layout_toEndOf="@+id/spinner_date" />
+
+    <Spinner
+        android:id="@+id/spinner_sort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"
+        android:layout_marginBottom="7dp"
+        android:layout_above="@+id/btn_tip"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/btn_graph_toggle" />
 
 </RelativeLayout>

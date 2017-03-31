@@ -65,7 +65,8 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private List<Bill> billsGas;
     private final int NUM_ENTRIES = journeyCollection.countJourneys();
     private DatePickerDialog dialog;
-    private Spinner spinner;
+    private Spinner spinnerDate;
+    private Spinner spinnerSort;
 
     private GraphMode graphMode = GraphMode.PIE;
     private int dateMode = 1;
@@ -96,12 +97,13 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         setContentView(R.layout.activity_carbon_footprint);
 
         setupDates();
-        Log.i("spinner", "dateEnd = " + dateEnd.toString());
+        Log.i("spinnerDate", "dateEnd = " + dateEnd.toString());
 
         setupDatePicker();
         loadData();
         setupButton();
-        setupSpinner();
+        setupDateSpinner();
+        setupSortSpinner();
     }
 
     private void setupDates() {
@@ -133,15 +135,15 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         return new Date(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
     }
 
-    private void setupSpinner() {
-        spinner = (Spinner) findViewById(R.id.spinner_date);
+    private void setupDateSpinner() {
+        spinnerDate = (Spinner) findViewById(R.id.spinner_date);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.label_date_spinner, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setSelected(false);
+        spinnerDate.setAdapter(adapter);
+        spinnerDate.setSelected(false);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Calendar calendar = Calendar.getInstance();
@@ -171,12 +173,12 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                     case 1:
                         dateMode = 2;
                         date = calendar.getTime();
-                        Log.i("spinner", "dateEnd = " + dateEnd.toString());
+                        Log.i("spinnerDate", "dateEnd = " + dateEnd.toString());
                         calendar.setTime(date);
                         calendar.add(Calendar.DAY_OF_MONTH, -28);
                         date = calendar.getTime();
                         dateStart = date;
-                        Log.i("spinner", "dateStart = " + dateStart.toString());
+                        Log.i("spinnerDate", "dateStart = " + dateStart.toString());
 
                         setupPieChart();
                         setupBarChart();
@@ -207,6 +209,27 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
                         break;
                 }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // do nothing
+            }
+        });
+    }
+
+    private void setupSortSpinner() {
+        spinnerSort = (Spinner) findViewById(R.id.spinner_sort);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.label_spinner_sort, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerSort.setAdapter(adapter);
+        spinnerSort.setSelected(false);
+
+        spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
             }
 
@@ -466,7 +489,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                     table.invalidate();
                 } else table.setVisibility(View.INVISIBLE);
 
-                int selected = spinner.getSelectedItemPosition();
+                int selected = spinnerDate.getSelectedItemPosition();
                 switch (selected) {
                     case 0:
                         if (pieChart.getVisibility() == View.INVISIBLE) {
