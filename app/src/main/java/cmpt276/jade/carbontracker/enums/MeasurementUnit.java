@@ -7,7 +7,7 @@ package cmpt276.jade.carbontracker.enums;
  * Bugs:
  */
 public enum MeasurementUnit {
-    REGULAR, COWS;
+    REGULAR, TREES;
 
   public static MeasurementUnit toEnum(int measurementOrdinal) {
     for (MeasurementUnit m :

@@ -11,6 +11,7 @@ public class Settings {
 
     private MeasurementUnit sillyMode;
     private Language languageMode;
+    private static final double TREE_CARBON_ABSORBTION_PERHOUR  = 0.002485;
 
     // DEFAULT SETTINGS CONSTRUCTOR
     public Settings(){
@@ -37,6 +38,14 @@ public class Settings {
 
     public void setLanguageMode(Language languageMode) {
         this.languageMode = languageMode;
+    }
+
+    public double calcTreeAbsorbtion(double emissions){
+        return emissions / TREE_CARBON_ABSORBTION_PERHOUR;
+    }
+
+    public double calcEmissionsInKG(double treehours){
+        return treehours * TREE_CARBON_ABSORBTION_PERHOUR;
     }
 
     @Override
