@@ -54,6 +54,8 @@ import cmpt276.jade.carbontracker.model.Utilities;
  */
 public class CarbonFootprintActivity extends AppCompatActivity {
 
+    private enum GraphMode {PIE, BAR, TABLE}
+
     private JourneyCollection journeyCollection = Emission.getInstance().getJourneyCollection();
     private Utilities utilities = Emission.getInstance().getUtilities();
     private PieChart pieChart;
@@ -65,6 +67,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private DatePickerDialog dialog;
     private Spinner spinner;
 
+    private GraphMode graphMode = GraphMode.PIE;
     private int dateMode = 1;
 
     private Calendar calendar = Calendar.getInstance();
@@ -458,7 +461,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (table.getVisibility() == View.INVISIBLE) {
+                /*if (table.getVisibility() == View.INVISIBLE) {
                     table.setVisibility(View.VISIBLE);
                     table.invalidate();
                 } else table.setVisibility(View.INVISIBLE);
@@ -476,6 +479,29 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                             barChart.setVisibility(View.VISIBLE);
                             barChart.invalidate();
                         } else barChart.setVisibility(View.INVISIBLE);
+                        break;
+                }*/
+                switch (graphMode) {
+                    case PIE:
+                        pieChart.setVisibility(View.INVISIBLE);
+                        barChart.setVisibility(View.VISIBLE);
+                        barChart.invalidate();
+                        graphMode = GraphMode.BAR;
+
+                        break;
+                    case BAR:
+                        barChart.setVisibility(View.INVISIBLE);
+                        table.setVisibility(View.VISIBLE);
+                        table.invalidate();
+                        graphMode = GraphMode.TABLE;
+
+                        break;
+                    case TABLE:
+                        table.setVisibility(View.INVISIBLE);
+                        pieChart.setVisibility(View.VISIBLE);
+                        pieChart.invalidate();
+                        graphMode = GraphMode.PIE;
+
                         break;
                 }
             }
