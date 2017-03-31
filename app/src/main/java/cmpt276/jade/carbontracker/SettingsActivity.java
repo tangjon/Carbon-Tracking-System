@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import android.widget.Toast;
 import cmpt276.jade.carbontracker.R;
+import cmpt276.jade.carbontracker.database.DBAdapter;
 import cmpt276.jade.carbontracker.enums.Language;
 import cmpt276.jade.carbontracker.enums.MeasurementUnit;
 import cmpt276.jade.carbontracker.enums.Transport;
@@ -19,13 +21,19 @@ import cmpt276.jade.carbontracker.model.Transportation;
 
 public class SettingsActivity extends AppCompatActivity {
 
-        private double testEmission = 20;
+    private double testEmission = 20;
 
+    private DBAdapter myDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        // Start communication with db
+        myDB = new DBAdapter(this);
+        myDB.open();
+        Toast.makeText(this, "LOADED" + myDB.getSettings(), Toast.LENGTH_SHORT).show();
 
         testSettings();
         setupPage();
@@ -80,6 +88,9 @@ public class SettingsActivity extends AppCompatActivity {
                     Emission.getInstance().getSettings().setSillyMode(MeasurementUnit.TREES);
                     setupPage();
                 }
+                // Save settings changes to db;
+                myDB.saveSettings(Emission.getInstance().getSettings());
+                Toast.makeText(SettingsActivity.this, "" + myDB.getSettings() , Toast.LENGTH_SHORT).show();
 
                 //TODO create a method that will convert everything to Trees
             }
@@ -101,7 +112,11 @@ public class SettingsActivity extends AppCompatActivity {
                 else if(Emission.getInstance().getSettings().getLanguageMode() == Language.FRENCH)
                     Emission.getInstance().getSettings().setLanguageMode(Language.ENGLISH);
                     setupPage();
-                }
+
+                // Save settings to db
+                myDB.saveSettings(Emission.getInstance().getSettings());
+                Toast.makeText(SettingsActivity.this, "" + myDB.getSettings() , Toast.LENGTH_SHORT).show();
+            }
         });
 
         toAbout.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +131,12 @@ public class SettingsActivity extends AppCompatActivity {
 
     //DELETE THIS it is for testing only
     public void testSettings(){
-        Emission.getInstance().setSettings(new Settings());
+//        Emission.getInstance().setSettings(new Settings());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myDB.close();
     }
 }
