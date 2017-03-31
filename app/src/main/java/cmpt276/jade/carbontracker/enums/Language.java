@@ -7,5 +7,14 @@ package cmpt276.jade.carbontracker.enums;
  * Bugs:
  */
 public enum Language {
-    SPANISH,ENGLISH
+    SPANISH,ENGLISH;
+
+  public static Language toEnum(int lOrdinal) {
+    for (Language l: Language.values()) {
+      if(lOrdinal == l.ordinal()){
+        return l;
+      }
+    }
+    return null;
+  }
 }

@@ -12,13 +12,18 @@ public class Settings {
     private MeasurementUnit sillyMode;
     private Language languageMode;
 
-
+    // DEFAULT SETTINGS CONSTRUCTOR
     public Settings(){
-
+        this.sillyMode = MeasurementUnit.REGULAR;
+        this.languageMode = Language.ENGLISH;
     }
 
+  public Settings(MeasurementUnit sillyMode, Language languageMode) {
+    this.sillyMode = sillyMode;
+    this.languageMode = languageMode;
+  }
 
-    public MeasurementUnit getSillyMode() {
+  public MeasurementUnit getSillyMode() {
         return sillyMode;
     }
 
@@ -34,4 +39,11 @@ public class Settings {
         this.languageMode = languageMode;
     }
 
+    @Override
+    public String toString() {
+        return "Settings{" +
+                "sillyMode=" + sillyMode +
+                ", languageMode=" + languageMode +
+                '}';
+    }
 }
