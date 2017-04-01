@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -89,14 +90,15 @@ public class Route_Info_Activity extends AppCompatActivity {
                     else
                     {
                         String highway = getNameById(R.id.Route_Info_edite_highway);
-                        String city = "0";
+                        String city = getNameById(R.id.Route_Info_edite_city);
                         if (Double.parseDouble(highway) > 0 &&
-                                Check_empty_input(R.id.Route_Info_edite_city) == 0) {
+                                Check_empty_input(R.id.Route_Info_edite_city) == 1) {
                             //PASS name and weight BACK
                             pass_back_route(city,highway);
                             finish();
                         }
                         else {
+                            Log.i("save button","highway = "+Double.parseDouble(highway));
                             Toast.makeText(getApplicationContext(),
                                     "Your highway and city are both 0 km, " +
                                             " please enter some valid number", Toast.LENGTH_LONG).show();}
@@ -156,6 +158,7 @@ public class Route_Info_Activity extends AppCompatActivity {
     private int Check_empty_input(int ID) {
         EditText EditRouteName = (EditText) findViewById(ID);
         String StrInput = EditRouteName.getText().toString();
+        Log.i("Check_empty_input","StrInput = "+StrInput+"; length = "+StrInput.length());
         if (StrInput.length() == 0) {
             return 0;
         } else {
