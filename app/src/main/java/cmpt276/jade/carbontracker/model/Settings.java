@@ -19,6 +19,7 @@ public class Settings {
         this.languageMode = Language.ENGLISH;
     }
 
+
   public Settings(MeasurementUnit sillyMode, Language languageMode) {
     this.sillyMode = sillyMode;
     this.languageMode = languageMode;
