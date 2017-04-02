@@ -38,6 +38,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import cmpt276.jade.carbontracker.enums.DateMode;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.fragment.TipDialog;
 import cmpt276.jade.carbontracker.model.Bill;
@@ -69,7 +70,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private Spinner spinnerSort;
 
     private GraphMode graphMode = GraphMode.PIE;
-    private int dateMode = 1;
+    private DateMode dateMode = DateMode.SINGLE;
 
     private Calendar calendar = Calendar.getInstance();
     private Date dateSelected = calendar.getTime();
@@ -130,7 +131,11 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
     private Date currentDate() {
         Calendar c = Calendar.getInstance();
-        return new Date(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        return c.getTime();
     }
 
     private void setupDateSpinner() {
@@ -144,17 +149,15 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         spinnerDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Calendar calendar = Calendar.getInstance();
-                Date date;
+                Calendar calendar;
 
-                calendar.set(Calendar.HOUR_OF_DAY, 0);
-                calendar.set(Calendar.MINUTE, 0);
-                calendar.set(Calendar.SECOND, 0);
-                calendar.set(Calendar.MILLISECOND, 0);
+                dateSelected = currentDate();
+                dateEnd = currentDate();
 
                 switch (position) {
                     case 0:
-                        dateMode = 1;
+                        dateMode = DateMode.SINGLE;
+                        Log.i("spinnerDate","dateSelected = "+dateSelected.toString());
                         dialog.show();
                         setupTips();
 
@@ -170,13 +173,12 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
                         break;
                     case 1:
-                        dateMode = 2;
-                        date = calendar.getTime();
+                        dateMode = DateMode.RANGE;
                         Log.i("spinnerDate", "dateEnd = " + dateEnd.toString());
-                        calendar.setTime(date);
+                        calendar = Calendar.getInstance();
                         calendar.add(Calendar.DAY_OF_MONTH, -28);
-                        date = calendar.getTime();
-                        dateStart = date;
+                        dateStart = new Date(calendar.get(Calendar.YEAR),
+                                calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                         Log.i("spinnerDate", "dateStart = " + dateStart.toString());
 
                         setupPieChart();
@@ -191,12 +193,13 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
                         break;
                     case 2:
-                        dateMode = 2;
-                        date = calendar.getTime();
-                        calendar.setTime(date);
+                        dateMode = DateMode.RANGE;
+                        Log.i("spinnerDate", "dateEnd = " + dateEnd.toString());
+                        calendar = Calendar.getInstance();
                         calendar.add(Calendar.YEAR, -1);
-                        date = calendar.getTime();
-                        dateStart = date;
+                        dateStart = new Date(calendar.get(Calendar.YEAR),
+                                calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                        Log.i("spinnerDate", "dateStart = " + dateStart.toString());
 
                         setupPieChart();
                         setupBarChart();

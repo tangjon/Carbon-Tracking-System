@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import cmpt276.jade.carbontracker.enums.BillType;
+import cmpt276.jade.carbontracker.enums.DateMode;
 
 /**
  * Static class which generates data for graphing
@@ -38,7 +39,7 @@ public class Graph {
     // Returns PieData used for generating pie graph in UI
     // mode : set to 0 if using all data, 1 if using specific date, 2 if within date range
     // Specific date arguments can be null if not used (see 'mode')
-    public static PieData getPieData(String label, int mode,
+    public static PieData getPieData(String label, DateMode mode,
                                      Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
 
         updateData();
@@ -74,7 +75,7 @@ public class Graph {
     // Returns BarData used for generating bar graph in UI
     // mode : set to 0 if using all data, 1 if using specific date, 2 if within date range
     // Specific date arguments can be null if not used (see 'mode')
-    public static BarData getBarData(String label, int mode,
+    public static BarData getBarData(String label, DateMode mode,
                                      Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
         updateData();
         List<BarEntry> barEntries = new ArrayList<>();
@@ -109,14 +110,14 @@ public class Graph {
     }
 
     private static List<Bill> getBills(
-            BillType type, int mode, Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
+            BillType type, DateMode mode, Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
 
         List<Bill> bills;
 
-        if (mode == 0) {
+        if (mode == DateMode.RANGE) {
             if (type == BillType.ELECTRIC) bills = utilities.getListBillElec();
             else bills = utilities.getListBillGas();
-        } else if (mode == 1) {
+        } else if (mode == DateMode.SINGLE) {
             bills = utilities.getBillsOnDay(dateSelected, type);
             if (bills.size() < 1) bills.add(utilities.getNearestBill(dateSelected, type));
         } else {
@@ -128,15 +129,15 @@ public class Graph {
     }
 
     public static JourneyCollection getJourneys(
-            int mode, Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
+            DateMode mode, Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
 
         JourneyCollection buffer = new JourneyCollection();
         Journey j;
 
         Log.i("getJourneys", "mode = " + mode);
 
-        if (mode == 0) buffer = journeyCollection;
-        else if (mode == 1) {
+        if (mode == DateMode.ALL) buffer = journeyCollection;
+        else if (mode == DateMode.SINGLE) {
             for (int i = 0; i < journeyCollection.countJourneys(); ++i) {
                 j = journeyCollection.getJourney(i);
 
@@ -187,6 +188,7 @@ public class Graph {
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
+        c.set(Calendar.HOUR_OF_DAY, 0);
 
         return c.getTime();
     }
