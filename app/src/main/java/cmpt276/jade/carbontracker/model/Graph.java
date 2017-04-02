@@ -254,9 +254,15 @@ public class Graph {
                     break;
 
                 case ROUTE:
+                    if (entry.getLabel().equals(journey.getRoute().getName()))
+                        entry.setY(entry.getValue()
+                                + (float) journey.getTotalTravelledEmissions());
+                    else
+                        pieEntries.add(new PieEntry(
+                                (float) journey.getTotalTravelledEmissions(),
+                                journey.getRoute().getName()));
 
                     break;
-
             }
         }
     }
@@ -283,7 +289,7 @@ public class Graph {
             for (int i = 0; i < size; ++i) {
                 j = journeyCollection.getJourney(i);
                 t = j.getTransType();
-                nameRoute[i] = j.getName();
+                nameRoute[i] = j.getRoute().getName();
                 if (t.getCar() != null) {
                     nameVehicle[i] = t.getCar().getNickName();
                 } else if (t.getSkytrain() != null) {
