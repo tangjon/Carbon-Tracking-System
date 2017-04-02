@@ -47,7 +47,6 @@ public class Route_Info_Activity extends AppCompatActivity {
         //getJourneyData();
         setContentView(R.layout.layout_route_infor);
         setupOKbtn();
-        setupUSEbtn();
         setupCanselBtn();
         setupDeleteBtn();
         setupUI_TextView();
@@ -64,7 +63,6 @@ public class Route_Info_Activity extends AppCompatActivity {
                             "You haven't enter the route name " + " please try again", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    //check empty input for highway
                     if (Check_empty_input(R.id.Route_Info_edite_highway) == 0 && Check_empty_input(R.id.Route_Info_edite_city) == 0) {
                         Toast.makeText(getApplicationContext(),
                                 "You did not entered any number for either HighWay or City" +
@@ -86,7 +84,7 @@ public class Route_Info_Activity extends AppCompatActivity {
                                             " please enter some valid number", Toast.LENGTH_LONG).show();
                         }
                     }
-                    else
+                    else if (Check_empty_input(R.id.Route_Info_edite_city) == 0 )
                     {
                         String highway = getNameById(R.id.Route_Info_edite_highway);
                         String city = "0";
@@ -101,45 +99,23 @@ public class Route_Info_Activity extends AppCompatActivity {
                                     "Your highway and city are both 0 km, " +
                                             " please enter some valid number", Toast.LENGTH_LONG).show();}
                     }
-                }
-            }
-        });
-    }
-
-
-    private void setupUSEbtn() {
-        Button btn = (Button) findViewById(R.id.Route_Info_USE_btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Check_empty_input(R.id.Route_Info_edite_highway) == 0) {
-                    Toast.makeText(getApplicationContext(), "You did not entered any number for HighWay " + " please try again", Toast.LENGTH_LONG).show();
-                } else {
-                    if (Check_empty_input(R.id.Route_Info_edite_city) == 0) {
-                        Toast.makeText(getApplicationContext(), "You did not entered any number for City " + " please try again", Toast.LENGTH_LONG).show();
-                    } else {
-                        double highway = Double.parseDouble(getNameById(R.id.Route_Info_edite_highway));
-                        double city = Double.parseDouble(getNameById(R.id.Route_Info_edite_city));
-                        if (highway >= 0 && city >= 0) {
-                            String nickname = getNameById(R.id.editJourneyName);
-                            //****//
-                            //No nickname, so set name " "
-                            if (nickname.length() == 0) {
-                                nickname = " ";
-                            }
-                            Route route = new Route(nickname, highway, city);
-                            Emission.getInstance().getJourneyBuffer().setRoute(route);
-                            Intent intent = JourneyReviewActivity.getJourneyReviewIntent(Route_Info_Activity.this);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "You entered a invalid numer " + " please try again", Toast.LENGTH_LONG).show();
+                    else {
+                        String city = getNameById(R.id.Route_Info_edite_city);
+                        String highway = getNameById(R.id.Route_Info_edite_highway);
+                        if(Double.parseDouble(highway) ==0 && Double.parseDouble(city) ==0)
+                        {
+                            Toast.makeText(getApplicationContext(),
+                                    "Your highway and city are both 0 km, " +
+                                    " please enter some valid number", Toast.LENGTH_LONG).show();
                         }
-                    }
-                }
-            }
-        });
+                        else
+                        {
+                            pass_back_route(city, highway);
+                            finish();
+                        }
+                    }}}});
     }
+
 
     private void pass_back_route(String city, String highway) {
         Intent back_Route = new Intent();
