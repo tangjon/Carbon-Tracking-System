@@ -17,6 +17,8 @@ import java.util.List;
 
 import cmpt276.jade.carbontracker.enums.BillType;
 import cmpt276.jade.carbontracker.enums.DateMode;
+import cmpt276.jade.carbontracker.enums.GroupMode;
+import cmpt276.jade.carbontracker.enums.Transport;
 
 /**
  * Static class which generates data for graphing
@@ -39,32 +41,39 @@ public class Graph {
     // Returns PieData used for generating pie graph in UI
     // mode : set to 0 if using all data, 1 if using specific date, 2 if within date range
     // Specific date arguments can be null if not used (see 'mode')
-    public static PieData getPieData(String label, DateMode mode,
+    public static PieData getPieData(String label, DateMode mode, GroupMode groupMode,
                                      Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
 
         updateData();
         List<PieEntry> pieEntries = new ArrayList<>();
         JourneyCollection buffer = getJourneys(mode, dateSelected, dateRangeStart, dateRangeEnd);
+        List<PieEntry> bufferEntries = new ArrayList<>();
 
         JourneyData journeyData = new JourneyData(buffer);
         List<Bill> bills;
         float billSum = 0f;
 
         // Journeys
-        for (int i = 0; i < buffer.countJourneys(); ++i)
-            pieEntries.add(new PieEntry(journeyData.values[i], journeyData.nameRoute[i]));
+        for (int i = 0; i < buffer.countJourneys(); ++i) {
+            //pieEntries.add(new PieEntry(journeyData.values[i], journeyData.nameVehicle[i]));
+            addToGroup(pieEntries, groupMode, buffer.getJourney(i));
+        }
 
         // Electric Bills
         bills = getBills(BillType.ELECTRIC, mode, dateSelected, dateRangeStart, dateRangeEnd);
-        for (Bill b : bills) if (b != null) billSum += b.getEmissionAvg();
+        for (Bill b : bills) if (b != null)
+            billSum += b.getEmissionAvg();
         if (bills.size() > 0 && bills.get(0) != null)
             pieEntries.add(new PieEntry(billSum, "Electricity"));
 
         // Gas Bills
         billSum = 0f;
         bills = getBills(BillType.GAS, mode, dateSelected, dateRangeStart, dateRangeEnd);
-        for (Bill b : bills) if (b != null) billSum += b.getEmissionAvg();
-        if (bills.size() > 0 && bills.get(0) != null) pieEntries.add(new PieEntry(billSum, "Gas"));
+        for (Bill b : bills)
+            if (b != null)
+                billSum += b.getEmissionAvg();
+        if (bills.size() > 0 && bills.get(0) != null)
+            pieEntries.add(new PieEntry(billSum, "Gas"));
 
         PieDataSet dataSet = new PieDataSet(pieEntries, label);
         dataSet.setColors(ColorTemplate.PASTEL_COLORS);
@@ -90,18 +99,20 @@ public class Graph {
 
         // Electric Bills
         bills = getBills(BillType.ELECTRIC, mode, dateSelected, dateRangeStart, dateRangeEnd);
-        for (Bill b : bills) if (b != null) billSum += b.getEmissionAvg();
-        if (bills.size() > 0) {
+        for (Bill b : bills)
+            if (b != null)
+                billSum += b.getEmissionAvg();
+        if (bills.size() > 0)
             barEntries.add(new BarEntry(1, new float[]{billSum}, "Electricity"));
-        }
 
         // Gas Bills
         billSum = 0f;
         bills = getBills(BillType.GAS, mode, dateSelected, dateRangeStart, dateRangeEnd);
-        for (Bill b : bills) if (b != null) billSum += b.getEmissionAvg();
-        if (bills.size() > 0) {
+        for (Bill b : bills)
+            if (b != null)
+                billSum += b.getEmissionAvg();
+        if (bills.size() > 0)
             barEntries.add(new BarEntry(2, new float[]{billSum}, "Gas"));
-        }
 
         BarDataSet dataSet = new BarDataSet(barEntries, label);
         dataSet.setColors(ColorTemplate.PASTEL_COLORS);
@@ -115,14 +126,18 @@ public class Graph {
         List<Bill> bills;
 
         if (mode == DateMode.RANGE) {
-            if (type == BillType.ELECTRIC) bills = utilities.getListBillElec();
-            else bills = utilities.getListBillGas();
+            if (type == BillType.ELECTRIC)
+                bills = utilities.getListBillElec();
+            else
+                bills = utilities.getListBillGas();
         } else if (mode == DateMode.SINGLE) {
             bills = utilities.getBillsOnDay(dateSelected, type);
-            if (bills.size() < 1) bills.add(utilities.getNearestBill(dateSelected, type));
+            if (bills.size() < 1)
+                bills.add(utilities.getNearestBill(dateSelected, type));
         } else {
             bills = utilities.getBillsWithinRange(dateRangeStart, dateRangeEnd, type);
-            if (bills.size() < 1) bills.add(utilities.getNearestBill(dateSelected, type));
+            if (bills.size() < 1)
+                bills.add(utilities.getNearestBill(dateSelected, type));
         }
 
         return bills;
@@ -136,7 +151,8 @@ public class Graph {
 
         Log.i("getJourneys", "mode = " + mode);
 
-        if (mode == DateMode.ALL) buffer = journeyCollection;
+        if (mode == DateMode.ALL)
+            buffer = journeyCollection;
         else if (mode == DateMode.SINGLE) {
             for (int i = 0; i < journeyCollection.countJourneys(); ++i) {
                 j = journeyCollection.getJourney(i);
@@ -167,8 +183,8 @@ public class Graph {
     /**
      * compares two dates while ignoring time portion
      * returns  -1  :   date1 < date2
-     * 0   :   date1 = date2
-     * 1   :   date1 > date2
+     *          0   :   date1 = date2
+     *          1   :   date1 > date2
      */
     public static int compareDates(Date date1, Date date2) {
         if (date1 == null || date2 == null) return 0;
@@ -191,6 +207,58 @@ public class Graph {
         c.set(Calendar.HOUR_OF_DAY, 0);
 
         return c.getTime();
+    }
+
+    private static void addToGroup(List<PieEntry> pieEntries, GroupMode mode, Journey journey) {
+        Transportation transport = journey.getTransType();
+
+        for (int i = 0; i < pieEntries.size(); ++i) {
+            PieEntry entry = pieEntries.get(i);
+
+            switch (mode) {
+                case TRANSPORTATION:
+                    if (transport.getCar() != null) {
+                        if (entry.getLabel().equals(transport.getCar().getNickName())){
+                            entry.setY(entry.getValue()
+                                    + (float) journey.getTotalTravelledEmissions());
+                        } else
+                            pieEntries.add(new PieEntry(
+                                    (float) journey.getTotalTravelledEmissions(),
+                                    transport.getCar().getNickName()));
+                    } else if (transport.getBus() != null) {
+                        if (entry.getLabel().equals(transport.getBus().getNickName())){
+                            entry.setY(entry.getValue()
+                                    + (float) journey.getTotalTravelledEmissions());
+                        } else
+                            pieEntries.add(new PieEntry(
+                                    (float) journey.getTotalTravelledEmissions(),
+                                    transport.getBus().getNickName()));
+                    } else if (transport.getSkytrain() != null) {
+                        if (entry.getLabel().equals(transport.getSkytrain().getNickName())){
+                            entry.setY(entry.getValue()
+                                    + (float) journey.getTotalTravelledEmissions());
+                        } else
+                            pieEntries.add(new PieEntry(
+                                    (float) journey.getTotalTravelledEmissions(),
+                                    transport.getSkytrain().getNickName()));
+                    } else {
+                        if (entry.getLabel().equals("Walk/Bike")){
+                            entry.setY(entry.getValue()
+                                    + (float) journey.getTotalTravelledEmissions());
+                        } else
+                            pieEntries.add(new PieEntry(
+                                    (float) journey.getTotalTravelledEmissions(),
+                                    transport.getBus().getNickName()));
+                    }
+
+                    break;
+
+                case ROUTE:
+
+                    break;
+
+            }
+        }
     }
 
     private static class JourneyData {
@@ -223,9 +291,10 @@ public class Graph {
                 } else if (t.getBus() != null) {
                     nameVehicle[i] = t.getBus().getNickName();
                 } else {
-                    nameVehicle[i] = "n/a";
+                    nameVehicle[i] = "Walk/Bike";
                 }
-                if (j.getDateObj() != null) date[i] = Emission.DATE_FORMAT.format(j.getDateObj());
+                if (j.getDateObj() != null)
+                    date[i] = Emission.DATE_FORMAT.format(j.getDateObj());
                 else date[i] = "n/a";
                 values[i] = (float) j.getTotalTravelledEmissions();
                 distance[i] = j.getTotalDriven();

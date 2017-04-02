@@ -39,6 +39,7 @@ import java.util.Date;
 import java.util.List;
 
 import cmpt276.jade.carbontracker.enums.DateMode;
+import cmpt276.jade.carbontracker.enums.GroupMode;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.fragment.TipDialog;
 import cmpt276.jade.carbontracker.model.Bill;
@@ -71,6 +72,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
     private GraphMode graphMode = GraphMode.PIE;
     private DateMode dateMode = DateMode.SINGLE;
+    private GroupMode groupMode = GroupMode.TRANSPORTATION;
 
     private Calendar calendar = Calendar.getInstance();
     private Date dateSelected = calendar.getTime();
@@ -233,10 +235,18 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         spinnerSort.setAdapter(adapter);
         spinnerSort.setSelected(false);
 
+        // TODO: 02/04/17 complete
         spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                switch (groupMode) {
+                    case TRANSPORTATION:
+                        groupMode = GroupMode.ROUTE;
+                        break;
+                    case ROUTE:
+                        groupMode = GroupMode.TRANSPORTATION;
+                        break;
+                }
             }
 
             @Override
@@ -518,7 +528,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     }
 
     private void setupPieChart() {
-        PieData data = Graph.getPieData(getString(R.string.label_graph_title), dateMode,
+        PieData data = Graph.getPieData(getString(R.string.label_graph_title), dateMode, groupMode,
                 dateSelected, dateStart, dateEnd);
         data.setValueTextSize(12f);
 
