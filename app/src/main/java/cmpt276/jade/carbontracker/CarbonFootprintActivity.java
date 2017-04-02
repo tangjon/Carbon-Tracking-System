@@ -83,7 +83,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private double emissionDistance[] = new double[NUM_ENTRIES];
     private String emissionVehicleNames[] = new String[NUM_ENTRIES];
 
-    // 20.6 T CO2 / household (~2.5 people) -> Kg CO2 / day / person
+    // 20.6 T CO2 / household (~2.5 people) / year -> Kg CO2 / day / person
     private final int CAN_AVG_EMISSIONS = (int) (20.6 * 1000000 / 360 / 2.5);
     private final int CAN_TARGET_EMISSIONS = (int) (CAN_AVG_EMISSIONS * 0.7);   // 30% reduction
 
@@ -108,10 +108,8 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     }
 
     private void setupDates() {
-        dateSelected = new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH));
-        dateEnd = new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH));
+        dateSelected = currentDate();
+        dateEnd = currentDate();
     }
 
     private void setupDatePicker() {
@@ -125,6 +123,13 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                 dateSelected = c.getTime();
                 Log.i("datePicker", "year = " + year);
                 Log.i("datePicker", "dateSelected = " + dateSelected.toString());
+
+                setupTips();
+                setupPieChart();
+                setupBarChart();
+                setupTable();
+
+                switchGraphs();
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
     }
@@ -138,6 +143,45 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         return c.getTime();
     }
 
+    // mode = 0 : last month
+    //        1 : last year
+    private Date getPast(int mode) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+
+        switch (mode) {
+            case 0:
+                c.add(Calendar.DAY_OF_YEAR, -28);
+                break;
+            case 1:
+                c.add(Calendar.YEAR, -1);
+                break;
+        }
+
+        return c.getTime();
+    }
+
+    private void switchGraphs() {
+        int position = spinnerDate.getSelectedItemPosition();
+
+        if (position == 0) {
+            table.setVisibility(View.INVISIBLE);
+            barChart.setVisibility(View.INVISIBLE);
+            pieChart.setVisibility(View.VISIBLE);
+            pieChart.invalidate();
+            graphMode = GraphMode.PIE;
+        } else {
+            table.setVisibility(View.INVISIBLE);
+            barChart.setVisibility(View.VISIBLE);
+            pieChart.setVisibility(View.INVISIBLE);
+            barChart.invalidate();
+            graphMode = GraphMode.BAR;
+        }
+    }
+
     private void setupDateSpinner() {
         spinnerDate = (Spinner) findViewById(R.id.spinner_date);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -149,67 +193,26 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         spinnerDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Calendar calendar;
-
-                dateSelected = currentDate();
-                dateEnd = currentDate();
 
                 switch (position) {
                     case 0:
                         dateMode = DateMode.SINGLE;
                         Log.i("spinnerDate","dateSelected = "+dateSelected.toString());
                         dialog.show();
-                        setupTips();
-
-                        setupPieChart();
-                        setupBarChart();
-                        setupTable();
-
-                        table.setVisibility(View.INVISIBLE);
-                        barChart.setVisibility(View.INVISIBLE);
-                        pieChart.setVisibility(View.VISIBLE);
-                        pieChart.invalidate();
-                        graphMode = GraphMode.PIE;
 
                         break;
                     case 1:
                         dateMode = DateMode.RANGE;
                         Log.i("spinnerDate", "dateEnd = " + dateEnd.toString());
-                        calendar = Calendar.getInstance();
-                        calendar.add(Calendar.DAY_OF_MONTH, -28);
-                        dateStart = new Date(calendar.get(Calendar.YEAR),
-                                calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                        dateStart = getPast(0);
                         Log.i("spinnerDate", "dateStart = " + dateStart.toString());
-
-                        setupPieChart();
-                        setupBarChart();
-                        setupTable();
-
-                        table.setVisibility(View.INVISIBLE);
-                        barChart.setVisibility(View.VISIBLE);
-                        pieChart.setVisibility(View.INVISIBLE);
-                        barChart.invalidate();
-                        graphMode = GraphMode.BAR;
 
                         break;
                     case 2:
                         dateMode = DateMode.RANGE;
                         Log.i("spinnerDate", "dateEnd = " + dateEnd.toString());
-                        calendar = Calendar.getInstance();
-                        calendar.add(Calendar.YEAR, -1);
-                        dateStart = new Date(calendar.get(Calendar.YEAR),
-                                calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                        dateStart = getPast(1);
                         Log.i("spinnerDate", "dateStart = " + dateStart.toString());
-
-                        setupPieChart();
-                        setupBarChart();
-                        setupTable();
-
-                        table.setVisibility(View.INVISIBLE);
-                        barChart.setVisibility(View.VISIBLE);
-                        pieChart.setVisibility(View.INVISIBLE);
-                        barChart.invalidate();
-                        graphMode = GraphMode.BAR;
 
                         break;
                 }
