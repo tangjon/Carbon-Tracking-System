@@ -239,14 +239,18 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (groupMode) {
-                    case TRANSPORTATION:
-                        groupMode = GroupMode.ROUTE;
-                        break;
-                    case ROUTE:
+                switch (position) {
+                    case 0:
                         groupMode = GroupMode.TRANSPORTATION;
                         break;
+                    case 1:
+                        groupMode = GroupMode.ROUTE;
+                        break;
                 }
+
+                setupPieChart();
+                setupBarChart();
+                setupTable();
             }
 
             @Override

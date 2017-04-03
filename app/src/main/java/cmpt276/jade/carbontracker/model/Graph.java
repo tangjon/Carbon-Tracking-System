@@ -47,22 +47,21 @@ public class Graph {
         updateData();
         List<PieEntry> pieEntries = new ArrayList<>();
         JourneyCollection buffer = getJourneys(mode, dateSelected, dateRangeStart, dateRangeEnd);
-        List<PieEntry> bufferEntries = new ArrayList<>();
-
-        JourneyData journeyData = new JourneyData(buffer);
         List<Bill> bills;
         float billSum = 0f;
 
         // Journeys
         for (int i = 0; i < buffer.countJourneys(); ++i) {
             //pieEntries.add(new PieEntry(journeyData.values[i], journeyData.nameVehicle[i]));
+            Log.i("getPieData","trying to use journey "+buffer.getJourney(i).toString());
             addToGroup(pieEntries, groupMode, buffer.getJourney(i));
         }
 
         // Electric Bills
         bills = getBills(BillType.ELECTRIC, mode, dateSelected, dateRangeStart, dateRangeEnd);
-        for (Bill b : bills) if (b != null)
-            billSum += b.getEmissionAvg();
+        for (Bill b : bills)
+            if (b != null)
+                billSum += b.getEmissionAvg();
         if (bills.size() > 0 && bills.get(0) != null)
             pieEntries.add(new PieEntry(billSum, "Electricity"));
 
@@ -212,57 +211,108 @@ public class Graph {
     private static void addToGroup(List<PieEntry> pieEntries, GroupMode mode, Journey journey) {
         Transportation transport = journey.getTransType();
 
+        Log.i("addToGroup","mode = "+mode.toString());
+
+        if (pieEntries.size() == 0) {
+            if (mode == GroupMode.ROUTE) {
+                pieEntries.add(new PieEntry(
+                        (float) journey.getTotalTravelledEmissions(),
+                        journey.getRoute().getName()));
+                Log.i("addToGroup","added new route "+journey.getRoute().getName());
+            } else if (transport.getCar() != null) {
+                pieEntries.add(new PieEntry(
+                        (float) journey.getTotalTravelledEmissions(),
+                        transport.getCar().getNickName()));
+                Log.i("addToGroup","added new car "+transport.getCar().getNickName());
+            } else if (transport.getBus() != null) {
+                pieEntries.add(new PieEntry(
+                        (float) journey.getTotalTravelledEmissions(),
+                        transport.getBus().getNickName()));
+                Log.i("addToGroup","added new bus");
+            } else if (transport.getSkytrain() != null) {
+                pieEntries.add(new PieEntry(
+                        (float) journey.getTotalTravelledEmissions(),
+                        transport.getSkytrain().getNickName()));
+                Log.i("addToGroup","added new skytrain");
+            } else {
+                pieEntries.add(new PieEntry(
+                        (float) journey.getTotalTravelledEmissions(),
+                        journey.getRoute().getName()));
+                Log.i("addToGroup","added new walk/bike");
+            }
+
+            return;
+        }
+
         for (int i = 0; i < pieEntries.size(); ++i) {
             PieEntry entry = pieEntries.get(i);
+
+            Log.i("addToGroup","checking pieEntry "+entry.getLabel());
 
             switch (mode) {
                 case TRANSPORTATION:
                     if (transport.getCar() != null) {
+                        Log.i("addToGroup",journey.toString()+" is a car");
                         if (entry.getLabel().equals(transport.getCar().getNickName())){
                             entry.setY(entry.getValue()
                                     + (float) journey.getTotalTravelledEmissions());
-                        } else
+                            Log.i("addToGroup","added to cars");
+                        } else {
                             pieEntries.add(new PieEntry(
                                     (float) journey.getTotalTravelledEmissions(),
                                     transport.getCar().getNickName()));
+                            Log.i("addToGroup","added new car");
+                        }
                     } else if (transport.getBus() != null) {
                         if (entry.getLabel().equals(transport.getBus().getNickName())){
                             entry.setY(entry.getValue()
                                     + (float) journey.getTotalTravelledEmissions());
-                        } else
+                            Log.i("addToGroup","added to busses");
+                        } else {
                             pieEntries.add(new PieEntry(
                                     (float) journey.getTotalTravelledEmissions(),
                                     transport.getBus().getNickName()));
+                            Log.i("addToGroup","added new bus");
+                        }
                     } else if (transport.getSkytrain() != null) {
                         if (entry.getLabel().equals(transport.getSkytrain().getNickName())){
                             entry.setY(entry.getValue()
                                     + (float) journey.getTotalTravelledEmissions());
-                        } else
+                            Log.i("addToGroup","added to skytrains");
+                        } else {
                             pieEntries.add(new PieEntry(
                                     (float) journey.getTotalTravelledEmissions(),
                                     transport.getSkytrain().getNickName()));
+                            Log.i("addToGroup","added new skytrain");
+                        }
                     } else {
                         if (entry.getLabel().equals("Walk/Bike")){
                             entry.setY(entry.getValue()
                                     + (float) journey.getTotalTravelledEmissions());
-                        } else
+                            Log.i("addToGroup","added to walks/bikes");
+                        } else {
                             pieEntries.add(new PieEntry(
                                     (float) journey.getTotalTravelledEmissions(),
-                                    transport.getBus().getNickName()));
+                                    journey.getRoute().getName()));
+                            Log.i("addToGroup","added new walk/bike");
+                        }
                     }
 
-                    break;
+                    return;
 
                 case ROUTE:
-                    if (entry.getLabel().equals(journey.getRoute().getName()))
+                    if (entry.getLabel().equals(journey.getRoute().getName())) {
                         entry.setY(entry.getValue()
                                 + (float) journey.getTotalTravelledEmissions());
-                    else
+                        Log.i("addToGroup","to route "+journey.getRoute().getName());
+                    } else {
                         pieEntries.add(new PieEntry(
                                 (float) journey.getTotalTravelledEmissions(),
                                 journey.getRoute().getName()));
+                        Log.i("addToGroup","added new route "+journey.getRoute().getName());
+                    }
 
-                    break;
+                    return;
             }
         }
     }

@@ -222,8 +222,8 @@
         <item>Carbon Emitted\n(kg CO2)</item>
     </string-array>
     <string-array name="label_spinner_sort">
-        <item>Show by Mode</item>
-        <item>Show by Route</item>
+        <item>Group by Vehicle</item>
+        <item>Group by Route</item>
     </string-array>
 
     <!-- Utilities Activity -->
