@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class AboutUsActivity extends AppCompatActivity {
 
@@ -19,8 +21,13 @@ public class AboutUsActivity extends AppCompatActivity {
     getSupportActionBar().setTitle(R.string.label_about_us);
     setContentView(R.layout.activity_about_us);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    setUpLinks();
 
+  }
 
+  private void setUpLinks() {
+    TextView cmpt_home = (TextView) findViewById(R.id.link_cmpt_home);
+    cmpt_home.setMovementMethod(LinkMovementMethod.getInstance());
   }
 
   @Override

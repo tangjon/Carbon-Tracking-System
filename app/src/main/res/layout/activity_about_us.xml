@@ -82,12 +82,12 @@
     app:layout_constraintTop_toBottomOf="@+id/textView32"
     app:layout_constraintVertical_bias="0.693" />
   <TextView
-    android:id="@+id/textView34"
+    android:id="@+id/link_cmpt_home"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="0dp"
     android:layout_marginLeft="0dp"
-    android:text="insert link"
+    android:text="@string/link_cmpt_home"
     app:layout_constraintLeft_toLeftOf="@+id/textView33"
     app:layout_constraintTop_toBottomOf="@+id/textView33" />
   <TextView
