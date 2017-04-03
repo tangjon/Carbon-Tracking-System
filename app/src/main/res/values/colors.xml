@@ -12,4 +12,5 @@
     <!--Button Colours-->
     <color name="btn_green">#16B242</color>
     <color name="btn_blue">#0DAAFF</color>
+    <color name="btn_red">#f34235</color>
 </resources>
