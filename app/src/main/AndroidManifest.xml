@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cmpt276.jade.carbontracker">
+  package="cmpt276.jade.carbontracker">
 
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".Route_Info_Activity" />
-        <activity android:name=".Route_List_Activity" />
-        <activity android:name=".CarInfoActivity" />
-        <activity android:name=".CarListActivity" />
-        <activity android:name=".JourneyListActivity" />
-        <activity
-            android:name=".Welcome_Activity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+  <application
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:supportsRtl="true"
+    android:theme="@style/AppTheme">
+    <activity android:name=".Route_Info_Activity" />
+    <activity android:name=".Route_List_Activity" />
+    <activity android:name=".CarInfoActivity" />
+    <activity android:name=".CarListActivity" />
+    <activity android:name=".JourneyListActivity" />
+    <activity
+      android:name=".Welcome_Activity"
+      android:screenOrientation="portrait">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -38,6 +38,8 @@
         <activity android:name=".BusInfoActivity" />
         <activity android:name=".SkytrainInfoActivity" />
         <activity android:name=".SkytrainListActivity" />
+        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".AboutUsActivity"></activity>
     </application>
 
 </manifest>

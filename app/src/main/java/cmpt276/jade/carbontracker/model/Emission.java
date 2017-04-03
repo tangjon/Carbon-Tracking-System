@@ -21,6 +21,9 @@ public class Emission {
     private JourneyCollection journeyCollection = new JourneyCollection();
     private Utilities utilities = new Utilities();
 
+
+    private Settings settings= new Settings();
+
     /**
      * useful for keeping temporary journey to work with throughout journey creation process
      * without using SharedPreferences/Intents
@@ -29,7 +32,7 @@ public class Emission {
     private Bill bufferBill;
 
     public static final SimpleDateFormat DATE_FORMAT =
-            new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
     public static double round(double d) {
         DecimalFormat format = new DecimalFormat("#.##");
@@ -72,7 +75,7 @@ public class Emission {
 
     public void saveCarCollection(Context context) {
         SharedPreferences sharedPreferences =
-                context.getSharedPreferences(SPREF_KEY, Context.MODE_PRIVATE);
+            context.getSharedPreferences(SPREF_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         Gson gson = new Gson();
@@ -83,7 +86,7 @@ public class Emission {
 
     public void loadCarCollection(Context context) {
         SharedPreferences sharedPreferences =
-                context.getSharedPreferences(SPREF_KEY, Context.MODE_PRIVATE);
+            context.getSharedPreferences(SPREF_KEY, Context.MODE_PRIVATE);
 
         Gson gson = new Gson();
         String json = sharedPreferences.getString(KEY_CAR_COLLECTION, null);
@@ -106,6 +109,15 @@ public class Emission {
 
     public void setBufferBill(Bill bufferBill) {
         this.bufferBill = bufferBill;
+    }
+
+
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
     }
 
 }

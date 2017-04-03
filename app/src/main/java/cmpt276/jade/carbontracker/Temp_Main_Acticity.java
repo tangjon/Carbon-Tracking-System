@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 
 /**
@@ -21,6 +22,19 @@ public class Temp_Main_Acticity extends AppCompatActivity {
         setupJourneyBtn();
         setupGraphBtn();
         setupUtilitiesBtn();
+        setupAboutUsBtn();
+        setupSettingsBtn();
+    }
+
+    private void setupAboutUsBtn() {
+        Button btn = (Button) findViewById(R.id.btn_about);
+        btn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = AboutUsActivity.getIntent(Temp_Main_Acticity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     public static Intent getMainIntent(Context context) {
@@ -33,6 +47,17 @@ public class Temp_Main_Acticity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = JourneyListActivity.getJourneyListIntent(Temp_Main_Acticity.this);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void setupSettingsBtn(){
+        Button btn = (Button) findViewById(R.id.btnMainActivityToSettings);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = SettingsActivity.getIntent(Temp_Main_Acticity.this);
                 startActivity(intent);
             }
         });
@@ -60,6 +85,7 @@ public class Temp_Main_Acticity extends AppCompatActivity {
             }
         });
     }
+
 
 
 }
