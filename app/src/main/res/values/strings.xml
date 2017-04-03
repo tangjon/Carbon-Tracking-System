@@ -221,6 +221,10 @@
         <item>Vehicle Name</item>
         <item>Carbon Emitted\n(kg CO2)</item>
     </string-array>
+    <string-array name="label_spinner_sort">
+        <item>Group by Vehicle</item>
+        <item>Group by Route</item>
+    </string-array>
 
     <!-- Utilities Activity -->
     <string name="label_new_electric">New Electricity Bill</string>
