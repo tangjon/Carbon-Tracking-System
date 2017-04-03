@@ -8,7 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TextView;
 
+import cmpt276.jade.carbontracker.adapter.ImageRowAdapter;
 import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Skytrain;
 
@@ -20,15 +23,23 @@ public class SkytrainInfoActivity extends AppCompatActivity {
     private Skytrain incomingTrain;
     private Skytrain outgoingTrain;
 
+    ImageRowAdapter imageRowAdapter = new ImageRowAdapter(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_skytrain_info);
-
+        setUpImageRowSelect();
         setupNextBtn();
         setupPage();
         getTrainData();
+    }
+
+    private void setUpImageRowSelect() {
+        TableLayout tableLayout = (TableLayout) findViewById(R.id.layout_table);
+        imageRowAdapter = new ImageRowAdapter(this);
+        tableLayout.addView(imageRowAdapter.getRow());
     }
 
     public static Intent getIntent(Context context) {
@@ -55,7 +66,17 @@ public class SkytrainInfoActivity extends AppCompatActivity {
                 EditText inputName = (EditText) findViewById(R.id.editTextSkytrainName);
                 EditText inputLine = (EditText) findViewById(R.id.editTextSkytrainLine);
                 EditText inputStation = (EditText) findViewById(R.id.editTextSkytrainBoardingStation);
-                if (inputName.getText().toString().trim().length() == 0) {
+                // Quick fix
+                if (incomingTrain == null || incomingTrain.getMode() == 0) {
+                    imageRowAdapter.setImage(incomingTrain.getImageId());
+                }
+
+
+                if(!imageRowAdapter.isImageSelected()){
+                    TextView tv = (TextView) findViewById(R.id.tv_pick_icon_label);
+                    tv.setError("");
+                }
+                else if (inputName.getText().toString().trim().length() == 0) {
                     inputName.setError("Please Enter a Nickname");
                 } else if (inputLine.getText().toString().trim().length() == 0) {
                     inputLine.setError("Please Enter the Line You Used");
@@ -65,6 +86,7 @@ public class SkytrainInfoActivity extends AppCompatActivity {
                     outgoingTrain.setNickName(inputName.getText().toString().trim());
                     outgoingTrain.setSkytrainLine(inputLine.getText().toString().trim());
                     outgoingTrain.setBoardingStation(inputStation.getText().toString().trim());
+                    outgoingTrain.setImageId(imageRowAdapter.getSelectedImage());
 
                     if (incomingTrain == null || incomingTrain.getMode() == 0) {
                         SkytrainListActivity.recentSkyTrainList.addTrain(outgoingTrain);

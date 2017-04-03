@@ -1,30 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/mainbackground"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="cmpt276.jade.carbontracker.JourneySummaryActivity">
 
-    <RelativeLayout
-        android:layout_width="368dp"
-        android:layout_height="495dp"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
+        <TextView
+            android:paddingBottom="5dp"
+            android:textColor="@android:color/black"
+            android:textStyle="normal|bold"
+            android:id="@+id/tv_pick_icon_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/car_info_pick_an_icon" />
+
+        <TableLayout
+            android:layout_below="@id/tv_pick_icon_label"
+            android:id="@+id/layout_table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"></TableLayout>
+
 
         <EditText
+
             android:id="@+id/editTextSkytrainName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="22dp"
             android:ems="10"
             android:hint="@string/name"
             android:inputType="text"
             tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="38dp" />
+            tools:layout_editor_absoluteY="38dp"
+            android:layout_below="@+id/textView25"
+            android:layout_alignParentStart="true" />
 
         <EditText
             android:id="@+id/editTextSkytrainLine"
@@ -54,11 +69,11 @@
             android:id="@+id/textView19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/editTextSkytrainName"
             android:text="@string/label_skytrainLine"
             android:textColor="@color/primary_text"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:layout_below="@+id/editTextSkytrainName"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:id="@+id/textView26"
@@ -76,7 +91,9 @@
             android:layout_height="wrap_content"
             android:text="@string/label_skytrainNickname"
             android:textColor="@color/primary_text"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:layout_below="@+id/layout_table"
+            android:layout_alignParentStart="true" />
 
         <Button
             android:id="@+id/btnSkytrainInfoNext"
@@ -85,5 +102,4 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:text="@string/label_next" />
-    </RelativeLayout>
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

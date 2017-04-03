@@ -63,6 +63,10 @@ public class Skytrain  extends ImageId{
         this.position = position;
     }
 
+    public String getDetails(){
+        return getNickName() + " - " + getSkytrainLine() + " - " + getBoardingStation();
+    }
+
     @Override
     public String toString() {
         return "Skytrain{" +

@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 import cmpt276.jade.carbontracker.adapter.CarDetailSpinnerAdapter;
+import cmpt276.jade.carbontracker.adapter.ImageRowAdapter;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.CarCollection;
 import cmpt276.jade.carbontracker.model.Emission;
@@ -47,8 +49,12 @@ public class CarInfoActivity extends AppCompatActivity {
     private List<String> modelDisplayList = new ArrayList<>();
     // Field to store the user selected car <----------- THIS IS OF INTEREST
     private Car userSelectedCar;
+    // Field to keep track of image select
+    private int selectImageId = -1;
 
     private Mode APP_MODE;
+
+    private ImageRowAdapter rowAdapter;
 
     // Get Intent with Mode Attached
     public static Intent getIntentFromActivity(Context context, Mode mode) {
@@ -62,6 +68,9 @@ public class CarInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_info);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // set up icons
+        setUpIconSelect();
+
         // Set Toolbar Name
         getSupportActionBar().setTitle(getString(R.string.CarInfoActivityHint));
         // get mode from intent
@@ -89,6 +98,14 @@ public class CarInfoActivity extends AppCompatActivity {
                 break;
 //
         }
+
+
+    }
+
+    void setUpIconSelect(){
+        TableLayout tableLayout = (TableLayout) findViewById(R.id.layout_table_img_select);
+        rowAdapter = new ImageRowAdapter(this);
+        tableLayout.addView(rowAdapter.getRow());
     }
 
     // REFACTOR
@@ -97,6 +114,7 @@ public class CarInfoActivity extends AppCompatActivity {
         String key = getIntent().getExtras().getString(CarListActivity.CAR_KEY);
         userSelectedCar = CarListActivity.recentCarList.getCarByKey(key);
         Log.i(TAG, "onEditClicked: " + userSelectedCar);
+        rowAdapter.setImage(userSelectedCar.getImageId());
         UUID thisKey = userSelectedCar.getKEY();
         selectMake = userSelectedCar.getMake();
         selectModel = userSelectedCar.getModel();
@@ -117,13 +135,20 @@ public class CarInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText et = (EditText) findViewById(R.id.et_nickname);
                 String nickName = et.getText().toString().trim();
-                if (et.getText().toString().trim().length() == 0) {
+
+                if( !rowAdapter.isImageSelected() ){
+                    TextView tv = (TextView) findViewById(R.id.tv_pick_icon_label);
+                    tv.setError("");
+                }
+                 else if (et.getText().toString().trim().length() == 0) {
                     et.setError(getString(R.string.car_info_warning));
-                } else {
+                }
+                else {
                     userSelectedCar.setNickName(nickName);
                     // Assign new key
                     userSelectedCar.setKEY(UUID.randomUUID());
                     Car newCar = userSelectedCar.copy();
+                    newCar.setImageId(rowAdapter.getSelectedImage());
                     CarListActivity.recentCarList.add(newCar);
                     Log.i(TAG, "onAdd: " + userSelectedCar.toString());
                     finish();
@@ -165,6 +190,7 @@ public class CarInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 userSelectedCar.setNickName(et.getText().toString().trim());
                 userSelectedCar.setKEY(key);
+                userSelectedCar.setImageId(rowAdapter.getSelectedImage());
                 boolean bool = CarListActivity.recentCarList.updateCarInfo(userSelectedCar);
                 Log.i(TAG, "onEditedConfirm: " + bool + ":" + userSelectedCar.toString());
                 finish();

@@ -2,16 +2,20 @@ package cmpt276.jade.carbontracker.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import cmpt276.jade.carbontracker.R;
 import cmpt276.jade.carbontracker.model.Car;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Custom Display of Car Objects
@@ -44,6 +48,8 @@ public class CarListAdapter extends ArrayAdapter<Car> {
         Car currentCar = mItems.get(position);
         String string = currentCar.getNickName() + " - " + currentCar.getName();
         setUpTextView(itemView, R.id.tv_car_item, string);
+        ImageView img = (ImageView) itemView.findViewById(R.id.img_car_list);
+        img.setImageResource(currentCar.getImageId());
 
         return itemView;
     }

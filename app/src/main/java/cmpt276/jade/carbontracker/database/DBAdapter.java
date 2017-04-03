@@ -486,7 +486,6 @@ public class DBAdapter {
                         break;
                 }
                 if (tag == tag_id.ordinal()) {
-                    Toast.makeText(context, "" + "Hello" ,Toast.LENGTH_SHORT).show();
                     deleteRow(table, row);
                 }
             } while (c.moveToNext());
