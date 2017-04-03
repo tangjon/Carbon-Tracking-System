@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,52 +8,54 @@
 
     <Button
         android:id="@+id/Main_Graph_BTN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="82dp"
         android:text="Graph"
+        android:theme="@style/ColoredButton.Green"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="434dp"
-      android:layout_alignParentTop="true"
-      android:layout_alignStart="@+id/Main_Journey_BTN"
-      android:layout_marginTop="84dp" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/Main_Utilities_BTN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:text="UTILITIES"
+        android:theme="@style/ColoredButton.Red"
         tools:layout_editor_absoluteX="290dp"
         tools:layout_editor_absoluteY="427dp"
         android:layout_below="@+id/Main_Journey_BTN"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/Main_Journey_BTN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:text="Journey"
+        android:theme="@style/ColoredButton.Blue"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="16dp"
-      android:layout_alignTop="@+id/Main_Graph_BTN"
-      android:layout_alignStart="@+id/Main_Utilities_BTN"
-      android:layout_marginTop="70dp" />
+        android:layout_below="@+id/Main_Graph_BTN"
+        android:layout_alignParentStart="true" />
+
     <Button
-      android:id="@+id/btn_about"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+        android:id="@+id/btn_about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/label_about_us"
-        android:layout_marginTop="18dp"
-        android:layout_below="@+id/btnMainActivityToSettings"
-        android:layout_alignEnd="@+id/btnMainActivityToSettings" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp" />
 
     <Button
         android:id="@+id/btnMainActivityToSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Settings"
-        android:layout_below="@+id/Main_Utilities_BTN"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp" />
+        android:layout_marginBottom="54dp"
+        android:layout_alignBottom="@+id/btn_about"
+        android:layout_alignStart="@+id/btn_about" />
 
 </RelativeLayout>
