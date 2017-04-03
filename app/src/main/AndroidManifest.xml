@@ -19,26 +19,27 @@
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
-    <activity android:name=".JourneySummaryActivity" />
-    <activity android:name=".CarbonFootprintActivity" />
-    <activity android:name=".TransportSelectActivity" />
-    <activity android:name=".JourneyReviewActivity" />
-    <activity android:name=".Temp_Main_Acticity" />
-    <activity android:name=".Utilities_Activities" />
-    <activity
-      android:label="@string/title_activity_main_menu"
-      android:name=".MainMenuActivity"
-      android:theme="@style/AppTheme.NoActionBar" />
-    <activity android:name=".Bike_and_Trans_Info_Activity" />
-    <activity android:name=".UtilityEditActivity" />
-    <activity android:name=".BusListActivity" />
-    <activity android:name=".BusInfoActivity" />
-    <activity android:name=".SkytrainInfoActivity" />
-    <activity android:name=".SkytrainListActivity" />
-    <activity android:name=".AboutUsActivity"></activity>
-  </application>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".JourneySummaryActivity" />
+        <activity android:name=".CarbonFootprintActivity" />
+        <activity android:name=".TransportSelectActivity" />
+        <activity android:name=".JourneyReviewActivity" />
+        <activity android:name=".Temp_Main_Acticity" />
+        <activity android:name=".Utilities_Activities" />
+        <activity
+            android:name=".MainMenuActivity"
+            android:label="@string/title_activity_main_menu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Bike_and_Trans_Info_Activity" />
+        <activity android:name=".UtilityEditActivity" />
+        <activity android:name=".BusListActivity" />
+        <activity android:name=".BusInfoActivity" />
+        <activity android:name=".SkytrainInfoActivity" />
+        <activity android:name=".SkytrainListActivity" />
+        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".AboutUsActivity"></activity>
+    </application>
 
 </manifest>

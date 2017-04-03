@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import cmpt276.jade.carbontracker.enums.MeasurementUnit;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Car;
 import cmpt276.jade.carbontracker.model.Emission;
@@ -71,11 +72,21 @@ public class JourneySummaryActivity extends AppCompatActivity {
                     car.getFuelType()));
             // Display Emission Info
             TextView hWayDrive = (TextView) findViewById(R.id.textEmissionsInfo);
-            hWayDrive.setText(getString(R.string.emission_info,
-                    journey.getTotalHighway(),
-                    journey.getTotalCity(),
-                    journey.getTotalTravelledEmissions()
-            ));
+      //      if(Emission.getInstance().getSettings().getSillyMode() == MeasurementUnit.REGULAR) {
+                hWayDrive.setText(getString(R.string.emission_info,
+                        journey.getTotalHighway(),
+                        journey.getTotalCity(),
+                        journey.getTotalTravelledEmissions()
+
+                ));
+     //       }
+     //       else {
+     //           hWayDrive.setText(getString(R.string.emission_info,
+     //                   journey.getTotalHighway(),
+    //                    journey.getTotalCity(),
+      //                  Emission.getInstance().getSettings().calcTreeAbsorbtion(journey.getTotalTravelledEmissions())
+      //          ));
+       //     }
         } else if (journey.getTransType().getTransMode().equals(Transport.BUS)) {
             transInfoLabel.setText("Bus Info");
             // Display Journey Info

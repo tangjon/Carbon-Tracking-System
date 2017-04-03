@@ -23,6 +23,7 @@ public class Temp_Main_Acticity extends AppCompatActivity {
         setupGraphBtn();
         setupUtilitiesBtn();
         setupAboutUsBtn();
+        setupSettingsBtn();
     }
 
     private void setupAboutUsBtn() {
@@ -46,6 +47,17 @@ public class Temp_Main_Acticity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = JourneyListActivity.getJourneyListIntent(Temp_Main_Acticity.this);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void setupSettingsBtn(){
+        Button btn = (Button) findViewById(R.id.btnMainActivityToSettings);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = SettingsActivity.getIntent(Temp_Main_Acticity.this);
                 startActivity(intent);
             }
         });

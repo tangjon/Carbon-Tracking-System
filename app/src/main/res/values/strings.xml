@@ -301,6 +301,7 @@
     <string name="carbonfootprintactivitytoolbarhint">Graphs</string>
     <string name="tips_dialog_click_next_to_display_a_tips">Click next to display a tips!</string>
     <string name="car_info_pick_an_icon">Pick an icon</string>
+  <string name="settings_activity_current_language">Current Language:</string>
 
 
 
