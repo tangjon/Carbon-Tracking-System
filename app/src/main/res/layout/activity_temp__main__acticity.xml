@@ -25,8 +25,9 @@
         android:text="UTILITIES"
         tools:layout_editor_absoluteX="290dp"
         tools:layout_editor_absoluteY="427dp"
-      android:layout_centerVertical="true"
-      android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/Main_Journey_BTN"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/Main_Journey_BTN"
@@ -42,18 +43,18 @@
       android:id="@+id/btn_about"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="36dp"
-      android:layout_alignStart="@+id/Main_Utilities_BTN"
-      android:layout_below="@+id/Main_Utilities_BTN"
-      android:text="@string/label_about_us" />
+        android:text="@string/label_about_us"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/btnMainActivityToSettings"
+        android:layout_alignEnd="@+id/btnMainActivityToSettings" />
 
     <Button
         android:id="@+id/btnMainActivityToSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/Main_Journey_BTN"
-        android:layout_below="@+id/Main_Journey_BTN"
-        android:layout_marginTop="14dp"
-        android:text="Settings" />
+        android:text="Settings"
+        android:layout_below="@+id/Main_Utilities_BTN"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp" />
 
 </RelativeLayout>
