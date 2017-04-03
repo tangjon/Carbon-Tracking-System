@@ -39,10 +39,10 @@
 
 
     <!--
-    ========================
-    FORMS TO FILL WITH INFO
-    ========================
-    -->
+      ========================
+      FORMS TO FILL WITH INFO
+      ========================
+      -->
 
     <!--JOURNEY INFO FORM-->
     <string name="journey_info">Name: %1$s
@@ -75,10 +75,10 @@
 
 
     <!--
-    ========================
-    ACTIVITY RESOURCES
-    ========================
-    -->
+      ========================
+      ACTIVITY RESOURCES
+      ========================
+      -->
 
     <!--WELCOME ACTIVITY-->
     <string name="tap_screen_to_continue">Tap Screen to Continue..</string>
@@ -257,13 +257,23 @@
     <string name="Car">Car</string>
     <string name="bus">Bus</string>
     <string name="Skytrain">Skytrain</string>
+
+
+    <!-- About Us Activity -->
+    <string name="label_about_us">About Us</string>
+    <string name="link_cmpt_home"><a href="http://www.cs.sfu.ca/CourseCentral/276/bfraser/index.html">Click me!</a></string>
+    <string name="label_home_page">Home Page:</string>
+    <string name="label_developers">Developers:</string>
+    <string name="label_group_jade">Group: Jade</string>
+
+
     <!--
-     ===================================
-     New Strings to Organize
-     STRING FORMAT GUIDE
-     <WHERE>_<WHAT>
-     ===================================
-     -->
+       ===================================
+       New Strings to Organize
+       STRING FORMAT GUIDE
+       <WHERE>_<WHAT>
+       ===================================
+       -->
     <string name="label_accept">Accept</string>
     <string name="label_cancel">Cancel</string>
     <string name="label_preview">Preview</string>
@@ -292,5 +302,7 @@
     <string name="tips_dialog_click_next_to_display_a_tips">Click next to display a tips!</string>
     <string name="car_info_pick_an_icon">Pick an icon</string>
   <string name="settings_activity_current_language">Current Language:</string>
+
+
 
 </resources>
