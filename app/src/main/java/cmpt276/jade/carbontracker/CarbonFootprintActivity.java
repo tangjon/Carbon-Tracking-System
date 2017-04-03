@@ -218,6 +218,10 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
                         break;
                 }
+
+                setupPieChart();
+                setupBarChart();
+                setupTable();
             }
 
             @Override
@@ -235,7 +239,6 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         spinnerSort.setAdapter(adapter);
         spinnerSort.setSelected(false);
 
-        // TODO: 02/04/17 complete
         spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

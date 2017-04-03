@@ -172,7 +172,7 @@ public class Journey extends ImageId implements Serializable {
         month = Integer.parseInt(dateCheck[1]) - 1;
         year = Integer.parseInt(dateCheck[2]);
 
-        Log.i("spinner", "year = " + year + " month = " + month + " day = " + day);
+        Log.i("journey", "year = " + year + " month = " + month + " day = " + day);
 
         Calendar c = Calendar.getInstance();
         c.clear();
@@ -181,7 +181,7 @@ public class Journey extends ImageId implements Serializable {
         c.set(Calendar.DAY_OF_MONTH, day);
         setDateObj(c.getTime());
 
-        Log.i("spinner", "dateObj = " + dateObj.toString());
+        Log.i("journey", "dateObj = " + dateObj.toString());
     }
 
     //Miles to KM
