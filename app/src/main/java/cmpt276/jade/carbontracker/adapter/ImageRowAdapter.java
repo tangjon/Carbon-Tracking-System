@@ -60,8 +60,7 @@ public class ImageRowAdapter {
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
         row.setLayoutParams(lp);
 
-        for (final int id :
-                imageId) {
+        for (final int id : imageId) {
             ImageView imageView = new ImageView(mContext);
             imageView.setPadding(10,0,10,0);
             Bitmap bMap = BitmapFactory.decodeResource(mContext.getResources(), id);
@@ -70,7 +69,7 @@ public class ImageRowAdapter {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    selectedImage = id;
+                    setImage(id);
                     updateSelectedScreen();
                 }
             });
@@ -86,7 +85,7 @@ public class ImageRowAdapter {
         return bMapScaled;
     }
 
-    private void updateSelectedScreen(){
+    public void updateSelectedScreen(){
         int i =0;
         for (ImageView v: table) {
             v.setImageBitmap(formatImage(imageId[i]));
