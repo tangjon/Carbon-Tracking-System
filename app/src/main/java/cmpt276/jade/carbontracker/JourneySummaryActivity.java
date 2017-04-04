@@ -51,6 +51,8 @@ public class JourneySummaryActivity extends AppCompatActivity {
 
     private void setData() {
         TextView transInfoLabel = (TextView) findViewById(R.id.textViewJourneySummaryTranportationInfo);
+        MeasurementUnit sillyMode = Emission.getInstance().getSettings().getSillyMode();
+        //Car
         if (journey.getTransType().getTransMode().equals(Transport.CAR)) {
             transInfoLabel.setText("Car Info");
             // Display Journey Info
@@ -72,22 +74,23 @@ public class JourneySummaryActivity extends AppCompatActivity {
                     car.getFuelType()));
             // Display Emission Info
             TextView hWayDrive = (TextView) findViewById(R.id.textEmissionsInfo);
-      //      if(Emission.getInstance().getSettings().getSillyMode() == MeasurementUnit.REGULAR) {
+            if(sillyMode == MeasurementUnit.REGULAR) {
                 hWayDrive.setText(getString(R.string.emission_info,
                         journey.getTotalHighway(),
                         journey.getTotalCity(),
                         journey.getTotalTravelledEmissions()
 
                 ));
-     //       }
-     //       else {
-     //           hWayDrive.setText(getString(R.string.emission_info,
-     //                   journey.getTotalHighway(),
-    //                    journey.getTotalCity(),
-      //                  Emission.getInstance().getSettings().calcTreeAbsorbtion(journey.getTotalTravelledEmissions())
-      //          ));
-       //     }
-        } else if (journey.getTransType().getTransMode().equals(Transport.BUS)) {
+            }
+            else if(sillyMode == MeasurementUnit.TREES){
+                Double treeAbsorbtion = Emission.getInstance().getSettings().calcTreeAbsorbtion(journey.getTotalTravelledEmissions());
+                hWayDrive.setText("Your trip will take " + String.format("%.2f" , treeAbsorbtion) +
+                        " trees one hour to remove the carbon you produced.");
+            }
+        }
+
+        //Bus
+        else if (journey.getTransType().getTransMode().equals(Transport.BUS)) {
             transInfoLabel.setText("Bus Info");
             // Display Journey Info
             TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
@@ -101,7 +104,14 @@ public class JourneySummaryActivity extends AppCompatActivity {
                     journey.getTransType().getBus().getRouteNumber());
             //Display Emission Info
             TextView emissions = (TextView) findViewById(R.id.textEmissionsInfo);
-            emissions.setText("Carbon Emission (Kg): " + String.format("%.2f", journey.getBusEmissions()));
+            if(sillyMode == MeasurementUnit.REGULAR) {
+                emissions.setText("Carbon Emission (Kg): " + String.format("%.2f", journey.getBusEmissions()));
+            }
+            else if(sillyMode == MeasurementUnit.TREES){
+                Double treeAbsorbtion = Emission.getInstance().getSettings().calcTreeAbsorbtion(journey.getBusEmissions());
+                emissions.setText("Your trip will take " + String.format("%.2f" , treeAbsorbtion) +
+                        " trees one hour to remove the carbon you produced.");
+            }
 
         } else if (journey.getTransType().getTransMode().equals(Transport.SKYTRAIN)) {
             transInfoLabel.setText("Skytrain Info");
@@ -118,7 +128,16 @@ public class JourneySummaryActivity extends AppCompatActivity {
                     journey.getTransType().getSkytrain().getBoardingStation());
             //Display Emission Info
             TextView emissions = (TextView) findViewById(R.id.textEmissionsInfo);
-            emissions.setText("Carbon Emission (Kg): " + String.format("%.2f", journey.getSkytrainEmissions()));
+            if(sillyMode == MeasurementUnit.REGULAR) {
+                emissions.setText("Carbon Emission (Kg): " + String.format("%.2f", journey.getSkytrainEmissions()));
+            }
+            else if(sillyMode == MeasurementUnit.TREES){
+                Double treeAbsorbtion = Emission.getInstance().getSettings().calcTreeAbsorbtion(journey.getSkytrainEmissions());
+                emissions.setText("Your trip will take " + String.format("%.2f" , treeAbsorbtion) +
+                        " trees one hour to remove the carbon you produced.");
+            }
+
+
         } else if (journey.getTransType().getTransMode().equals(Transport.WALK)) {
             transInfoLabel.setText("Walk Info");
             TextView journeyInfo = (TextView) findViewById(R.id.textJourneyInfo);
@@ -131,7 +150,13 @@ public class JourneySummaryActivity extends AppCompatActivity {
             trainInfo.setText("Congratulations on making no carbon impact!");
             //Display Emission Info
             TextView emissions = (TextView) findViewById(R.id.textEmissionsInfo);
-            emissions.setText("Carbon Emission (Kg): " + String.valueOf(0));
+
+            if(sillyMode == MeasurementUnit.REGULAR) {
+                emissions.setText("Carbon Emission (Kg): " + String.valueOf(0));
+            }
+             else if(sillyMode == MeasurementUnit.TREES){
+                emissions.setText("Your trip created no carbon and allowed trees to take a break!");
+            }
 
         } else if (journey.getTransType().getTransMode().equals(Transport.BIKE)) {
             transInfoLabel.setText("Bike Info");
@@ -145,7 +170,12 @@ public class JourneySummaryActivity extends AppCompatActivity {
             trainInfo.setText("Congratulations on making no carbon impact!");
             //Display Emission Info
             TextView emissions = (TextView) findViewById(R.id.textEmissionsInfo);
-            emissions.setText("Carbon Emission (Kg): " + String.valueOf(0));
+            if(sillyMode == MeasurementUnit.REGULAR) {
+                emissions.setText("Carbon Emission (Kg): " + String.valueOf(0));
+            }
+            else if(sillyMode == MeasurementUnit.TREES){
+                emissions.setText("Your trip created no carbon and allowed trees to take a break!");
+            }
 
         }
     }
