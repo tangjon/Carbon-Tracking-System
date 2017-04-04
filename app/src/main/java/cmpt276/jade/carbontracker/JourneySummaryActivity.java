@@ -84,7 +84,7 @@ public class JourneySummaryActivity extends AppCompatActivity {
             }
             else if(sillyMode == MeasurementUnit.TREES){
                 Double treeAbsorbtion = Emission.getInstance().getSettings().calcTreeAbsorbtion(journey.getTotalTravelledEmissions());
-                hWayDrive.setText("Your trip will take " + String.format("%.2f" , treeAbsorbtion) +
+                hWayDrive.setText("Your trip will take " + String.format("%.0f" , treeAbsorbtion) +
                         " trees one hour to remove the carbon you produced.");
             }
         }
@@ -108,8 +108,8 @@ public class JourneySummaryActivity extends AppCompatActivity {
                 emissions.setText("Carbon Emission (Kg): " + String.format("%.2f", journey.getBusEmissions()));
             }
             else if(sillyMode == MeasurementUnit.TREES){
-                Double treeAbsorbtion = Emission.getInstance().getSettings().calcTreeAbsorbtion(journey.getBusEmissions());
-                emissions.setText("Your trip will take " + String.format("%.2f" , treeAbsorbtion) +
+                double treeAbsorbtion = Emission.getInstance().getSettings().calcTreeAbsorbtion(journey.getBusEmissions());
+                emissions.setText("Your trip will take " + String.format("%.0f" , treeAbsorbtion) +
                         " trees one hour to remove the carbon you produced.");
             }
 
@@ -133,7 +133,7 @@ public class JourneySummaryActivity extends AppCompatActivity {
             }
             else if(sillyMode == MeasurementUnit.TREES){
                 Double treeAbsorbtion = Emission.getInstance().getSettings().calcTreeAbsorbtion(journey.getSkytrainEmissions());
-                emissions.setText("Your trip will take " + String.format("%.2f" , treeAbsorbtion) +
+                emissions.setText("Your trip will take " + String.format("%.0f" , treeAbsorbtion) +
                         " trees one hour to remove the carbon you produced.");
             }
 
