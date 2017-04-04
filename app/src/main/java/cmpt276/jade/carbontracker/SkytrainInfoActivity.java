@@ -67,7 +67,7 @@ public class SkytrainInfoActivity extends AppCompatActivity {
                 EditText inputLine = (EditText) findViewById(R.id.editTextSkytrainLine);
                 EditText inputStation = (EditText) findViewById(R.id.editTextSkytrainBoardingStation);
                 // Quick fix
-                if (incomingTrain == null || incomingTrain.getMode() == 0) {
+                if (incomingTrain != null && incomingTrain.getMode() == 1) {
                     imageRowAdapter.setImage(incomingTrain.getImageId());
                 }
 
