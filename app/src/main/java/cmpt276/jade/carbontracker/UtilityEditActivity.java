@@ -16,8 +16,10 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 import cmpt276.jade.carbontracker.database.DBAdapter;
+import cmpt276.jade.carbontracker.enums.MeasurementUnit;
 import cmpt276.jade.carbontracker.model.Bill;
 import cmpt276.jade.carbontracker.model.Emission;
+import cmpt276.jade.carbontracker.model.Settings;
 import cmpt276.jade.carbontracker.model.Tip;
 import cmpt276.jade.carbontracker.model.Utilities;
 import cmpt276.jade.carbontracker.enums.BillEditMode;
@@ -145,11 +147,22 @@ public class UtilityEditActivity extends AppCompatActivity {
             buffer.setInput(input);
 
             TextView tvPreview = (TextView) findViewById(R.id.txt_bill_preview);
-            String text = getString(R.string.label_bill_preview);
+            if(Emission.getInstance().getSettings().getSillyMode() == MeasurementUnit.REGULAR) {
+                String text = getString(R.string.label_bill_preview);
 
-            tvPreview.setText(String.format(text, buffer.getEmissionTotal(),
-                    buffer.getEmissionAvg(),
-                    buffer.getEmissionAvg() / emission.getUtilities().getNumResidents()));
+                tvPreview.setText(String.format(text, buffer.getEmissionTotal(),
+                        buffer.getEmissionAvg(),
+                        buffer.getEmissionAvg() / emission.getUtilities().getNumResidents()));
+
+            }
+            else if(Emission.getInstance().getSettings().getSillyMode() == MeasurementUnit.TREES){
+                Settings settings = Emission.getInstance().getSettings();
+                String text = getString(R.string.label_bill_preview_silly);
+
+                tvPreview.setText(String.format(text, settings.calcTreeAbsorbtion(buffer.getEmissionTotal()),
+                        settings.calcTreeAbsorbtion(buffer.getEmissionAvg()),
+                        settings.calcTreeAbsorbtion(buffer.getEmissionAvg() / emission.getUtilities().getNumResidents())));
+            }
         }
     }
 

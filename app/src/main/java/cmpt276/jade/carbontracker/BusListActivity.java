@@ -49,6 +49,7 @@ public class BusListActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Emission.getInstance().getJourneyBuffer().getTransType().setBus(new Bus());
                 Intent intent = BusInfoActivity.getIntent(BusListActivity.this);
                 startActivity(intent);
             }
