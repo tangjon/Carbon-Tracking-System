@@ -138,7 +138,6 @@ public class UtilityEditActivity extends AppCompatActivity {
         });
     }
 
-    // TODO: 14/03/17 extract strings
     private void previewEmissions() {
         EditText editInput = (EditText) findViewById(R.id.editBillInput);
         if (!editInput.getText().toString().isEmpty()) {

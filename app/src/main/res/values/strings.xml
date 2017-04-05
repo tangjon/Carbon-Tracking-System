@@ -127,6 +127,13 @@
         <item>Total kg CO2</item>
         <item>Average kg CO2</item>
     </string-array>
+    <string-array name="label_table_elec_silly">
+        <item>Start Date</item>
+        <item>End Date</item>
+        <item>Usage (kWh)</item>
+        <item># Trees to Absorb Carbon\nin an hour</item>
+        <item>Average # Trees needed</item>
+    </string-array>
 
     <string-array name="label_table_gas">
         <item>Start Date</item>
@@ -134,6 +141,13 @@
         <item>Usage (GJ)</item>
         <item>Total kg CO2</item>
         <item>Average kg CO2</item>
+    </string-array>
+    <string-array name="label_table_gas_silly">
+        <item>Start Date</item>
+        <item>End Date</item>
+        <item>Usage (kWh)</item>
+        <item># Trees to Absorb Carbon\nin an hour</item>
+        <item>Average # Trees needed</item>
     </string-array>
 
     <string-array name="label_bar_graph">
@@ -220,6 +234,12 @@
         <item>Distance (km)</item>
         <item>Vehicle Name</item>
         <item>Carbon Emitted\n(kg CO2)</item>
+    </string-array><string-array name="label_table_silly">
+        <item>Date</item>
+        <item>Trip Name</item>
+        <item>Distance (km)</item>
+        <item>Vehicle Name</item>
+        <item># Trees to Absorb\nin an hour</item>
     </string-array>
     <string-array name="label_spinner_sort">
         <item>Group by Vehicle</item>

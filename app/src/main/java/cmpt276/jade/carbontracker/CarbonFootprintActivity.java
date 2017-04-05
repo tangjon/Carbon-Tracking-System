@@ -40,6 +40,7 @@ import java.util.List;
 
 import cmpt276.jade.carbontracker.enums.DateMode;
 import cmpt276.jade.carbontracker.enums.GroupMode;
+import cmpt276.jade.carbontracker.enums.MeasurementUnit;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.fragment.TipDialog;
 import cmpt276.jade.carbontracker.model.Bill;
@@ -47,6 +48,7 @@ import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Graph;
 import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.JourneyCollection;
+import cmpt276.jade.carbontracker.model.Settings;
 import cmpt276.jade.carbontracker.model.Tip;
 import cmpt276.jade.carbontracker.model.Transportation;
 import cmpt276.jade.carbontracker.model.Utilities;
@@ -73,6 +75,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     private GraphMode graphMode = GraphMode.PIE;
     private DateMode dateMode = DateMode.SINGLE;
     private GroupMode groupMode = GroupMode.TRANSPORTATION;
+    private Boolean sillyMode;
 
     private Calendar calendar = Calendar.getInstance();
     private Date dateSelected = calendar.getTime();
@@ -98,6 +101,8 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.carbonfootprintactivitytoolbarhint);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_carbon_footprint);
+
+        sillyMode = (Emission.getInstance().getSettings().getSillyMode() == MeasurementUnit.TREES);
 
         setupDates();
         Log.i("spinnerDate", "dateEnd = " + dateEnd.toString());
@@ -335,13 +340,20 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     }
 
     private void setupTable() {
+        Settings settings = Emission.getInstance().getSettings();
         table = (TableLayout) findViewById(R.id.tableFootprint);
         table.removeAllViews();
         table.setShrinkAllColumns(true);
 
         // Journeys
         TableRow labelRow = new TableRow(this);
-        String[] labels = getResources().getStringArray(R.array.label_table);
+        String[] labels;
+
+        if (settings.getSillyMode() == MeasurementUnit.REGULAR)
+            labels = getResources().getStringArray(R.array.label_table);
+        else
+            labels = getResources().getStringArray(R.array.label_table_silly);
+
         for (int i = 0; i < labels.length; ++i) {
             TextView tv = new TextView(this);
             tv.setText(labels[i]);
@@ -387,7 +399,14 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
         // Electricity bills
         TableRow labelRowElec = new TableRow(this);
-        String[] labelsElec = getResources().getStringArray(R.array.label_table_elec);
+        String[] labelsElec;
+
+        if (sillyMode) {
+            labelsElec = getResources().getStringArray(R.array.label_table_elec_silly);
+        } else {
+            labelsElec = getResources().getStringArray(R.array.label_table_elec);
+        }
+
         for (int i = 0; i < labelsElec.length; ++i) {
             TextView tv = new TextView(this);
             tv.setText(labelsElec[i]);
@@ -416,10 +435,20 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                         tv.setText(String.valueOf(Emission.round(b.getInput())));
                         break;
                     case 3:
-                        tv.setText(String.valueOf(Emission.round(b.getEmissionTotal())));
+                        if (sillyMode) {
+                            tv.setText(String.valueOf(Emission.round(
+                                    settings.calcTreeAbsorbtion(b.getEmissionTotal()))));
+                        } else {
+                            tv.setText(String.valueOf(Emission.round(b.getEmissionTotal())));
+                        }
                         break;
                     case 4:
-                        tv.setText(String.valueOf(Emission.round(b.getEmissionAvg())));
+                        if (sillyMode) {
+                            tv.setText(String.valueOf(Emission.round(
+                                    settings.calcTreeAbsorbtion(b.getEmissionAvg()))));
+                        } else {
+                            tv.setText(String.valueOf(Emission.round(b.getEmissionAvg())));
+                        }
                         break;
                 }
                 tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -429,7 +458,14 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
         // Gas bills
         TableRow labelRowGas = new TableRow(this);
-        String[] labelsGas = getResources().getStringArray(R.array.label_table_gas);
+        String[] labelsGas;
+
+        if (sillyMode) {
+            labelsGas = getResources().getStringArray(R.array.label_table_gas_silly);
+        } else {
+            labelsGas = getResources().getStringArray(R.array.label_table_gas);
+        }
+
         for (int i = 0; i < labelsGas.length; ++i) {
             TextView tv = new TextView(this);
             tv.setText(labelsGas[i]);
@@ -458,10 +494,20 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                         tv.setText(String.valueOf(Emission.round(b.getInput())));
                         break;
                     case 3:
-                        tv.setText(String.valueOf(Emission.round(b.getEmissionTotal())));
+                        if (sillyMode) {
+                            tv.setText(String.valueOf(Emission.round(
+                                    settings.calcTreeAbsorbtion(b.getEmissionTotal()))));
+                        } else {
+                            tv.setText(String.valueOf(Emission.round(b.getEmissionTotal())));
+                        }
                         break;
                     case 4:
-                        tv.setText(String.valueOf(Emission.round(b.getEmissionAvg())));
+                        if (sillyMode) {
+                            tv.setText(String.valueOf(Emission.round(
+                                    settings.calcTreeAbsorbtion(b.getEmissionAvg()))));
+                        } else {
+                            tv.setText(String.valueOf(Emission.round(b.getEmissionAvg())));
+                        }
                         break;
                 }
                 tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -476,26 +522,49 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         emissionRouteNames = journeyCollection.getJourneyDetails();
         Journey j;
         Transportation t;
+        Settings settings = Emission.getInstance().getSettings();
 
         for (int i = 0; i < NUM_ENTRIES; ++i) {
             j = journeyCollection.getJourney(i);
             t = j.getTransType();
 
-            if (j.getDateObj() != null)
+            if (j.getDateObj() != null) {
                 emissionDate[i] = Emission.DATE_FORMAT.format(j.getDateObj());
-            else emissionDate[i] = "n/a";
+            } else {
+                emissionDate[i] = "n/a";
+            }
+
             emissionRouteNames[i] = j.getName();
-            emissionDistance[i] = j.getRoute().getCityDistance() + j.getRoute().getCityDistance();
+            emissionDistance[i] = j.getTotalDriven();
+
             if (t.getCar() != null) {
                 emissionVehicleNames[i] = t.getCar().getNickName();
+                if (!sillyMode) {
+                    emissionValues[i] = (float) Math.round(j.getTotalTravelledEmissions());
+                } else {
+                    emissionValues[i] = (float)
+                            Math.round(settings.calcTreeAbsorbtion(j.getTotalTravelledEmissions()));
+                }
             } else if (t.getSkytrain() != null) {
                 emissionVehicleNames[i] = t.getSkytrain().getNickName();
+                if (!sillyMode) {
+                    emissionValues[i] = (float) Math.round(j.getSkytrainEmissions());
+                } else {
+                    emissionValues[i] = (float)
+                            Math.round(settings.calcTreeAbsorbtion(j.getSkytrainEmissions()));
+                }
             } else if (t.getBus() != null) {
                 emissionVehicleNames[i] = t.getBus().getNickName();
+                if (!sillyMode) {
+                    emissionValues[i] = (float) Math.round(j.getBusEmissions());
+                } else {
+                    emissionValues[i] = (float)
+                            Math.round(settings.calcTreeAbsorbtion(j.getBusEmissions()));
+                }
             } else {
                 emissionVehicleNames[i] = "n/a";
+                emissionValues[i] = 0;
             }
-            emissionValues[i] = (float) Math.round(j.getTotalTravelled());
         }
 
         billsElec = utilities.getListBillElec();
