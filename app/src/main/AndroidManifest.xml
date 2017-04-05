@@ -26,7 +26,9 @@
         <activity android:name=".CarbonFootprintActivity" />
         <activity android:name=".TransportSelectActivity" />
         <activity android:name=".JourneyReviewActivity" />
-        <activity android:name=".Temp_Main_Acticity" />
+        <activity
+          android:name=".Temp_Main_Acticity"
+          />
         <activity android:name=".Utilities_Activities" />
         <activity
             android:name=".MainMenuActivity"
