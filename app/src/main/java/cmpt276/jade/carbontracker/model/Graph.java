@@ -258,7 +258,7 @@ public class Graph {
                             journey.getRoute().getName()));
                 } else if (transport.getSkytrain() != null) {
                     pieEntries.add(new PieEntry(
-                            (float) journey.getBusEmissions(),
+                            (float) journey.getSkytrainEmissions(),
                             journey.getRoute().getName()));
                 } else if (transport.getBus() != null) {
                     pieEntries.add(new PieEntry(
@@ -274,20 +274,15 @@ public class Graph {
                 Log.i("addToGroup","added new car "+transport.getCar().getNickName());
             } else if (transport.getBus() != null) {
                 pieEntries.add(new PieEntry(
-                        (float) journey.getTotalTravelledEmissions(),
+                        (float) journey.getBusEmissions(),
                         transport.getBus().getNickName()));
                 Log.i("addToGroup","added new bus");
             } else if (transport.getSkytrain() != null) {
                 pieEntries.add(new PieEntry(
-                        (float) journey.getTotalTravelledEmissions(),
+                        (float) journey.getSkytrainEmissions(),
                         transport.getSkytrain().getNickName()));
                 Log.i("addToGroup","added new skytrain");
-            } /*else {
-                pieEntries.add(new PieEntry(
-                        (float) journey.getTotalTravelledEmissions(),
-                        journey.getRoute().getName()));
-                Log.i("addToGroup","added new walk/bike");
-            }*/
+            }
 
             return;
         }
@@ -333,18 +328,7 @@ public class Graph {
                                     transport.getSkytrain().getNickName()));
                             Log.i("addToGroup","added new skytrain");
                         }
-                    } /*else {
-                        if (entry.getLabel().equals("Walk/Bike")){
-                            entry.setY(entry.getValue()
-                                    + (float) journey.getTotalTravelledEmissions());
-                            Log.i("addToGroup","added to walks/bikes");
-                        } else {
-                            pieEntries.add(new PieEntry(
-                                    (float) journey.getTotalTravelledEmissions(),
-                                    journey.getRoute().getName()));
-                            Log.i("addToGroup","added new walk/bike");
-                        }
-                    }*/
+                    }
 
                     break;
 
