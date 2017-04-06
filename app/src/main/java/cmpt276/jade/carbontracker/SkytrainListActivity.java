@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -50,20 +51,37 @@ public class SkytrainListActivity extends AppCompatActivity {
 //            }
 //        });
 
-        View mDecorView = getWindow().getDecorView();
+        final View mDecorView = getWindow().getDecorView();
         // Set the IMMERSIVE flag.
         // Set the content to appear under the system bars so that the content
         // doesn't resize when the system bars hide and show.
 
         int uiOptions =
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         | View.SYSTEM_UI_FLAG_FULLSCREEN;
 
         mDecorView.setSystemUiVisibility(uiOptions);
+
+        mDecorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                int uiOptions =
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                                | View.SYSTEM_UI_FLAG_FULLSCREEN;
+
+                mDecorView.setSystemUiVisibility(uiOptions);
+            }
+        });
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideSystemUI();
     }
 
-    private void setupAddBtn() {
+    private Button setupAddBtn() {
         Button btn = (Button) findViewById(R.id.btnSkytrainListAdd);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +92,7 @@ public class SkytrainListActivity extends AppCompatActivity {
             }
         });
 
+        return btn;
     }
 
 
@@ -175,10 +194,26 @@ public class SkytrainListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
+        int id = item.getItemId();
+
+        switch (id){
+            case android.R.id.home:
+                finish(); // close this activity and return to preview activity (if there is any)
+                break;
+            case R.id.action_add:
+                // add method
+                Button btn = setupAddBtn();
+                btn.performClick();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//         Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.add_menu, menu);
+        return true;
     }
 
 }
