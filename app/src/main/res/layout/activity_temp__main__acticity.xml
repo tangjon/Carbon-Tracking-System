@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/mainbackground"
+    android:id="@+id/main_menu"
     tools:context="cmpt276.jade.carbontracker.Temp_Main_Acticity">
 
     <Button
@@ -14,9 +15,9 @@
         android:text="Graph"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="434dp"
-      android:layout_alignParentTop="true"
-      android:layout_alignStart="@+id/Main_Journey_BTN"
-      android:layout_marginTop="84dp" />
+        android:layout_marginTop="87dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/Main_Journey_BTN" />
 
     <Button
         android:id="@+id/Main_Utilities_BTN"
@@ -39,14 +40,6 @@
       android:layout_alignTop="@+id/Main_Graph_BTN"
       android:layout_alignStart="@+id/Main_Utilities_BTN"
       android:layout_marginTop="70dp" />
-    <Button
-      android:id="@+id/btn_about"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-        android:text="@string/label_about_us"
-        android:layout_marginTop="18dp"
-        android:layout_below="@+id/btnMainActivityToSettings"
-        android:layout_alignEnd="@+id/btnMainActivityToSettings" />
 
     <Button
         android:id="@+id/btnMainActivityToSettings"
