@@ -1,5 +1,7 @@
 package cmpt276.jade.carbontracker;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,9 @@ import android.support.v7.widget.LinearLayoutCompat;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.util.Calendar;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -27,7 +32,8 @@ public class Temp_Main_Acticity extends AppCompatActivity {
         setupUtilitiesBtn();
         setupSettingsBtn();
 
-        hideSystemUI();
+        startJourneyListAndUtilitiesList();
+        setupNotifacation();
     }
 
     @Override
@@ -107,6 +113,42 @@ public class Temp_Main_Acticity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void startJourneyListAndUtilitiesList() {
+        int mode = getIntent().getIntExtra("mode",0);
+
+        //Toast.makeText(getApplicationContext(), " "+mode, Toast.LENGTH_LONG).show();
+
+        if(mode==1) {
+            Intent intent = new Intent();
+            intent.setClass(this, JourneyListActivity.class);
+            startActivity(intent);
+        }
+        else if(mode==2) {
+            Intent intent = new Intent();
+            intent.setClass(this,Utilities_Activities.class);
+            startActivity(intent);
+        }
+    }
+
+    public void setupNotifacation() {
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.HOUR_OF_DAY, 21);
+        //calendar.set(Calendar.MINUTE, 00);
+
+        Intent intent = new Intent(getApplicationContext(), Notification_reciever.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),pendingIntent);
+        //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+        //AlarmManager.INTERVAL_DAY, pendingIntent);
+
     }
 
 

@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="cmpt276.jade.carbontracker">
 
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+
   <application
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
@@ -41,6 +44,7 @@
         <activity android:name=".BusInfoActivity" />
         <activity android:name=".SkytrainInfoActivity" />
         <activity android:name=".SkytrainListActivity" />
+        <receiver android:name=".Notification_reciever"/>
         <activity android:name=".SettingsActivity"></activity>
         <activity android:name=".AboutUsActivity"></activity>
     </application>
