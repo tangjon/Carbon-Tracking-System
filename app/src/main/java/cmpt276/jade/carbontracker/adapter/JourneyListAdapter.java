@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.ExtractedTextRequest;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ public class JourneyListAdapter extends ArrayAdapter<String> {
 
         String route = getItem(position);
         TextView tv = (TextView) OneBucky.findViewById(R.id.new_journey_list);
-
+        TextView dsp = (TextView) OneBucky.findViewById(R.id.tv_journey_type);
         ImageView image = (ImageView) OneBucky.findViewById(R.id.journeyListImage);
 
 
@@ -53,7 +54,11 @@ public class JourneyListAdapter extends ArrayAdapter<String> {
 //        }
         if(list.countJourneys() != 0){
             Journey j = list.getJourney(position);
-            tv.setText(route + " (" + j.getTransType().getTransMode()  + ")");
+            tv.setText(route);
+
+            // set journey type descrp
+            dsp.setText("(" + j.getTransType().getTransMode()  + " Journey)" );
+
             int img = 0;
             switch (j.getTransType().getTransMode()){
                 case CAR:
