@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import cmpt276.jade.carbontracker.adapter.ImageRowAdapter;
 import cmpt276.jade.carbontracker.model.Emission;
@@ -34,6 +35,12 @@ public class SkytrainInfoActivity extends AppCompatActivity {
         setupNextBtn();
         setupPage();
         getTrainData();
+
+        // Quick fix
+        if (incomingTrain != null && incomingTrain.getMode() == 1) {
+            imageRowAdapter.setImage(incomingTrain.getImageId());
+            imageRowAdapter.updateSelectedScreen();
+        }
     }
 
     private void setUpImageRowSelect() {
@@ -66,11 +73,6 @@ public class SkytrainInfoActivity extends AppCompatActivity {
                 EditText inputName = (EditText) findViewById(R.id.editTextSkytrainName);
                 EditText inputLine = (EditText) findViewById(R.id.editTextSkytrainLine);
                 EditText inputStation = (EditText) findViewById(R.id.editTextSkytrainBoardingStation);
-                // Quick fix
-                if (incomingTrain == null || incomingTrain.getMode() == 0) {
-                    imageRowAdapter.setImage(incomingTrain.getImageId());
-                }
-
 
                 if(!imageRowAdapter.isImageSelected()){
                     TextView tv = (TextView) findViewById(R.id.tv_pick_icon_label);

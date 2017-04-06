@@ -221,6 +221,10 @@
         <item>Vehicle Name</item>
         <item>Carbon Emitted\n(kg CO2)</item>
     </string-array>
+    <string-array name="label_spinner_sort">
+        <item>Group by Vehicle</item>
+        <item>Group by Route</item>
+    </string-array>
 
     <!-- Utilities Activity -->
     <string name="label_new_electric">New Electricity Bill</string>
@@ -283,6 +287,11 @@
         Total Emissions: %1$.2fkg CO2\n
         Average Emissions: %2$.2fkg CO2 per day\n
         (%3$.2fkg CO2 per resident per day)
+    </string>
+    <string name="label_bill_preview_silly">
+        Total Emissions: %1$.0f trees to remove carbon in one hour in total\n
+        Average Emissions: %2$.0f trees to remove carbon in one hour per day\n
+        (%3$.0f trees to remove carbon in one hour per resident)
     </string>
     <string name="label_unit_GJ">GJ</string>
 
