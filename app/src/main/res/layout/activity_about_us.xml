@@ -11,69 +11,69 @@
     android:textStyle="bold"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-      android:text="@string/label_group_jade"
+    android:layout_marginTop="0dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="0dp"
+    android:text="@string/label_group_jade"
     android:textSize="24sp"
-      android:layout_marginStart="8dp"
-      android:layout_marginRight="0dp"
-      app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintLeft_toRightOf="@+id/imageView2"
-      android:layout_marginLeft="8dp"
-      app:layout_constraintTop_toTopOf="@+id/imageView2"
-      android:layout_marginTop="0dp"
-      app:layout_constraintHorizontal_bias="0.0" />
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintLeft_toRightOf="@+id/imageView2"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="@+id/imageView2" />
   <TextView
     android:id="@+id/textView27"
     android:textStyle="bold"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginBottom="43dp"
+    android:layout_marginStart="16dp"
     android:layout_marginLeft="16dp"
     android:text="App Development Lifespan: "
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"
-      android:layout_marginStart="16dp" />
+    app:layout_constraintLeft_toLeftOf="parent" />
 
   <TextView
-      android:id="@+id/textView29"
-      android:layout_width="wrap_content"
-      android:layout_height="17dp"
-      android:text="Start: February 22, 2017"
-      app:layout_constraintLeft_toLeftOf="@+id/textView27"
-      app:layout_constraintTop_toBottomOf="@+id/textView27" />
+    android:id="@+id/textView29"
+    android:layout_width="wrap_content"
+    android:layout_height="17dp"
+    android:text="Start: February 22, 2017"
+    app:layout_constraintLeft_toLeftOf="@+id/textView27"
+    app:layout_constraintTop_toBottomOf="@+id/textView27" />
   <TextView
     android:id="@+id/textView30"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginLeft="8dp"
     android:layout_marginRight="16dp"
     android:text="v2.00"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toTopOf="@+id/textView31"
-      app:layout_constraintLeft_toRightOf="@+id/textView31"
-    android:layout_marginLeft="8dp"
     app:layout_constraintHorizontal_bias="1.0"
-      android:layout_marginStart="8dp"
-      android:layout_marginEnd="16dp" />
+    app:layout_constraintLeft_toRightOf="@+id/textView31"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="@+id/textView31" />
 
   <TextView
-      android:id="@+id/textView31"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Finish: April 7, 2017"
-      app:layout_constraintLeft_toLeftOf="@+id/textView29"
-      app:layout_constraintTop_toBottomOf="@+id/textView29" />
+    android:id="@+id/textView31"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Finish: April 7, 2017"
+    app:layout_constraintLeft_toLeftOf="@+id/textView29"
+    app:layout_constraintTop_toBottomOf="@+id/textView29" />
   <TextView
     android:id="@+id/textView32"
     android:textStyle="bold"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginBottom="131dp"
-      android:text="Image Resources"
+    android:text="Image Resources"
     app:layout_constraintBottom_toTopOf="@+id/textView27"
     app:layout_constraintLeft_toLeftOf="@+id/textView27"
       android:layout_marginLeft="0dp"
       android:layout_marginTop="8dp"
       app:layout_constraintTop_toBottomOf="@+id/textView39"
-      app:layout_constraintVertical_bias="0.042" />
+      app:layout_constraintVertical_bias="0.021" />
   <TextView
     android:id="@+id/textView33"
     android:textStyle="bold"
@@ -81,79 +81,79 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
-      android:text="Class: Cmpt 276 with Brian Fraser"
+    android:text="Class: Cmpt 276 with Brian Fraser"
     app:layout_constraintBottom_toTopOf="@+id/textView27"
     app:layout_constraintLeft_toLeftOf="@+id/textView27"
     app:layout_constraintTop_toBottomOf="@+id/textView32"
-    app:layout_constraintVertical_bias="0.042"
-      android:layout_marginLeft="-10dp" />
+    app:layout_constraintVertical_bias="0.063"
+      android:layout_marginLeft="0dp" />
   <TextView
     android:id="@+id/link_cmpt_home"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-      android:layout_marginLeft="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginLeft="8dp"
     android:text="@string/link_cmpt_home"
-      app:layout_constraintTop_toBottomOf="@+id/textView33"
-      app:layout_constraintLeft_toRightOf="@+id/textView34"
-      android:layout_marginStart="8dp" />
+    app:layout_constraintLeft_toRightOf="@+id/textView34"
+    app:layout_constraintTop_toBottomOf="@+id/textView33" />
   <TextView
     android:id="@+id/textView35"
     android:textStyle="bold"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="87dp"
     android:text="@string/label_developers"
-    android:layout_marginBottom="88dp"
     app:layout_constraintBottom_toTopOf="@+id/textView32"
-      app:layout_constraintLeft_toLeftOf="@+id/textView32"
+    app:layout_constraintLeft_toLeftOf="@+id/textView32"
+      android:layout_marginLeft="0dp"
       android:layout_marginTop="8dp"
       app:layout_constraintTop_toBottomOf="@+id/imageView2"
-      android:layout_marginLeft="0dp"
-      app:layout_constraintVertical_bias="0.11" />
+      app:layout_constraintVertical_bias="0.039" />
   <TextView
     android:id="@+id/textView36"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-      android:text="@string/razvan_cretu"
+    android:text="@string/razvan_cretu"
     app:layout_constraintLeft_toLeftOf="@+id/textView35"
     app:layout_constraintTop_toBottomOf="@+id/textView35" />
   <TextView
     android:id="@+id/textView37"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-      android:text="@string/alex_wu"
+    android:text="@string/alex_wu"
     app:layout_constraintLeft_toLeftOf="@+id/textView36"
     app:layout_constraintTop_toBottomOf="@+id/textView36" />
   <TextView
     android:id="@+id/textView38"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-      android:text="@string/sean_ehrenfellner"
+    android:text="@string/sean_ehrenfellner"
     app:layout_constraintLeft_toLeftOf="@+id/textView37"
     app:layout_constraintTop_toBottomOf="@+id/textView37" />
   <TextView
     android:id="@+id/textView39"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-      android:text="@string/jonathan_tang"
+    android:text="@string/jonathan_tang"
     app:layout_constraintLeft_toLeftOf="@+id/textView38"
     app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
   <TextView
-      android:id="@+id/textView34"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/label_home_page"
-      app:layout_constraintLeft_toLeftOf="@+id/textView33"
-      app:layout_constraintTop_toTopOf="@+id/link_cmpt_home" />
+    android:id="@+id/textView34"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/label_home_page"
+    app:layout_constraintLeft_toLeftOf="@+id/textView33"
+    app:layout_constraintTop_toTopOf="@+id/link_cmpt_home" />
 
   <ImageView
-      android:id="@+id/imageView2"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      app:srcCompat="@mipmap/ic_launcher"
-      android:layout_marginLeft="16dp"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      android:layout_marginTop="16dp" />
+    android:id="@+id/imageView2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginLeft="16dp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:srcCompat="@mipmap/ic_launcher" />
 
 </android.support.constraint.ConstraintLayout>
