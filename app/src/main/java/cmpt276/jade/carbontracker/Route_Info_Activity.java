@@ -84,13 +84,14 @@ public class Route_Info_Activity extends AppCompatActivity {
                 //check empty for route name
                 if (Check_empty_input(R.id.editJourneyName) == 0) {
                     Toast.makeText(getApplicationContext(),
-                            "You haven't enter the route name " + " please try again", Toast.LENGTH_LONG).show();
+                            getString(R.string.route_info_toast_route_name),
+                            Toast.LENGTH_LONG).show();
                 }
                 else {
                     if (Check_empty_input(R.id.Route_Info_edite_highway) == 0 && Check_empty_input(R.id.Route_Info_edite_city) == 0) {
                         Toast.makeText(getApplicationContext(),
-                                "You did not entered any number for either HighWay or City" +
-                                        " please try again", Toast.LENGTH_LONG).show();
+                                getString(R.string.route_info_toast_route_dist),
+                                Toast.LENGTH_LONG).show();
                     }
                     else if (Check_empty_input(R.id.Route_Info_edite_highway) == 0 )
                     {
@@ -104,8 +105,8 @@ public class Route_Info_Activity extends AppCompatActivity {
                         }
                         else {
                             Toast.makeText(getApplicationContext(),
-                                    "Your highway and city are both 0 km, " +
-                                            " please enter some valid number", Toast.LENGTH_LONG).show();
+                                    getString(R.string.route_info_toast_route_dist),
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                     else if (Check_empty_input(R.id.Route_Info_edite_city) == 0 )
@@ -121,8 +122,9 @@ public class Route_Info_Activity extends AppCompatActivity {
                         else {
                             Log.i("save button","highway = "+Double.parseDouble(highway));
                             Toast.makeText(getApplicationContext(),
-                                    "Your highway and city are both 0 km, " +
-                                            " please enter some valid number", Toast.LENGTH_LONG).show();}
+                                    getString(R.string.route_info_toast_route_dist),
+                                    Toast.LENGTH_LONG).show();
+                        }
                     }
                     else {
                         String city = getNameById(R.id.Route_Info_edite_city);
@@ -130,8 +132,8 @@ public class Route_Info_Activity extends AppCompatActivity {
                         if(Double.parseDouble(highway) ==0 && Double.parseDouble(city) ==0)
                         {
                             Toast.makeText(getApplicationContext(),
-                                    "Your highway and city are both 0 km, " +
-                                    " please enter some valid number", Toast.LENGTH_LONG).show();
+                                    getString(R.string.route_info_toast_route_dist),
+                                    Toast.LENGTH_LONG).show();
                         }
                         else
                         {
@@ -239,8 +241,8 @@ public class Route_Info_Activity extends AppCompatActivity {
                 // user can not clicked delete button if they are in add mode
                 if (setupUI_TextView() == 1) {
                     Toast.makeText(getApplicationContext(),
-                            "You can not use delete now"
-                                    + ",since you are in add mode", Toast.LENGTH_LONG).show();
+                            getString(R.string.route_info_toast_delete_err),
+                            Toast.LENGTH_LONG).show();
                 } else {
                     Intent back_route2 = new Intent();
                     back_route2.putExtra("delete is clicked", "1");

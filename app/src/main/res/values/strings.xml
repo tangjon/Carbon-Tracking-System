@@ -238,6 +238,12 @@
     <string name="km">km</string>
     <string name="highway">HighWay:</string>
     <string name="city">City:</string>
+    <string name="route_info_toast_route_name">You haven\'t entered the
+     route name, please try again.</string>
+    <string name="route_info_toast_route_dist">You haven\'t entered valid
+     city/highway distances, please try again.</string>
+    <string name="route_info_toast_delete_err">You cannot use delete since you
+     are in add mode.</string>
 
     <!--EMISSION INFO ACTIVITY-->
 
