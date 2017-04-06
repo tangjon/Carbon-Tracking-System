@@ -9,6 +9,7 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
+    android:id="@+id/layout_graph"
     tools:context="cmpt276.jade.carbontracker.CarbonFootprintActivity">
 
     <TableLayout

@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -108,16 +109,17 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         setupButton();
         setupDateSpinner();
         setupSortSpinner();
+        hideSystemUI();
     }
 
     private void hideSystemUI() {
-//        RelativeLayout layout = (RelativeLayout) findViewById(R.id.main_menu);
-//        layout.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                hideSystemUI();
-//            }
-//        });
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.layout_graph);
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideSystemUI();
+            }
+        });
 
         View mDecorView = getWindow().getDecorView();
         // Set the IMMERSIVE flag.
