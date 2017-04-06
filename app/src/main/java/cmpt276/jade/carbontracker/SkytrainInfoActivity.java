@@ -102,11 +102,11 @@ public class SkytrainInfoActivity extends AppCompatActivity {
                     tv.setError("");
                 }
                 else if (inputName.getText().toString().trim().length() == 0) {
-                    inputName.setError("Please Enter a Nickname");
+                    inputName.setError(getString(R.string.skytrain_info_enter_nick));
                 } else if (inputLine.getText().toString().trim().length() == 0) {
-                    inputLine.setError("Please Enter the Line You Used");
+                    inputLine.setError(getString(R.string.skytrain_info_enter_line));
                 } else if (inputStation.getText().toString().trim().length() == 0) {
-                    inputStation.setError("Please Enter a Boarding Station");
+                    inputStation.setError(getString(R.string.skytrain_info_enter_station));
                 } else {
                     outgoingTrain.setNickName(inputName.getText().toString().trim());
                     outgoingTrain.setSkytrainLine(inputLine.getText().toString().trim());

@@ -301,6 +301,9 @@
     <string name="Car">Car</string>
     <string name="bus">Bus</string>
     <string name="Skytrain">Skytrain</string>
+    <string name="skytrain_info_enter_nick">Please enter a nickname</string>
+    <string name="skytrain_info_enter_line">Please enter the line you used</string>
+    <string name="skytrain_info_enter_station">Please enter a boarding station</string>
 
 
     <!-- About Us Activity -->
