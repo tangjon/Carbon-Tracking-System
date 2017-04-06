@@ -25,7 +25,7 @@ public class Temp_Main_Acticity extends AppCompatActivity {
         setupAboutUsBtn();
         setupSettingsBtn();
 
-        hideSystemUI();
+//        hideSystemUI();
     }
 
     private void hideSystemUI() {

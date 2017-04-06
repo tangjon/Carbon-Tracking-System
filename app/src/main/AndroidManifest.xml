@@ -28,6 +28,7 @@
         <activity android:name=".JourneyReviewActivity" />
         <activity
           android:name=".Temp_Main_Acticity"
+          android:theme="@style/AppTheme.Fullscreen"
           />
         <activity android:name=".Utilities_Activities" />
         <activity
