@@ -304,6 +304,11 @@
     <string name="label_developers">Developers:</string>
     <string name="label_group_jade">Group: Jade</string>
 
+    <!-- Notification Receiver -->
+    <string name="notification_new_bill">You haven\'t added any new electricity bills
+     for one and a half months. Do you want to add any new bills?</string>
+    <string name="notification_new_journey1">You have entered </string>
+    <string name="notification_new_journey2"> journey(s) today. Do you want to add more?</string>
 
     <!--
        ===================================
