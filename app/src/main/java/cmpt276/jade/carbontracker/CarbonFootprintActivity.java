@@ -101,13 +101,13 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
         setupDates();
         Log.i("spinnerDate", "dateEnd = " + dateEnd.toString());
+        hideSystemUI();
 
         setupDatePicker();
         loadData();
         setupButton();
         setupDateSpinner();
         setupSortSpinner();
-        hideSystemUI();
     }
 
     private void hideSystemUI() {
@@ -154,6 +154,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                 setupTable();
 
                 switchGraphs();
+                hideSystemUI();
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
     }

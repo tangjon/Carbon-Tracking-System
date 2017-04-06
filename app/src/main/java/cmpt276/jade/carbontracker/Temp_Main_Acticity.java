@@ -30,6 +30,12 @@ public class Temp_Main_Acticity extends AppCompatActivity {
         hideSystemUI();
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        hideSystemUI();
+    }
+
     private void hideSystemUI() {
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.main_menu);
         layout.setOnClickListener(new OnClickListener() {
