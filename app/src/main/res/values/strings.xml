@@ -316,6 +316,13 @@
     <string name="notification_new_journey1">You have entered </string>
     <string name="notification_new_journey2"> journey(s) today. Do you want to add more?</string>
 
+    <!-- Settings Activity -->
+    <string name="settings_silly_disable">Disable Silly Mode</string>
+    <string name="settings_silly_enable">Enable Silly Mode</string>
+    <string name="settings_tree_hrs"> Tree Hours</string>
+    <string name="settings_kg"> Kg</string>
+    <string name="settings_about">About</string>
+
     <!--
        ===================================
        New Strings to Organize

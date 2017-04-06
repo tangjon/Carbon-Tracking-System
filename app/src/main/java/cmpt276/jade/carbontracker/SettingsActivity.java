@@ -69,14 +69,14 @@ public class SettingsActivity extends AppCompatActivity {
         Button languageMode = (Button) findViewById(R.id.btnSettingsLanguage);
         Button toAbout = (Button) findViewById(R.id.btnSettingsToAbout);
         if (Emission.getInstance().getSettings().getSillyMode() == MeasurementUnit.TREES) {
-            sillyMode.setText("Disable Silly Mode");
+            sillyMode.setText(getString(R.string.settings_silly_disable));
             TextView test = (TextView) findViewById(R.id.textViewMoreLikeTestViewAmirite);
             test.setText("" + Emission.getInstance().getSettings().calcTreeAbsorbtion(testEmission)
-                    + " Tree Hours");
+                    + getString(R.string.settings_tree_hrs));
         } else {
-            sillyMode.setText("Enable Silly Mode");
+            sillyMode.setText(getString(R.string.settings_silly_enable));
             TextView test = (TextView) findViewById(R.id.textViewMoreLikeTestViewAmirite);
-            test.setText("" + testEmission + " Kg");
+            test.setText("" + testEmission + getString(R.string.settings_kg));
         }
 
         //This is probably just temporary until we get everything working
@@ -88,7 +88,7 @@ public class SettingsActivity extends AppCompatActivity {
             languageMode.setText("Français");
         }
 
-        toAbout.setText("About");
+        toAbout.setText(getString(R.string.settings_about));
     }
 
     private void setupButtons() {
