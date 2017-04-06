@@ -117,6 +117,20 @@
     <string name="journey_summary_total_city_distance">Total City Distance(Km):</string>
     <string name="journey_summary_total_highway_distance">Total Highway Distance(Km):</string>
     <string name="journey_summary_total_distance">Total Distance(Km):</string>
+    <string name="journey_summary_trans_info_car">Car Info</string>
+    <string name="journey_summary_trans_info_bus">Bus Info</string>
+    <string name="journey_summary_trans_info_skytrain">Skytrain Info</string>
+    <string name="journey_summary_trans_info_walk">Walk Info</string>
+    <string name="journey_summary_trans_info_bike">Bike Info</string>
+    <string name="journey_summary_emission_trees1">Your trip will take </string>
+    <string name="journey_summary_emission_trees2"> trees one hour to remove the carbon you produced.</string>
+    <string name="journey_summary_info_total_dist">\nTotal Distance: </string>
+    <string name="journey_summary_info_route_num">\nRoute #: </string>
+    <string name="journey_summary_info_emission">Carbon Emission (Kg): </string>
+    <string name="journey_summary_info_line_name">\nLine Name: </string>
+    <string name="journey_summary_info_station">\nBoarding Station: </string>
+    <string name="journey_summary_congratulations">Congratulations on making no carbon impact!</string>
+    <string name="journey_summary_congratulations_trees">Your trip created no carbon and allowed trees to take a break!</string>
 
     <!--JOURNEY REVIEW ACTIVITY-->
 
