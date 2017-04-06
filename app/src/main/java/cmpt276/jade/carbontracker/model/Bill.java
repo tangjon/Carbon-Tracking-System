@@ -12,8 +12,8 @@ import cmpt276.jade.carbontracker.enums.BillType;
  */
 public class Bill implements Serializable {
     private BillType type;
-    private double emissionTotal;   // Kg CO2
-    private double emissionAvg;     // Kg CO2 / time
+    private double emissionTotal = 0;   // Kg CO2
+    private double emissionAvg = 0;     // Kg CO2 / time
     private Date startDate;
     private Date endDate;
     private double input;

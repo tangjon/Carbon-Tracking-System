@@ -54,6 +54,29 @@ public class UtilityEditActivity extends AppCompatActivity {
         setupButtons();
         setupDatePickers();
         getGasTips();
+        hideSystemUI();
+    }
+
+    private void hideSystemUI() {
+//        RelativeLayout layout = (RelativeLayout) findViewById(R.id.main_menu);
+//        layout.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                hideSystemUI();
+//            }
+//        });
+
+        View mDecorView = getWindow().getDecorView();
+        // Set the IMMERSIVE flag.
+        // Set the content to appear under the system bars so that the content
+        // doesn't resize when the system bars hide and show.
+
+        int uiOptions =
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN;
+
+        mDecorView.setSystemUiVisibility(uiOptions);
     }
 
     private void setupDatePickers() {
@@ -138,7 +161,6 @@ public class UtilityEditActivity extends AppCompatActivity {
         });
     }
 
-    // TODO: 14/03/17 extract strings
     private void previewEmissions() {
         EditText editInput = (EditText) findViewById(R.id.editBillInput);
         if (!editInput.getText().toString().isEmpty()) {

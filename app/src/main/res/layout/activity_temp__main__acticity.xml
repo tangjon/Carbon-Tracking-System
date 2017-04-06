@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/mainbackground"
     tools:context="cmpt276.jade.carbontracker.Temp_Main_Acticity">
 
     <Button
+        android:drawableBottom="@drawable/ic_timeline_white_36dp"
+        android:theme="@style/ColoredButton.Blue"
         android:id="@+id/Main_Graph_BTN"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/main_menu_graph"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="434dp"
       android:layout_alignParentTop="true"
       android:layout_alignStart="@+id/Main_Journey_BTN"
-      android:layout_marginTop="84dp" />
+      android:layout_marginTop="84dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="46dp" />
 
     <Button
+        android:drawableBottom="@drawable/ic_lightbulb_outline_white_36dp"
+        android:theme="@style/ColoredButton.Red"
         android:id="@+id/Main_Utilities_BTN"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/main_menu_utilities"
         tools:layout_editor_absoluteX="290dp"
         tools:layout_editor_absoluteY="427dp"
         android:layout_below="@+id/Main_Journey_BTN"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:layout_alignParentStart="true" />
 
     <Button
+        android:theme="@style/ColoredButton.Green"
+        android:drawableBottom="@drawable/ic_explore_white_36dp"
         android:id="@+id/Main_Journey_BTN"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/main_menu_journey"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="16dp"
-      android:layout_alignTop="@+id/Main_Graph_BTN"
-      android:layout_alignStart="@+id/Main_Utilities_BTN"
-      android:layout_marginTop="70dp" />
-    <Button
-      android:id="@+id/btn_about"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-        android:text="@string/label_about_us"
-        android:layout_marginTop="18dp"
-        android:layout_below="@+id/btnMainActivityToSettings"
-        android:layout_alignEnd="@+id/btnMainActivityToSettings" />
+        android:layout_below="@+id/Main_Graph_BTN"
+        android:layout_alignParentStart="true" />
 
     <Button
+        android:drawableBottom="@drawable/ic_settings_black_24dp"
         android:id="@+id/btnMainActivityToSettings"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="@string/main_menu_settings"
         android:layout_below="@+id/Main_Utilities_BTN"
