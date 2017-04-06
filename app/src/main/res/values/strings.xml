@@ -317,6 +317,10 @@
     <string name="about_us_app_development_lifespan">App Development Lifespan:</string>
     <string name="about_us_start_february_22_2017">Start: February 22, 2017</string>
     <string name="about_us_v2_00">v2.00</string>
+    <string name="main_menu_graph">Graph</string>
+    <string name="main_menu_utilities">UTILITIES</string>
+    <string name="main_menu_journey">Journey</string>
+    <string name="main_menu_settings">Settings</string>
 
 
 </resources>

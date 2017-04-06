@@ -41,7 +41,7 @@
         android:layout_below="@+id/btnSettingsToAbout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="62dp"
-        android:text="TextView" />
+        android:text="@string/DEFAULT_TXT" />
     <TextView
       android:id="@+id/textView15"
       android:textStyle="bold"
