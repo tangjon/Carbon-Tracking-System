@@ -61,6 +61,7 @@ public class CarListActivity extends AppCompatActivity {
         populateListView();
 
         hideSystemUI();
+
     }
 
     @Override
@@ -78,7 +79,7 @@ public class CarListActivity extends AppCompatActivity {
 //            }
 //        });
 
-        View mDecorView = getWindow().getDecorView();
+        final View mDecorView = getWindow().getDecorView();
         // Set the IMMERSIVE flag.
         // Set the content to appear under the system bars so that the content
         // doesn't resize when the system bars hide and show.
@@ -89,6 +90,18 @@ public class CarListActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN;
 
         mDecorView.setSystemUiVisibility(uiOptions);
+
+        mDecorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                int uiOptions =
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                                | View.SYSTEM_UI_FLAG_FULLSCREEN;
+
+                mDecorView.setSystemUiVisibility(uiOptions);
+            }
+        });
     }
 
     private void populateListView() {
