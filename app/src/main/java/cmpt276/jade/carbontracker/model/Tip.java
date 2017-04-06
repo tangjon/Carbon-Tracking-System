@@ -1,5 +1,9 @@
 package cmpt276.jade.carbontracker.model;
 
+import android.content.res.Resources;
+
+import cmpt276.jade.carbontracker.R;
+
 // Tip class
 // has 32 tips for journey(car bus skytrain walk bike)
 // getJourneyTip();
@@ -24,6 +28,8 @@ public class Tip {
     static int journeyEmissionsTipsNotRepeat[] = {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8};  //13
     static int electricityTipsNotRepeat[] = {8, 8, 8, 8, 8, 8, 8, 8, 8, 8};                //8
     static int gasTipsNotRepeat[] = {8, 8, 8, 8, 8, 8, 8, 8, 8, 8};                        //8
+
+    private Resources res = Resources.getSystem();
 
     public void setTotalCarEmissions(double totalCarEmission) {
         this.totalCarEmission = totalCarEmission;
@@ -88,56 +94,41 @@ public class Tip {
         }
         double totalJourneyEmissions = getTotalJourneyEmissions();
         if (totalWalk == 0.0 && walkTipsNotRepeat[0] > 8) {
-            String tip = "You haven't walked today,"
-                    + "Walking has lots of health benefits. "
-                    + "Try walking tomorrow.";
+            String tip = res.getString(R.string.tip_walk1);
             walkTipsNotRepeat[0] = 1;
             return tip;
         } else if (totalWalk < 2.8 && walkTipsNotRepeat[1] > 8) {
-            String tip = "The minimum standard for a young person is 4000 steps per day "
-                    + "which is around 2.8km. "
-                    + "You have walked " + totalWalk
-                    + " km today.You should try taking another walk.";
+            String tip = res.getString(R.string.tip_walk2) + totalWalk +
+                    res.getString(R.string.tip_walk_more);
             walkTipsNotRepeat[1] = 1;
             return tip;
         } else if (totalWalk >= 2.8 && totalWalk < 4.9 && walkTipsNotRepeat[2] > 8) {
-            String tip = "The minimum standard for a young person is 4000 steps per day "
-                    + "which is around 2.8km. "
-                    + "You have walked " + totalWalk
-                    + " km today. Well done!";
+            String tip = res.getString(R.string.tip_walk2) + totalWalk +
+                    res.getString(R.string.tip_walk_good);
             walkTipsNotRepeat[2] = 1;
             return tip;
         } else if (totalWalk >= 2.8 && totalWalk < 4.9 && walkTipsNotRepeat[3] > 8) {
-            String tip = "The normal standard for for young person is 7000 steps per day"
-                    + "which is around 4.9 km. "
-                    + "You have walked " + totalWalk
-                    + " km today. You should try taking another walk.";
+            String tip = res.getString(R.string.tip_walk3) + totalWalk +
+                    res.getString(R.string.tip_walk_more);
             walkTipsNotRepeat[3] = 1;
             return tip;
         } else if (totalWalk >= 4.9 && totalWalk < 7.0 && walkTipsNotRepeat[4] > 8) {
-            String tip = "The normal standard for a young person is 7000 steps per day"
-                    + "which is around 4.9 km. "
-                    + "You have walked " + totalWalk
-                    + " km today. Well done!";
+            String tip = res.getString(R.string.tip_walk3) + totalWalk +
+                    res.getString(R.string.tip_walk_good);
             walkTipsNotRepeat[4] = 1;
             return tip;
         } else if (totalWalk >= 4.9 && totalWalk < 7.0 && walkTipsNotRepeat[5] > 8) {
-            String tip = "The healthiest distance for a young person is 10000 steps per day"
-                    + "which is around 7.0 km. "
-                    + "You have walked " + totalWalk
-                    + " km today. You should try taking another walk.";
+            String tip = res.getString(R.string.tip_walk4) + totalWalk +
+                    res.getString(R.string.tip_walk_more);
             walkTipsNotRepeat[5] = 1;
             return tip;
         } else if (totalWalk >= 7.0 && walkTipsNotRepeat[6] > 8) {
-            String tip = "The healthiest distance for a young person is 10000 steps per day"
-                    + "which is around 7.0 km. "
-                    + "You have walked " + totalWalk
-                    + " km today. Well done!";
+            String tip = res.getString(R.string.tip_walk4) + totalWalk +
+                    res.getString(R.string.tip_walk_good);
             walkTipsNotRepeat[6] = 1;
             return tip;
         } else if (totalJourneyEmissions == 0 && totalWalk != 0 && walkTipsNotRepeat[7] >= 7) {
-            String tip = "I see, you went outside and didn't drive or take any transit. " +
-                    "The total emissions is 0. We can make this a better world together, well done.";
+            String tip = res.getString(R.string.tip_walk_only);
             walkTipsNotRepeat[7] = 1;
             return tip;
         }

@@ -377,5 +377,18 @@
     <string name="main_menu_journey">Journey</string>
     <string name="main_menu_settings">Settings</string>
 
+    <!-- Tips -->
+    <string name="tip_walk1">You haven\'t walked today, walking has lots of health benefits.
+     Try walking tomorrow!</string>
+    <string name="tip_walk2">The minimum standard for a young person is 4000 steps per day,
+     which is around 2.8 km. You have walked </string>
+    <string name="tip_walk3">The normal standard for a young person is 7000 steps per day,
+     which is around 4.9 km. You have walked </string>
+    <string name="tip_walk4">The healthiest distance for a young person is 10000 steps per day,
+     which is around 7.0 km. You have walked </string>
+    <string name="tip_walk_more"> km today. You should try taking another walk.</string>
+    <string name="tip_walk_good"> km today. Well done!</string>
+    <string name="tip_walk_only">You went outside and didn\'t drive or take transit.
+     The total emissions is 0. We can make this a better world together, well done!</string>
 
 </resources>
