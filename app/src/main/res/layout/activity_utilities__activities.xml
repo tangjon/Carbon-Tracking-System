@@ -13,6 +13,8 @@
     android:focusableInTouchMode="true">
 
     <Button
+        android:drawableLeft="@drawable/ic_note_add_black_24dp"
+
         android:id="@+id/btn_new_electric"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,6 +23,7 @@
         android:layout_alignParentEnd="true" />
 
     <Button
+        android:drawableLeft="@drawable/ic_note_add_black_24dp"
         android:id="@+id/btn_new_gas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

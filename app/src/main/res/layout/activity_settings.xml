@@ -16,6 +16,8 @@
         android:text="Button" />
 
     <Button
+        android:drawablePadding="5dip"
+        android:drawableLeft="@drawable/ic_g_translate_black_24dp"
         android:id="@+id/btnSettingsLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,6 +26,8 @@
         android:text="Button" />
 
     <Button
+        android:drawablePadding="5dip"
+        android:drawableStart="@drawable/ic_error_outline_black_24dp"
         android:id="@+id/btnSettingsToAbout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +43,7 @@
         android:layout_below="@+id/btnSettingsToAbout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="62dp"
-        android:text="TextView" />
+        android:text="@string/DEFAULT_TXT" />
     <TextView
       android:id="@+id/textView15"
       android:textStyle="bold"

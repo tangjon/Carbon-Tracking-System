@@ -331,7 +331,16 @@
     <string name="tips_dialog_click_next_to_display_a_tips">Click next to display a tips!</string>
     <string name="car_info_pick_an_icon">Pick an icon</string>
   <string name="settings_activity_current_language">Current Language:</string>
-
+    <string name="about_us_finish_april_7_2017">Finish: April 7, 2017</string>
+    <string name="about_us_image_resources">Image Resources</string>
+    <string name="about_us_class_cmpt_276_with_brian_fraser">Class: Cmpt 276 with Brian Fraser</string>
+    <string name="about_us_app_development_lifespan">App Development Lifespan:</string>
+    <string name="about_us_start_february_22_2017">Start: February 22, 2017</string>
+    <string name="about_us_v2_00">v2.00</string>
+    <string name="main_menu_graph">Graph</string>
+    <string name="main_menu_utilities">UTILITIES</string>
+    <string name="main_menu_journey">Journey</string>
+    <string name="main_menu_settings">Settings</string>
 
 
 </resources>

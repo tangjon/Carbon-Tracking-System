@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import cmpt276.jade.carbontracker.model.Car;
 
 /**
+ * Car Manger is to read the pre-formatted csv of cars
+ *
  * Array positions to information
  * [0] - city08 - city MPG for fuelType1 (2), (11)
  * [1] - co2TailpipeGpm- tailpipe CO2 in grams/mile for fuelType1 (5)

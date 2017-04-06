@@ -26,6 +26,7 @@
         android:layout_above="@+id/btnSkytrainListAdd" />
 
     <Button
+        android:drawableLeft="@drawable/ic_add_black_24dp"
         android:id="@+id/btnSkytrainListAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
