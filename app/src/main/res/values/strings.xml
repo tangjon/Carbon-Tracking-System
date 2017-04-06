@@ -145,7 +145,7 @@
     <string-array name="label_table_gas_silly">
         <item>Start Date</item>
         <item>End Date</item>
-        <item>Usage (kWh)</item>
+        <item>Usage (GJ)</item>
         <item># Trees to Absorb Carbon\nin an hour</item>
         <item>Average # Trees needed</item>
     </string-array>
