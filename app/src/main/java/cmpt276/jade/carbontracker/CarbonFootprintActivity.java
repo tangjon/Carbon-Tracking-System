@@ -91,7 +91,10 @@ public class CarbonFootprintActivity extends AppCompatActivity {
     // 20.6 T CO2 / household (~2.5 people) / year -> Kg CO2 / day / person
     private final int CAN_AVG_EMISSIONS = (int) (20.6 * 1000000 / 360 / 2.5);
     private final int CAN_TARGET_EMISSIONS = (int) (CAN_AVG_EMISSIONS * 0.7);   // 30% reduction
-
+    private final int CAN_AVG_EMISSIONS_SILLY =
+            (int) Emission.getInstance().getSettings().calcTreeAbsorbtion(CAN_AVG_EMISSIONS);
+    private final int CAN_TARGET_EMISSIONS_SILLY =
+            (int) Emission.getInstance().getSettings().calcTreeAbsorbtion(CAN_TARGET_EMISSIONS);
 
     private static final String TAG = "CarbonFootPrintActivity";
 
@@ -540,26 +543,26 @@ public class CarbonFootprintActivity extends AppCompatActivity {
             if (t.getCar() != null) {
                 emissionVehicleNames[i] = t.getCar().getNickName();
                 if (!sillyMode) {
-                    emissionValues[i] = (float) Math.round(j.getTotalTravelledEmissions());
+                    emissionValues[i] = (float) Emission.round(j.getTotalTravelledEmissions());
                 } else {
                     emissionValues[i] = (float)
-                            Math.round(settings.calcTreeAbsorbtion(j.getTotalTravelledEmissions()));
+                            Emission.round(settings.calcTreeAbsorbtion(j.getTotalTravelledEmissions()));
                 }
             } else if (t.getSkytrain() != null) {
                 emissionVehicleNames[i] = t.getSkytrain().getNickName();
                 if (!sillyMode) {
-                    emissionValues[i] = (float) Math.round(j.getSkytrainEmissions());
+                    emissionValues[i] = (float) Emission.round(j.getSkytrainEmissions());
                 } else {
                     emissionValues[i] = (float)
-                            Math.round(settings.calcTreeAbsorbtion(j.getSkytrainEmissions()));
+                            Emission.round(settings.calcTreeAbsorbtion(j.getSkytrainEmissions()));
                 }
             } else if (t.getBus() != null) {
                 emissionVehicleNames[i] = t.getBus().getNickName();
                 if (!sillyMode) {
-                    emissionValues[i] = (float) Math.round(j.getBusEmissions());
+                    emissionValues[i] = (float) Emission.round(j.getBusEmissions());
                 } else {
                     emissionValues[i] = (float)
-                            Math.round(settings.calcTreeAbsorbtion(j.getBusEmissions()));
+                            Emission.round(settings.calcTreeAbsorbtion(j.getBusEmissions()));
                 }
             } else {
                 emissionVehicleNames[i] = "n/a";
@@ -628,18 +631,28 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
         ArrayList<ILineDataSet> lines = new ArrayList<>();
         ArrayList<Entry> lineEntries = new ArrayList<>();
+
         for (int i = 0; i < data.getEntryCount(); ++i) {
-            lineEntries.add(new Entry(i, CAN_AVG_EMISSIONS));
+            if (sillyMode)
+                lineEntries.add(new Entry(i, CAN_AVG_EMISSIONS_SILLY));
+            else
+                lineEntries.add(new Entry(i, CAN_AVG_EMISSIONS));
         }
+
         LineDataSet line = new LineDataSet(lineEntries, "test");
         line.setDrawCircles(false);
         line.setColor(Color.RED);
         lines.add(line);
 
         ArrayList<Entry> lineEntriesTgt = new ArrayList<>();
+
         for (int i = 0; i < data.getEntryCount(); ++i) {
-            lineEntriesTgt.add(new Entry(i, CAN_TARGET_EMISSIONS));
+            if (sillyMode)
+                lineEntriesTgt.add(new Entry(i, CAN_TARGET_EMISSIONS_SILLY));
+            else
+                lineEntriesTgt.add(new Entry(i, CAN_TARGET_EMISSIONS));
         }
+
         LineDataSet lineTgt = new LineDataSet(lineEntriesTgt, "test2");
         lineTgt.setDrawCircles(false);
         lineTgt.setColor(Color.YELLOW);
@@ -679,7 +692,10 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
-            return labels[(int) value];
+            if (value > -1 && value < labels.length)
+                return labels[(int) value];
+            else
+                return "";
         }
     }
 

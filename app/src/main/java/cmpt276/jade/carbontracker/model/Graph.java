@@ -18,6 +18,7 @@ import java.util.List;
 import cmpt276.jade.carbontracker.enums.BillType;
 import cmpt276.jade.carbontracker.enums.DateMode;
 import cmpt276.jade.carbontracker.enums.GroupMode;
+import cmpt276.jade.carbontracker.enums.MeasurementUnit;
 import cmpt276.jade.carbontracker.enums.Transport;
 
 /**
@@ -27,6 +28,7 @@ public class Graph {
     private static Emission emission;
     private static Utilities utilities;
     private static JourneyCollection journeyCollection;
+    private static Settings settings;
 
     private Graph() {
         updateData();
@@ -36,10 +38,11 @@ public class Graph {
         emission = Emission.getInstance();
         utilities = emission.getUtilities();
         journeyCollection = emission.getJourneyCollection();
+        settings = emission.getSettings();
     }
 
     // Returns PieData used for generating pie graph in UI
-    // mode : set to 0 if using all data, 1 if using specific date, 2 if within date range
+    // mode : sets which date mode to use for selecting data
     // Specific date arguments can be null if not used (see 'mode')
     public static PieData getPieData(String label, DateMode mode, GroupMode groupMode,
                                      Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
@@ -81,7 +84,7 @@ public class Graph {
     }
 
     // Returns BarData used for generating bar graph in UI
-    // mode : set to 0 if using all data, 1 if using specific date, 2 if within date range
+    // mode : sets which date mode to use for selecting data
     // Specific date arguments can be null if not used (see 'mode')
     public static BarData getBarData(String label, DateMode mode,
                                      Date dateSelected, Date dateRangeStart, Date dateRangeEnd) {
@@ -376,6 +379,8 @@ public class Graph {
         public float values[];
         public double distance[];
         private JourneyCollection journeyCollection;
+        private Boolean sillyMode =
+                (emission.getSettings().getSillyMode() == MeasurementUnit.TREES);
 
         JourneyData(JourneyCollection jc) {
             journeyCollection = jc;
@@ -392,19 +397,35 @@ public class Graph {
                 j = journeyCollection.getJourney(i);
                 t = j.getTransType();
                 nameRoute[i] = j.getRoute().getName();
+
                 if (t.getCar() != null) {
                     nameVehicle[i] = t.getCar().getNickName();
+                    if (sillyMode)
+                        values[i] = (float) Emission.round(
+                                settings.calcTreeAbsorbtion(j.getTotalTravelledEmissions()));
+                    else
+                        values[i] = (float) Emission.round(j.getTotalTravelledEmissions());
                 } else if (t.getSkytrain() != null) {
                     nameVehicle[i] = t.getSkytrain().getNickName();
+                    if (sillyMode)
+                        values[i] = (float) Emission.round(
+                                settings.calcTreeAbsorbtion(j.getSkytrainEmissions()));
+                    else
+                        values[i] = (float) Emission.round(j.getSkytrainEmissions());
                 } else if (t.getBus() != null) {
                     nameVehicle[i] = t.getBus().getNickName();
+                    if (sillyMode)
+                        values[i] = (float) Emission.round(
+                                settings.calcTreeAbsorbtion(j.getBusEmissions()));
+                    else
+                        values[i] = (float) Emission.round(j.getBusEmissions());
                 } else {
                     nameVehicle[i] = "Walk/Bike";
                 }
+
                 if (j.getDateObj() != null)
                     date[i] = Emission.DATE_FORMAT.format(j.getDateObj());
                 else date[i] = "n/a";
-                values[i] = (float) j.getTotalTravelledEmissions();
                 distance[i] = j.getTotalDriven();
             }
         }
