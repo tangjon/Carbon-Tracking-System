@@ -26,6 +26,8 @@
         android:text="Button" />
 
     <Button
+        android:drawablePadding="5dip"
+        android:drawableStart="@drawable/ic_error_outline_black_24dp"
         android:id="@+id/btnSettingsToAbout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
