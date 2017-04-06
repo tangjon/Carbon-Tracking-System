@@ -8,6 +8,12 @@ import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+
+/**
+ * The about us activity
+ *
+ * tells us some extra information about the application and the developers
+ */
 public class AboutUsActivity extends AppCompatActivity {
 
   public static Intent getIntent(Context ctx){
