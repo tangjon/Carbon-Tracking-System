@@ -23,6 +23,7 @@
     </TableLayout>
 
     <Button
+        android:drawableLeft="@drawable/ic_autorenew_black_24dp"
         android:id="@+id/btn_graph_toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,6 +67,8 @@
         android:layout_alignEnd="@+id/spinner_sort" />
 
     <Button
+
+        android:drawableLeft="@drawable/ic_info_outline_black_24dp"
         android:id="@+id/btn_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
