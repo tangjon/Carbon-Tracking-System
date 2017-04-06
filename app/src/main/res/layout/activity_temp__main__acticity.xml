@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/mainbackground"
-    android:id="@+id/main_menu"
     tools:context="cmpt276.jade.carbontracker.Temp_Main_Acticity">
 
     <Button
+
         android:id="@+id/Main_Graph_BTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/Main_Journey_BTN"
+        android:layout_marginTop="87dp"
         android:text="Graph"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="434dp"
-        android:layout_marginTop="87dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/Main_Journey_BTN" />
+        tools:layout_editor_absoluteY="434dp" />
 
     <Button
         android:id="@+id/Main_Utilities_BTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="UTILITIES"
-        tools:layout_editor_absoluteX="290dp"
-        tools:layout_editor_absoluteY="427dp"
         android:layout_below="@+id/Main_Journey_BTN"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:text="UTILITIES"
+        tools:layout_editor_absoluteX="290dp"
+        tools:layout_editor_absoluteY="427dp" />
 
     <Button
         android:id="@+id/Main_Journey_BTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/Main_Utilities_BTN"
+        android:layout_alignTop="@+id/Main_Graph_BTN"
+        android:layout_marginTop="70dp"
         android:text="Journey"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="16dp"
-      android:layout_alignTop="@+id/Main_Graph_BTN"
-      android:layout_alignStart="@+id/Main_Utilities_BTN"
-      android:layout_marginTop="70dp" />
+        tools:layout_editor_absoluteY="16dp" />
 
     <Button
         android:id="@+id/btnMainActivityToSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings"
         android:layout_below="@+id/Main_Utilities_BTN"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp" />
+        android:layout_marginTop="21dp"
+        android:text="Settings" />
 
 </RelativeLayout>
