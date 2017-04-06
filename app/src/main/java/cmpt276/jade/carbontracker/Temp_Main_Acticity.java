@@ -38,8 +38,8 @@ public class Temp_Main_Acticity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPostResume() {
-        super.onPostResume();
+    protected void onResume() {
+        super.onResume();
         hideSystemUI();
     }
 
