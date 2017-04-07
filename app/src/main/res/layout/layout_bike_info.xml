@@ -34,7 +34,7 @@
         android:id="@+id/Bike_Info_ok_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OK"
+        android:text="@string/label_ok"
         android:layout_alignBottom="@+id/Bike_Info_edit_distance"
         android:layout_alignParentEnd="true" />
 
@@ -52,7 +52,7 @@
         android:id="@+id/Bike_Info_cansel_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CANSEL"
+        android:text="@string/label_cancel"
         android:layout_below="@+id/Bike_Info_ok_btn"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="17dp" />
@@ -64,7 +64,7 @@
         android:layout_above="@+id/Bike_Info_ok_btn"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="33dp"
-        android:text="DELETE" />
+        android:text="@string/label_delete" />
 
     <Button
         android:id="@+id/Bike_Info_walk_btn"
@@ -73,7 +73,7 @@
         android:layout_below="@+id/Bike_Info_cansel_btn"
         android:layout_marginTop="44dp"
         android:layout_toEndOf="@+id/Bike_info_mode"
-        android:text="ADD WALK" />
+        android:text="@string/add_walk" />
 
     <Button
         android:id="@+id/Bike_Info_bike_btn"
@@ -81,6 +81,6 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/Bike_Info_walk_btn"
         android:layout_toStartOf="@+id/Bike_Info_cansel_btn"
-        android:text="ADD BIKE" />
+        android:text="@string/add_bike" />
 
 </RelativeLayout>

@@ -104,7 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_bill_preview"
         android:layout_marginTop="44dp"
-        android:text="Tap to see next tip"
+        android:text="@string/utilities_tip"
         android:textSize="18sp" />
 
 </RelativeLayout>

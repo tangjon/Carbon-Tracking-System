@@ -25,6 +25,8 @@
     <string name="label_back">Back</string>
     <string name="label_done">Done</string>
     <string name="label_edit">Edit</string>
+    <string name="label_close">Close</string>
+    <string name="label_ok">OK</string>
 
 
     <!--Action ToolBar Hints-->
@@ -100,7 +102,7 @@
     <string name="skytrain">Skytrain</string>
     <string name="cant_delete_now">You can not use delete now</string>
     <string name="you_in_add">,since you are in add mode</string>
-    <string name="no_name_entered">You haven\'t enter the name</string>
+    <string name="no_name_entered">You have not enter the name</string>
     <string name="please_try_again">please try again</string>
     <string name="no_distance">You did not entered any number for Distance</string>
     <string name="invalid_number">You entered a invalid number</string>
@@ -276,6 +278,7 @@
     <string name="car_info_warning">Please Enter a nickname</string>
     <string name="journey_list_toast_edit_mode">Long press to delete enabled</string>
     <string name="journey_list_toast_delete_mode">You can now long press to delete</string>
+    <string name="utilities_tip">Tap to see next tip</string>
 
     <!-- Utility Edit Activity -->
     <string name="label_bill_start">Bill Start Date</string>
@@ -363,7 +366,7 @@
     <string name="bike_trans_acitvity_tool_bar_hint">Fill in your Route Info</string>
     <string name="utilitiesactivitytoolbarhint">Utilities</string>
     <string name="carbonfootprintactivitytoolbarhint">Graphs</string>
-    <string name="tips_dialog_click_next_to_display_a_tips">Click next to display a tips!</string>
+    <string name="tips_dialog_click_next_to_display_a_tips">Click next to display a tip!</string>
     <string name="car_info_pick_an_icon">Pick an icon</string>
   <string name="settings_activity_current_language">Current Language:</string>
     <string name="about_us_finish_april_7_2017">Finish: April 7, 2017</string>
@@ -479,5 +482,11 @@
      minimize heat loss and to prevent air from leaking into furnaces and ovens.</string>
     <string name="tip_gas8">Tip: if you have a fireplace, close the damper or install glass doors
      to prevent warm air from escaping up the chimney.</string>
+
+
+    <string name="hint_click_list_item_to_continue_nlong_press_to_edit_or_delete">Hint: Click list item to continue. Long press to edit or delete.</string>
+    <string name="transport_select_bike_walk">Bike and Walk</string>
+    <string name="add_walk">Add Walk</string>
+    <string name="add_bike">Add Bike</string>
 
 </resources>

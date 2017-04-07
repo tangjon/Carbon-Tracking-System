@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight=".5"
-            android:text="Close" />
+            android:text="@string/label_next" />
 
         <Button
             android:id="@+id/btn_next"
@@ -37,6 +37,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight=".5"
-            android:text="Next" />
+            android:text="@string/label_close" />
     </TableRow>
 </RelativeLayout>

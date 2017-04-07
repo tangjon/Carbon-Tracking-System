@@ -94,7 +94,7 @@
         android:id="@+id/utility_tips"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tap to see next tip"
+        android:text="@string/utilities_tip"
         android:layout_above="@+id/edit_residents"
         android:layout_alignParentEnd="true" />
 

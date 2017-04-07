@@ -54,7 +54,7 @@
         android:layout_alignStart="@+id/Transport_select_bus"
         android:layout_marginStart="19dp"
         android:layout_marginTop="23dp"
-        android:text="Skytrain"
+        android:text="@string/skytrain"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -66,7 +66,7 @@
         android:layout_alignBaseline="@+id/Trans_text_skytrain"
         android:layout_alignBottom="@+id/Trans_text_skytrain"
         android:layout_alignEnd="@+id/Transport_select_bike"
-        android:text="Bike and Walk"
+        android:text="@string/bike_walk"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -78,7 +78,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/Trans_text_skytrain"
         android:layout_marginBottom="21dp"
-        android:text="Bus"
+        android:text="@string/bus"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
         android:textStyle="bold" />
