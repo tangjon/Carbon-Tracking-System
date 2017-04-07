@@ -244,7 +244,7 @@ public class JourneyReviewActivity extends AppCompatActivity {
                         Emission.getInstance().getJourneyCollection().addJourney(storedJourney);
 //                        DBAdapter.save(JourneyReviewActivity.this, storedJourney); // Moved "saving to journey list" <--- BAD!
                     } else if (journey.getMode() == 1) {
-                        Toast.makeText(JourneyReviewActivity.this, "" + storedJourney.getPosition(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(JourneyReviewActivity.this, "" + storedJourney.getPosition(), Toast.LENGTH_SHORT).show();
                         JourneyCollection listOfJourneys = Emission.getInstance().getJourneyCollection();
                         listOfJourneys.editJourney(storedJourney, journey.getPosition());
                         Emission.getInstance().setJourneyCollection(listOfJourneys);

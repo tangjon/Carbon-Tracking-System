@@ -379,6 +379,14 @@
     <string name="main_menu_utilities">UTILITIES</string>
     <string name="main_menu_journey">Journey</string>
     <string name="main_menu_settings">Settings</string>
+    <string name="settings_activity_mode">Mode:</string>
+    <string name="settings_activity_units_shown">Units shown:</string>
+    <string name="disable_silly">Disable Silly Mode</string>
+    <string name="amount_trees_one">Amount of trees needed over a timeframe</string>
+    <string name="amount_trees_two">of 1 hour to remove the emissions released</string>
+    <string name="enable_silly">Enable Silly Mode</string>
+    <string name="kilograms">Kilograms</string>
+    <string name="about">About</string>
 
 
     <!-- Tips -->

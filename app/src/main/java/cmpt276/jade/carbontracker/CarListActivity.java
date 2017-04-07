@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -60,6 +61,13 @@ public class CarListActivity extends AppCompatActivity {
         populateListView();
 
         hideSystemUI();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideSystemUI();
     }
 
     private void hideSystemUI() {
@@ -71,17 +79,29 @@ public class CarListActivity extends AppCompatActivity {
 //            }
 //        });
 
-        View mDecorView = getWindow().getDecorView();
+        final View mDecorView = getWindow().getDecorView();
         // Set the IMMERSIVE flag.
         // Set the content to appear under the system bars so that the content
         // doesn't resize when the system bars hide and show.
 
         int uiOptions =
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         | View.SYSTEM_UI_FLAG_FULLSCREEN;
 
         mDecorView.setSystemUiVisibility(uiOptions);
+
+        mDecorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                int uiOptions =
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                                | View.SYSTEM_UI_FLAG_FULLSCREEN;
+
+                mDecorView.setSystemUiVisibility(uiOptions);
+            }
+        });
     }
 
     private void populateListView() {
@@ -144,7 +164,7 @@ public class CarListActivity extends AppCompatActivity {
         }
     }
 
-    private void setUpAddButton(int btnID) {
+    private Button setUpAddButton(int btnID) {
         Button button = (Button) findViewById(btnID);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,6 +174,8 @@ public class CarListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        return button;
     }
 
     private void updateUI() {
@@ -200,9 +222,39 @@ public class CarListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
+        int id = item.getItemId();
+
+        switch (id){
+            case android.R.id.home:
+                finish(); // close this activity and return to preview activity (if there is any)
+                break;
+            case R.id.action_add:
+                Button btn =  setUpAddButton(R.id.btn_add_car);
+                btn.performClick();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//         Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.add_menu, menu);
+        return true;
+    }
+    //
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 }

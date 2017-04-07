@@ -14,6 +14,7 @@ import android.widget.TextView;
 import cmpt276.jade.carbontracker.R;
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.model.Car;
+import cmpt276.jade.carbontracker.model.Emission;
 import cmpt276.jade.carbontracker.model.Journey;
 
 /**
@@ -137,17 +138,19 @@ public class EditDialog extends DialogFragment {
 
     private void setUpImageView(View v) {
         ImageView iv = (ImageView) v.findViewById(R.id.dialog_image);
+        Journey j = Emission.getInstance().getJourneyCollection().getJourney(position);
         switch (objectMode) {
             case CAR:
-                iv.setImageResource(R.drawable.car);
-                break;
-            case TRANSIT:
+//                iv.setImageResource(R.drawable.car);
+                iv.setImageResource(j.getTransType().getCar().getImageId());
                 break;
             case BUS:
-                iv.setImageResource(R.drawable.bus);
+//                iv.setImageResource(R.drawable.bus);
+                iv.setImageResource(j.getTransType().getBus().getImageId());
                 break;
             case SKYTRAIN:
-                iv.setImageResource(R.drawable.skytrain);
+//                iv.setImageResource(R.drawable.skytrain);
+                iv.setImageResource(j.getTransType().getSkytrain().getImageId());
                 break;
             case WALK:
                 iv.setImageResource(R.drawable.walksymbol);

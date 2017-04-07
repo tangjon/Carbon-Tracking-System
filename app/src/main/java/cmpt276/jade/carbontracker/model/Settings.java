@@ -5,6 +5,7 @@ import cmpt276.jade.carbontracker.enums.MeasurementUnit;
 
 /**
  * Created by Sean on 29/03/2017.
+ * Model used to calculate tree hours and store what mode the app should be in
  */
 
 public class Settings {

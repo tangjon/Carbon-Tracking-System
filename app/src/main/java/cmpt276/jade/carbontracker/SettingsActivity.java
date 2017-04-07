@@ -14,9 +14,12 @@ import cmpt276.jade.carbontracker.enums.Language;
 import cmpt276.jade.carbontracker.enums.MeasurementUnit;
 import cmpt276.jade.carbontracker.model.Emission;
 
+
+/**
+ * Settings activity used to modify the units or go to the about page
+ */
 public class SettingsActivity extends AppCompatActivity {
 
-    private double testEmission = 20;
 
     private DBAdapter myDB;
 
@@ -66,19 +69,18 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void setupPage() {
         Button sillyMode = (Button) findViewById(R.id.btnSettingSillyMode);
-        Button languageMode = (Button) findViewById(R.id.btnSettingsLanguage);
+     //   Button languageMode = (Button) findViewById(R.id.btnSettingsLanguage);
         Button toAbout = (Button) findViewById(R.id.btnSettingsToAbout);
         if (Emission.getInstance().getSettings().getSillyMode() == MeasurementUnit.TREES) {
             sillyMode.setText(getString(R.string.settings_silly_disable));
             TextView test = (TextView) findViewById(R.id.textViewMoreLikeTestViewAmirite);
-            test.setText("" + Emission.getInstance().getSettings().calcTreeAbsorbtion(testEmission)
-                    + getString(R.string.settings_tree_hrs));
+            test.setText(getString(R.string.amount_trees_one)+ "\n" +getString(R.string.amount_trees_two));
         } else {
             sillyMode.setText(getString(R.string.settings_silly_enable));
             TextView test = (TextView) findViewById(R.id.textViewMoreLikeTestViewAmirite);
-            test.setText("" + testEmission + getString(R.string.settings_kg));
+            test.setText(R.string.kilograms);
         }
-
+/*
         //This is probably just temporary until we get everything working
         if (Emission.getInstance().getSettings().getLanguageMode() == Language.ENGLISH) {
             languageMode.setText("English");
@@ -87,13 +89,13 @@ public class SettingsActivity extends AppCompatActivity {
         } else if (Emission.getInstance().getSettings().getLanguageMode() == Language.FRENCH) {
             languageMode.setText("Français");
         }
-
+*/
         toAbout.setText(getString(R.string.settings_about));
     }
 
     private void setupButtons() {
         Button sillyMode = (Button) findViewById(R.id.btnSettingSillyMode);
-        Button languageMode = (Button) findViewById(R.id.btnSettingsLanguage);
+    //    Button languageMode = (Button) findViewById(R.id.btnSettingsLanguage);
         Button toAbout = (Button) findViewById(R.id.btnSettingsToAbout);
         //Set up Silly Mode to enable or disable
         sillyMode.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +114,7 @@ public class SettingsActivity extends AppCompatActivity {
                 //TODO create a method that will convert everything to Trees
             }
         });
-
+/*
         languageMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +135,7 @@ public class SettingsActivity extends AppCompatActivity {
                 myDB.saveSettings(Emission.getInstance().getSettings());
             }
         });
-
+*/
         toAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
