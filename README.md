@@ -7,7 +7,7 @@ A [20] Human-Relatable CO2 Unit
 -	Units between 0.1 and 200 for 20km 2010 Honda Accord journey
 -	Requirements
     -	Settings Activity navigation from MainMenuActivity
-    -	Save chosen settings accessible through application and life-spans
+    -	Save chosen settings accessible through application and life-spans [DONE]
     -	Change labels to be dynamic
     -	Get calculations from method based of mode
     -	One stupid mode : Tree
@@ -44,25 +44,24 @@ C [15] UI Improvements [
 
 D [15] UI-Related Features
 ==============================
--	Vehicle icons: select from 5+ built-in icons; used in vehicle list, and Journey list
+-	Vehicle icons: select from 5+ built-in icons; used in vehicle list, and Journey list [DONE]
 -	Route distances default to 0; not able to have both 0.
--	About screen
+-	About screen [DONE]
 -	When creating/editing a route, if user enters no data for the city or highway distance, default to 0 (but don’t let both be 0).
--	Add an about “screen” which shows:
-  * the group’s name (like “Orange”, or “Brass”), 
-  * year the app was created, 
-  * a version number (like 1.1, pulled from a resource file), 
-  * link to SFU CS home page, and 
-  * links to all sources for your images, icons, and other resources. 
-  * Optionally list each group member’s name (but no private data like student number or email address).
+-	Add an about “screen” which shows: [DONE]
+  * the group’s name (like “Orange”, or “Brass”), [DONE]
+  * year the app was created, [DONE]
+  * a version number (like 1.1, pulled from a resource file), [DONE]
+  * link to SFU CS home page, and [DONE]
+  * links to all sources for your images, icons, and other resources. [PENDING]
+  * Optionally list each group member’s name (but no private data like student number or email address). [DONE]
  
 Requirements:
-    -	Carinfo to accept only one zero
-    -	Able to select icons via spinner/list for all transport (5) each or global
-    -	Will need to redo how icons are displayed
-    -	Allow all objects to support image storing
-    -	Allow database to track this additional member
-    -	Add an about page
+    -	Able to select icons via spinner/list for all transport (5) each or global [DONE]
+    -	Will need to redo how icons are displayed [DONE]
+    -	Allow all objects to support image storing [DONE]
+    -	Allow database to track this additional member [DONE]
+    -	Add an about page [DONE]
 
 
 E [20] Graphs
