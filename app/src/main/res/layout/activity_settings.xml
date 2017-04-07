@@ -28,27 +28,6 @@
         android:layout_marginBottom="15dp"
         android:text="Button" />
 
-    <TextView
-        android:textColor="@color/primary_text"
-
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnSettingsLanguage"
-        android:layout_alignEnd="@+id/btnSettingsLanguage"
-        android:text="@string/settings_activity_current_language"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/btnSettingsLanguage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:drawableLeft="@drawable/ic_g_translate_black_24dp"
-        android:drawablePadding="5dip"
-        android:text="Button" />
-
     <Button
         android:id="@+id/btnSettingsToAbout"
         android:layout_width="wrap_content"
