@@ -1,0 +1,448 @@
+<resources>
+    <!--DEFAULT PLACE HOLDERS-->
+    <string name="DEFAULT_NUM">"##"</string>
+    <string name="DEFAULT_TXT">"VueTexte"</string>
+
+    <!--Authors -->
+    <string name="jonathan_tang">"Jonathan Tang"</string>
+    <string name="sean_ehrenfellner">"Sean Ehrenfellner"</string>
+    <string name="razvan_cretu">"Razvan Cretu"</string>
+    <string name="alex_wu">"Alex Wu"</string>
+
+    <!--General Purpose-->
+    <string name="app_name">"Traqueur De Carbone"</string>
+    <string name="label_add">"AJOUTER"</string>
+    <string name="label_next">"SUIVANT"</string>
+    <string name="label_short_summary">"Court résumé"</string>
+    <string name="label_delete">"Effacer"</string>
+    <string name="label_skip">"Sauter"</string>
+    <string name="label_graph_title">"Total empreinte carbone"</string>
+    <string name="label_view_footprint">"Empreinte carbone"</string>
+    <string name="label_carbon_tail_pipe">"Tail Pipe de carbone:"</string>
+    <string name="label_route_name">"Nom de la route:"</string>
+    <string name="label_highway">"Autoroute:"</string>
+    <string name="label_city">"Ville :"</string>
+    <string name="label_back">"Retour"</string>
+    <string name="label_done">"Finalisé"</string>
+    <string name="label_edit">"Editer"</string>
+    <string name="label_close">"Fermer"</string>
+    <string name="label_ok">"D'accord"</string>
+
+
+    <!--Action ToolBar Hints-->
+    <string name="CarListActivityHint">"Sélectionner / Ajouter une voiture"</string>
+    <string name="CarInfoActivityHint">"Remplissez les informations de voiture"</string>
+    <string name="RouteInfoActivityHint">"Remplissez les informations Route"</string>
+    <string name="RouteListActivityHint">"Sélectionnez un itinéraire"</string>
+    <string name="JourneySummaryHint">"Résumé Journey"</string>
+    <string name="JourneyReviewActivityHint">"Journey Review"</string>
+    <string name="JourneyListActivityHint">"voyage Liste"</string>
+    <string name="TransportSelectActivityHint">"Sélectionnez un mode de transport"</string>
+
+
+    <!--
+      ========================
+      FORMS TO FILL WITH INFO
+      ========================
+      -->
+
+    <!--JOURNEY INFO FORM-->
+    <string name="journey_info">"Nom: %1$s \n
+        Date: %2$s
+    "</string>
+
+    <!--ROUTE INFO FORM-->
+    <string name="route_info">"Nom: %1$s \n
+        Total Ville Distance (Km): %2$.1f \n
+        Total Highway Distance (km): %3$.1f \n
+        Total Distance (km): %4$.1f
+    "</string>
+
+    <!--CAR INFO FORM-->
+    <string name="car_info">"Nom: %1$s \n
+        Manufacturer: %2$s \n
+        Model: %3$s \n
+        Year: %4$d \n
+        Fuel Type: %5$s
+    "</string>
+
+    <!--EMISSIONS INFO-->
+    <string name="total_city_high_emission">"Les émissions totales de route (Kg):"</string>
+    <string name="total_city_emission">"Émissions totales de la ville (Kg):"</string>
+    <string name="total_emission">"Émissions totales (kg):"</string>
+    <string name="emission_info">Total des émissions Highway (kg): %1$.2f
+        \nTotal Ville Émissions (kg): %2$.2f
+        \nÉmissions nTotal (kg): %3$.2f
+    </string>
+
+
+    <!--
+      ========================
+      ACTIVITY RESOURCES
+      ========================
+      -->
+
+    <!--WELCOME ACTIVITY-->
+    <string name="tap_screen_to_continue">"Appuyez sur l'écran pour continuer .."</string>
+
+    <!-- MAIN MENU WITH NAV ACTIVITY -->
+    <string name="navigation_drawer_close">"Fermer la navigation tiroir"</string>
+    <string name="navigation_drawer_open">"Ouvrir le tiroir de navigation"</string>
+    <string name="title_activity_main_menu">"MainMenuActivity"</string>
+    <string name="nav_overview">"Aperçu"</string>
+    <string name="nav_journeys">"Voyages"</string>
+    <string name="nav_utilities">"Outils"</string>
+    <string name="nav_tools">"les Outils"</string>
+    <!--Action ToolBar-->
+    <string name="action_settings">"Paramètres"</string>
+
+    <!-- BIKE/WALK -->
+    <string name="label_next_hint">"Afficher la prochaine indication"</string>
+    <string name="bike_walk">"Vélo / Marche"</string>
+    <string name="skytrain">"Train aérien
+"</string>
+    <string name="cant_delete_now">"Vous ne pouvez pas utiliser maintenant supprimer"</string>
+    <string name="you_in_add">", Puisque vous êtes en mode add"</string>
+    <string name="no_name_entered">"Vous n'êtes pas entrés dans le nom"</string>
+    <string name="please_try_again">"Veuillez réessayer "</string>
+    <string name="no_distance">"Vous ne l'avez pas entré numéro de Distance"</string>
+    <string name="invalid_number">"Vous avez entré un numéro non valide"</string>
+
+    <!--JOURNEY LIST ACTIVITY-->
+    <string name="journey_list_confirm_delete_message">"Êtes - vous sûr de vouloir supprimer \ n « %1$s »"</string>
+    <string name="label_toggle_graph">"afficher ou masquer"</string>
+
+    <!--JOURNEY SUMMARY ACTIVITY-->
+    <string name="journey_summary_label_journeyinfo">"Infos voyage"</string>
+    <string name="journey_summary_label_emissionsinfo">"Infos Émissions"</string>
+    <string name="journey_summary_label_carinfo">"Infos voiture"</string>
+    <string name="journey_summary_label_routeinfo">"itinéraire Infos"</string>
+    <string name="journey_summary_total_city_distance">"Distance totale Ville (Km):"</string>
+    <string name="journey_summary_total_highway_distance">"Distance totale route (Km):"</string>
+    <string name="journey_summary_total_distance">"Distance totale (km):"</string>
+    <string name="journey_summary_trans_info_car">"Infos voiture"</string>
+    <string name="journey_summary_trans_info_bus">"bus info"</string>
+    <string name="journey_summary_trans_info_skytrain">"Infos Skytrain"</string>
+    <string name="journey_summary_trans_info_walk">"Infos Marche"</string>
+    <string name="journey_summary_trans_info_bike">"Infos vélo"</string>
+    <string name="journey_summary_emission_trees1">"Votre voyage prendra "</string>
+    <string name="journey_summary_emission_trees2">" arbres une heure pour éliminer le carbone que vous avez produit."</string>
+    <string name="journey_summary_info_total_dist">"\ NTotal Distance: "</string>
+    <string name="journey_summary_info_route_num">"\ NRoute #: "</string>
+    <string name="journey_summary_info_emission">"Emission de carbone (kg): "</string>
+    <string name="journey_summary_info_line_name">"\ NLigne Nom: "</string>
+    <string name="journey_summary_info_station">"\ NBoarding Station: "</string>
+    <string name="journey_summary_congratulations">"Félicitations pour aucun impact carbone!"</string>
+    <string name="journey_summary_congratulations_trees">"Votre voyage a créé pas de carbone et les arbres ont permis de faire une pause!"</string>
+
+    <!--JOURNEY REVIEW ACTIVITY-->
+
+    <string-array name="label_table_elec">
+        <item>"Date de début"</item>
+        <item>"Date de fin"</item>
+        <item>"Utilisation (kWh)"</item>
+        <item>"Poids total kg CO2"</item>
+        <item>"Moyenne kg CO2"</item>
+    </string-array>
+    <string-array name="label_table_elec_silly">
+        <item>"Date de début"</item>
+        <item>"Date de fin"</item>
+        <item>"Utilisation (kWh)"</item>
+        <item>"# Les arbres à Absorber \ carbone nin une heure"</item>
+        <item>"Arbres moyenne n nécessaires"</item>
+    </string-array>
+
+    <string-array name="label_table_gas">
+        <item>"Date de début"</item>
+        <item>"Date de fin"</item>
+        <item>"Utilisation (GJ)"</item>
+        <item>"Poids total kg CO2"</item>
+        <item>"Moyenne kg CO2"</item>
+    </string-array>
+    <string-array name="label_table_gas_silly">
+        <item>"Date de début"</item>
+        <item>"Date de fin"</item>
+        <item>"Utilisation (GJ)"</item>
+        <item>"# Les arbres à Absorber \ carbone nin une heure"</item>
+        <item>"Arbres moyenne n nécessaires"</item>
+    </string-array>
+
+    <string-array name="label_bar_graph">
+        <item>"Voyages"</item>
+        <item>"Électricité"</item>
+        <item>"Connecteurs"</item>
+    </string-array>
+
+    <string-array name="label_date_spinner">
+        <item>"Indiquez une date"</item>
+        <item>"Le mois dernier"</item>
+        <item>"L'année dernière"</item>
+    </string-array>
+
+    <string name="add">"Ajouter"</string>
+    <string name="hint_click_journey_to_see_summary_long_press_to_edit_or_delete">"Astuce: Cliquez voyage pour voir le résumé. Appuyez longuement pour modifier ou supprimer."</string>
+    <string name="delete">"Effacer"</string>
+    <string name="date_of_journey">"Date de voyage"</string>
+    <string name="name">"Nom"</string>
+    <string name="journey_name">"Nom Journey"</string>
+    <string name="route">"Trajet"</string>
+    <string name="car">"Voiture"</string>
+    <string name="overview_of_journey">"Vue d'ensemble du voyage:"</string>
+    <string name="dd_mm_yyyy">"jj/mm/aaaa"</string>
+    <string name="valid_date">"Veuillez entrer une date valide."</string>
+    <string name="valid_nickname">"S'il vous plaît Entrez un pseudonyme"</string>
+    <string name="make">"Manufacturer"</string>
+    <string name="model">"Modèle de l'appareil"</string>
+    <string name="year">"Année:"</string>
+    <string name="city_distance">"Ville Distance:"</string>
+    <string name="highway_distance">"Autoroute Distance:"</string>
+    <string name="route_number">"Trajet"</string>
+    <string name="total_distance">"Distance totale:"</string>
+    <string name="line_name">"Nom de la ligne:"</string>
+    <string name="boarding_station">"Station d'embarquement:"</string>
+    <string name="rode_bike">"rode Bike"</string>
+    <string name="walked">"Nous avons marché"</string>
+
+
+    <!--CAR LIST ACTIVITY-->
+    <string name="hint_click_car_to_add_routes_long_press_to_edit_or_delete">"Astuce: Cliquez voiture pour ajouter des routes. Appuyez longuement pour modifier ou supprimer."</string>
+    <string name="add_route">"Ajouter un itinéraire"</string>
+
+    <!--CAR INFO ACTIVITY-->
+    <string name="car_info_hint_EnterNickName">"Entrez un pseudonyme"</string>
+    <string name="car_info_confirm_edit">"Confirmer la révision"</string>
+    <string name="car_info_nickname">"Pseudo"</string>
+    <string name="car_info_label_displ">"Cylindrée"</string>
+    <string name="car_info_label_engine">"Moteur"</string>
+    <string name="car_info_fuel_cost">"Coût de l'essence"</string>
+    <string name="car_info_transmission">"Transmission"</string>
+    <string name="car_info_make">"Fabricant:"</string>
+    <string name="car_info_year">"Année:"</string>
+    <string name="car_info_model">"Modèle de l'appareil"</string>
+    <string name="car_info_CityMPG">"Ville MPG:"</string>
+    <string name="car_info_HighwayMPG">"Autoroute MPG:"</string>
+    <string name="label_fuel_type">"Types de carburant"</string>
+
+    <!--ROUTE LIST ACTIVITY-->
+    <string name="hint_click_route_to_the_list_of_journey_long_press_to_edit_or_delete">"Astuce: Cliquez sur la route à la liste des Journey. Appuyez longuement pour modifier ou supprimer."</string>
+
+    <!--ROUTE INFO ACTIVITY-->
+    <string name="route_info_mode_hint">"Vous êtes maintenant en mode add"</string>
+    <string name="hint_see_summary_without_saving">"Astuce: Voir résumé sans enregistrer."</string>
+    <string name="hint_need_a_nickname_if_you_want_to_save_it">"Astuce: Vous avez besoin d'un surnom si vous voulez enregistrer."</string>
+    <string name="hint_save_to_route_list">"Astuce: Ajouter à la liste Route"</string>
+    <string name="save">"Enregistrer"</string>
+    <string name="use">"Utilisation"</string>
+    <string name="route_name">"Nom de la route:"</string>
+    <string name="route_info_mode_hint2">"Vous êtes maintenant en mode édition et suppression"</string>
+    <string name="route_list_hint">"Sélectionnez ou ajoutez un itinéraire"</string>
+    <string name="route_info_hint">"Remplissez vos informations d'itinéraire"</string>
+    <string name="route_info_label_name">"Nom"</string>
+    <string name="km">"km"</string>
+    <string name="highway">"Autoroute:"</string>
+    <string name="city">"Ville :"</string>
+    <string name="route_info_toast_route_name">"Vous n'êtes pas entré dans le nom de la route, s'il vous plaît essayer à nouveau."</string>
+    <string name="route_info_toast_route_dist">"Vous n'avez pas entré distances ville / autoroute valides, s'il vous plaît essayer à nouveau."</string>
+    <string name="route_info_toast_delete_err">"Vous ne pouvez pas utiliser de supprimer, puisque vous êtes en mode add."</string>
+
+    <!--EMISSION INFO ACTIVITY-->
+
+    <!--CARBON FOOTPRINT ACTIVITY-->
+    <string-array name="label_table">
+        <item>"date"</item>
+        <item>"Nom de voyage"</item>
+        <item>"Distance (km)"</item>
+        <item>"Nom de véhicule"</item>
+        <item>"Carbone émis \ n (kg CO2)"</item>
+    </string-array><string-array name="label_table_silly">
+        <item>"date"</item>
+        <item>"Nom de voyage"</item>
+        <item>"Distance (km)"</item>
+        <item>"Nom de véhicule"</item>
+        <item>"# Les arbres à Absorber \ nin une heure"</item>
+    </string-array>
+    <string-array name="label_spinner_sort">
+        <item>"Groupe de véhicule"</item>
+        <item>"Groupe par la route"</item>
+    </string-array>
+
+    <!-- Utilities Activity -->
+    <string name="label_new_electric">"Nouvelle facture d'électricité"</string>
+    <string name="label_new_gas">"Nouveau projet de loi de gaz"</string>
+    <string name="label_list_electric">"Factures d'électricité"</string>
+    <string name="label_list_gas">"Les factures de gaz"</string>
+    <string name="hint_residents">"Les résidants"</string>
+    <string name="toast_bad_residents">"# Les résidents doivent être un entier positif!"</string>
+    <string name="car_info_warning">"S'il vous plaît Entrez un pseudonyme"</string>
+    <string name="journey_list_toast_edit_mode">"Appui long pour effacer activé"</string>
+    <string name="journey_list_toast_delete_mode">"Vous pouvez maintenant long pour supprimer"</string>
+    <string name="utilities_tip">"Appuyez sur pour voir le conseil suivant"</string>
+
+    <!-- Utility Edit Activity -->
+    <string name="label_bill_start">"Date de début du projet de loi"</string>
+    <string name="label_bill_end">"Le projet de loi Date de fin"</string>
+    <string-array name="label_bill_input">
+        <item>"Utilisation (kWh)"</item>
+        <item>"Utilisation (GJ)"</item>
+    </string-array>
+
+    <!-- Bus Info Activity -->
+    <string name="label_busNickname">"Pseudo Bus"</string>
+    <string name="label_busRouteNumber">", Numéro de ligne,"</string>
+    <string name="enter_a_nickname">"S'il vous plaît Entrez un Pseudo"</string>
+    <string name="enter_a_route_number">"Entrez s'il vous plaît un itinéraire Nombre"</string>
+
+
+    <!-- Skytrain Info Activity -->
+    <string name="label_skytrainNickname">"Pseudo Skytrain"</string>
+    <string name="label_skytrainLine">"Nom ligne de train"</string>
+    <string name="label_skytrainBoardingStation">"Station d'embarquement"</string>
+    <string name="hint_station">"Poste"</string>
+    <string name="hint_line">"Ligne"</string>
+    <string name="Car">"Voiture"</string>
+    <string name="bus">"bus"</string>
+    <string name="Skytrain">"Train aérien
+"</string>
+    <string name="skytrain_info_enter_nick">"S'il vous plaît entrer un surnom"</string>
+    <string name="skytrain_info_enter_line">"S'il vous plaît entrer dans la ligne que vous avez utilisé"</string>
+    <string name="skytrain_info_enter_station">"S'il vous plaît entrer une station d'embarquement"</string>
+
+
+    <!-- About Us Activity -->
+    <string name="label_about_us">"À propos de nous"</string>
+    <string name="link_cmpt_home">"&lt;a href=\"http://www.cs.sfu.ca/CourseCentral/276/bfraser/index.html\"&gt;CMPT276 Homepage&lt;/a&gt;"</string>
+    <string name="label_home_page">"Accueil"</string>
+    <string name="label_developers">"Développeurs"</string>
+    <string name="label_group_jade">"La groupe: Jade"</string>
+
+    <!-- Notification Receiver -->
+    <string name="notification_new_bill">"Vous avez pas ajouté de nouvelles factures d'électricité pendant un an et un mois et demi. Voulez-vous ajouter des nouveaux projets de loi?"</string>
+    <string name="notification_new_journey1">"Vous avez entré "</string>
+    <string name="notification_new_journey2">" voyage (s) aujourd'hui. Voulez-vous ajouter plus?"</string>
+
+    <!-- Settings Activity -->
+    <string name="settings_silly_disable">"Désactiver le mode idiot"</string>
+    <string name="settings_silly_enable">"Activer le mode idiot"</string>
+    <string name="settings_tree_hrs">" Heures d'arbres"</string>
+    <string name="settings_kg">" 1000 kg"</string>
+    <string name="settings_about">"À Propos"</string>
+
+    <!--
+       ===================================
+       New Strings to Organize
+       STRING FORMAT GUIDE
+       <WHERE>_<WHAT>
+       ===================================
+       -->
+    <string name="label_accept">"Accepter"</string>
+    <string name="label_cancel">"Annuler"</string>
+    <string name="label_preview">"Aperçu"</string>
+    <string name="label_delete_confirm">"Voulez-vous vraiment supprimer cette facture?"</string>
+    <string name="toast_bad_date">"S'il vous plaît entrer les dates de facturation valides!"</string>
+    <string name="label_bill_preview">
+        Émissions totales: %1$.2fkg CO2\n
+        Les émissions moyennes: %2$.2fkg CO2 par jour\n
+        (%3$.2fkg CO2 par habitant par jour)
+    </string>
+    <string name="label_bill_preview_silly">
+        Émissions totales: %1$.0f arbres pour éliminer le carbone en une heure au total\n
+        moyenne des émissions: %2$.0f arbres pour éliminer le carbone en une heure par jour\n
+        (%3$.0f arbres pour éliminer le carbone dans un heure par habitant)
+    </string>
+    <string name="label_unit_GJ">"GJ"</string>
+
+    <!-- Utilities Adapter -->
+    <string name="label_unit_kWh">"kWh"</string>
+    <string name="label_bill_display">"kg CO2 / résident / jour; "</string>
+
+    <string name="tips">"Astuces"</string>
+    <string name="tip_hint">"Cliquez ici pour obtenir des conseils!"</string>
+    <string name="skytrain_list_hint_click_list_item_to_continue_nlong_press_to_edit_or_delete">"Astuce: Cliquez sur élément de la liste pour continuer. Appuyez longuement pour modifier ou supprimer."</string>
+    <string name="BustListActivityToolBarHint">"Sélectionnez un bus"</string>
+    <string name="SkytrainListActivityToolbarHint">"Sélectionnez un Skytrain"</string>
+    <string name="businfoactivitytoolbarhint">"Remplissez votre Bus Info"</string>
+    <string name="bike_trans_acitvity_tool_bar_hint">"Remplissez votre info Route"</string>
+    <string name="utilitiesactivitytoolbarhint">"Air comprimé"</string>
+    <string name="carbonfootprintactivitytoolbarhint">"Graphiques"</string>
+    <string name="tips_dialog_click_next_to_display_a_tips">"Cliquez sur Suivant pour afficher une astuce!"</string>
+    <string name="car_info_pick_an_icon">"Choisissez une icône"</string>
+  <string name="settings_activity_current_language">"Langue courante:"</string>
+    <string name="about_us_finish_april_7_2017">"Finition: 7 Avril 2017"</string>
+    <string name="about_us_image_resources">"Ressources d'image"</string>
+    <string name="about_us_class_cmpt_276_with_brian_fraser">"Classe: Cmpt 276 avec Brian Fraser"</string>
+    <string name="about_us_app_development_lifespan">"App Lifespan Development:"</string>
+    <string name="about_us_start_february_22_2017">"Commencer: 22 Février 2017"</string>
+    <string name="about_us_v2_00">"V592"</string>
+    <string name="main_menu_graph">"Graphiques"</string>
+    <string name="main_menu_utilities">"Outils"</string>
+    <string name="main_menu_journey">"Voyage"</string>
+    <string name="main_menu_settings">"Paramètres"</string>
+
+
+    <!-- Tips -->
+    <string name="tip_walk1">"Vous n'avez pas marché aujourd'hui, la marche a beaucoup de bienfaits pour la santé. Essayez de marcher demain!"</string>
+    <string name="tip_walk2">"La norme minimale pour une jeune personne est de 4000 pas par jour, soit environ 2,8 km. Tu as marché "</string>
+    <string name="tip_walk3">"La norme normale pour une jeune personne est de 7000 pas par jour, soit environ 4,9 km. Tu as marché "</string>
+    <string name="tip_walk4">"La plus saine à distance pour une jeune personne est de 10000 pas par jour, soit environ 7,0 km. Tu as marché "</string>
+    <string name="tip_walk_more">" km aujourd'hui. Vous devriez essayer de prendre une autre promenade."</string>
+    <string name="tip_walk_good">" km aujourd'hui. Bien joué!"</string>
+    <string name="tip_walk_only">"Vous êtes allé à l'extérieur et ne pas conduire ou prendre le transport. Le total des émissions est 0. Nous pouvons faire un monde meilleur, bien fait!"</string>
+
+    <string name="tip_bike1">"Vous ne l'avez pas monté votre vélo aujourd'hui, le vélo a beaucoup de bienfaits pour la santé. Essayez le monter plus tard aujourd'hui!"</string>
+    <string name="tip_bike2">"vous montes "</string>
+    <string name="tip_bike2_1">" km aujourd'hui. Montez sur votre vélo à environ 5 km tous les jours, il peut aider à stimuler les niveaux d'oestrogène et androgènes."</string>
+    <string name="tip_bike3">"La distance moyenne quotidienne recommandée pour la plupart des cyclistes est de 5 à 10 km. vous montes "</string>
+    <string name="tip_bike4">" km aujourd'hui. Il est non seulement bon pour votre santé, mais aussi vous a sauvé environ 17 kg en émissions de carbone, ce qui est l'émission de carbone moyenne mondiale par personne."</string>
+    <string name="tip_bike5">" km aujourd'hui. Il est non seulement bon pour votre santé, mais aussi vous a sauvé environ 34 kg en émissions de carbone, ce qui est une émission de carbone moyenne canadienne."</string>
+    <string name="tip_bike6">" km aujourd'hui. La distance moyenne quotidienne pour les cyclistes de formation est de 40 à 60 miles, ce qui est 64 à 97 km. Vous avez également enregistré environ 66 kg dans les émissions de carbone."</string>
+    <string name="tip_bike7">" km aujourd'hui. Pour les besoins de formation professionnelle, la distance journalière recommandée pour la plupart des cyclistes est plus de 100 km si vous êtes un débutant. Vous allez être un pro!"</string>
+    <string name="tip_bike8">"Pour les besoins de formation professionnelle, la distance journalière recommandée pour la plupart des cyclistes est d'environ 200 km si vous êtes un vétéran."</string>
+    <string name="tip_bike9">"Vous êtes allé à l'extérieur par votre vélo et les transports en commun. Les émissions totales de transit est "</string>
+    <string name="tip_bike9_1">". Vous avez essayé de votre mieux pour faire un monde meilleur, bien fait!"</string>
+    <string name="tip_bike_good">" km aujourd'hui. Hou la la!"</string>
+    <string name="tip_bike_bad">" km aujourd'hui. Vous montes trop, vous pourriez vous blesser!"</string>
+    <string name="tip_bike_only">"Vous êtes allé à l'extérieur par un vélo et ne pas conduire ou prendre le transport. Le total des émissions est 0! Nous pouvons travailler ensemble pour faire un monde meilleur, bien fait!"</string>
+
+    <string name="tip_journey1">"Vous n'êtes pas allé à l'extérieur aujourd'hui, ce n'est pas bon pour votre santé. Appelez vos amis et amusez-vous en dehors de demain!"</string>
+    <string name="tip_journey2">"Le montant maximum de CO2, une personne doit produire par an afin de stopper le changement climatique est 5,48 kg. Vos émissions totales est "</string>
+    <string name="tip_journey2_1">", Qui est en dessous. Nous pouvons tous contribuer à faire un monde meilleur, bien fait!"</string>
+    <string name="tip_journey3">" Le montant maximum de CO2, une personne doit produire par an afin de stopper le changement climatique est 5,48 kg. La moyenne mondiale est de 13,69 kg. Vos émissions totales est "</string>
+    <string name="tip_journey3_1">". Bien que vous avez dépassé l'attente, vous êtes toujours en dessous de la moyenne mondiale, bien fait!"</string>
+    <string name="tip_journey4">"L'émission moyenne mondiale est de 13,69 kg et la moyenne canadienne est de 36,9 kg. Vos émissions totales est "</string>
+    <string name="tip_journey4_1">". Bien que vous avez dépassé la moyenne mondiale, vous êtes toujours en dessous de la moyenne canadienne, bien fait!"</string>
+    <string name="tip_journey5">"L'émission moyenne canadienne est de 36,9 kg. Vos émissions totales est "</string>
+    <string name="tip_journey5_1">". Vous avez dépassé la moyenne canadienne. Astuce: éviter la marche au ralenti pendant de longues périodes de temps. La marche au ralenti considéré comme un facteur important de pollution, donc envisager de transformer votre véhicule quand attendre dans un endroit pendant plus de quelques minutes."</string>
+    <string name="tip_journey5_2">". Astuce: rouler à une vitesse constante. accélération rapide augmente la consommation de carburant et les émissions de polluants."</string>
+    <string name="tip_journey5_3">". Astuce: bien entretenir votre véhicule. les filtres à air encrassés, carburateurs sales et usés pièces de moteur faire fonctionner votre voiture plus difficile et augmenter la pollution."</string>
+    <string name="tip_journey5_4">". Astuce: garder vos pneus correctement gonflés. Cela permettra de diminuer votre consommation de gaz et de fournir une conduite plus souple, ce qui réduira la nécessité d'une accélération fréquente."</string>
+    <string name="tip_journey5_5">". Astuce: opter pour un véhicule économe en carburant. Le choix d'un véhicule hybride ou électrique réduira la quantité de pollution que vous émettez pendant que vous conduisez."</string>
+    <string name="tip_journey5_6">". Astuce: réduire l'utilisation du climatiseur. Cela peut améliorer les performances de la voiture et la consommation d'essence jusqu'à 20%. Au lieu de cela, rouler sur vos fenêtres et profiter de la brise."</string>
+    <string name="tip_journey5_7">". Astuce: changer votre filtre à air régulièrement."</string>
+    <string name="tip_journey5_8">". Astuce: changer l'huile au besoin."</string>
+    <string name="tip_journey5_9">". Astuce: en gardant les pneus bien gonflés, vous allez non seulement profiter d'une conduite plus douce, mais vous obtiendrez beaucoup meilleur rendement énergétique aussi bien."</string>
+
+    <string name="tip_electricity1">"Astuce: éteindre les lumières après avoir quitté la salle."</string>
+    <string name="tip_electricity2">"Tip: passer à lampes fluorescentes compactes (CFL) ou ampoules LED."</string>
+    <string name="tip_electricity3">"Astuce: vous promener au lieu de regarder la télévision ou le démarrage de votre ordinateur."</string>
+    <string name="tip_electricity4">"Astuce: vérifier les murs, les portes et les fenêtres pour les courants d'air et les sceller afin d'éviter les pertes de chaleur en hiver."</string>
+    <string name="tip_electricity5">"Conseil: évitez d'utiliser l'eau chaude dans votre machine à laver."</string>
+    <string name="tip_electricity6">"Astuce: baissez votre thermostat du chauffe-eau."</string>
+    <string name="tip_electricity7">"Astuce: arbres d'ombrage des plantes et la peinture de votre maison une couleur claire si vous vivez dans un climat chaud, ou une couleur foncée si vous vivez dans un froid."</string>
+    <string name="tip_electricity8">"Astuce: utiliser moins d'eau chaude en installant des pommes de douche à faible débit."</string>
+
+    <string name="tip_gas1">"Astuce: installer un thermostat programmable pour réduire automatiquement le chauffage et le refroidissement dans votre maison quand non nécessaire."</string>
+    <string name="tip_gas2">"Conseil: les fours devraient atteindre leur température désirée dans les 15 minutes. Pour économiser l'énergie, évitez les fours de préchauffage jusqu'à ce que vous êtes presque prêt à les utiliser."</string>
+    <string name="tip_gas3">"Astuce: utilisez uniquement des ventilateurs de hotte pendant la cuisson; ils aspirent de l'air chauffé et l'évacuer à l'extérieur."</string>
+    <string name="tip_gas4">"Astuce: pour les friteuses de gaz et brûleurs, grils utilisation IR qui fonctionnent avec moins de 10% d'air en excès, ce qui réduit la perte d'énergie de combustion la combustion de."</string>
+    <string name="tip_gas5">"Astuce: mettre en œuvre un programme d'entretien des purgeurs de vapeur efficace. Cela favorise un fonctionnement efficace de l'utilisation finale des équipements de transfert de chaleur et réduit la vapeur vive dans le système de condensat."</string>
+    <string name="tip_gas6">"Astuce: regarder ce chauffe-eau. Il est également peu probable d'être visible si vous baissez le thermostat de votre chauffe-eau d'environ 20 degrés."</string>
+    <string name="tip_gas7">"Astuce: réduire ou éliminer les ouvertures dans les parois du four et des portes afin de minimiser les pertes de chaleur et pour empêcher l'air de fuir dans des fours et des fours."</string>
+    <string name="tip_gas8">"Astuce: si vous avez une cheminée, fermez le registre ou installer des portes en verre pour empêcher l'air chaud de s'échapper la cheminée."</string>
+
+
+    <string name="hint_click_list_item_to_continue_nlong_press_to_edit_or_delete">"Astuce: Cliquez sur élément de la liste pour continuer. Appuyez longuement pour modifier ou supprimer."</string>
+    <string name="transport_select_bike_walk">"Vélo et marche"</string>
+    <string name="add_walk">"Ajouter Promenade"</string>
+    <string name="add_bike">"Ajouter vélo"</string>
+
+</resources>

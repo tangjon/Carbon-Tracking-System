@@ -12,7 +12,9 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.provider.ContactsContract;
+import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import java.util.Calendar;
@@ -35,6 +37,7 @@ public class Notification_reciever extends BroadcastReceiver{
     public List<Bill> billsElec;
     public List<Bill> billsGas;
 
+    private Resources res = Resources.getSystem();
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -119,17 +122,16 @@ public class Notification_reciever extends BroadcastReceiver{
         }
 
         if(!there_Is_ElecBill_In_One_And_Half_Mouth) {
-            String text = "You haven't added new Electricity Bill for one and half month. " +
-                    "Do you want to add new bills?";
+            String text = res.getString(R.string.notification_new_bill);
 
             NotificationCompat.BigTextStyle style=new NotificationCompat.BigTextStyle();
-            style.setBigContentTitle("Carbon Tracker");
+            style.setBigContentTitle(res.getString(R.string.app_name));
             style.bigText(text);
 
             NotificationCompat.Builder builder=new NotificationCompat.Builder(context);
             builder.setContentIntent(pendingIntentForBills);
             builder.setSmallIcon(R.drawable.car);
-            builder.setContentTitle("Carbon Tracker");
+            builder.setContentTitle(res.getString(R.string.app_name));
             builder.setContentText(text);
             builder.setAutoCancel(true);
             builder.setStyle(style);
@@ -140,17 +142,16 @@ public class Notification_reciever extends BroadcastReceiver{
             notificationManager.notify(200,notification);
         }
         else if(!there_Is_GasBill_In_One_And_Half_Mouth) {
-            String text = "You haven't added new Gas Bill for one and half month. " +
-                    "Do you want to add new bills?";
+            String text = res.getString(R.string.notification_new_bill);
 
             NotificationCompat.BigTextStyle style=new NotificationCompat.BigTextStyle();
-            style.setBigContentTitle("Carbon Tracker");
+            style.setBigContentTitle(res.getString(R.string.app_name));
             style.bigText(text);
 
             NotificationCompat.Builder builder=new NotificationCompat.Builder(context);
             builder.setContentIntent(pendingIntentForBills);
             builder.setSmallIcon(R.drawable.car);
-            builder.setContentTitle("Carbon Tracker");
+            builder.setContentTitle(res.getString(R.string.app_name));
             builder.setContentText(text);
             builder.setAutoCancel(true);
             builder.setStyle(style);
@@ -161,17 +162,18 @@ public class Notification_reciever extends BroadcastReceiver{
             notificationManager.notify(200,notification);
         }
         else {
-            String text="You have entered "+haveEnteredJourney +" journey today." +
-                    " Do you want to add more ?";
+            String text= res.getString(R.string.notification_new_journey1) +
+                    haveEnteredJourney +
+                    res.getString(R.string.notification_new_journey2);
 
             NotificationCompat.BigTextStyle style=new NotificationCompat.BigTextStyle();
-            style.setBigContentTitle("Carbon Tracker");
+            style.setBigContentTitle(res.getString(R.string.app_name));
             style.bigText(text);
 
             NotificationCompat.Builder builder=new NotificationCompat.Builder(context);
             builder.setContentIntent(pendingIntentForJourney);
             builder.setSmallIcon(R.drawable.car);
-            builder.setContentTitle("Carbon Tracker");
+            builder.setContentTitle(res.getString(R.string.app_name));
             builder.setContentText(text);
             builder.setAutoCancel(true);
             builder.setStyle(style);

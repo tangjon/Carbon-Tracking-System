@@ -72,11 +72,11 @@ public class SettingsActivity extends AppCompatActivity {
      //   Button languageMode = (Button) findViewById(R.id.btnSettingsLanguage);
         Button toAbout = (Button) findViewById(R.id.btnSettingsToAbout);
         if (Emission.getInstance().getSettings().getSillyMode() == MeasurementUnit.TREES) {
-            sillyMode.setText(R.string.disable_silly);
+            sillyMode.setText(getString(R.string.settings_silly_disable));
             TextView test = (TextView) findViewById(R.id.textViewMoreLikeTestViewAmirite);
             test.setText(getString(R.string.amount_trees_one)+ "\n" +getString(R.string.amount_trees_two));
         } else {
-            sillyMode.setText(R.string.enable_silly);
+            sillyMode.setText(getString(R.string.settings_silly_enable));
             TextView test = (TextView) findViewById(R.id.textViewMoreLikeTestViewAmirite);
             test.setText(R.string.kilograms);
         }
@@ -90,7 +90,7 @@ public class SettingsActivity extends AppCompatActivity {
             languageMode.setText("Français");
         }
 */
-        toAbout.setText(R.string.about);
+        toAbout.setText(getString(R.string.settings_about));
     }
 
     private void setupButtons() {
