@@ -11,6 +11,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import android.widget.Toast;
+import cmpt276.jade.carbontracker.model.Emission;
 import java.util.Calendar;
 
 /**
@@ -90,11 +92,16 @@ public class Temp_Main_Acticity extends AppCompatActivity {
     //TODO no route no graph
     private void setupGraphBtn() {
         Button button = (Button) findViewById(R.id.Main_Graph_BTN);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+              if(Emission.getInstance().getJourneyCollection().countJourneys() == 0){
+                Toast.makeText(Temp_Main_Acticity.this, "No Journeys present, create a journey!", Toast.LENGTH_SHORT).show();
+              } else{
                 Intent intent = CarbonFootprintActivity.getIntent(Temp_Main_Acticity.this);
                 startActivity(intent);
+              }
             }
         });
     }
