@@ -47,23 +47,33 @@
       -->
 
     <!--JOURNEY INFO FORM-->
-    <string name="journey_info">"Nom: %1$s \ Ndate: %2$s
+    <string name="journey_info">"Nom: %1$s \n
+        Date: %2$s
     "</string>
 
     <!--ROUTE INFO FORM-->
-    <string name="route_info">"Nom: %1$s \ nTotal Ville Distance (Km): 2% .1f $ \ nTotal Highway Distance (km): 3% .1f $ \ nTotal Distance (km): 4% .1f $
+    <string name="route_info">"Nom: %1$s \n
+        Total Ville Distance (Km): %2$.1f \n
+        Total Highway Distance (km): %3$.1f \n
+        Total Distance (km): %4$.1f
     "</string>
 
     <!--CAR INFO FORM-->
-    <string name="car_info">"Nom: %1$s \ nManufacturer: %2$s \ nModel: %3$s \ Nyear: %4$d \ nFuel Type: %5$s
+    <string name="car_info">"Nom: %1$s \n
+        Manufacturer: %2$s \n
+        Model: %3$s \n
+        Year: %4$d \n
+        Fuel Type: %5$s
     "</string>
 
     <!--EMISSIONS INFO-->
     <string name="total_city_high_emission">"Les émissions totales de route (Kg):"</string>
     <string name="total_city_emission">"Émissions totales de la ville (Kg):"</string>
     <string name="total_emission">"Émissions totales (kg):"</string>
-    <string name="emission_info">"Total des émissions Highway (kg): 1% .2f $ \ nTotal Ville Émissions (kg): 2% .2f $ \ Émissions nTotal (kg): 3% .2f $
-    "</string>
+    <string name="emission_info">Total des émissions Highway (kg): %1$.2f
+        \nTotal Ville Émissions (kg): %2$.2f
+        \nÉmissions nTotal (kg): %3$.2f
+    </string>
 
 
     <!--
@@ -329,17 +339,21 @@
     <string name="label_preview">"Aperçu"</string>
     <string name="label_delete_confirm">"Voulez-vous vraiment supprimer cette facture?"</string>
     <string name="toast_bad_date">"S'il vous plaît entrer les dates de facturation valides!"</string>
-    <string name="label_bill_preview">"
-        Émissions totales:% 1 CO2 $ s \ n Les émissions moyennes:% 2 de CO2 $ par jour \ n (% 3 de CO2 $ par habitant par jour)
-    "</string>
-    <string name="label_bill_preview_silly">"
-        Émissions totales:% 1 $ .0f arbres pour éliminer le carbone en une heure au total \ n moyenne des émissions: 2% .0f $ arbres pour éliminer le carbone en une heure par jour \ n (% 3 $ .0f arbres pour éliminer le carbone dans un heure par habitant)
-    "</string>
+    <string name="label_bill_preview">
+        Émissions totales: %1$.2fkg CO2\n
+        Les émissions moyennes: %2$.2fkg CO2 par jour\n
+        (%3$.2fkg CO2 par habitant par jour)
+    </string>
+    <string name="label_bill_preview_silly">
+        Émissions totales: %1$.0f arbres pour éliminer le carbone en une heure au total\n
+        moyenne des émissions: %2$.0f arbres pour éliminer le carbone en une heure par jour\n
+        (%3$.0f arbres pour éliminer le carbone dans un heure par habitant)
+    </string>
     <string name="label_unit_GJ">"GJ"</string>
 
     <!-- Utilities Adapter -->
     <string name="label_unit_kWh">"kWh"</string>
-    <string name="label_bill_display">"kg CO2 / résident / jour;"</string>
+    <string name="label_bill_display">"kg CO2 / résident / jour; "</string>
 
     <string name="tips">"Astuces"</string>
     <string name="tip_hint">"Cliquez ici pour obtenir des conseils!"</string>

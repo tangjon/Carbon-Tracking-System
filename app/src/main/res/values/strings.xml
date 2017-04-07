@@ -355,7 +355,7 @@
 
     <!-- Utilities Adapter -->
     <string name="label_unit_kWh">kWh</string>
-    <string name="label_bill_display">kg CO2 / resident / day;</string>
+    <string name="label_bill_display">kg CO2 / resident / day; </string>
 
     <string name="tips">Tips</string>
     <string name="tip_hint">Click here for tips!</string>
@@ -405,7 +405,7 @@
     <string name="tip_bike4"> km today. It is not only good for your health, but also you saved
      around 17 kg in carbon emissions, which is the world average carbon emission per person.</string>
     <string name="tip_bike5"> km today. It is not only good for your health, but also you saved
-     around 34 kg in carbon emissions, which is a Canadian's average carbon emission.</string>
+     around 34 kg in carbon emissions, which is a Canadian average carbon emission.</string>
     <string name="tip_bike6"> km today. The average daily distance for training cyclists is
      40 to 60 miles, which is 64 to 97 km. You also saved around 66 kg in carbon emissions.</string>
     <string name="tip_bike7"> km today. For professional training purposes, the recommended daily
