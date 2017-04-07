@@ -377,8 +377,9 @@
     <string name="main_menu_journey">Journey</string>
     <string name="main_menu_settings">Settings</string>
 
+
     <!-- Tips -->
-    <string name="tip_walk1">You haven\'t walked today, walking has lots of health benefits.
+    <string name="tip_walk1">You have not walked today, walking has lots of health benefits.
      Try walking tomorrow!</string>
     <string name="tip_walk2">The minimum standard for a young person is 4000 steps per day,
      which is around 2.8 km. You have walked </string>
@@ -388,7 +389,95 @@
      which is around 7.0 km. You have walked </string>
     <string name="tip_walk_more"> km today. You should try taking another walk.</string>
     <string name="tip_walk_good"> km today. Well done!</string>
-    <string name="tip_walk_only">You went outside and didn\'t drive or take transit.
+    <string name="tip_walk_only">You went outside and did not drive or take transit.
      The total emissions is 0. We can make this a better world together, well done!</string>
+
+    <string name="tip_bike1">You have not ridden your bike today, riding a bike has lots of health
+     benefits. Try riding it later today!</string>
+    <string name="tip_bike2">You rode </string>
+    <string name="tip_bike2_1"> km today. Ride your bike around 5 km everyday, it can help
+     boost estrogen and androgen levels.</string>
+    <string name="tip_bike3">The average daily distance recommended for most cyclists
+     is 5 to 10 km. You rode </string>
+    <string name="tip_bike4"> km today. It is not only good for your health, but also you saved
+     around 17 kg in carbon emissions, which is the world average carbon emission per person.</string>
+    <string name="tip_bike5"> km today. It is not only good for your health, but also you saved
+     around 34 kg in carbon emissions, which is a Canadian's average carbon emission.</string>
+    <string name="tip_bike6"> km today. The average daily distance for training cyclists is
+     40 to 60 miles, which is 64 to 97 km. You also saved around 66 kg in carbon emissions.</string>
+    <string name="tip_bike7"> km today. For professional training purposes, the recommended daily
+     distance for most cyclists is over 100 km if you are a beginner. You are going to be a pro!</string>
+    <string name="tip_bike8">For professional training purposes, the recommended daily
+     distance for most cyclists is around 200 km if you are a veteran.</string>
+    <string name="tip_bike9">You went outside by riding your bike and taking public transit. The
+     total emissions from transit is </string>
+    <string name="tip_bike9_1">. You tried your best to make this a better world, well done!</string>
+    <string name="tip_bike_good"> km today. Wow!</string>
+    <string name="tip_bike_bad"> km today. You rode too much, you may hurt yourself!</string>
+    <string name="tip_bike_only">You went outside by riding a bike and did not drive or take transit.
+     The total emissions is 0! We can work together to make this a better world, well done!</string>
+
+    <string name="tip_journey1">You did not go outside today, that is not good for your health.
+     Call your friends and have some fun outside tomorrow!</string>
+    <string name="tip_journey2">The maximum amount of CO2 a person should produce per year in
+     order to halt climate change is 5.48 kg. Your total emissions is </string>
+    <string name="tip_journey2_1">, which is below that. We can all help to make this a better world,
+     well done!</string>
+    <string name="tip_journey3"> The maximum amount of CO2 a person should produce per year in order
+     to halt climate change is 5.48 kg. The world average is 13.69 kg. Your total emissions is </string>
+    <string name="tip_journey3_1">. Although you exceeded the expectation, you are still below the
+     world average, well done!</string>
+    <string name="tip_journey4">The world average emission is 13.69 kg and the Canadian average is
+     36.9 kg. Your total emissions is </string>
+    <string name="tip_journey4_1">. Although you exceeded the world average, you are still below
+     the Canadian average, well done!</string>
+    <string name="tip_journey5">The Canadian average emission is 36.9 kg. Your total emissions is </string>
+    <string name="tip_journey5_1">. You have exceeded the Canadian average. Tip: avoid idling for
+     long periods of time. Idling is considered a significant contributor to pollution, so consider
+     turning your vehicle off when waiting in one spot for longer than a few minutes.</string>
+    <string name="tip_journey5_2">. Tip: drive at a steady speed. Rapid acceleration increases
+     fuel consumption and pollutant emissions.</string>
+    <string name="tip_journey5_3">. Tip: properly maintain your vehicle. Clogged air filters,
+     dirty carburetors, and worn out engine parts make your car work harder and increase pollution.</string>
+    <string name="tip_journey5_4">. Tip: keep your tires properly inflated. This will lower your gas
+     consumption and provide a smoother ride, which will reduce the need for frequent acceleration.</string>
+    <string name="tip_journey5_5">. Tip: opt for a fuel-efficient vehicle. Choosing a hybrid or
+     electric vehicle will reduce the amount of pollution you emit as you drive.</string>
+    <string name="tip_journey5_6">. Tip: reduce air conditioner usage. Doing so can improve car
+     performance and gas mileage by as much as 20%. Instead, roll down your windows and enjoy
+     the breeze.</string>
+    <string name="tip_journey5_7">. Tip: change your air filter regularly.</string>
+    <string name="tip_journey5_8">. Tip: change oil as required.</string>
+    <string name="tip_journey5_9">. Tip: by keeping the tires properly inflated, you will not only
+     enjoy a smoother ride, but you will get much better fuel efficiency as well.</string>
+
+    <string name="tip_electricity1">Tip: turn the lights off after leaving the room.</string>
+    <string name="tip_electricity2">Tip: switch to compact fluorescent (CFL) or LED light bulbs.</string>
+    <string name="tip_electricity3">Tip: go for a walk instead of watching TV or booting your computer.</string>
+    <string name="tip_electricity4">Tip: check walls, doors, and windows for drafts and seal them
+     up to avoid heat loss in winter.</string>
+    <string name="tip_electricity5">Tip: avoid using hot water in your washing machine.</string>
+    <string name="tip_electricity6">Tip: turn down your water heater thermostat.</string>
+    <string name="tip_electricity7">Tip: plant shade trees and paint your house a light color if you
+     live in a warm climate, or a dark color if you live in a cold one.</string>
+    <string name="tip_electricity8">Tip: use less hot water by installing low-flow shower heads.</string>
+
+    <string name="tip_gas1">Tip: install a programmable thermostat to automatically reduce heating
+     and cooling in your home when unneeded.</string>
+    <string name="tip_gas2">Tip: ovens should reach their desired temperature within 15 minutes.
+     To save energy, avoid preheating ovens until you are almost ready to use them.</string>
+    <string name="tip_gas3">Tip: only use hood fans while cooking; they draw in heated air and exhaust
+     it to the outside.</string>
+    <string name="tip_gas4">Tip: for gas fryers and griddles, use IR burners that operate with less
+     than 10% excess air, reducing combustion energy loss up the flue.</string>
+    <string name="tip_gas5">Tip: implement an effective steam trap maintenance program. This promotes
+     efficient operation of end-use heat transfer equipment and reduces live steam in the
+     condensate system.</string>
+    <string name="tip_gas6">Tip: watch that water heater. It is also not likely to be noticeable if
+     you turn down the thermostat on your water heater by about 20 degrees.</string>
+    <string name="tip_gas7">Tip: reduce or eliminate openings in furnace walls and doors to
+     minimize heat loss and to prevent air from leaking into furnaces and ovens.</string>
+    <string name="tip_gas8">Tip: if you have a fireplace, close the damper or install glass doors
+     to prevent warm air from escaping up the chimney.</string>
 
 </resources>
