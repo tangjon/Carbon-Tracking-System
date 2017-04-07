@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -47,6 +49,23 @@ public class JourneyReviewActivity extends AppCompatActivity {
 
         setUpTips();
         hideSystemUI();
+
+        final EditText inputDate = (EditText) findViewById(R.id.editDate);
+        inputDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after){
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                inputDate.setError("dd/mm/yyyy");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                inputDate.setError("dd/mm/yyyy");
+            }
+        });
     }
 
     private void hideSystemUI() {
