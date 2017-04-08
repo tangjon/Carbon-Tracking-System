@@ -13,8 +13,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import cmpt276.jade.carbontracker.model.Emission;
-import cmpt276.jade.carbontracker.model.Journey;
 import cmpt276.jade.carbontracker.model.Route;
 
 /**
@@ -84,45 +82,102 @@ public class Route_Info_Activity extends AppCompatActivity {
                 //check empty for route name
                 if (Check_empty_input(R.id.editJourneyName) == 0) {
                     Toast.makeText(getApplicationContext(),
-                        "You haven't enter the route name " + " please try again", Toast.LENGTH_LONG).show();
-                }
-                else {
-                    if (Check_empty_input(R.id.Route_Info_edite_highway) == 0 && Check_empty_input(R.id.Route_Info_edite_city) == 0) {
-                        Toast.makeText(getApplicationContext(),
-                            "You did not entered any number for either HighWay or City" +
-                                " please try again", Toast.LENGTH_LONG).show();
-                    }
-                    else if (Check_empty_input(R.id.Route_Info_edite_highway) == 0 )
-                    {
-                        String highway = "0";
+                            "You haven't enter the route name " + " please try again", Toast.LENGTH_LONG).show();
+                } else {
+                    EditText etCity = (EditText) findViewById(R.id.Route_Info_edite_city);
+                    EditText etHighway = (EditText) findViewById(R.id.Route_Info_edite_highway);
+
+
+                    // both are not empty, only one needs to valid
+                    if (Check_empty_input(R.id.Route_Info_edite_highway) != 0 && Check_empty_input(R.id.Route_Info_edite_city) != 0) {
                         String city = getNameById(R.id.Route_Info_edite_city);
-                        if (Double.parseDouble(city) > 0 &&
-                            Check_empty_input(R.id.Route_Info_edite_highway) == 1 ) {
-                            //PASS name and weight BACK
-                            pass_back_route(city,highway);
-                            finish();
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(),
-                                "Your highway and city are both 0 km, " +
-                                    " please enter some valid number", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                    else
-                    {
                         String highway = getNameById(R.id.Route_Info_edite_highway);
-                        String city = "0";
-                        if (Double.parseDouble(highway) > 0 &&
-                            Check_empty_input(R.id.Route_Info_edite_city) == 1) {
-                            //PASS name and weight BACK
-                            pass_back_route(city,highway);
+                        // See if valid doubles
+                        if (Double.parseDouble(city) > 0 || Double.parseDouble(highway) > 0) {
+                            pass_back_route(city, highway);
                             finish();
-                        }
-                        else {
+                        } else {
+                            // Error message for both 0
                             Toast.makeText(getApplicationContext(),
-                                "Your highway and city are both 0 km, " +
-                                    " please enter some valid number", Toast.LENGTH_LONG).show();}
-                    }}}});
+                                    "Your highway and city are both 0 km, " +
+                                            " please enter some valid number", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                    // both are empty and invalid
+                    else if (Check_empty_input(R.id.Route_Info_edite_highway) == 0 && Check_empty_input(R.id.Route_Info_edite_city) == 0) {
+                        Toast.makeText(getApplicationContext(),
+                                "You did not entered any number for either HighWay or City" +
+                                        " please try again", Toast.LENGTH_LONG).show();
+                    }
+                    // One of them is valid
+                    else if (Check_empty_input(R.id.Route_Info_edite_highway) != 0 || Check_empty_input(R.id.Route_Info_edite_city) != 0) {
+                        String city = "0";
+                        String highway = "0";
+                        if (Check_empty_input(R.id.Route_Info_edite_highway) != 0) {
+                            highway = etHighway.getText().toString();
+                            // See if valid double
+                            if (Double.parseDouble(highway) > 0) {
+                                pass_back_route(city, highway);
+                                finish();
+                            } else {
+                                Toast.makeText(Route_Info_Activity.this, "Invalid Parameters for highway", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else {
+                            city = etCity.getText().toString();
+                            // see if valid double
+                            if (Double.parseDouble(city) > 0) {
+                                pass_back_route(city, highway);
+                                finish();
+                            } else {
+                                Toast.makeText(Route_Info_Activity.this, "Invalid Parameters for city", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+
+                    }
+
+
+//                    if (Check_empty_input(R.id.Route_Info_edite_highway) == 0 && Check_empty_input(R.id.Route_Info_edite_city) == 0) {
+//                        Toast.makeText(getApplicationContext(),
+//                            "You did not entered any number for either HighWay or City" +
+//                                " please try again", Toast.LENGTH_LONG).show();
+//                    }
+//                    else if (Check_empty_input(R.id.Route_Info_edite_highway) == 0 )
+//                    {
+//                        String highway = "0";
+//                        String city = getNameById(R.id.Route_Info_edite_city);
+//                        if (Double.parseDouble(city) > 0 &&
+//                            Check_empty_input(R.id.Route_Info_edite_highway) == 1 ) {
+//                            //PASS name and weight BACK
+//                            pass_back_route(city,highway);
+//                            finish();
+//                        }
+//                        else {
+//                            Toast.makeText(getApplicationContext(),
+//                                "Your highway and city are both 0 km, " +
+//                                    " please enter some valid number", Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                    else
+//                    {
+//                        String highway = getNameById(R.id.Route_Info_edite_highway);
+//                        String city = "0";
+//                        if (Double.parseDouble(highway) > 0 &&
+//                            Check_empty_input(R.id.Route_Info_edite_city) == 1) {
+//                            //PASS name and weight BACK
+//                            pass_back_route(city,highway);
+//                            finish();
+//                        }
+//                        else {
+//                            Toast.makeText(getApplicationContext(),
+//                                "Your highway and city are both 0 km, " +
+//                                    " please enter some valid number", Toast.LENGTH_LONG).show();}
+                }
+            }
+        });
     }
 
 
@@ -141,7 +196,7 @@ public class Route_Info_Activity extends AppCompatActivity {
     private int Check_empty_input(int ID) {
         EditText EditRouteName = (EditText) findViewById(ID);
         String StrInput = EditRouteName.getText().toString();
-        Log.i("Check_empty_input","StrInput = "+StrInput+"; length = "+StrInput.length());
+        Log.i("Check_empty_input", "StrInput = " + StrInput + "; length = " + StrInput.length());
         if (StrInput.length() == 0) {
             return 0;
         } else {
