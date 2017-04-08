@@ -97,7 +97,10 @@ public class Graph {
         float billSum = 0f;
 
         // Journeys
-        barEntries.add(new BarEntry(0, journeyData.values, "Journeys"));
+        if (mode == DateMode.RANGE)
+            barEntries.add(new BarEntry(-1, journeyData.values, "Journeys"));
+        else
+            barEntries.add(new BarEntry(0, journeyData.values, "Journeys"));
 
         // Electric Bills
         bills = getBills(BillType.ELECTRIC, mode, dateSelected, dateRangeStart, dateRangeEnd);
@@ -109,7 +112,9 @@ public class Graph {
                     billSum += settings.calcTreeAbsorbtion(b.getEmissionAvg());
             }
         }
-        if (bills.size() > 0)
+        if (mode == DateMode.RANGE)
+            barEntries.add(new BarEntry(0, new float[]{billSum}, "Electricity"));
+        else
             barEntries.add(new BarEntry(1, new float[]{billSum}, "Electricity"));
 
         // Gas Bills
@@ -123,7 +128,9 @@ public class Graph {
                     billSum += settings.calcTreeAbsorbtion(b.getEmissionAvg());
             }
         }
-        if (bills.size() > 0)
+        if (mode == DateMode.RANGE)
+            barEntries.add(new BarEntry(1, new float[]{billSum}, "Gas"));
+        else
             barEntries.add(new BarEntry(2, new float[]{billSum}, "Gas"));
 
         BarDataSet dataSet = new BarDataSet(barEntries, label);
