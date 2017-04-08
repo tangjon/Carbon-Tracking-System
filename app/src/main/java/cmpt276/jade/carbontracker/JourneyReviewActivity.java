@@ -1,21 +1,16 @@
 package cmpt276.jade.carbontracker;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.fragment.TipDialog;
 import cmpt276.jade.carbontracker.model.Emission;
@@ -47,7 +42,7 @@ public class JourneyReviewActivity extends AppCompatActivity {
         setupPage();
         setupDoneBtn();
 
-        setUpTips();
+//        setUpTips();
         hideSystemUI();
 
         final EditText inputDate = (EditText) findViewById(R.id.editDate);

@@ -132,7 +132,7 @@ public class Temp_Main_Acticity extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
 
-        calendar.set(Calendar.HOUR_OF_DAY, 21);
+        calendar.set(Calendar.HOUR_OF_DAY, 17);
         //calendar.set(Calendar.MINUTE, 00);
 
         Intent intent = new Intent(getApplicationContext(), Notification_reciever.class);
