@@ -10,7 +10,7 @@
     <string name="alex_wu">"Alex Wu"</string>
 
     <!--General Purpose-->
-    <string name="app_name">"Traqueur De Carbone"</string>
+    <string name="app_name">"CO2L"</string>
     <string name="label_add">"AJOUTER"</string>
     <string name="label_next">"SUIVANT"</string>
     <string name="label_short_summary">"Court résumé"</string>
