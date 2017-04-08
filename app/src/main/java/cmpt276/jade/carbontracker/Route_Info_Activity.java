@@ -84,62 +84,44 @@ public class Route_Info_Activity extends AppCompatActivity {
                 //check empty for route name
                 if (Check_empty_input(R.id.editJourneyName) == 0) {
                     Toast.makeText(getApplicationContext(),
-                            getString(R.string.route_info_toast_route_name),
-                            Toast.LENGTH_LONG).show();
+                        "You haven't enter the route name " + " please try again", Toast.LENGTH_LONG).show();
                 }
                 else {
                     if (Check_empty_input(R.id.Route_Info_edite_highway) == 0 && Check_empty_input(R.id.Route_Info_edite_city) == 0) {
                         Toast.makeText(getApplicationContext(),
-                                getString(R.string.route_info_toast_route_dist),
-                                Toast.LENGTH_LONG).show();
+                            "You did not entered any number for either HighWay or City" +
+                                " please try again", Toast.LENGTH_LONG).show();
                     }
                     else if (Check_empty_input(R.id.Route_Info_edite_highway) == 0 )
                     {
                         String highway = "0";
                         String city = getNameById(R.id.Route_Info_edite_city);
                         if (Double.parseDouble(city) > 0 &&
-                                Check_empty_input(R.id.Route_Info_edite_highway) == 0 ) {
+                            Check_empty_input(R.id.Route_Info_edite_highway) == 0 ) {
                             //PASS name and weight BACK
                             pass_back_route(city,highway);
                             finish();
                         }
                         else {
                             Toast.makeText(getApplicationContext(),
-                                    getString(R.string.route_info_toast_route_dist),
-                                    Toast.LENGTH_LONG).show();
+                                "Your highway and city are both 0 km, " +
+                                    " please enter some valid number", Toast.LENGTH_LONG).show();
                         }
                     }
-                    else if (Check_empty_input(R.id.Route_Info_edite_city) == 0 )
+                    else
                     {
                         String highway = getNameById(R.id.Route_Info_edite_highway);
-                        String city = getNameById(R.id.Route_Info_edite_city);
+                        String city = "0";
                         if (Double.parseDouble(highway) > 0 &&
-                                Check_empty_input(R.id.Route_Info_edite_city) == 1) {
+                            Check_empty_input(R.id.Route_Info_edite_city) == 0) {
                             //PASS name and weight BACK
                             pass_back_route(city,highway);
                             finish();
                         }
                         else {
-                            Log.i("save button","highway = "+Double.parseDouble(highway));
                             Toast.makeText(getApplicationContext(),
-                                    getString(R.string.route_info_toast_route_dist),
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-                    else {
-                        String city = getNameById(R.id.Route_Info_edite_city);
-                        String highway = getNameById(R.id.Route_Info_edite_highway);
-                        if(Double.parseDouble(highway) ==0 && Double.parseDouble(city) ==0)
-                        {
-                            Toast.makeText(getApplicationContext(),
-                                    getString(R.string.route_info_toast_route_dist),
-                                    Toast.LENGTH_LONG).show();
-                        }
-                        else
-                        {
-                            pass_back_route(city, highway);
-                            finish();
-                        }
+                                "Your highway and city are both 0 km, " +
+                                    " please enter some valid number", Toast.LENGTH_LONG).show();}
                     }}}});
     }
 
