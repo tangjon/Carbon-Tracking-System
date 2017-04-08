@@ -31,19 +31,19 @@ public class ImageRowAdapter {
 
     // TWO ARRAYS MUST MATCH
     private int[] imageId = {
-            R.drawable.walksymbol,
-            R.drawable.bike,
             R.drawable.car,
             R.drawable.skytrain,
-            R.drawable.bus
+            R.drawable.bus,
+            R.drawable.plane,
+            R.drawable.motor_bike
     };
 
     private int[] imageIdSelected = {
-            R.drawable.walk_clicked,
-            R.drawable.bike_clicked,
             R.drawable.car_clicked,
             R.drawable.skytrain_clicked,
-            R.drawable.bus_clicked
+            R.drawable.bus_clicked,
+            R.drawable.plane_clicked,
+            R.drawable.motor_bike_clicked
     };
 
     private List<ImageView> table;
