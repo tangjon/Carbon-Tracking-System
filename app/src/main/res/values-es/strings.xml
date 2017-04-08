@@ -376,6 +376,15 @@
     <string name="main_menu_journey">"Viaje"</string>
     <string name="main_menu_settings">"Ajustes"</string>
 
+    <string name="settings_activity_mode">Modo:</string>
+    <string name="settings_activity_units_shown">Unidades mostradas:</string>
+    <string name="disable_silly">Desactivar modo tonto</string>
+    <string name="amount_trees_one">Cantidad de árboles necesarios durante un período de tiempo</string>
+    <string name="amount_trees_two">De 1 hora para eliminar las emisiones liberadas</string>
+    <string name="enable_silly">Habilitar modo tonto</string>
+    <string name="kilograms">Kilogramos</string>
+    <string name="about">Acerca de</string>
+
 
     <!-- Tips -->
     <string name="tip_walk1">"No ha entrado hoy en día, caminar tiene un montón de beneficios para la salud. Trate de caminar mañana!"</string>
