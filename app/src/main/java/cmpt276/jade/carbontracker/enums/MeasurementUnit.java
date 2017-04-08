@@ -1,11 +1,8 @@
 package cmpt276.jade.carbontracker.enums;
 
-/**
- * Created by tangj on 3/28/2017.
- * Class:
- * Description:
- * Bugs:
- */
+/*
+* Enum: Determines the unit of measurement
+* */
 public enum MeasurementUnit {
     REGULAR, TREES;
 
