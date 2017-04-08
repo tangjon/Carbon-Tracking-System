@@ -131,10 +131,7 @@ public class Route_Info_Activity extends AppCompatActivity {
                             } else {
                                 Toast.makeText(Route_Info_Activity.this, R.string.route_info_error_city, Toast.LENGTH_SHORT).show();
                             }
-
                         }
-
-
                     }
 
 
