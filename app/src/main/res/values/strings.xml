@@ -256,7 +256,8 @@
         <item>Distance (km)</item>
         <item>Vehicle Name</item>
         <item>Carbon Emitted\n(kg CO2)</item>
-    </string-array><string-array name="label_table_silly">
+    </string-array>
+    <string-array name="label_table_silly">
         <item>Date</item>
         <item>Trip Name</item>
         <item>Distance (km)</item>
@@ -368,7 +369,7 @@
     <string name="carbonfootprintactivitytoolbarhint">Graphs</string>
     <string name="tips_dialog_click_next_to_display_a_tips">Click next to display a tip!</string>
     <string name="car_info_pick_an_icon">Pick an icon</string>
-  <string name="settings_activity_current_language">Current Language:</string>
+    <string name="settings_activity_current_language">Current Language:</string>
     <string name="about_us_finish_april_7_2017">Finish: April 7, 2017</string>
     <string name="about_us_image_resources">Image Resources</string>
     <string name="about_us_class_cmpt_276_with_brian_fraser">Class: Cmpt 276 with Brian Fraser</string>
@@ -497,9 +498,10 @@
     <string name="add_walk">Add Walk</string>
     <string name="add_bike">Add Bike</string>
     <string name="app_description">a carbon tracker app</string>
-  <string name="https_pixabay_com">https://pixabay.com/</string>
-  <string name="https_material_io_icons">https://material.io/icons/</string>
-    <string name="route_info_error_route_name">You haven\'t entered the route name please try again</string>
+
+    <string name="https_pixabay_com"><a href="https://pixabay.com/">https://pixabay.com/</a></string>
+    <string name="https_material_io_icons"><a href="https://material.io/icons/">https://material.io/icons/</a></string>
+    <string name="route_info_error_route_name">You haven\'t enter the route name please try again</string>
     <string name="route_info_error_both_zero">Your highway and city are both 0 km, please enter some valid number</string>
     <string name="route_info_error_both_invalid">You did not entered any number for either HighWay or City please try again</string>
     <string name="route_info_error_invalid_highway">Invalid Parameters for highway</string>
