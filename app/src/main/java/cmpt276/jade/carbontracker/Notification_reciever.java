@@ -122,16 +122,16 @@ public class Notification_reciever extends BroadcastReceiver{
         }
 
         if(!there_Is_ElecBill_In_One_And_Half_Mouth) {
-            String text = res.getString(R.string.notification_new_bill);
+            String text = context.getString(R.string.notification_new_bill);
 
             NotificationCompat.BigTextStyle style=new NotificationCompat.BigTextStyle();
-            style.setBigContentTitle(res.getString(R.string.app_name));
+            style.setBigContentTitle(context.getString(R.string.app_name));
             style.bigText(text);
 
             NotificationCompat.Builder builder=new NotificationCompat.Builder(context);
             builder.setContentIntent(pendingIntentForBills);
             builder.setSmallIcon(R.drawable.car);
-            builder.setContentTitle(res.getString(R.string.app_name));
+            builder.setContentTitle(context.getString(R.string.app_name));
             builder.setContentText(text);
             builder.setAutoCancel(true);
             builder.setStyle(style);
@@ -142,16 +142,16 @@ public class Notification_reciever extends BroadcastReceiver{
             notificationManager.notify(200,notification);
         }
         else if(!there_Is_GasBill_In_One_And_Half_Mouth) {
-            String text = res.getString(R.string.notification_new_bill);
+            String text = context.getString(R.string.notification_new_bill);
 
             NotificationCompat.BigTextStyle style=new NotificationCompat.BigTextStyle();
-            style.setBigContentTitle(res.getString(R.string.app_name));
+            style.setBigContentTitle(context.getString(R.string.app_name));
             style.bigText(text);
 
             NotificationCompat.Builder builder=new NotificationCompat.Builder(context);
             builder.setContentIntent(pendingIntentForBills);
             builder.setSmallIcon(R.drawable.car);
-            builder.setContentTitle(res.getString(R.string.app_name));
+            builder.setContentTitle(context.getString(R.string.app_name));
             builder.setContentText(text);
             builder.setAutoCancel(true);
             builder.setStyle(style);
@@ -162,18 +162,18 @@ public class Notification_reciever extends BroadcastReceiver{
             notificationManager.notify(200,notification);
         }
         else {
-            String text= res.getString(R.string.notification_new_journey1) +
+            String text= context.getString(R.string.notification_new_journey1) +
                     haveEnteredJourney +
-                    res.getString(R.string.notification_new_journey2);
+                    context.getString(R.string.notification_new_journey2);
 
             NotificationCompat.BigTextStyle style=new NotificationCompat.BigTextStyle();
-            style.setBigContentTitle(res.getString(R.string.app_name));
+            style.setBigContentTitle(context.getString(R.string.app_name));
             style.bigText(text);
 
             NotificationCompat.Builder builder=new NotificationCompat.Builder(context);
             builder.setContentIntent(pendingIntentForJourney);
             builder.setSmallIcon(R.drawable.car);
-            builder.setContentTitle(res.getString(R.string.app_name));
+            builder.setContentTitle(context.getString(R.string.app_name));
             builder.setContentText(text);
             builder.setAutoCancel(true);
             builder.setStyle(style);
