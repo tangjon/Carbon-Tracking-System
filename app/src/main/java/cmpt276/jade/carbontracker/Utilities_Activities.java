@@ -105,6 +105,7 @@ public class Utilities_Activities extends AppCompatActivity {
         DBAdapter db = new DBAdapter(this);
         db.open();
         db.deleteAll(DBAdapter.DB_TABLE.BILL);
+        db.deleteAll(DBAdapter.DB_TABLE.BILL);
 
         for (Bill b : Emission.getInstance().getUtilities().getListBillElec()) {
             db.insertRow(b);

@@ -53,14 +53,47 @@ public class JourneyReviewActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                inputDate.setError("dd/mm/yyyy");
+//
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                inputDate.setError("dd/mm/yyyy");
+                if(!dateCheck(inputDate)){
+                    inputDate.setError("dd/mm/yyyy");
+                }
             }
         });
+    }
+
+    private boolean dateCheck(EditText inputDate){
+        String[] dateCheck = inputDate.getText().toString().split("/", 3);
+
+        int month = 0;
+        int day = 0;
+        int year = 0;
+        if (dateCheck.length == 3) {
+            if (dateCheck[1].equals("") || dateCheck[0].equals("") || dateCheck[2].equals("")
+                || dateCheck[1].contains(".") || dateCheck[0].contains(".") || dateCheck[2].contains(".")
+                || dateCheck[1].contains("-") || dateCheck[0].contains("-") || dateCheck[2].contains("-")) {
+                return false;
+            } else {
+                month = Integer.parseInt(dateCheck[1]);
+                day = Integer.parseInt(dateCheck[0]);
+                year = Integer.parseInt(dateCheck[2]);
+            }
+        } else {
+            return false;
+        }
+
+        if (month < 1 || month > 12 || day < 1 || day > 31 || year < 1900 || year > 9999) {
+            return false;
+        } else if ((month == 2 && day > 28 && year % 4 != 0) || (month == 2 && day > 29 && year % 4 == 0)) {
+            return false;
+        } else if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private void hideSystemUI() {
