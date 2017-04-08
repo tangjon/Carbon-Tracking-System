@@ -446,5 +446,12 @@
     <string name="add_bike">"Ajouter vélo"</string>
 
     <string name="app_description">Une application de suivi du carbone</string>
-
+    <string name="settings_activity_mode">Mode:</string>
+    <string name="settings_activity_units_shown">Unités indiquées:</string>
+    <string name="disable_silly">Désactiver le mode idiot</string>
+    <string name="amount_trees_one">Quantité d\'arbres nécessaire sur une période déterminée</string>
+    <string name="amount_trees_two">De 1 heure pour éliminer les émissions rejetées</string>
+    <string name="enable_silly">Activer le mode idiot</string>
+    <string name="kilograms">Kilogrammes</string>
+    <string name="about">Sur</string>
 </resources>
