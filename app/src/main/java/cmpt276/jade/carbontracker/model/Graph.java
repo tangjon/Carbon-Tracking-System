@@ -63,8 +63,12 @@ public class Graph {
         // Electric Bills
         bills = getBills(BillType.ELECTRIC, mode, dateSelected, dateRangeStart, dateRangeEnd);
         for (Bill b : bills)
-            if (b != null)
-                billSum += b.getEmissionAvg();
+            if (b != null) {
+                if (settings.getSillyMode() == MeasurementUnit.REGULAR)
+                    billSum += b.getEmissionAvg();
+                else
+                    billSum += settings.calcTreeAbsorbtion(b.getEmissionAvg());
+            }
         if (bills.size() > 0 && bills.get(0) != null)
             pieEntries.add(new PieEntry(billSum, "Electricity"));
 
@@ -72,8 +76,12 @@ public class Graph {
         billSum = 0f;
         bills = getBills(BillType.GAS, mode, dateSelected, dateRangeStart, dateRangeEnd);
         for (Bill b : bills)
-            if (b != null)
-                billSum += b.getEmissionAvg();
+            if (b != null) {
+                if (settings.getSillyMode() == MeasurementUnit.REGULAR)
+                    billSum += b.getEmissionAvg();
+                else
+                    billSum += settings.calcTreeAbsorbtion(b.getEmissionAvg());
+            }
         if (bills.size() > 0 && bills.get(0) != null)
             pieEntries.add(new PieEntry(billSum, "Gas"));
 
