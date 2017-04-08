@@ -499,7 +499,7 @@
     <string name="app_description">a carbon tracker app</string>
   <string name="https_pixabay_com">https://pixabay.com/</string>
   <string name="https_material_io_icons">https://material.io/icons/</string>
-    <string name="route_info_error_route_name">You haven\'t enter the route name please try again</string>
+    <string name="route_info_error_route_name">You haven\'t entered the route name please try again</string>
     <string name="route_info_error_both_zero">Your highway and city are both 0 km, please enter some valid number</string>
     <string name="route_info_error_both_invalid">You did not entered any number for either HighWay or City please try again</string>
     <string name="route_info_error_invalid_highway">Invalid Parameters for highway</string>

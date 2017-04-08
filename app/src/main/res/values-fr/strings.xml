@@ -454,4 +454,10 @@
     <string name="enable_silly">Activer le mode idiot</string>
     <string name="kilograms">Kilogrammes</string>
     <string name="about">Sur</string>
+    <string name="route_info_error_route_name">Vous n\'avez pas saisi le nom de l\'itinéraire, réessayez</string>
+    <string name="route_info_error_both_zero">Votre autoroute et votre ville sont toutes deux à 0 km, veuillez entrer un nombre valable</string>
+    <string name="route_info_error_both_invalid">Vous n\'avez pas entré de numéro pour HighWay ou City, essayez à nouveau</string>
+    <string name="route_info_error_invalid_highway">Paramètres non valides pour autoroute</string>
+    <string name="route_info_error_city">Paramètres non valides pour la ville</string>
+
 </resources>

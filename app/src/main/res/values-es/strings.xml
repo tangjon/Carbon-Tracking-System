@@ -452,5 +452,9 @@
     <string name="add_walk">"Añadir Walk"</string>
     <string name="add_bike">"Añadir bicicletas"</string>
     <string name="app_description">Una aplicación de seguimiento de carbono</string>
-
+    <string name="route_info_error_route_name">No ha ingresado el nombre de la ruta. Inténtelo de nuevo.</string>
+    <string name="route_info_error_both_zero">Su autopista y ciudad son 0 km, por favor ingrese un número válido</string>
+    <string name="route_info_error_both_invalid">No ingresaste ningún número para HighWay o Ciudad. Por favor, inténtalo de nuevo.</string>
+    <string name="route_info_error_invalid_highway">Parámetros no válidos para la carretera</string>
+    <string name="route_info_error_city">Parámetros no válidos para la ciudad</string>
 </resources>
