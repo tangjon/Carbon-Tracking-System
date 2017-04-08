@@ -152,7 +152,7 @@ public class Graph {
 
         List<Bill> bills;
 
-        if (mode == DateMode.RANGE) {
+        if (mode == DateMode.ALL) {
             if (type == BillType.ELECTRIC)
                 bills = utilities.getListBillElec();
             else
