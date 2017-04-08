@@ -98,12 +98,12 @@ public class EditDialog extends DialogFragment {
         View v = inflater.inflate(R.layout.dialog_fragment_edit, null);
         // Display Custom Contents
 
-        if (objectName != null) {
-            setUpTextView(v);
-        }
-        if (objectMode != null) {
-            setUpImageView(v);
-        }
+//        if (objectName != null) {
+//            setUpTextView(v);
+//        }
+//        if (objectMode != null) {
+//            setUpImageView(v);
+//        }
 
         // Confirm
         builder.setView(v);
