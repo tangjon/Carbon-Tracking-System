@@ -71,7 +71,7 @@ public class SkytrainInfoActivity extends AppCompatActivity {
         imageRowAdapter = new ImageRowAdapter(this);
         tableLayout.addView(imageRowAdapter.getRow());
     }
-
+//
     public static Intent getIntent(Context context) {
         return new Intent(context, SkytrainInfoActivity.class);
     }
