@@ -253,7 +253,7 @@ public class Utilities_Activities extends AppCompatActivity {
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tip1 = tipForElection.tipsForElectricityEmissions();
+                String tip1 = tipForElection.tipsForElectricityEmissions(Utilities_Activities.this);
                 tv.setText(tip1);
             }
         });

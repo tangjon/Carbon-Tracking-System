@@ -349,7 +349,7 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         d.setTipDialogListener(new TipDialog.TipDialogListener() {
             @Override
             public void onNextClicked(TextView tv) {
-                String tip1 = tip.getJourneyTip();
+                String tip1 = tip.getJourneyTip(CarbonFootprintActivity.this);
                 tv.setText(tip1);
             }
 

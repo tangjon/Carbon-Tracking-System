@@ -160,23 +160,23 @@ public class JourneyReviewActivity extends AppCompatActivity {
                 switch (j.getTransType().getTransMode()) {
                     case CAR:
                         tip.setTotalCarEmissions(j.getTotalTravelledEmissions());
-                        tv.setText(tip.getJourneyTip());
+                        tv.setText(tip.getJourneyTip(JourneyReviewActivity.this));
                         break;
                     case BIKE:
                         tip.setTotalBike(j.getTotalTravelled());
-                        tv.setText(tip.getJourneyTip());
+                        tv.setText(tip.getJourneyTip(JourneyReviewActivity.this));
                         break;
                     case WALK:
                         tip.setTotalWalk(j.getTotalTravelled());
-                        tv.setText(tip.getJourneyTip());
+                        tv.setText(tip.getJourneyTip(JourneyReviewActivity.this));
                         break;
                     case BUS:
                         tip.setTotalBusEmission(j.getTotalTravelledEmissions());
-                        tv.setText(tip.getJourneyTip());
+                        tv.setText(tip.getJourneyTip(JourneyReviewActivity.this));
                         break;
                     case SKYTRAIN:
                         tip.setTotalSkyTrainEmission(j.getTotalTravelledEmissions());
-                        tv.setText(tip.getJourneyTip());
+                        tv.setText(tip.getJourneyTip(JourneyReviewActivity.this));
                         break;
                 }
             }
