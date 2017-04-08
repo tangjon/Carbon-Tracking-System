@@ -3,7 +3,6 @@ package cmpt276.jade.carbontracker.enums;
 /**
  * enum: Transport
  * Description: Identification for different types of Transportation are available
- * <p>
  * Bugs:
  */
 

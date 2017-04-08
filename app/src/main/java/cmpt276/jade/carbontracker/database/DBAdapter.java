@@ -52,7 +52,7 @@ public class DBAdapter {
     private static final String TAG = "DBAdapter";
 
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 35;
+    public static final int DATABASE_VERSION = 36;
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "MyDb";
