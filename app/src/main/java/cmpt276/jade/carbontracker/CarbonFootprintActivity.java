@@ -26,12 +26,15 @@ import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
@@ -167,7 +170,6 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                 hideSystemUI();
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        dialog.setCancelable(false);
     }
 
     private Date currentDate() {
@@ -659,10 +661,13 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         ArrayList<Entry> lineEntries = new ArrayList<>();
 
         for (int i = 0; i < data.getEntryCount(); ++i) {
+            int pos = i;
+            if (dateMode == DateMode.RANGE)
+                --pos;
             if (sillyMode)
-                lineEntries.add(new Entry(i, CAN_AVG_EMISSIONS_SILLY));
+                lineEntries.add(new Entry(pos, CAN_AVG_EMISSIONS_SILLY));
             else
-                lineEntries.add(new Entry(i, CAN_AVG_EMISSIONS));
+                lineEntries.add(new Entry(pos, CAN_AVG_EMISSIONS));
         }
 
         LineDataSet line = new LineDataSet(lineEntries, "test");
@@ -673,10 +678,13 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         ArrayList<Entry> lineEntriesTgt = new ArrayList<>();
 
         for (int i = 0; i < data.getEntryCount(); ++i) {
+            int pos = i;
+            if (dateMode == DateMode.RANGE)
+                --pos;
             if (sillyMode)
-                lineEntriesTgt.add(new Entry(i, CAN_TARGET_EMISSIONS_SILLY));
+                lineEntriesTgt.add(new Entry(pos, CAN_TARGET_EMISSIONS_SILLY));
             else
-                lineEntriesTgt.add(new Entry(i, CAN_TARGET_EMISSIONS));
+                lineEntriesTgt.add(new Entry(pos, CAN_TARGET_EMISSIONS));
         }
 
         LineDataSet lineTgt = new LineDataSet(lineEntriesTgt, "test2");
@@ -687,6 +695,12 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
         barChart = (CombinedChart) findViewById(R.id.bar_graph);
         barChart.setData(cData);
+        for (int i = 0; i < barChart.getBarData().getDataSetCount(); ++i) {
+            IBarDataSet d = barChart.getBarData().getDataSetByIndex(i);
+            for (BarEntry b : d.getEntriesForXValue(i)) {
+                Log.i("barChart","BarEntry = "+b.getX()+" ; "+b.getY());
+            }
+        }
         barChart.getLegend().setEnabled(false);
 
         String[] labels = getResources().getStringArray(R.array.label_bar_graph);
@@ -718,10 +732,16 @@ public class CarbonFootprintActivity extends AppCompatActivity {
 
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
-            if (value > -1 && value < labels.length)
-                return labels[(int) value];
-            else
-                return "";
+            Log.i("bar","value = "+value);
+
+            int i = (int) value;
+            if (dateMode == DateMode.RANGE && i < 2)
+                ++i;
+
+            Log.i("bar","new value = "+i);
+            Log.i("bar","label = "+labels[i]);
+
+            return labels[i];
         }
     }
 
