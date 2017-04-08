@@ -60,6 +60,14 @@ public class AboutUsActivity extends AppCompatActivity {
   private void setUpLinks() {
     TextView cmpt_home = (TextView) findViewById(R.id.link_cmpt_home);
     cmpt_home.setMovementMethod(LinkMovementMethod.getInstance());
+
+    TextView material = (TextView) findViewById(R.id.material);
+    material.setMovementMethod(LinkMovementMethod.getInstance());
+
+    TextView pixabay = (TextView) findViewById(R.id.pixabay);
+    pixabay.setMovementMethod(LinkMovementMethod.getInstance());
+
+
   }
 
   @Override

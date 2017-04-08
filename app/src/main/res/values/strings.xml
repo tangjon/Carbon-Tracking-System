@@ -497,5 +497,7 @@
     <string name="add_walk">Add Walk</string>
     <string name="add_bike">Add Bike</string>
     <string name="app_description">a carbon tracker app</string>
+  <string name="https_pixabay_com">https://pixabay.com/</string>
+  <string name="https_material_io_icons">https://material.io/icons/</string>
 
 </resources>
