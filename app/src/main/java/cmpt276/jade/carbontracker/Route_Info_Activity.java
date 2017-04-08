@@ -82,7 +82,7 @@ public class Route_Info_Activity extends AppCompatActivity {
                 //check empty for route name
                 if (Check_empty_input(R.id.editJourneyName) == 0) {
                     Toast.makeText(getApplicationContext(),
-                            "You haven't enter the route name " + " please try again", Toast.LENGTH_LONG).show();
+                            R.string.route_info_error_route_name, Toast.LENGTH_LONG).show();
                 } else {
                     EditText etCity = (EditText) findViewById(R.id.Route_Info_edite_city);
                     EditText etHighway = (EditText) findViewById(R.id.Route_Info_edite_highway);
@@ -99,16 +99,14 @@ public class Route_Info_Activity extends AppCompatActivity {
                         } else {
                             // Error message for both 0
                             Toast.makeText(getApplicationContext(),
-                                    "Your highway and city are both 0 km, " +
-                                            " please enter some valid number", Toast.LENGTH_LONG).show();
+                                    R.string.route_info_error_both_zero, Toast.LENGTH_LONG).show();
                         }
 
                     }
                     // both are empty and invalid
                     else if (Check_empty_input(R.id.Route_Info_edite_highway) == 0 && Check_empty_input(R.id.Route_Info_edite_city) == 0) {
                         Toast.makeText(getApplicationContext(),
-                                "You did not entered any number for either HighWay or City" +
-                                        " please try again", Toast.LENGTH_LONG).show();
+                                R.string.route_info_error_both_invalid, Toast.LENGTH_LONG).show();
                     }
                     // One of them is valid
                     else if (Check_empty_input(R.id.Route_Info_edite_highway) != 0 || Check_empty_input(R.id.Route_Info_edite_city) != 0) {
@@ -121,7 +119,7 @@ public class Route_Info_Activity extends AppCompatActivity {
                                 pass_back_route(city, highway);
                                 finish();
                             } else {
-                                Toast.makeText(Route_Info_Activity.this, "Invalid Parameters for highway", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Route_Info_Activity.this, R.string.route_info_error_invalid_highway, Toast.LENGTH_SHORT).show();
                             }
 
                         } else {
@@ -131,7 +129,7 @@ public class Route_Info_Activity extends AppCompatActivity {
                                 pass_back_route(city, highway);
                                 finish();
                             } else {
-                                Toast.makeText(Route_Info_Activity.this, "Invalid Parameters for city", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Route_Info_Activity.this, R.string.route_info_error_city, Toast.LENGTH_SHORT).show();
                             }
 
                         }
