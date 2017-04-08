@@ -115,6 +115,7 @@ public class Route_Info_Activity extends AppCompatActivity {
                         if (Double.parseDouble(highway) > 0 &&
                             Check_empty_input(R.id.Route_Info_edite_city) == 1) {
                             //PASS name and weight BACK
+                            city = getNameById(R.id.Route_Info_edite_city);
                             pass_back_route(city,highway);
                             finish();
                         }
