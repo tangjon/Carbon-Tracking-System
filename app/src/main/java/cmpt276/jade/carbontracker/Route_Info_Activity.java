@@ -97,7 +97,7 @@ public class Route_Info_Activity extends AppCompatActivity {
                         String highway = "0";
                         String city = getNameById(R.id.Route_Info_edite_city);
                         if (Double.parseDouble(city) > 0 &&
-                            Check_empty_input(R.id.Route_Info_edite_highway) == 0 ) {
+                            Check_empty_input(R.id.Route_Info_edite_highway) == 1 ) {
                             //PASS name and weight BACK
                             pass_back_route(city,highway);
                             finish();
@@ -113,7 +113,7 @@ public class Route_Info_Activity extends AppCompatActivity {
                         String highway = getNameById(R.id.Route_Info_edite_highway);
                         String city = "0";
                         if (Double.parseDouble(highway) > 0 &&
-                            Check_empty_input(R.id.Route_Info_edite_city) == 0) {
+                            Check_empty_input(R.id.Route_Info_edite_city) == 1) {
                             //PASS name and weight BACK
                             pass_back_route(city,highway);
                             finish();
