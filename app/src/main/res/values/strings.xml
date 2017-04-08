@@ -496,5 +496,6 @@
     <string name="transport_select_bike_walk">Bike and Walk</string>
     <string name="add_walk">Add Walk</string>
     <string name="add_bike">Add Bike</string>
+    <string name="app_description">a carbon tracker app</string>
 
 </resources>

@@ -442,5 +442,6 @@
     <string name="transport_select_bike_walk">"Bicicleta y caminata"</string>
     <string name="add_walk">"Añadir Walk"</string>
     <string name="add_bike">"Añadir bicicletas"</string>
+    <string name="app_description">Una aplicación de seguimiento de carbono</string>
 
 </resources>

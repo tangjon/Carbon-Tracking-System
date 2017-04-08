@@ -445,4 +445,6 @@
     <string name="add_walk">"Ajouter Promenade"</string>
     <string name="add_bike">"Ajouter vélo"</string>
 
+    <string name="app_description">Une application de suivi du carbone</string>
+
 </resources>
