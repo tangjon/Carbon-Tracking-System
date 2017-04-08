@@ -42,11 +42,11 @@ public class Notification_reciever extends BroadcastReceiver{
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Intent intentForAddingJourney= new Intent(context, JourneyListActivity.class);
+        Intent intentForAddingJourney= new Intent(context, Temp_Main_Acticity.class);
         intentForAddingJourney.putExtra("mode",1);
         intentForAddingJourney.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        Intent intentForAddingBills= new Intent(context, Utilities_Activities.class);
+        Intent intentForAddingBills= new Intent(context, Temp_Main_Acticity.class);
         intentForAddingBills.putExtra("mode",2);
         intentForAddingBills.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 

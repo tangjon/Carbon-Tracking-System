@@ -25,13 +25,13 @@
         android:textStyle="bold" />
 
     <ImageView
+      android:layout_marginBottom="-5dp"
         android:id="@+id/welcome_person2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         app:srcCompat="@drawable/person2"
-        android:layout_alignTop="@+id/welcome_car1"
-        android:layout_alignEnd="@+id/welcome_car1" />
+      android:layout_alignBottom="@+id/welcome_car3"
+      android:layout_alignEnd="@+id/welcome_car1" />
 
     <ImageView
         android:id="@+id/welcome_car3"
@@ -46,11 +46,10 @@
         android:id="@+id/welcome_person1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/welcome_app_name"
-        android:layout_below="@+id/welcome_car3"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="46dp"
-        app:srcCompat="@drawable/person" />
+      android:layout_marginTop="56dp"
+        app:srcCompat="@drawable/person"
+      android:layout_below="@+id/welcome_car3"
+      android:layout_alignEnd="@+id/welcome_person3" />
 
     <ImageView
         android:id="@+id/welcome_car1"

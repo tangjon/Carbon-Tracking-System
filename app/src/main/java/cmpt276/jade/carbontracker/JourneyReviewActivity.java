@@ -1,19 +1,16 @@
 package cmpt276.jade.carbontracker;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import cmpt276.jade.carbontracker.enums.Transport;
 import cmpt276.jade.carbontracker.fragment.TipDialog;
 import cmpt276.jade.carbontracker.model.Emission;
@@ -45,8 +42,58 @@ public class JourneyReviewActivity extends AppCompatActivity {
         setupPage();
         setupDoneBtn();
 
-        setUpTips();
+//        setUpTips();
         hideSystemUI();
+
+        final EditText inputDate = (EditText) findViewById(R.id.editDate);
+        inputDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after){
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!dateCheck(inputDate)){
+                    inputDate.setError("dd/mm/yyyy");
+                }
+            }
+        });
+    }
+
+    private boolean dateCheck(EditText inputDate){
+        String[] dateCheck = inputDate.getText().toString().split("/", 3);
+
+        int month = 0;
+        int day = 0;
+        int year = 0;
+        if (dateCheck.length == 3) {
+            if (dateCheck[1].equals("") || dateCheck[0].equals("") || dateCheck[2].equals("")
+                || dateCheck[1].contains(".") || dateCheck[0].contains(".") || dateCheck[2].contains(".")
+                || dateCheck[1].contains("-") || dateCheck[0].contains("-") || dateCheck[2].contains("-")) {
+                return false;
+            } else {
+                month = Integer.parseInt(dateCheck[1]);
+                day = Integer.parseInt(dateCheck[0]);
+                year = Integer.parseInt(dateCheck[2]);
+            }
+        } else {
+            return false;
+        }
+
+        if (month < 1 || month > 12 || day < 1 || day > 31 || year < 1900 || year > 9999) {
+            return false;
+        } else if ((month == 2 && day > 28 && year % 4 != 0) || (month == 2 && day > 29 && year % 4 == 0)) {
+            return false;
+        } else if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private void hideSystemUI() {
