@@ -37,8 +37,6 @@ public class Notification_reciever extends BroadcastReceiver{
     public List<Bill> billsElec;
     public List<Bill> billsGas;
 
-    private Resources res = Resources.getSystem();
-
     @Override
     public void onReceive(Context context, Intent intent) {
 
